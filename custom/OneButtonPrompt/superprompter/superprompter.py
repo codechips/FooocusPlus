@@ -3,7 +3,8 @@ import random
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import modules.config as top_config
-from launch import ROOT
+from common import ROOT
+from common import torch_device
 import shutil
 from enhanced.superprompter import *
 
@@ -18,4 +19,4 @@ def load_models():
             top_config.downloading_superprompter_model()
             print("[SuperPrompt] Downloaded the model file for superprompter. \n")
         tokenizer = T5Tokenizer.from_pretrained(modelDir)
-        model = T5ForConditionalGeneration.from_pretrained(modelDir, torch_dtype=torch.float16).to(shared.torch_device)
+        model = T5ForConditionalGeneration.from_pretrained(modelDir, torch_dtype=torch.float16).to(torch_device)
