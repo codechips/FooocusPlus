@@ -646,7 +646,7 @@ default_overwrite_switch = get_config_item_or_set_default(
 )
 default_overwrite_upscale = get_config_item_or_set_default(
     key='default_overwrite_upscale',
-    default_value=-1,
+    default_value=0,
     validator=lambda x: isinstance(x, numbers.Number)
 )
 
