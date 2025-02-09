@@ -29,29 +29,27 @@ try:
     repo = pygit2.Repository(os.path.abspath(os.path.dirname(__file__)))
 
     branch_name = repo.head.shorthand
-    
+    print(f'branch_name {branch_name}')
     remote_name = 'origin'
     remote = repo.remotes[remote_name]
-
+    print(f'remote {remote}')
     remote.fetch()
 
     origin_name = 'main'
     main_name = 'main'
     local_branch_ref = f'refs/heads/{branch_name}'
     if '--dev' in (sys.argv):
-        if branch_name != dev_name:
-            branch_name = dev_name
-            print(f'Ready to checkout {branch_name}')
-            local_branch_ref = f'refs/heads/{branch_name}'
-            if local_branch_ref not in list(repo.references):
-                remote_reference = f'refs/remotes/{remote_name}/{branch_name}'
-                remote_branch = repo.references[remote_reference]
-                new_branch = repo.create_branch(branch_name, repo[remote_branch.target])
-                new_branch.upstream = remote_branch
-            else:
-                new_branch = repo.lookup_branch(branch_name)
-            repo.checkout(new_branch)
-            local_branch_ref = f'refs/heads/{branch_name}'
+        print(f'Ready to checkout {branch_name}')
+        local_branch_ref = f'refs/heads/{branch_name}'
+        if local_branch_ref not in list(repo.references):
+            remote_reference = f'refs/remotes/{remote_name}/{branch_name}'
+            remote_branch = repo.references[remote_reference]
+            new_branch = repo.create_branch(branch_name, repo[remote_branch.target])
+            new_branch.upstream = remote_branch
+        else:
+            new_branch = repo.lookup_branch(branch_name)
+        repo.checkout(new_branch)
+        local_branch_ref = f'refs/heads/{branch_name}'
     else:
         if branch_name != main_name:
             print(f'Ready to checkout {branch_name}')
