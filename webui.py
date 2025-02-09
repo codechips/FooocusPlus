@@ -366,8 +366,8 @@ with common.GRADIO_ROOT:
                                                                minimum=0, maximum=1.0, step=0.001,
                                                                value=modules.config.default_overwrite_upscale,
                                                                info='Also called the upscale "denoising strength"')
-                            if uov_method == 'subtle_variation": uov_value = 0.50
-                            elif uov_method == 'strong_variation": uov_value = 0.85
+                            if uov_method == 'subtle_variation': uov_value = 0.50
+                            elif uov_method == 'strong_variation': uov_value = 0.85
                             else: uov_value = 0.0
                             overwrite_vary_strength = gr.Slider(label='Adjust the Strength of "Vary"',
                                                             minimum=0, maximum=1.0, step=0.001, uov_value,
