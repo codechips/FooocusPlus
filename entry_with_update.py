@@ -44,6 +44,7 @@ try:
         local_branch_ref = f'refs/heads/{branch_name}'
         new_branch = repo.lookup_branch(branch_name)
         repo.checkout(new_branch)
+        git pull origin branch_name
 
     local_branch = repo.lookup_reference(local_branch_ref)
     local_commit = repo.revparse_single(local_branch_ref)
