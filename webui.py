@@ -365,13 +365,11 @@ with common.GRADIO_ROOT:
                             overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of "Upscale" Variation',
                                                                minimum=0, maximum=1.0, step=0.001,
                                                                value=modules.config.default_overwrite_upscale,
-                                                               info='Also called the upscale "denoising strength"')
-                            if uov_method == 'subtle_variation': uov_value = 0.50
-                            elif uov_method == 'strong_variation': uov_value = 0.85
-                            else: uov_value = 0.0
+                                                               info='Also called upscale "denoising strength"')
+
                             overwrite_vary_strength = gr.Slider(label='Adjust the Strength of "Vary"',
-                                                            minimum=0, maximum=1.0, step=0.001, uov_value,
-                                                            info='Also called the image "denoising strength"')
+                                                            minimum=0, maximum=1.0, step=0.001, 0.50,
+                                                            info='0.50="Subtle", 0.85="Strong", 1.0="Max". Also called image "denoising strength"')
                         gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
                     
                     with gr.Tab(label='Inpaint or Outpaint', id='inpaint_tab') as inpaint_tab:
