@@ -362,13 +362,16 @@ with common.GRADIO_ROOT:
                                 mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mixing Image Prompt and Vary/Upscale', value=False)
                                 uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
                         with gr.Row():
-                            overwrite_upscale_strength = gr.Slider(label='Forced Overwrite of Denoising Strength of "Upscale"',
-                                                               minimum=-1, maximum=1.0, step=0.001,
+                            overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of "Upscale" Variation',
+                                                               minimum=0, maximum=1.0, step=0.001,
                                                                value=modules.config.default_overwrite_upscale,
-                                                               info='Set as negative number to disable. For developer debugging.')
-                            overwrite_vary_strength = gr.Slider(label='Forced Overwrite of Denoising Strength of "Vary"',
-                                                            minimum=-1, maximum=1.0, step=0.001, value=-1,
-                                                            info='Set as negative number to disable. For developer debugging.')
+                                                               info='Also called the upscale "denoising strength"')
+                            if uov_method == 'subtle_variation": uov_value = 0.50
+                            elif uov_method == 'strong_variation": uov_value = 0.85
+                            else: uov_value = 0.0
+                            overwrite_vary_strength = gr.Slider(label='Adjust the Strength of "Vary"',
+                                                            minimum=0, maximum=1.0, step=0.001, uov_value,
+                                                            info='Also called the image "denoising strength"')
                         gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
                     
                     with gr.Tab(label='Inpaint or Outpaint', id='inpaint_tab') as inpaint_tab:
@@ -1063,7 +1066,7 @@ with common.GRADIO_ROOT:
                 ui_onebutton.ui_onebutton(prompt, run_event, random_button)
                 with gr.Tab(label="SuperPrompter"):
                     #super_prompter = gr.Button(value="<<SuperPrompt", size="sm", min_width = 70)
-                    super_prompter_prompt = gr.Textbox(label='Prompt prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
+                    super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
