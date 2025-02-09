@@ -542,7 +542,7 @@ def worker():
         if 'subtle' in uov_method:
             denoising_strength = async_task.overwrite_vary_strength
         else:
-            denoising_strength = 0..0
+            denoising_strength = 0.0
 #        if 'strong' in uov_method:    # deprecated, use slider instead
 #            denoising_strength = 0.85
 #        if async_task.overwrite_vary_strength > 0:
