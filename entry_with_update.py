@@ -40,10 +40,11 @@ try:
     local_branch_ref = f'refs/heads/{branch_name}'
     if branch_name != main_name:
         print(f'Ready to checkout {branch_name}')
-        branch_name = main_name
+#        branch_name = main_name
         local_branch_ref = f'refs/heads/{branch_name}'
         new_branch = repo.lookup_branch(branch_name)
         repo.checkout(new_branch)
+        git branch --set-upstream-to=upstream/branch_name
         git pull origin branch_name
 
     local_branch = repo.lookup_reference(local_branch_ref)
