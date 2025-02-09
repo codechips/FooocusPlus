@@ -540,11 +540,13 @@ def worker():
 
     def apply_vary(async_task, uov_method, denoising_strength, uov_input_image, switch, current_progress, advance_progress=False):
         if 'subtle' in uov_method:
-            denoising_strength = 0.5
-        if 'strong' in uov_method:
-            denoising_strength = 0.85
-        if async_task.overwrite_vary_strength > 0:
             denoising_strength = async_task.overwrite_vary_strength
+        else:
+            denoising_strength = 0..0
+#        if 'strong' in uov_method:    # deprecated, use slider instead
+#            denoising_strength = 0.85
+#        if async_task.overwrite_vary_strength > 0:
+#            denoising_strength = async_task.overwrite_vary_strength
         shape_ceil = get_image_shape_ceil(uov_input_image)
         if shape_ceil < 1024:
             print(f'[Vary] Image is resized because it is too small.')
@@ -698,9 +700,7 @@ def worker():
             return direct_return, uov_input_image, None, None, None, None, None, current_progress
 
         tiled = True
-        denoising_strength = 0.382
-        if async_task.overwrite_upscale_strength > 0:
-            denoising_strength = async_task.overwrite_upscale_strength
+        denoising_strength = async_task.overwrite_upscale_strength
         initial_pixels = core.numpy_to_pytorch(uov_input_image)
         if advance_progress:
             current_progress += 1
