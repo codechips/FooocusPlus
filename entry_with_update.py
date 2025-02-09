@@ -29,10 +29,9 @@ try:
     repo = pygit2.Repository(os.path.abspath(os.path.dirname(__file__)))
 
     branch_name = repo.head.shorthand
-    print(f'branch_name {branch_name}')
+ 
     remote_name = 'origin'
     remote = repo.remotes[remote_name]
-    print(f'remote {remote}')
     remote.fetch()
 
     origin_name = 'main'
