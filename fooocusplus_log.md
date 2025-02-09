@@ -1,5 +1,6 @@
-# 0.9.7
+# 0.9.7 Dev
 
+* enabled automatic updating from the development (dev) branch
 * removed offensive language from the One Button Prompt
 
 
