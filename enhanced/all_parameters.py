@@ -64,7 +64,7 @@ default = {
     'overwrite_width': -1,
     'overwrite_height': -1,
     'overwrite_vary_strength': 0.5,
-    'overwrite_upscale_strength': 0.0,
+    'overwrite_upscale_strength': 0.382,
     'mixing_image_prompt_and_vary_upscale': False,
     'mixing_image_prompt_and_inpaint': False,
     'debugging_cn_preprocessor': False,
