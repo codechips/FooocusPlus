@@ -38,7 +38,7 @@ try:
     main_name = 'main'
     local_branch_ref = f'refs/heads/{branch_name}'
     if '--dev' in (sys.argv):
-        print(f'Ready to checkout {branch_name}')
+        print(f'Checking the local dev branch: {branch_name}')
         local_branch_ref = f'refs/heads/{branch_name}'
         if local_branch_ref not in list(repo.references):
             remote_reference = f'refs/remotes/{remote_name}/{branch_name}'
