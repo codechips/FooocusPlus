@@ -1063,7 +1063,7 @@ with common.GRADIO_ROOT:
                 ui_onebutton.ui_onebutton(prompt, run_event, random_button)
                 with gr.Tab(label="SuperPrompter"):
                     #super_prompter = gr.Button(value="<<SuperPrompt", size="sm", min_width = 70)
-                    super_prompter_prompt = gr.Textbox(label='Prompt prefix', value='Expand the following prompt to add more detail:', lines=1)
+                    super_prompter_prompt = gr.Textbox(label='Prompt prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
