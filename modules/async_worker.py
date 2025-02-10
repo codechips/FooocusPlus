@@ -539,11 +539,10 @@ def worker():
             pipeline.final_unet = ip_adapter.patch_model(pipeline.final_unet, all_ip_tasks)
 
     def apply_vary(async_task, uov_method, denoising_strength, uov_input_image, switch, current_progress, advance_progress=False):
-        if 'subtle' in uov_method:
-            denoising_strength = async_task.overwrite_vary_strength
-        else:
-            denoising_strength = 0.0
-#        if 'strong' in uov_method:    # deprecated, use slider instead
+        denoising_strength = async_task.overwrite_vary_strength
+#        if 'subtle' in uov_method:    # deprecated, use slider instead
+#            denoising_strength = 0.5
+#        if 'strong' in uov_method:
 #            denoising_strength = 0.85
 #        if async_task.overwrite_vary_strength > 0:
 #            denoising_strength = async_task.overwrite_vary_strength
