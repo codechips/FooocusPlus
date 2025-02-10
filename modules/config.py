@@ -467,6 +467,12 @@ default_image_prompt_checkbox = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
+enable_auto_describe_image = get_config_item_or_set_default(
+    key='enable_auto_describe_image',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
 default_enhance_checkbox = get_config_item_or_set_default(
     key='default_enhance_checkbox',
     default_value=False,
