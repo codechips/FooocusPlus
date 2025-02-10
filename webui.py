@@ -298,7 +298,7 @@ with common.GRADIO_ROOT:
             
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check')                
+                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, visible=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check') 
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
@@ -632,7 +632,7 @@ with common.GRADIO_ROOT:
                                                         example_enhance_mask_dino_prompt_text],
                                                 queue=False, show_progress=False)
 
-                    with gr.TabItem(label='Layer_iclight', id='layer_tab') as layer_tab:
+                    with gr.TabItem(label='IC-Light', id='layer_tab') as layer_tab:
                         with gr.Row():
                             layer_method = gr.Radio(choices=comfy_task.default_method_names, value=comfy_task.default_method_names[0], container=False)
                         with gr.Row():
@@ -685,7 +685,7 @@ with common.GRADIO_ROOT:
                             aspect_ratios_select.change(lambda x: x, inputs=aspect_ratios_select, outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                                             minimum=-1, maximum=2048, step=1, value=-1,
-                                            info='Set as -1 to disable. For developer debugging. '
+                                            info='Set as -1 to disable.'
                                             'Results will be worse for non-standard numbers that SDXL is not trained on.')
                         overwrite_height = gr.Slider(label='Forced Overwrite of Generating Height',
                                             minimum=-1, maximum=2048, step=1, value=-1)
@@ -862,7 +862,7 @@ with common.GRADIO_ROOT:
                 overwrite_step = gr.Slider(label='Forced Overwrite of Sampling Step',
                                        minimum=-1, maximum=200, step=1,
                                        value=modules.config.default_overwrite_step,
-                                       info='Set as -1 to disable. For developer debugging.')
+                                       info='Set as -1 to disable.')
                 sharpness = gr.Slider(label='Image Sharpness', minimum=0.0, maximum=30.0, step=0.001,
                                       value=modules.config.default_sample_sharpness,
                                       info='Higher value means image and texture are sharper.')
@@ -902,7 +902,7 @@ with common.GRADIO_ROOT:
                         overwrite_switch = gr.Slider(label='Forced Overwrite of Refiner Switch Step',
                                 minimum=-1, maximum=200, step=1,
                                 value=modules.config.default_overwrite_switch,
-                                info='Set as -1 to disable. For developer debugging.')
+                                info='Set as -1 to disable.')
 
                         disable_preview = gr.Checkbox(label='Disable Preview', value=modules.config.default_black_out_nsfw,
                                                 interactive=not modules.config.default_black_out_nsfw,
@@ -928,7 +928,7 @@ with common.GRADIO_ROOT:
                             save_final_enhanced_image_only = gr.Checkbox(label='Save Only the Final Enhanced Image',
                                             value=modules.config.default_save_only_final_enhanced_image)
 
-                        # the mainline Fooocus coding had the defect that the checkbox was enable here then a
+                        # the mainline Fooocus coding had the defect that if the checkbox was enabled here then a
                         # metadata scheme was not selectable. I fixed this by making the radio selector always visible
                         if not args_manager.args.disable_metadata:
                             save_metadata_to_images = gr.Checkbox(label='Save Metadata to Images', value=modules.config.default_save_metadata_to_images,
@@ -944,7 +944,6 @@ with common.GRADIO_ROOT:
                                             info='See the results from preprocessors.')
                         skipping_cn_preprocessor = gr.Checkbox(label='Skip Preprocessors', value=False,
                                             info='Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)')
-
 
                         controlnet_softness = gr.Slider(label='Softness of ControlNet', minimum=0.0, maximum=1.0,
                                             step=0.001, value=0.25,
@@ -1089,15 +1088,15 @@ with common.GRADIO_ROOT:
                 return result
             
             uov_tab.select(lambda: 'uov', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
             ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            layer_tab.select(lambda: 'layer', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
+            inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
             enhance_tab.select(lambda: 'enhance', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
+            layer_tab.select(lambda: 'layer', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
-            auto_describe_checkbox.change(lambda x: args_manager.args.enable_auto_describe_image(x), inputs=auto_describe_checkbox, queue=False, show_progress=False) 
+            auto_describe_checkbox.change(lambda x: args_manager.args.enable_auto_describe_image(x), inputs=auto_describe_checkbox)
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
 
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x) if "gallery_state" in y and y["gallery_state"] == 'finished_index' else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar], outputs=image_toolbox, queue=False, show_progress=False)
@@ -1254,6 +1253,9 @@ with common.GRADIO_ROOT:
         ctrls += inpaint_ctrls
         ctrls += [params_backend]
 
+        if modules.config.default_image_prompt_checkbox:
+            ctrls += [auto_describe_checkbox]
+        
         if not args_manager.args.disable_image_log:
             ctrls += [save_final_enhanced_image_only]
 
