@@ -682,7 +682,7 @@ class KSampler:
 
     def set_steps(self, steps, denoise=None):
         self.steps = steps
-        if denoise is None or denoise > 0.9999:
+        if (denoise is None) or (denoise == 0) or (denoise > 0.9999):
             self.sigmas = self.calculate_sigmas(steps).to(self.device)
         else:
             new_steps = int(steps/denoise)
