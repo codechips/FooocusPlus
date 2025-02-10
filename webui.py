@@ -365,11 +365,11 @@ with common.GRADIO_ROOT:
                             overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of "Upscale" Variation',
                                                                minimum=0, maximum=1.0, step=0.001,
                                                                value=modules.config.default_overwrite_upscale,
-                                                               info='Also called upscale "denoising strength"')
+                                                               info='Also called upscale "denoising strength"\n')
 
                             overwrite_vary_strength = gr.Slider(label='Adjust the Strength of "Vary"',
                                                             minimum=0, maximum=1.0, step=0.001, value=0.50,
-                                                            info='0.50="Subtle", 0.85="Strong", 1.0="Max". Also called image "denoising strength"')
+                                                            info='0.50="Subtle", 0.85="Strong", 1.0="Max".\n Also called image "denoising strength"')
                             
                         gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
                     
