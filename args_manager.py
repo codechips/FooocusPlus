@@ -39,7 +39,7 @@ args_parser.parser.add_argument("--disable-enhance-output-sorting", action='stor
                                 help="Disables enhance output sorting for final image gallery.")
 
 args_parser.parser.add_argument("--enable-auto-describe-image", action='store_true',
-                                help="Enables automatic description of uov and enhance image when prompt is empty", default=True)
+                                help="Enables automatic description of uov and enhance image when prompt is empty", default=False)
 
 args_parser.parser.add_argument("--always-download-new-model", action='store_true',
                                 help="Always download newer models", default=False)
