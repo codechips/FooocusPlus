@@ -1,7 +1,11 @@
 # 0.9.7 Dev
 
 * enabled automatic updating from the development (dev) branch
-* removed offensive language from the One Button Prompt
+* removed offensive language from the One Button Prompt texts
+* fully integrated the upscale or vary (UOV) sliders into normal operation
+* the Vary (Subtle) and Vary (Strong) radio buttons no longer exist,
+  instead their values are indicated in the info. text below the vary slider
+* set the widths for the Random Prompt and Generate columns to 75 pixels
 
 
 # 0.9.6
