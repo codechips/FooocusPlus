@@ -363,13 +363,13 @@ with common.GRADIO_ROOT:
                                 uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
                         with gr.Row():
                             overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of "Upscale" Variation',
-                                                               minimum=0, maximum=1.0, step=0.001,
-                                                               value=modules.config.default_overwrite_upscale,
-                                                               info='Also called upscale "denoising strength"',<br>)
+                                                            minimum=0, maximum=1.0, step=0.001,
+                                                            value=modules.config.default_overwrite_upscale,
+                                                            info='Also called upscale "denoising strength"')
 
                             overwrite_vary_strength = gr.Slider(label='Adjust the Strength of "Vary"',
                                                             minimum=0, maximum=1.0, step=0.001, value=0.50,
-                                                            info='0.50="Subtle", 0.85="Strong", 1.0="Max".',<br>,'Also called image "denoising strength"')
+                                                            info='0.0="None", 0.50="Subtle", 0.85="Strong", 1.0="Max"')
                             
                         gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
                     
