@@ -362,12 +362,12 @@ with common.GRADIO_ROOT:
                                 mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mixing Image Prompt and Vary/Upscale', value=False)
                                 uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
                         with gr.Row():
-                            overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of "Upscale" Variation',
+                            overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of Upscale Variation',
                                                             minimum=0, maximum=1.0, step=0.001,
                                                             value=modules.config.default_overwrite_upscale,
-                                                            info='Also called upscale "denoising strength"')
+                                                            info='Variation Strength is also called "denoising strength"')
 
-                            overwrite_vary_strength = gr.Slider(label='Adjust the Strength of "Vary"',
+                            overwrite_vary_strength = gr.Slider(label='Adjust the Strength of Image Variation',
                                                             minimum=0, maximum=1.0, step=0.001, value=0.50,
                                                             info='0.0="None", 0.50="Subtle", 0.85="Strong", 1.0="Max"')
                             
