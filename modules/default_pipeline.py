@@ -331,7 +331,7 @@ def calculate_sigmas_all(sampler, model, scheduler, steps):
 @torch.no_grad()
 @torch.inference_mode()
 def calculate_sigmas(sampler, model, scheduler, steps, denoise):
-    if denoise is None or denoise > 0.9999:
+    if (denoise is None) or (denoise == 0) or (denoise > 0.9999):
         sigmas = calculate_sigmas_all(sampler, model, scheduler, steps)
     else:
         new_steps = int(steps / denoise)
