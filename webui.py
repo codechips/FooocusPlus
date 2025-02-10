@@ -298,7 +298,7 @@ with common.GRADIO_ROOT:
             
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, visible=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check') 
+ 
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
@@ -309,6 +309,7 @@ with common.GRADIO_ROOT:
                 prompt_info_button.click(toolbox.toggle_prompt_info, inputs=state_topbar, outputs=[prompt_info_box, state_topbar], show_progress=False)
             
             with gr.Row(visible=modules.config.default_image_prompt_checkbox) as image_input_panel:
+                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check')                
                 with gr.Tabs(selected=modules.config.default_selected_image_input_tab_id):
 
                     with gr.Tab(label='Upscale or Variation', id='uov_tab') as uov_tab:
@@ -1095,7 +1096,7 @@ with common.GRADIO_ROOT:
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
-                outputs=[image_input_panel] + layout_image_tab + [auto_describe_checkbox], queue=False, show_progress=False, _js=switch_js)
+                outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
             auto_describe_checkbox.change(lambda x: args_manager.args.enable_auto_describe_image(x), inputs=auto_describe_checkbox)
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
 
