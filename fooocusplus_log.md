@@ -6,6 +6,7 @@
 * the Vary (Subtle) and Vary (Strong) radio buttons no longer exist,
   instead their values are indicated in the info. text below the vary slider
 * set the widths for the Random Prompt and Generate columns to 75 pixels
+* except for Describe and Meta, the Input Image tabs are restored to the Fooocus standard
 
 
 # 0.9.6
