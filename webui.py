@@ -310,6 +310,26 @@ with common.GRADIO_ROOT:
             
             with gr.Row(visible=modules.config.default_image_prompt_checkbox) as image_input_panel:
                 with gr.Tabs(selected=modules.config.default_selected_image_input_tab_id):
+
+                    with gr.Tab(label='Upscale or Variation', id='uov_tab') as uov_tab:
+                        with gr.Row():
+                            with gr.Column():
+                                uov_input_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False)
+                            with gr.Column():
+                                mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mixing Image Prompt and Vary/Upscale', value=False)
+                                uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
+                        with gr.Row():
+                            overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of Upscale Variation',
+                                                            minimum=0, maximum=1.0, step=0.001,
+                                                            value=modules.config.default_overwrite_upscale,
+                                                            info='Variation Strength is also called "denoising strength"')
+
+                            overwrite_vary_strength = gr.Slider(label='Adjust the Strength of Image Variation',
+                                                            minimum=0, maximum=1.0, step=0.001, value=0.50,
+                                                            info='0.0="None", 0.50="Subtle", 0.85="Strong", 1.0="Max"')
+                            
+                        gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
+                                      
                     with gr.Tab(label='Image Prompt', id='ip_tab') as ip_tab:
                         with gr.Row():
                             ip_advanced = gr.Checkbox(label='Advanced Control', value=modules.config.default_image_prompt_advanced_checkbox, container=False)
@@ -355,25 +375,6 @@ with common.GRADIO_ROOT:
                                            outputs=ip_ad_cols + ip_types + ip_stops + ip_weights,
                                            queue=False, show_progress=False)
 
-                    with gr.Tab(label='Upscale or Variation', id='uov_tab') as uov_tab:
-                        with gr.Row():
-                            with gr.Column():
-                                uov_input_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False)
-                            with gr.Column():
-                                mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mixing Image Prompt and Vary/Upscale', value=False)
-                                uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
-                        with gr.Row():
-                            overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of Upscale Variation',
-                                                            minimum=0, maximum=1.0, step=0.001,
-                                                            value=modules.config.default_overwrite_upscale,
-                                                            info='Variation Strength is also called "denoising strength"')
-
-                            overwrite_vary_strength = gr.Slider(label='Adjust the Strength of Image Variation',
-                                                            minimum=0, maximum=1.0, step=0.001, value=0.50,
-                                                            info='0.0="None", 0.50="Subtle", 0.85="Strong", 1.0="Max"')
-                            
-                        gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
-                    
                     with gr.Tab(label='Inpaint or Outpaint', id='inpaint_tab') as inpaint_tab:
                         with gr.Row():
                             mixing_image_prompt_and_inpaint = gr.Checkbox(label='Mixing Image Prompt and Inpaint', value=False, container=False)
@@ -466,25 +467,7 @@ with common.GRADIO_ROOT:
                                                                    example_inpaint_mask_dino_prompt_text],
                                                           queue=False, show_progress=False)
 
-                    with gr.TabItem(label='Layer_iclight', id='layer_tab') as layer_tab:
-                        with gr.Row():
-                            layer_method = gr.Radio(choices=comfy_task.default_method_names, value=comfy_task.default_method_names[0], container=False)
-                        with gr.Row():
-                            with gr.Column():
-                                layer_input_image = grh.Image(label='Drag given image to here', source='upload', type='numpy', visible=True)
-                            with gr.Column():
-                                with gr.Group():
-                                    iclight_enable = gr.Checkbox(label='Enable IC-Light', value=True)
-                                    iclight_source_radio = gr.Radio(show_label=False, choices=comfy_task.iclight_source_names, value=comfy_task.iclight_source_names[0], elem_classes='iclight_source', elem_id='iclight_source')
-                                gr.HTML('* The module derived from <a href="https://github.com/lllyasviel/IC-Light" target="_blank">IC-Light</a> <a href="https://github.com/layerdiffusion/LayerDiffuse" target="_blank">LayerDiffuse</a>')
-                        with gr.Row():
-                            example_quick_subjects = gr.Dataset(samples=comfy_task.quick_subjects, label='Subject Quick List', samples_per_page=1000, components=[prompt])
-                        with gr.Row():
-                            example_quick_prompts = gr.Dataset(samples=comfy_task.quick_prompts, label='Lighting Quick List', samples_per_page=1000, components=[prompt])
-                    example_quick_prompts.click(lambda x, y: ', '.join(y.split(', ')[:2] + [x[0]]), inputs=[example_quick_prompts, prompt], outputs=prompt, show_progress=False, queue=False)
-                    example_quick_subjects.click(lambda x: x[0], inputs=example_quick_subjects, outputs=prompt, show_progress=False, queue=False)
-
-                    with gr.TabItem(label='Enhance+', id='enhance_tab') as enhance_tab:
+                    with gr.TabItem(label='Enhance', id='enhance_tab') as enhance_tab:
                         with gr.Row():
                             with gr.Column():
                                 enhance_checkbox = gr.Checkbox(label='Enhance', value=modules.config.default_enhance_checkbox, container=False)
@@ -649,6 +632,23 @@ with common.GRADIO_ROOT:
                                                         example_enhance_mask_dino_prompt_text],
                                                 queue=False, show_progress=False)
 
+                    with gr.TabItem(label='Layer_iclight', id='layer_tab') as layer_tab:
+                        with gr.Row():
+                            layer_method = gr.Radio(choices=comfy_task.default_method_names, value=comfy_task.default_method_names[0], container=False)
+                        with gr.Row():
+                            with gr.Column():
+                                layer_input_image = grh.Image(label='Drag given image to here', source='upload', type='numpy', visible=True)
+                            with gr.Column():
+                                with gr.Group():
+                                    iclight_enable = gr.Checkbox(label='Enable IC-Light', value=True)
+                                    iclight_source_radio = gr.Radio(show_label=False, choices=comfy_task.iclight_source_names, value=comfy_task.iclight_source_names[0], elem_classes='iclight_source', elem_id='iclight_source')
+                                gr.HTML('* The module derived from <a href="https://github.com/lllyasviel/IC-Light" target="_blank">IC-Light</a> <a href="https://github.com/layerdiffusion/LayerDiffuse" target="_blank">LayerDiffuse</a>')
+                        with gr.Row():
+                            example_quick_subjects = gr.Dataset(samples=comfy_task.quick_subjects, label='Subject Quick List', samples_per_page=1000, components=[prompt])
+                        with gr.Row():
+                            example_quick_prompts = gr.Dataset(samples=comfy_task.quick_prompts, label='Lighting Quick List', samples_per_page=1000, components=[prompt])
+                    example_quick_prompts.click(lambda x, y: ', '.join(y.split(', ')[:2] + [x[0]]), inputs=[example_quick_prompts, prompt], outputs=prompt, show_progress=False, queue=False)
+                    example_quick_subjects.click(lambda x: x[0], inputs=example_quick_subjects, outputs=prompt, show_progress=False, queue=False)
 
             switch_js = "(x) => {if(x){viewer_to_bottom(100);viewer_to_bottom(500);}else{viewer_to_top();} return x;}"
             down_js = "() => {viewer_to_bottom();}"
