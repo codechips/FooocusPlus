@@ -1095,7 +1095,7 @@ with common.GRADIO_ROOT:
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
-                outputs=[image_input_panel] + layout_image_tab + auto_describe_checkbox, queue=False, show_progress=False, _js=switch_js)
+                outputs=[image_input_panel] + layout_image_tab + [auto_describe_checkbox], queue=False, show_progress=False, _js=switch_js)
             auto_describe_checkbox.change(lambda x: args_manager.args.enable_auto_describe_image(x), inputs=auto_describe_checkbox)
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
 
