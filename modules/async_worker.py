@@ -255,7 +255,8 @@ def worker():
     import enhanced.translator as translator
 
     pid = os.getpid()
-    print(f'Started worker with PID {pid}')
+    print()
+    print('Starting the FooocusPlus generative AI worker...') # Used to print the PID, which seems to be irrelevant in a single user app.
 
     try:
         async_gradio_app = common.GRADIO_ROOT
@@ -1055,7 +1056,6 @@ def worker():
     def prepare_enhance_prompt(prompt: str, fallback_prompt: str):
         if safe_str(prompt) == '' or len(remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')) == 0:
             prompt = fallback_prompt
-
         return prompt
 
     def stop_processing(async_task, processing_start_time):
