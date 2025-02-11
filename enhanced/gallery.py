@@ -41,7 +41,9 @@ def refresh_output_list(max_per_page, max_catalog):
     output_list = sorted([f[2:] for f in listdirs1], reverse=True)
     pages = len(output_list)
     display_max_pages = max_catalog
-    print(f'[Gallery] Refresh_output_catalog: A total of {total_nums} images and {pages} pages, displaying the latest {pages if pages<display_max_pages else display_max_pages} pages.')
+    print()
+    print(f'[Gallery] The image catalogue contains a total of {total_nums} images and {pages} pages. The latest {pages if pages<display_max_pages else display_max_pages} pages are displayed.')
+    print()
     output_list = output_list[:display_max_pages]
     return output_list, total_nums, pages
 
