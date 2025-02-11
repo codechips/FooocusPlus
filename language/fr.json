@@ -121,7 +121,7 @@
   "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
   "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\",
   "Adjust the Strength of Upscale Variation": "Adjust the Strength of Upscale Variation",
-  "Variation Strength is also called \"denoising strength\"": "Variation Strength is also called \"denoising strength\""
+  "Variation Strength is also called \"denoising strength\"": "Variation Strength is also called \"denoising strength\"",
   "Inpaint Engine": "Moteur de peinture",
   "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.": "Version du modèle de peinture Fooocus. Si défini, utilisez les modes Qualité ou Vitesse pour de meilleures performances (pas de LoRAs de performance).",
   "Debug Enhance Masks": "Déboguer les masques d'amélioration",
