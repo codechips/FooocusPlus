@@ -182,6 +182,35 @@ def enhance_inpaint_mode_change(mode, inpaint_engine_version):
         False, inpaint_engine_version, 1.0, 0.618
     ]
 
+def toggle_auto_describe(x):
+    args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
+    modules.config.enable_auto_describe_image = args_manager.args.enable_auto_describe_image
+    print(f'Auto-Describe: {args_manager.args.enable_auto_describe_image} {modules.config.enable_auto_describe_image}')
+    
+    if args_manager.args.enable_auto_describe_image:
+        def trigger_auto_describe(mode, img, prompt, apply_styles):
+            # keep prompt if not empty
+            if prompt == '':
+                return trigger_describe(mode, img, apply_styles)
+            return gr.update(), gr.update()
+
+        uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
+                               outputs=[prompt, style_selections], show_progress=True, queue=True) \
+            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+            .then(lambda: None, _js='()=>{refresh_style_localization();}')
+
+        describe_input_image.upload(trigger_auto_describe, inputs=[describe_methods, describe_input_image, prompt, describe_apply_styles],
+                               outputs=[prompt, style_selections], show_progress=True, queue=True) \
+            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+            .then(lambda: None, _js='()=>{refresh_style_localization();}')
+
+        enhance_input_image.upload(lambda: gr.update(value=True), outputs=enhance_checkbox, queue=False, show_progress=False) \
+            .then(trigger_auto_describe, inputs=[describe_methods, enhance_input_image, prompt, describe_apply_styles],
+                  outputs=[prompt, style_selections], show_progress=True, queue=True) \
+            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+            .then(lambda: None, _js='()=>{refresh_style_localization();}')             
+        return
+
 
 reload_javascript()
 
@@ -1096,11 +1125,6 @@ with common.GRADIO_ROOT:
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
             
-            def toggle_auto_describe(x):
-                args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
-                modules.config.enable_auto_describe_image = args_manager.args.enable_auto_describe_image
-                print(f'Auto-Describe: {args_manager.args.enable_auto_describe_image} {modules.config.enable_auto_describe_image}')
-                return           
             auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)
 
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
@@ -1369,30 +1393,6 @@ with common.GRADIO_ROOT:
                            outputs=[prompt, style_selections], show_progress=True, queue=True) \
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
-
-        print(f'args_manager.args.enable_auto_describe_image {args_manager.args.enable_auto_describe_image})
-        if args_manager.args.enable_auto_describe_image:
-            def trigger_auto_describe(mode, img, prompt, apply_styles):
-                # keep prompt if not empty
-                if prompt == '':
-                    return trigger_describe(mode, img, apply_styles)
-                return gr.update(), gr.update()
-
-            uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
-                                   outputs=[prompt, style_selections], show_progress=True, queue=True) \
-                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-                .then(lambda: None, _js='()=>{refresh_style_localization();}')
-
-            describe_input_image.upload(trigger_auto_describe, inputs=[describe_methods, describe_input_image, prompt, describe_apply_styles],
-                                   outputs=[prompt, style_selections], show_progress=True, queue=True) \
-                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-                .then(lambda: None, _js='()=>{refresh_style_localization();}')
-
-            enhance_input_image.upload(lambda: gr.update(value=True), outputs=enhance_checkbox, queue=False, show_progress=False) \
-                .then(trigger_auto_describe, inputs=[describe_methods, enhance_input_image, prompt, describe_apply_styles],
-                      outputs=[prompt, style_selections], show_progress=True, queue=True) \
-                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-                .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
     prompt_delete_button.click(toolbox.toggle_note_box_delete, inputs=state_topbar, outputs=[params_note_info, params_note_delete_button, params_note_box, state_topbar], show_progress=False)
     params_note_delete_button.click(toolbox.delete_image, inputs=state_topbar, outputs=[gallery, gallery_index, params_note_delete_button, params_note_box, state_topbar], show_progress=False) \
