@@ -1095,7 +1095,12 @@ with common.GRADIO_ROOT:
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
-            auto_describe_checkbox.change(lambda x: gr.update(modules.config.enable_auto_describe_image = not modules.config.enable_auto_describe_image), inputs=auto_describe_checkbox)
+            
+            def toggle_auto_describe(x):
+                modules.config.enable_auto_describe_image = not modules.config.enable_auto_describe_image
+                return
+            
+            auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
 
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x) if "gallery_state" in y and y["gallery_state"] == 'finished_index' else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar], outputs=image_toolbox, queue=False, show_progress=False)
@@ -1238,6 +1243,7 @@ with common.GRADIO_ROOT:
 
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
+        ctrls += [auto_describe_checkbox]        
         ctrls += [uov_method, uov_input_image]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += [layer_method, layer_input_image, iclight_enable, iclight_source_radio]
@@ -1251,9 +1257,6 @@ with common.GRADIO_ROOT:
         ctrls += freeu_ctrls
         ctrls += inpaint_ctrls
         ctrls += [params_backend]
-
-        if modules.config.default_image_prompt_checkbox:
-            ctrls += [auto_describe_checkbox]
         
         if not args_manager.args.disable_image_log:
             ctrls += [save_final_enhanced_image_only]
