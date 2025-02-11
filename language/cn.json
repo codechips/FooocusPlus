@@ -124,7 +124,7 @@
   "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
   "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\",
   "Adjust the Strength of Upscale Variation": "Adjust the Strength of Upscale Variation",
-  "Variation Strength is also called \"denoising strength\"": "Variation Strength is also called \"denoising strength\""
+  "Variation Strength is also called \"denoising strength\"": "Variation Strength is also called \"denoising strength\"",
   "Inpaint Engine": "重绘引擎",
   "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.": "Fooocus重绘模型版本设置。'性能模式'要选择质量或速度,不要用含LoRAs的选项。",
   "Debug Enhance Masks": "调试增强蒙版",
