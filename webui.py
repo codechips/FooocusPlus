@@ -1391,7 +1391,7 @@ with common.GRADIO_ROOT:
                     .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
                     .then(lambda: None, _js='()=>{refresh_style_localization();}')             
                 return
-            auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)                
+        auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)                
     
     prompt_delete_button.click(toolbox.toggle_note_box_delete, inputs=state_topbar, outputs=[params_note_info, params_note_delete_button, params_note_box, state_topbar], show_progress=False)
     params_note_delete_button.click(toolbox.delete_image, inputs=state_topbar, outputs=[gallery, gallery_index, params_note_delete_button, params_note_box, state_topbar], show_progress=False) \
