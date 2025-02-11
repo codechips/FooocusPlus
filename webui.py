@@ -1097,10 +1097,10 @@ with common.GRADIO_ROOT:
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
             
             def toggle_auto_describe(x):
-                args_manager.args.enable_auto_describe_image = args_manager.args.enable_auto_describe_image
+                args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
                 return
             
-            auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=args_manager.args.enable_auto_describe_image)
+            auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
 
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x) if "gallery_state" in y and y["gallery_state"] == 'finished_index' else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar], outputs=image_toolbox, queue=False, show_progress=False)
