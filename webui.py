@@ -1370,6 +1370,7 @@ with common.GRADIO_ROOT:
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
+        print(f'args_manager.args.enable_auto_describe_image {args_manager.args.enable_auto_describe_image})
         if args_manager.args.enable_auto_describe_image:
             def trigger_auto_describe(mode, img, prompt, apply_styles):
                 # keep prompt if not empty
