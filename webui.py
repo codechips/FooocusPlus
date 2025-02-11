@@ -1098,7 +1098,8 @@ with common.GRADIO_ROOT:
             
             def toggle_auto_describe(x):
                 args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
-                print(f'Auto-Describe: {args_manager.args.enable_auto_describe_image}')
+                modules.config.enable_auto_describe_image = args_manager.args.enable_auto_describe_image
+                print(f'Auto-Describe: {args_manager.args.enable_auto_describe_image} {modules.config.enable_auto_describe_image}')
                 return
             
             auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)
