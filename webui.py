@@ -1097,7 +1097,7 @@ with common.GRADIO_ROOT:
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
             
             def toggle_auto_describe(x):
-                modules.config.enable_auto_describe_image = not modules.config.enable_auto_describe_image
+                args_manager.args.enable_auto_describe_image = args_manager.args.enable_auto_describe_image
                 return
             
             auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)
