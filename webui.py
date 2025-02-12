@@ -1376,6 +1376,7 @@ with common.GRADIO_ROOT:
         def trigger_auto_describe(mode, img, prompt, apply_styles):
             # keep prompt if not empty
             if prompt == '' and args_manager.args.enable_auto_describe_image:
+                show_progress=True
                 return trigger_describe(mode, img, apply_styles)
             return gr.update(), gr.update()
 
