@@ -1094,9 +1094,10 @@ with common.GRADIO_ROOT:
 
             def toggle_auto_describe_col():
                 auto_describe_col.visible = input_image_checkbox
+                return
             
-            input_image_checkbox.change(lambda x: toggle_auto_describe_col(), [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
-                gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
+            input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
+                gr.update()] + [gr.update(interactive=True)]*18, toggle_auto_describe_col(), inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
 
             def toggle_auto_describe():
