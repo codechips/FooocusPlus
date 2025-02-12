@@ -1375,11 +1375,10 @@ with common.GRADIO_ROOT:
           
         def trigger_auto_describe(mode, img, prompt, apply_styles):
             # keep prompt if not empty
+            show_progress=False
             if prompt == '' and args_manager.args.enable_auto_describe_image:
                 show_progress=True
                 return trigger_describe(mode, img, apply_styles)
-            else:
-                show_progress=False
             return gr.update(), gr.update()
 
         uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
@@ -1388,13 +1387,13 @@ with common.GRADIO_ROOT:
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
         describe_input_image.upload(trigger_auto_describe, inputs=[describe_methods, describe_input_image, prompt, describe_apply_styles],
-                               outputs=[prompt, style_selections], show_progress=True, queue=True) \
+                               outputs=[prompt, style_selections], queue=True) \
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
         enhance_input_image.upload(lambda: gr.update(value=True), outputs=enhance_checkbox, queue=False, show_progress=False) \
             .then(trigger_auto_describe, inputs=[describe_methods, enhance_input_image, prompt, describe_apply_styles],
-                  outputs=[prompt, style_selections], show_progress=True, queue=True) \
+                  outputs=[prompt, style_selections], queue=True) \
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')        
 
