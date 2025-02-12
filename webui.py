@@ -1073,7 +1073,7 @@ with common.GRADIO_ROOT:
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
             iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=flags.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
-            layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
+            layout_image_tab = [auto_describe_checkbox, performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
             def toggle_image_tab(tab, styles):
                 result = []
                 if 'layer' in tab:
@@ -1093,7 +1093,7 @@ with common.GRADIO_ROOT:
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
-                outputs=[image_input_panel] + layout_image_tab, auto_describe_checkbox, queue=False, show_progress=False, _js=switch_js)
+                outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
 
             def toggle_auto_describe():
               args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
