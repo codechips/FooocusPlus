@@ -285,10 +285,10 @@ with common.GRADIO_ROOT:
                         stop_button.click(stop_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False, _js='cancelGenerateForever')
                         skip_button.click(skip_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False)
 
-                with gr.Accordion(label='Wildcards & Batch Prompts', visible=False, open=True) as prompt_wildcards:
-                    wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcards', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
-                    with gr.Accordion(label='Words/phrases of wildcard', visible=True, open=False) as words_in_wildcard:
-                        wildcard_tag_name_selection = gr.Dataset(components=[prompt], label='Words:', samples=wildcards.get_words_of_wildcard_samples(), visible=True, samples_per_page=30, type='index')
+                with gr.Accordion(label='Wildcards', visible=False, open=True) as prompt_wildcards:
+                    wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcard Filenames', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
+                    with gr.Accordion(label='Wildcard Contents', visible=True, open=False) as words_in_wildcard:
+                        wildcard_tag_name_selection = gr.Dataset(components=[prompt], label='Words in the Wildcards:', samples=wildcards.get_words_of_wildcard_samples(), visible=True, samples_per_page=30, type='index')
                     wildcards_list.click(wildcards.add_wildcards_and_array_to_prompt, inputs=[wildcards_list, prompt, state_topbar], outputs=[prompt, wildcard_tag_name_selection, words_in_wildcard], show_progress=False, queue=False)
                     wildcard_tag_name_selection.click(wildcards.add_word_to_prompt, inputs=[wildcards_list, wildcard_tag_name_selection, prompt], outputs=prompt, show_progress=False, queue=False)
                     wildcards_array = [prompt_wildcards, words_in_wildcard, wildcards_list, wildcard_tag_name_selection]
@@ -1095,7 +1095,8 @@ with common.GRADIO_ROOT:
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
-
+            auto_describe_checkbox.change(lambda x: common.toggle(args_manager.args.enable_auto_describe_image,'Auto-Describe'), inputs=auto_describe_checkbox)
+            
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x) if "gallery_state" in y and y["gallery_state"] == 'finished_index' else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar], outputs=image_toolbox, queue=False, show_progress=False)
             comfyd_active_checkbox.change(lambda x: comfyd.active(x), inputs=comfyd_active_checkbox, queue=False, show_progress=False)
@@ -1193,9 +1194,7 @@ with common.GRADIO_ROOT:
                 results = [gr.update()] * 4
             return results
 
-
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
-
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
@@ -1362,36 +1361,30 @@ with common.GRADIO_ROOT:
                            outputs=[prompt, style_selections], show_progress=True, queue=True) \
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
+          
+        def trigger_auto_describe(mode, img, prompt, apply_styles):
+            # keep prompt if not empty
+            if prompt == '' and args_manager.args.enable_auto_describe_image:
+                return trigger_describe(mode, img, apply_styles)
+            return gr.update(), gr.update()
 
-        def toggle_auto_describe(x):
-            args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
-            modules.config.enable_auto_describe_image = args_manager.args.enable_auto_describe_image
-            print(f'Auto-Describe: {args_manager.args.enable_auto_describe_image} {modules.config.enable_auto_describe_image}')
-            
-            if args_manager.args.enable_auto_describe_image:
-                def trigger_auto_describe(mode, img, prompt, apply_styles):
-                    # keep prompt if not empty
-                    if prompt == '':
-                        return trigger_describe(mode, img, apply_styles)
-                    return gr.update(), gr.update()
-        
-                uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
-                                       outputs=[prompt, style_selections], show_progress=True, queue=True) \
-                    .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-                    .then(lambda: None, _js='()=>{refresh_style_localization();}')
-        
-                describe_input_image.upload(trigger_auto_describe, inputs=[describe_methods, describe_input_image, prompt, describe_apply_styles],
-                                       outputs=[prompt, style_selections], show_progress=True, queue=True) \
-                    .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-                    .then(lambda: None, _js='()=>{refresh_style_localization();}')
-        
-                enhance_input_image.upload(lambda: gr.update(value=True), outputs=enhance_checkbox, queue=False, show_progress=False) \
-                    .then(trigger_auto_describe, inputs=[describe_methods, enhance_input_image, prompt, describe_apply_styles],
-                          outputs=[prompt, style_selections], show_progress=True, queue=True) \
-                    .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-                    .then(lambda: None, _js='()=>{refresh_style_localization();}')             
-                return
-        auto_describe_checkbox.change(lambda x: toggle_auto_describe(x), inputs=auto_describe_checkbox)                
+        uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
+                               outputs=[prompt, style_selections], show_progress=True, queue=True) \
+            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+            .then(lambda: None, _js='()=>{refresh_style_localization();}')
+
+        describe_input_image.upload(trigger_auto_describe, inputs=[describe_methods, describe_input_image, prompt, describe_apply_styles],
+                               outputs=[prompt, style_selections], show_progress=True, queue=True) \
+            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+            .then(lambda: None, _js='()=>{refresh_style_localization();}')
+
+        enhance_input_image.upload(lambda: gr.update(value=True), outputs=enhance_checkbox, queue=False, show_progress=False) \
+            .then(trigger_auto_describe, inputs=[describe_methods, enhance_input_image, prompt, describe_apply_styles],
+                  outputs=[prompt, style_selections], show_progress=True, queue=True) \
+            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+            .then(lambda: None, _js='()=>{refresh_style_localization();}')             
+        return
+
     
     prompt_delete_button.click(toolbox.toggle_note_box_delete, inputs=state_topbar, outputs=[params_note_info, params_note_delete_button, params_note_box, state_topbar], show_progress=False)
     params_note_delete_button.click(toolbox.delete_image, inputs=state_topbar, outputs=[gallery, gallery_index, params_note_delete_button, params_note_box, state_topbar], show_progress=False) \
