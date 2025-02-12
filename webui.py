@@ -297,8 +297,8 @@ with common.GRADIO_ROOT:
                     wildcards_array_hold = [gr.update()] * 4
             
             with gr.Row(elem_classes='advanced_check_row'):
-                input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                modules.config.default_image_prompt_checkbox = gr.Checkbox(label='Auto-Describe', visible=input_image_checkbox, value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
+                 = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
+                modules.config.default_image_prompt_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
@@ -1094,7 +1094,7 @@ with common.GRADIO_ROOT:
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
-                outputs=[image_input_panel] + layout_image_tab + modules.config.default_image_prompt_checkbox, queue=False, show_progress=False, _js=switch_js)
+                outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
 
             def toggle_auto_describe():
               args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
