@@ -361,7 +361,7 @@
     "Set as -1 to disable. For developer debugging. Results will be worse for non-standard numbers that SDXL is not trained on.": "Set as -1 to disable. For developer debugging. Results will be worse for non-standard numbers that SDXL is not trained on.",
     "Forced Overwrite of Generating Height": "Forced Overwrite of Generating Height",
     "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
-    "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
+    "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
     "Adjust the Strength of Upscale Variation": "Adjust the Strength of Upscale Variation",
     "Variation Strength is also called \"denoising strength\"": "Variation Strength is also called \"denoising strength\"",
     "Disable Preview": "Disable Preview",
