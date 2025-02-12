@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 # Toggle any variable, with optional console msg
 def toggle(var_name,var_string):
   var_name = not var_name
-  if var_name:
+  if var_name = True:
     bool_string = 'Enabled'
   else:
     bool_string = 'Disabled'    
