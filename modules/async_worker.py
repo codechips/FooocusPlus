@@ -255,14 +255,15 @@ def worker():
     import enhanced.translator as translator
 
     pid = os.getpid()
-    print(f'Started worker with PID {pid}')
+    print()
+    print('Starting the FooocusPlus generative AI worker...') # Used to print the PID, which seems to be irrelevant in a single user app.
 
     try:
         async_gradio_app = common.GRADIO_ROOT
-        flag = f'''App started successful. Use the app with {str(async_gradio_app.local_url)} or {str(async_gradio_app.server_name)}:{str(async_gradio_app.server_port)}'''
-        if async_gradio_app.share:
-            flag += f''' or {async_gradio_app.share_url}'''
-        print(flag)
+#        flag = f'''App started successful. Use the app with {str(async_gradio_app.local_url)} or {str(async_gradio_app.server_name)}:{str(async_gradio_app.server_port)}'''
+#        if async_gradio_app.share:
+#            flag += f''' or {async_gradio_app.share_url}'''
+#        print(flag)
     except Exception as e:
         print(e)
     ldm_patched.modules.model_management.print_memory_info()
@@ -539,12 +540,13 @@ def worker():
             pipeline.final_unet = ip_adapter.patch_model(pipeline.final_unet, all_ip_tasks)
 
     def apply_vary(async_task, uov_method, denoising_strength, uov_input_image, switch, current_progress, advance_progress=False):
-        if 'subtle' in uov_method:
-            denoising_strength = 0.5
-        if 'strong' in uov_method:
-            denoising_strength = 0.85
-        if async_task.overwrite_vary_strength > 0:
-            denoising_strength = async_task.overwrite_vary_strength
+        denoising_strength = async_task.overwrite_vary_strength
+#        if 'subtle' in uov_method:    # deprecated, use slider instead
+#            denoising_strength = 0.5
+#        if 'strong' in uov_method:
+#            denoising_strength = 0.85
+#        if async_task.overwrite_vary_strength > 0:
+#            denoising_strength = async_task.overwrite_vary_strength
         shape_ceil = get_image_shape_ceil(uov_input_image)
         if shape_ceil < 1024:
             print(f'[Vary] Image is resized because it is too small.')
@@ -698,9 +700,7 @@ def worker():
             return direct_return, uov_input_image, None, None, None, None, None, current_progress
 
         tiled = True
-        denoising_strength = 0.382
-        if async_task.overwrite_upscale_strength > 0:
-            denoising_strength = async_task.overwrite_upscale_strength
+        denoising_strength = async_task.overwrite_upscale_strength
         initial_pixels = core.numpy_to_pytorch(uov_input_image)
         if advance_progress:
             current_progress += 1
@@ -1056,7 +1056,6 @@ def worker():
     def prepare_enhance_prompt(prompt: str, fallback_prompt: str):
         if safe_str(prompt) == '' or len(remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')) == 0:
             prompt = fallback_prompt
-
         return prompt
 
     def stop_processing(async_task, processing_start_time):
