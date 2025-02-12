@@ -1095,7 +1095,18 @@ with common.GRADIO_ROOT:
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
-            auto_describe_checkbox.change(lambda x: common.toggle(args_manager.args.enable_auto_describe_image,'Auto-Describe'), inputs=auto_describe_checkbox)
+
+            def toggle_auto_describe():
+              args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
+              if args_manager.args.enable_auto_describe_image == True:
+                bool_string = 'Enabled'
+              else:
+                bool_string = 'Disabled'
+              print()
+              print(f'Auto-Describe {bool_string}')
+              return
+            
+            auto_describe_checkbox.change(lambda x: toggle_auto_describe(), inputs=auto_describe_checkbox)
             
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x) if "gallery_state" in y and y["gallery_state"] == 'finished_index' else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar], outputs=image_toolbox, queue=False, show_progress=False)
