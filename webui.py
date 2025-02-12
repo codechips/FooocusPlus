@@ -250,7 +250,7 @@ with common.GRADIO_ROOT:
                         default_prompt = modules.config.default_prompt
                         if isinstance(default_prompt, str) and default_prompt != '':
                             common.GRADIO_ROOT.load(lambda: default_prompt, outputs=prompt)
-                    with gr.Column(scale=2, min_width=75):
+                    with gr.Column(scale=2, min_width=0):
                         if (args_manager.args.language=='cn'):
                             random_button = gr.Button(value="Random Prompt", elem_classes='type_row_third', size="sm", min_width = 75)
                             translator_button = gr.Button(visible=True, value="Translator", elem_classes='type_row_third', size='sm', min_width = 75)
@@ -259,7 +259,7 @@ with common.GRADIO_ROOT:
                             random_button = gr.Button(value="Random Prompt", elem_classes='type_row_half', size="sm", min_width = 75)                            
                             translator_button = gr.Button(visible=False, value="Translator", elem_classes='type_row_third', size='sm', min_width = 75)
                             super_prompter = gr.Button(value="SuperPrompt", elem_classes='type_row_half', size="sm", min_width = 75)
-                    with gr.Column(scale=2, min_width=75):
+                    with gr.Column(scale=2, min_width=0):
                         generate_button = gr.Button(label="Generate", value="Generate", elem_classes='type_row', elem_id='generate_button', visible=True, min_width = 75)
                         reset_button = gr.Button(label="Reconnect", value="Reconnect", elem_classes='type_row', elem_id='reset_button', visible=False)
                         load_parameter_button = gr.Button(label="Load Parameters", value="Load Parameters", elem_classes='type_row', elem_id='load_parameter_button', visible=False, min_width = 75)
@@ -285,10 +285,10 @@ with common.GRADIO_ROOT:
                         stop_button.click(stop_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False, _js='cancelGenerateForever')
                         skip_button.click(skip_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False)
 
-                with gr.Accordion(label='Wildcards', visible=False, open=True) as prompt_wildcards:
-                    wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcard Filenames', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
-                    with gr.Accordion(label='Wildcard Contents', visible=True, open=False) as words_in_wildcard:
-                        wildcard_tag_name_selection = gr.Dataset(components=[prompt], label='Words in the Wildcards:', samples=wildcards.get_words_of_wildcard_samples(), visible=True, samples_per_page=30, type='index')
+                with gr.Accordion(label='Wildcards & Batch Prompts', visible=False, open=True) as prompt_wildcards:
+                    wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcards', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
+                    with gr.Accordion(label='Words/phrases of wildcard', visible=True, open=False) as words_in_wildcard:
+                        wildcard_tag_name_selection = gr.Dataset(components=[prompt], label='Words:', samples=wildcards.get_words_of_wildcard_samples(), visible=True, samples_per_page=30, type='index')
                     wildcards_list.click(wildcards.add_wildcards_and_array_to_prompt, inputs=[wildcards_list, prompt, state_topbar], outputs=[prompt, wildcard_tag_name_selection, words_in_wildcard], show_progress=False, queue=False)
                     wildcard_tag_name_selection.click(wildcards.add_word_to_prompt, inputs=[wildcards_list, wildcard_tag_name_selection, prompt], outputs=prompt, show_progress=False, queue=False)
                     wildcards_array = [prompt_wildcards, words_in_wildcard, wildcards_list, wildcard_tag_name_selection]
@@ -298,7 +298,6 @@ with common.GRADIO_ROOT:
             
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
@@ -308,27 +307,8 @@ with common.GRADIO_ROOT:
                 prompt_delete_button = gr.Button(value='Delete Image', size='sm', visible=True)
                 prompt_info_button.click(toolbox.toggle_prompt_info, inputs=state_topbar, outputs=[prompt_info_box, state_topbar], show_progress=False)
             
-            with gr.Row(visible=modules.config.default_image_prompt_checkbox) as image_input_panel:            
+            with gr.Row(visible=modules.config.default_image_prompt_checkbox) as image_input_panel:
                 with gr.Tabs(selected=modules.config.default_selected_image_input_tab_id):
-                    with gr.Tab(label='Upscale or Variation', id='uov_tab') as uov_tab:
-                        with gr.Row():
-                            with gr.Column():
-                                uov_input_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False)
-                            with gr.Column():
-                                mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mixing Image Prompt and Vary/Upscale', value=False)
-                                uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
-                        with gr.Row():
-                            overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of Upscale Variation',
-                                                            minimum=0, maximum=1.0, step=0.001,
-                                                            value=modules.config.default_overwrite_upscale,
-                                                            info='Variation Strength is also called "denoising strength"')
-
-                            overwrite_vary_strength = gr.Slider(label='Adjust the Strength of Image Variation',
-                                                            minimum=0, maximum=1.0, step=0.001, value=0.50,
-                                                            info='0.0="None", 0.50="Subtle", 0.85="Strong", 1.0="Max"')
-                            
-                        gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
-                                      
                     with gr.Tab(label='Image Prompt', id='ip_tab') as ip_tab:
                         with gr.Row():
                             ip_advanced = gr.Checkbox(label='Advanced Control', value=modules.config.default_image_prompt_advanced_checkbox, container=False)
@@ -374,6 +354,23 @@ with common.GRADIO_ROOT:
                                            outputs=ip_ad_cols + ip_types + ip_stops + ip_weights,
                                            queue=False, show_progress=False)
 
+                    with gr.Tab(label='Upscale or Variation', id='uov_tab') as uov_tab:
+                        with gr.Row():
+                            with gr.Column():
+                                uov_input_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False)
+                            with gr.Column():
+                                mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mixing Image Prompt and Vary/Upscale', value=False)
+                                uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
+                        with gr.Row():
+                            overwrite_upscale_strength = gr.Slider(label='Forced Overwrite of Denoising Strength of "Upscale"',
+                                                               minimum=-1, maximum=1.0, step=0.001,
+                                                               value=modules.config.default_overwrite_upscale,
+                                                               info='Set as negative number to disable. For developer debugging.')
+                            overwrite_vary_strength = gr.Slider(label='Forced Overwrite of Denoising Strength of "Vary"',
+                                                            minimum=-1, maximum=1.0, step=0.001, value=-1,
+                                                            info='Set as negative number to disable. For developer debugging.')
+                        gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
+                    
                     with gr.Tab(label='Inpaint or Outpaint', id='inpaint_tab') as inpaint_tab:
                         with gr.Row():
                             mixing_image_prompt_and_inpaint = gr.Checkbox(label='Mixing Image Prompt and Inpaint', value=False, container=False)
@@ -466,7 +463,25 @@ with common.GRADIO_ROOT:
                                                                    example_inpaint_mask_dino_prompt_text],
                                                           queue=False, show_progress=False)
 
-                    with gr.TabItem(label='Enhance', id='enhance_tab') as enhance_tab:
+                    with gr.TabItem(label='Layer_iclight', id='layer_tab') as layer_tab:
+                        with gr.Row():
+                            layer_method = gr.Radio(choices=comfy_task.default_method_names, value=comfy_task.default_method_names[0], container=False)
+                        with gr.Row():
+                            with gr.Column():
+                                layer_input_image = grh.Image(label='Drag given image to here', source='upload', type='numpy', visible=True)
+                            with gr.Column():
+                                with gr.Group():
+                                    iclight_enable = gr.Checkbox(label='Enable IC-Light', value=True)
+                                    iclight_source_radio = gr.Radio(show_label=False, choices=comfy_task.iclight_source_names, value=comfy_task.iclight_source_names[0], elem_classes='iclight_source', elem_id='iclight_source')
+                                gr.HTML('* The module derived from <a href="https://github.com/lllyasviel/IC-Light" target="_blank">IC-Light</a> <a href="https://github.com/layerdiffusion/LayerDiffuse" target="_blank">LayerDiffuse</a>')
+                        with gr.Row():
+                            example_quick_subjects = gr.Dataset(samples=comfy_task.quick_subjects, label='Subject Quick List', samples_per_page=1000, components=[prompt])
+                        with gr.Row():
+                            example_quick_prompts = gr.Dataset(samples=comfy_task.quick_prompts, label='Lighting Quick List', samples_per_page=1000, components=[prompt])
+                    example_quick_prompts.click(lambda x, y: ', '.join(y.split(', ')[:2] + [x[0]]), inputs=[example_quick_prompts, prompt], outputs=prompt, show_progress=False, queue=False)
+                    example_quick_subjects.click(lambda x: x[0], inputs=example_quick_subjects, outputs=prompt, show_progress=False, queue=False)
+
+                    with gr.TabItem(label='Enhance+', id='enhance_tab') as enhance_tab:
                         with gr.Row():
                             with gr.Column():
                                 enhance_checkbox = gr.Checkbox(label='Enhance', value=modules.config.default_enhance_checkbox, container=False)
@@ -631,23 +646,6 @@ with common.GRADIO_ROOT:
                                                         example_enhance_mask_dino_prompt_text],
                                                 queue=False, show_progress=False)
 
-                    with gr.TabItem(label='IC-Light', id='layer_tab') as layer_tab:
-                        with gr.Row():
-                            layer_method = gr.Radio(choices=comfy_task.default_method_names, value=comfy_task.default_method_names[0], container=False)
-                        with gr.Row():
-                            with gr.Column():
-                                layer_input_image = grh.Image(label='Drag given image to here', source='upload', type='numpy', visible=True)
-                            with gr.Column():
-                                with gr.Group():
-                                    iclight_enable = gr.Checkbox(label='Enable IC-Light', value=True)
-                                    iclight_source_radio = gr.Radio(show_label=False, choices=comfy_task.iclight_source_names, value=comfy_task.iclight_source_names[0], elem_classes='iclight_source', elem_id='iclight_source')
-                                gr.HTML('* The module derived from <a href="https://github.com/lllyasviel/IC-Light" target="_blank">IC-Light</a> <a href="https://github.com/layerdiffusion/LayerDiffuse" target="_blank">LayerDiffuse</a>')
-                        with gr.Row():
-                            example_quick_subjects = gr.Dataset(samples=comfy_task.quick_subjects, label='Subject Quick List', samples_per_page=1000, components=[prompt])
-                        with gr.Row():
-                            example_quick_prompts = gr.Dataset(samples=comfy_task.quick_prompts, label='Lighting Quick List', samples_per_page=1000, components=[prompt])
-                    example_quick_prompts.click(lambda x, y: ', '.join(y.split(', ')[:2] + [x[0]]), inputs=[example_quick_prompts, prompt], outputs=prompt, show_progress=False, queue=False)
-                    example_quick_subjects.click(lambda x: x[0], inputs=example_quick_subjects, outputs=prompt, show_progress=False, queue=False)
 
             switch_js = "(x) => {if(x){viewer_to_bottom(100);viewer_to_bottom(500);}else{viewer_to_top();} return x;}"
             down_js = "() => {viewer_to_bottom();}"
@@ -684,7 +682,7 @@ with common.GRADIO_ROOT:
                             aspect_ratios_select.change(lambda x: x, inputs=aspect_ratios_select, outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                                             minimum=-1, maximum=2048, step=1, value=-1,
-                                            info='Set as -1 to disable.'
+                                            info='Set as -1 to disable. For developer debugging. '
                                             'Results will be worse for non-standard numbers that SDXL is not trained on.')
                         overwrite_height = gr.Slider(label='Forced Overwrite of Generating Height',
                                             minimum=-1, maximum=2048, step=1, value=-1)
@@ -861,7 +859,7 @@ with common.GRADIO_ROOT:
                 overwrite_step = gr.Slider(label='Forced Overwrite of Sampling Step',
                                        minimum=-1, maximum=200, step=1,
                                        value=modules.config.default_overwrite_step,
-                                       info='Set as -1 to disable.')
+                                       info='Set as -1 to disable. For developer debugging.')
                 sharpness = gr.Slider(label='Image Sharpness', minimum=0.0, maximum=30.0, step=0.001,
                                       value=modules.config.default_sample_sharpness,
                                       info='Higher value means image and texture are sharper.')
@@ -901,7 +899,7 @@ with common.GRADIO_ROOT:
                         overwrite_switch = gr.Slider(label='Forced Overwrite of Refiner Switch Step',
                                 minimum=-1, maximum=200, step=1,
                                 value=modules.config.default_overwrite_switch,
-                                info='Set as -1 to disable.')
+                                info='Set as -1 to disable. For developer debugging.')
 
                         disable_preview = gr.Checkbox(label='Disable Preview', value=modules.config.default_black_out_nsfw,
                                                 interactive=not modules.config.default_black_out_nsfw,
@@ -927,7 +925,7 @@ with common.GRADIO_ROOT:
                             save_final_enhanced_image_only = gr.Checkbox(label='Save Only the Final Enhanced Image',
                                             value=modules.config.default_save_only_final_enhanced_image)
 
-                        # the mainline Fooocus coding had the defect that if the checkbox was enabled here then a
+                        # the mainline Fooocus coding had the defect that the checkbox was enable here then a
                         # metadata scheme was not selectable. I fixed this by making the radio selector always visible
                         if not args_manager.args.disable_metadata:
                             save_metadata_to_images = gr.Checkbox(label='Save Metadata to Images', value=modules.config.default_save_metadata_to_images,
@@ -943,6 +941,7 @@ with common.GRADIO_ROOT:
                                             info='See the results from preprocessors.')
                         skipping_cn_preprocessor = gr.Checkbox(label='Skip Preprocessors', value=False,
                                             info='Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)')
+
 
                         controlnet_softness = gr.Slider(label='Softness of ControlNet', minimum=0.0, maximum=1.0,
                                             step=0.001, value=0.25,
@@ -1064,7 +1063,7 @@ with common.GRADIO_ROOT:
                 ui_onebutton.ui_onebutton(prompt, run_event, random_button)
                 with gr.Tab(label="SuperPrompter"):
                     #super_prompter = gr.Button(value="<<SuperPrompt", size="sm", min_width = 70)
-                    super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
+                    super_prompter_prompt = gr.Textbox(label='Prompt prefix', value='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
@@ -1087,28 +1086,16 @@ with common.GRADIO_ROOT:
                 return result
             
             uov_tab.select(lambda: 'uov', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
             inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            enhance_tab.select(lambda: 'enhance', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
+            ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
             layer_tab.select(lambda: 'layer', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
+            enhance_tab.select(lambda: 'enhance', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
-
-            def toggle_auto_describe():
-              args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
-              if args_manager.args.enable_auto_describe_image == True:
-                bool_string = 'Enabled'
-              else:
-                bool_string = 'Disabled'
-              print()
-              print(f'Auto-Describe {bool_string}')
-              return
-            
-            auto_describe_checkbox.change(lambda x: toggle_auto_describe(), inputs=auto_describe_checkbox)
-            
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
+
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x) if "gallery_state" in y and y["gallery_state"] == 'finished_index' else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar], outputs=image_toolbox, queue=False, show_progress=False)
             comfyd_active_checkbox.change(lambda x: comfyd.active(x), inputs=comfyd_active_checkbox, queue=False, show_progress=False)
             import enhanced.superprompter
@@ -1205,7 +1192,9 @@ with common.GRADIO_ROOT:
                 results = [gr.update()] * 4
             return results
 
+
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
@@ -1247,7 +1236,6 @@ with common.GRADIO_ROOT:
 
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
-        ctrls += [auto_describe_checkbox]        
         ctrls += [uov_method, uov_input_image]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += [layer_method, layer_input_image, iclight_enable, iclight_source_radio]
@@ -1261,7 +1249,7 @@ with common.GRADIO_ROOT:
         ctrls += freeu_ctrls
         ctrls += inpaint_ctrls
         ctrls += [params_backend]
-        
+
         if not args_manager.args.disable_image_log:
             ctrls += [save_final_enhanced_image_only]
 
@@ -1372,32 +1360,30 @@ with common.GRADIO_ROOT:
                            outputs=[prompt, style_selections], show_progress=True, queue=True) \
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
-          
-        def trigger_auto_describe(mode, img, prompt, apply_styles):
-            # keep prompt if not empty
-            show_progress=False
-            if prompt == '' and args_manager.args.enable_auto_describe_image:
-                show_progress=True
-                return trigger_describe(mode, img, apply_styles)
-            return gr.update(), gr.update()
 
-        uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
-                               outputs=[prompt, style_selections], queue=True) \
-            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-            .then(lambda: None, _js='()=>{refresh_style_localization();}')
+        if args_manager.args.enable_auto_describe_image:
+            def trigger_auto_describe(mode, img, prompt, apply_styles):
+                # keep prompt if not empty
+                if prompt == '':
+                    return trigger_describe(mode, img, apply_styles)
+                return gr.update(), gr.update()
 
-        describe_input_image.upload(trigger_auto_describe, inputs=[describe_methods, describe_input_image, prompt, describe_apply_styles],
-                               outputs=[prompt, style_selections], queue=True) \
-            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-            .then(lambda: None, _js='()=>{refresh_style_localization();}')
+            uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
+                                   outputs=[prompt, style_selections], show_progress=True, queue=True) \
+                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+                .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
-        enhance_input_image.upload(lambda: gr.update(value=True), outputs=enhance_checkbox, queue=False, show_progress=False) \
-            .then(trigger_auto_describe, inputs=[describe_methods, enhance_input_image, prompt, describe_apply_styles],
-                  outputs=[prompt, style_selections], queue=True) \
-            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-            .then(lambda: None, _js='()=>{refresh_style_localization();}')        
+            describe_input_image.upload(trigger_auto_describe, inputs=[describe_methods, describe_input_image, prompt, describe_apply_styles],
+                                   outputs=[prompt, style_selections], show_progress=True, queue=True) \
+                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+                .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
-    
+            enhance_input_image.upload(lambda: gr.update(value=True), outputs=enhance_checkbox, queue=False, show_progress=False) \
+                .then(trigger_auto_describe, inputs=[describe_methods, enhance_input_image, prompt, describe_apply_styles],
+                      outputs=[prompt, style_selections], show_progress=True, queue=True) \
+                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+                .then(lambda: None, _js='()=>{refresh_style_localization();}')
+
     prompt_delete_button.click(toolbox.toggle_note_box_delete, inputs=state_topbar, outputs=[params_note_info, params_note_delete_button, params_note_box, state_topbar], show_progress=False)
     params_note_delete_button.click(toolbox.delete_image, inputs=state_topbar, outputs=[gallery, gallery_index, params_note_delete_button, params_note_box, state_topbar], show_progress=False) \
             .then(lambda x: x['__finished_nums_pages'], inputs=state_topbar, outputs=gallery_index_stat, queue=False, show_progress=False) \
