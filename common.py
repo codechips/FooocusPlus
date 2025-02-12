@@ -18,6 +18,6 @@ def toggle(var_name,var_string):
   else:
     bool_string = 'Disabled'    
   try:
-    print(f'{var_string} is {bool_string})
+    print(f'{var_string} is {bool_string}')
   except:
 return var_name
