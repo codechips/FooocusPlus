@@ -297,8 +297,8 @@ with common.GRADIO_ROOT:
                     wildcards_array_hold = [gr.update()] * 4
             
             with gr.Row(elem_classes='advanced_check_row'):
-                input_image_checkbox = (label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                modules.config.default_image_prompt_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
+                input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
+                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
