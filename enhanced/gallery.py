@@ -42,7 +42,8 @@ def refresh_output_list(max_per_page, max_catalog):
     pages = len(output_list)
     display_max_pages = max_catalog
     print()
-    print(f'[Gallery] The image catalogue contains a total of {total_nums} images and {pages} pages. The latest {pages if pages<display_max_pages else display_max_pages} pages are displayed.')
+    print(f'The image gallery contains a total of {total_nums} images and {pages} pages.')
+    print(f'The last {pages if pages<display_max_pages else display_max_pages} pages are available for viewing.')
     print()
     output_list = output_list[:display_max_pages]
     return output_list, total_nums, pages
