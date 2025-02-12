@@ -1094,7 +1094,7 @@ with common.GRADIO_ROOT:
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
-                outputs=[image_input_panel] + layout_image_tab, modules.config.default_image_prompt_checkbox, queue=False, show_progress=False, _js=switch_js)
+                outputs=[image_input_panel] + layout_image_tab + modules.config.default_image_prompt_checkbox, queue=False, show_progress=False, _js=switch_js)
 
             def toggle_auto_describe():
               args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
