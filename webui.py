@@ -1097,8 +1097,8 @@ with common.GRADIO_ROOT:
                 return
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
-                gr.update()] + [gr.update(interactive=True)]*18, toggle_auto_describe_col(), inputs=input_image_checkbox,
-                outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
+                gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
+                outputs=auto_describe_col + [image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
 
             def toggle_auto_describe():
               args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
@@ -1132,7 +1132,7 @@ with common.GRADIO_ROOT:
 
         state_is_generating = gr.State(False)
 
-        load_data_outputs = [advanced_checkbox, image_number, prompt, negative_prompt, style_selections,
+        load_data_outputs = [advanced_checkbox, auto_describe_col, image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg, clip_skip,
