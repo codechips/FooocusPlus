@@ -298,7 +298,7 @@ with common.GRADIO_ROOT:
             
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
+                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', visible=input_image_checkbox, value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
@@ -716,7 +716,6 @@ with common.GRADIO_ROOT:
                             seed_value = int(seed_string)
                             if constants.MIN_SEED <= seed_value <= constants.MAX_SEED:
                                 return seed_value
-#                        ValueError: orginal coding "ValueError" is not recognized
                         except:
                             pass
                         return random.randint(constants.MIN_SEED, constants.MAX_SEED)
@@ -1094,7 +1093,7 @@ with common.GRADIO_ROOT:
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
-                outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
+                outputs=[image_input_panel] + layout_image_tab, auto_describe_checkbox, queue=False, show_progress=False, _js=switch_js)
 
             def toggle_auto_describe():
               args_manager.args.enable_auto_describe_image = not args_manager.args.enable_auto_describe_image
@@ -1247,7 +1246,6 @@ with common.GRADIO_ROOT:
 
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
-#        ctrls += [auto_describe_checkbox]        
         ctrls += [uov_method, uov_input_image]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += [layer_method, layer_input_image, iclight_enable, iclight_source_radio]
