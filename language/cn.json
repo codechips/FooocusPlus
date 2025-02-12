@@ -122,7 +122,7 @@
   "Set as -1 to disable. For developer debugging. Results will be worse for non-standard numbers that SDXL is not trained on.": "-1为禁用自定义。注意，对于没有训练过的非标准宽度或高度，生图结果不可预期。",
   "Forced Overwrite of Generating Height": "自定义高度",
   "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
-  "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
+  "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
   "Adjust the Strength of Upscale Variation": "Adjust the Strength of Upscale Variation",
   "Variation Strength is also called \"denoising strength\"": "Variation Strength is also called \"denoising strength\"",
   "Inpaint Engine": "重绘引擎",
