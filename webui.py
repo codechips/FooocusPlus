@@ -1092,7 +1092,7 @@ with common.GRADIO_ROOT:
             enhance_tab.select(lambda: 'enhance', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
             layer_tab.select(lambda: 'layer', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
 
-            toggle_auto_describe_col():
+            def toggle_auto_describe_col():
                 auto_describe_col.visible = input_image_checkbox
             
             input_image_checkbox.change(lambda x: toggle_auto_describe_col() [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
