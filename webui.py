@@ -1096,7 +1096,7 @@ with common.GRADIO_ROOT:
                 auto_describe_col.visible = input_image_checkbox
                 return
             
-            input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
+            input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
                 outputs=[image_input_panel] + layout_image_tab, queue=False, show_progress=False, _js=switch_js)
 
