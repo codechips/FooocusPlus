@@ -21,4 +21,4 @@ def toggle(var_name,var_string):
     print(f'{var_string} is {bool_string}')
   except:
     pass
-return var_name
+  return var_name
