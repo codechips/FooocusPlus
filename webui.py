@@ -1380,7 +1380,7 @@ with common.GRADIO_ROOT:
             return gr.update(), gr.update()
 
         uov_input_image.upload(trigger_auto_describe, inputs=[describe_methods, uov_input_image, prompt, describe_apply_styles],
-                               outputs=[prompt, style_selections], show_progress=True, queue=True) \
+                               outputs=[prompt, style_selections], show_progress=args_manager.args.enable_auto_describe_image, queue=True) \
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
