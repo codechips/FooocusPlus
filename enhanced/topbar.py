@@ -44,8 +44,7 @@ else:
     config_ext.update({'fooocus_line': '# 2.1.852', 'simplesdxl_line': '# 2023-12-20'})
 
 def get_welcome_image():
-    path_welcome = os.path.abspath(f'./enhanced/attached/')
-    
+    path_welcome = os.path.abspath(f'./enhanced/attached/')    
     file_welcome = os.path.join(path_welcome, 'welcome.jpg')
     if os.path.isfile(file_welcome): return file_welcome  # if welcome.jpg exists this overrides everything
         
@@ -53,13 +52,13 @@ def get_welcome_image():
     if not os.path.isfile(file_welcome):                  # if skip.jpg exists then ignore all jpgs & jpegs
         image_count = len(glob.glob1(path_welcome,'*.jpg')) + len(glob.glob1(path_welcome,'*.jpeg'))
         if image_count>0:
-            welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None) if p != 'welcome.jpg']
+            welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None)]
             file_welcome = random.choice(welcomes)
             
     file_welcome = ''                                     # return an empty string if no files exist
     image_count = len(glob.glob1(path_welcome,'*.png'))
-    if image_count != 0:
-        welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if p != 'welcome.png']
+    if image_count > 0:
+        welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None)]
         if image_count==1:
             file_welcome = welcomes[0]                    # use welcome.png, which *should* always be there
         else:
@@ -282,7 +281,9 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"bar_button": config.preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
-    results += [gr.update(value=f'enhanced/attached/{get_welcome_image()}')]
+    welcome_image = get_welcome_image()
+    if welcome_image != '':
+        results += [gr.update(value=f'{welcome_image}')]
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
