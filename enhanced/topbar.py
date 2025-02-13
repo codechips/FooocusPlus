@@ -45,19 +45,22 @@ else:
 
 def get_welcome_image():
     path_welcome = os.path.abspath(f'./enhanced/attached/')
-#    welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if not p.startswith('.')]
+    file_welcome = os.path.join(path_welcome, 'welcome.jpg')
+    if os.path.isfile(file_welcome): return file_welcome  # if welcome.jpg exists this overrides everything
+    file_welcome = os.path.join(path_welcome, 'skip.jpg')
+    if not os.path.isfile(file_welcome):                  # if skip.jpg exists then ignore all jpgs & jpegs
+        image_count = len(glob.glob1(path_welcome,'*.jpg')) + len(glob.glob1(path_welcome,'*.jpeg'))
+        if image_count>0:
+            welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None) if p != 'welcome.jpg']
+            file_welcome = random.choice(welcomes)
+    file_welcome = ''                                     # return an empty string if no files exist
     image_count = len(glob.glob1(path_welcome,'*.png'))
-    if image_count>1:                         # once dynamic startup code is active, this value will be reduced to 1
+    if image_count != 0
         welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if p != 'welcome.png']
-        file_welcome = random.choice(welcomes)  # a call dynamic startup code would follow this line
-#    welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None) if not p.startswith('.')]
-    image_count = len(glob.glob1(path_welcome,'*.jpg'))    
-    if image_count>0:
-        welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg'], None, None) if p != 'welcome.jpg']
-        file_welcome = random.choice(welcomes)
-    else:
-        file_welcome = welcomes[0]
-#        file_welcome = os.path.join(path_welcome, 'welcome.jpg')
+        if image_count==1:
+            file_welcome = welcomes[0]                    # use welcome.png, which *should* always be there
+        else:
+            file_welcome = random.choice(welcomes)        # a call to the dynamic startup code would follow this line
     return file_welcome
 
 def get_preset_name_list():
