@@ -299,15 +299,15 @@ def add_wildcards_and_array_to_prompt(wildcard, prompt, state_params):
     wildcard = wildcards_list['root'][wildcard]
     state_params.update({"wildcard_in_wildcards": wildcard})
     if len(prompt)>0:
-        if prompt[-1]=='[':
-            state_params["array_wildcards_mode"] = '['
-            prompt = prompt[:-1]
-        elif prompt[-1]=='_':
+    #    if prompt[-1]=='[':
+    #        state_params["array_wildcards_mode"] = '['
+    #        prompt = prompt[:-1]
+        if prompt[-1]=='_':
             state_params["array_wildcards_mode"] = '_'
             if len(prompt)==1 or len(prompt)>2 and prompt[-2]!='_':
                 prompt = prompt[:-1]
-    else:
-        state_params["array_wildcards_mode"] = '['
+    #else:
+    #    state_params["array_wildcards_mode"] = '['
     
     new_tag = f'__{wildcard}__'
     prompt = f'{prompt.strip()} {new_tag}'
