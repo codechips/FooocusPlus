@@ -1127,7 +1127,7 @@ with common.GRADIO_ROOT:
 
         state_is_generating = gr.State(False)
 
-        load_data_outputs = [advanced_checkbox, auto_describe_col, image_number, prompt, negative_prompt, style_selections,
+        load_data_outputs = [advanced_checkbox, auto_describe_checkbox, image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg, clip_skip,
