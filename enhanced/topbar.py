@@ -27,7 +27,7 @@ from modules.model_loader import load_file_from_url
 # hard-coded limit to topbar preset display
 # the value inherited from SimpeSDXL2 was 14
 # use preset dropdown for no limits
-topbar_limit = 24
+topbar_limit = 25
 
 css = '''
 '''
@@ -45,26 +45,31 @@ else:
 
 
 def get_welcome_image():
-    path_welcome = os.path.abspath(f'./enhanced/attached/')    
-    file_welcome = os.path.join(path_welcome, 'welcome.jpg')
-    if os.path.isfile(file_welcome): return file_welcome  # if welcome.jpg exists this overrides everything
-        
-    file_welcome = os.path.join(path_welcome, 'skip.jpg')
-    if not os.path.isfile(file_welcome):                  # if skip.jpg exists then ignore all jpgs & jpegs
+    path_welcome = os.path.abspath(f'./enhanced/attached/')      
+    skip_jpg = os.path.join(path_welcome, 'skip.jpg')
+    if not os.path.isfile(skip_jpg):                  # if skip.jpg exists then ignore all jpgs & jpegs
         image_count = len(glob.glob1(path_welcome,'*.jpg')) + len(glob.glob1(path_welcome,'*.jpeg'))
-        if image_count>0:
-            welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None)]
+        if image_count>1:
+            welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None) if p != 'welcome.jpg']
             return os.path.join(path_welcome, random.choice(welcomes))
-             
-    image_count = len(glob.glob1(path_welcome,'*.png'))
-    if image_count > 0:
-        welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None)]
-        if image_count==1:
-            file_welcome = welcomes[0]                    # use welcome.png, which *should* always be there
-        else:
-            file_welcome = random.choice(welcomes)        # a call to the dynamic startup code would follow this line
-        return os.path.join(path_welcome, file_welcome)
+            
+    skip_png = os.path.join(path_welcome, 'skip.png')
+    if not os.path.isfile(skip_png):                  # if skip.png exists then use the fallback, welcome.jpg    
+        image_count = len(glob.glob1(path_welcome,'*.png'))
+        if image_count > 0:
+            welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if p != 'welcome.png']
+            if image_count>1:
+                file_welcome = random.choice(welcomes) # a call to the dynamic startup code would follow this line
+                return os.path.join(path_welcome, file_welcome)
+    file_welcome = os.path.join(path_welcome, 'welcome.jpg')
+    if os.path.isfile(file_welcome):
+        return file_welcome                           # welcome.jpg is the fallback image
+    else:
+        print()
+        print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
+        print()
     return ''                                             # return an empty string if no files exist
+    
 
 
 def get_preset_name_list():
@@ -283,9 +288,7 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"bar_button": config.preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
-#    welcome_image = get_welcome_image()
-#    if welcome_image != '':
-#        results += [gr.update(value=f'{welcome_image}')]
+    results += [gr.update(value=f'{welcome_image}')]
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
@@ -395,7 +398,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     state_params.update({"__message": system_message})
     system_message = 'system message was displayed!'
     if '__preset' not in state_params.keys() or 'bar_button' not in state_params.keys() or state_params["__preset"]==state_params['bar_button']:
-        return [gr.update()] * (36 + topbar_limit) + [state_params] + [gr.update()] * 55
+        return [gr.update()] * (35 + topbar_limit) + [state_params] + [gr.update()] * 55
     if '\u2B07' in state_params["bar_button"]:
         gr.Info(preset_down_note_info)
     preset = state_params["bar_button"] if '\u2B07' not in state_params["bar_button"] else state_params["bar_button"].replace('\u2B07', '')
