@@ -43,6 +43,7 @@ if os.path.exists(enhanced_config):
 else:
     config_ext.update({'fooocus_line': '# 2.1.852', 'simplesdxl_line': '# 2023-12-20'})
 
+
 def get_welcome_image():
     path_welcome = os.path.abspath(f'./enhanced/attached/')    
     file_welcome = os.path.join(path_welcome, 'welcome.jpg')
@@ -53,9 +54,8 @@ def get_welcome_image():
         image_count = len(glob.glob1(path_welcome,'*.jpg')) + len(glob.glob1(path_welcome,'*.jpeg'))
         if image_count>0:
             welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None)]
-            file_welcome = random.choice(welcomes)
-            
-    file_welcome = ''                                     # return an empty string if no files exist
+            return os.path.join(path_welcome, random.choice(welcomes))
+             
     image_count = len(glob.glob1(path_welcome,'*.png'))
     if image_count > 0:
         welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None)]
@@ -63,7 +63,9 @@ def get_welcome_image():
             file_welcome = welcomes[0]                    # use welcome.png, which *should* always be there
         else:
             file_welcome = random.choice(welcomes)        # a call to the dynamic startup code would follow this line
-    return file_welcome
+        return os.path.join(path_welcome, file_welcome)
+    return ''                                             # return an empty string if no files exist
+
 
 def get_preset_name_list():
     path_preset = os.path.abspath(f'./presets/')
