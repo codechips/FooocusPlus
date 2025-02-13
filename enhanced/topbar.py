@@ -1,4 +1,5 @@
 import os
+import glob
 import json
 import gradio as gr
 import modules.util as util
@@ -44,13 +45,15 @@ else:
 
 def get_welcome_image():
     path_welcome = os.path.abspath(f'./enhanced/attached/')
-    welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if not p.startswith('.')]
-    if len(welcomes)>2:                         # once dynamic startup code is active, this value will be reduced to 1
+#    welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if not p.startswith('.')]
+    image_count = len(glob.glob1(path_welcome,'*.png'))
+    if image_count>1:                         # once dynamic startup code is active, this value will be reduced to 1
         welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if p != 'welcome.png']
         file_welcome = random.choice(welcomes)  # a call dynamic startup code would follow this line
-    welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None) if not p.startswith('.')]
-    if len(welcomes)>1:
-        welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None) if p != 'welcome.jpg']
+#    welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None) if not p.startswith('.')]
+    image_count = len(glob.glob1(path_welcome,'*.jpg'))    
+    if image_count>0:
+        welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg'], None, None) if p != 'welcome.jpg']
         file_welcome = random.choice(welcomes)
     else:
         file_welcome = welcomes[0]
