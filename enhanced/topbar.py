@@ -292,7 +292,7 @@ def init_nav_bars(state_params, request: gr.Request):
         print()
         print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
         print()
-    else
+    else:
         results += [gr.update(value=f'{file_welcome}')]
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
