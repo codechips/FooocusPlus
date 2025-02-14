@@ -48,7 +48,7 @@ def default_interrogator(image, threshold=0.35, character_threshold=0.85, exclud
         model = InferenceSession(model_onnx_filename, providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
     else:
         model = InferenceSession(model_onnx_filename, providers=ort.get_available_providers())
-    global_model = model
+#    global_model = model
 
     input = model.get_inputs()[0]
     height = input.shape[1]
