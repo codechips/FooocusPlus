@@ -286,8 +286,14 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"wildcard_in_wildcards": 'root'})
     state_params.update({"bar_button": config.preset})
     state_params.update({"init_process": 'finished'})
-    results = refresh_nav_bars(state_params)
-    results += [gr.update(value=f'{get_welcome_image()}')]
+    results = refresh_nav_bars(state_params)    
+    file_welcome = os.path.join(path_welcome, 'welcome.jpg')
+    if not os.path.isfile(file_welcome):
+        print()
+        print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
+        print()
+    else
+        results += [gr.update(value=f'{file_welcome}')]
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
