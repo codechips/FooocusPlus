@@ -66,7 +66,6 @@ def get_welcome_image():
         print()
         print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
         print()
-    print(f'Welcome image: {file_welcome}')
     return file_welcome
     
 
@@ -287,18 +286,18 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"bar_button": config.preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
-    get_welcome_image()
-    file_welcome = os.path.join(os.path.abspath(f'./enhanced/attached/'), 'welcome.jpg')
     print()
-    print(f'{file_welcome}')
+    print(f'Weclome image: {file_welcome}')
     print()
-    if os.path.isfile(file_welcome):
-        print('FOUND IT!')
-        results += [gr.update(value=f'{file_welcome}')]        
-    else:
-        print()
-        print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
-        print()
+    results += [gr.update(value=f'{file_welcome}')]    
+#    file_welcome = os.path.join(os.path.abspath(f'./enhanced/attached/'), 'welcome.jpg')
+#    if os.path.isfile(file_welcome):
+#        print('FOUND IT!')
+#        results += [gr.update(value=f'{file_welcome}')]
+#    else:
+#        print()
+#        print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
+#        print()
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
