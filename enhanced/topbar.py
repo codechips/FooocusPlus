@@ -27,7 +27,7 @@ from modules.model_loader import load_file_from_url
 # hard-coded limit to topbar preset display
 # the value inherited from SimpeSDXL2 was 14
 # use preset dropdown for no limits
-topbar_limit = 24
+topbar_limit = 25
 
 css = '''
 '''
@@ -58,7 +58,7 @@ def get_welcome_image():
         image_count = len(glob.glob1(path_welcome,'*.png'))
         if image_count > 0:
             welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if p != 'welcome.png']
-            if image_count>1:
+            if len(welcomes) > 0:
                 file_welcome = random.choice(welcomes) # a call to the dynamic startup code would follow this line
                 return os.path.join(path_welcome, file_welcome)
     file_welcome = os.path.join(path_welcome, 'welcome.jpg')
@@ -67,8 +67,7 @@ def get_welcome_image():
         print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
         print()
     return file_welcome
-    
-
+   
 
 def get_preset_name_list():
     path_preset = os.path.abspath(f'./presets/')
@@ -287,18 +286,9 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
     file_welcome = get_welcome_image()
-    print()
     print(f'Welcome image: {file_welcome}')
     print()
     results += [gr.update(value=f'{file_welcome}')]    
-#    file_welcome = os.path.join(os.path.abspath(f'./enhanced/attached/'), 'welcome.jpg')
-#    if os.path.isfile(file_welcome):
-#        print('FOUND IT!')
-#        results += [gr.update(value=f'{file_welcome}')]
-#    else:
-#        print()
-#        print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
-#        print()
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
