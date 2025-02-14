@@ -66,6 +66,7 @@ def get_welcome_image():
         print()
         print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
         print()
+    print(f'Welcome image: {file_welcome}')
     return file_welcome
     
 
