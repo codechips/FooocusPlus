@@ -43,11 +43,12 @@ def default_interrogator(image, threshold=0.35, character_threshold=0.85, exclud
 
     if global_model is not None:
         model = global_model
-    else:
+    else:       
         if args_manager.args.is_windows_embedded_python:
             model = InferenceSession(model_onnx_filename, providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
         else:
             model = InferenceSession(model_onnx_filename, providers=ort.get_available_providers())
+        global_model = model
 
     input = model.get_inputs()[0]
     height = input.shape[1]
