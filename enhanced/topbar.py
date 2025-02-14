@@ -287,7 +287,7 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"bar_button": config.preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)    
-    file_welcome = os.path.join(path_welcome, 'welcome.jpg')
+    file_welcome = os.path.join(os.path.abspath(f'./enhanced/attached/'), 'welcome.jpg')
     if not os.path.isfile(file_welcome):
         print()
         print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
