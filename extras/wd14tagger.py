@@ -9,7 +9,7 @@
 #     "wd-v1-4-vit-tagger-v2": "https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2"
 # }
 
-
+import args_manager
 import numpy as np
 import csv
 import onnxruntime as ort
@@ -44,7 +44,7 @@ def default_interrogator(image, threshold=0.35, character_threshold=0.85, exclud
     if global_model is not None:
         model = global_model
     else:
-        if args.is_windows_embedded_python:
+        if args_manager.args.is_windows_embedded_python:
             model = InferenceSession(model_onnx_filename, providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
         else:
             model = InferenceSession(model_onnx_filename, providers=ort.get_available_providers())
