@@ -62,13 +62,11 @@ def get_welcome_image():
                 file_welcome = random.choice(welcomes) # a call to the dynamic startup code would follow this line
                 return os.path.join(path_welcome, file_welcome)
     file_welcome = os.path.join(path_welcome, 'welcome.jpg')
-    if os.path.isfile(file_welcome):
-        return file_welcome                           # welcome.jpg is the fallback image
-    else:
+    if not os.path.isfile(file_welcome):
         print()
         print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
         print()
-    return ''                                             # return an empty string if no files exist
+    return file_welcome
     
 
 
