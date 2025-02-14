@@ -297,10 +297,10 @@ with common.GRADIO_ROOT:
                     wildcards_array_hold = [gr.update()] * 4
             
             with gr.Row(elem_classes='advanced_check_row'):
-                input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check') 
+                input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
+                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image, container=False, elem_classes='min_check')                 
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
                 prompt_info_button = gr.Button(value='View Info', size='sm', visible=True)
@@ -1247,7 +1247,6 @@ with common.GRADIO_ROOT:
 
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
-        ctrls += [auto_describe_checkbox]        
         ctrls += [uov_method, uov_input_image]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += [layer_method, layer_input_image, iclight_enable, iclight_source_radio]
