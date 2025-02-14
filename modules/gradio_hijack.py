@@ -245,7 +245,7 @@ class Image(
             return np.array(im)
         elif self.type == "filepath":
             path = self.pil_to_temp_file(
-                im, dir=self.DEFAULT_TEMP_DIR, format=fmt or "png" or "jpg"
+                im, dir=self.DEFAULT_TEMP_DIR, format=fmt or "png"
             )
             self.temp_files.add(path)
             return path
