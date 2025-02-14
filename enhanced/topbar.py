@@ -27,7 +27,7 @@ from modules.model_loader import load_file_from_url
 # hard-coded limit to topbar preset display
 # the value inherited from SimpeSDXL2 was 14
 # use preset dropdown for no limits
-topbar_limit = 25
+topbar_limit = 24
 
 css = '''
 '''
@@ -288,12 +288,16 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)    
     file_welcome = os.path.join(os.path.abspath(f'./enhanced/attached/'), 'welcome.jpg')
-    if not os.path.isfile(file_welcome):
+    print()
+    print(f'{file_welcome}')
+    print()
+    if os.path.isfile(file_welcome):
+        print('FOUND IT!')
+        results += [gr.update(value=f'{file_welcome}')]        
+    else:
         print()
         print(f'SERIOUS ERROR: PLEASE RESTORE {file_welcome}')
         print()
-    else:
-        results += [gr.update(value=f'{file_welcome}')]
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
