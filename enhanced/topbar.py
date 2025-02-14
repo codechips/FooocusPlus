@@ -286,8 +286,9 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"bar_button": config.preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
+    file_welcome = get_welcome_image()
     print()
-    print(f'Weclome image: {file_welcome}')
+    print(f'Welcome image: {file_welcome}')
     print()
     results += [gr.update(value=f'{file_welcome}')]    
 #    file_welcome = os.path.join(os.path.abspath(f'./enhanced/attached/'), 'welcome.jpg')
