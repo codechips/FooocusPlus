@@ -397,7 +397,7 @@
     "Inpainting Strength": "Inpainting Strength",
     "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting always operates at full strength (1.0)": "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting always operates at full strength (1.0)",
     "Inpainting Area": "Inpainting Area",
-    "Value 0 means \"Only the Masked Area\". Value 1 means \"The Whole Image\". Outpainting always uses 1.0": "Value 0 means \"Only the Masked Area\". Value 1 means \"The Whole Image\". Outpainting always uses 1.0",
+    "An area of 0 means \"Only the Masked Area\". An area of 1 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "An area of 0 means \"Only the Masked Area\". An area of 1 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0",
     "Mask Erode or Dilate": "Mask Erode or Dilate",
     "Positive value will make white area in the mask larger, negative value will make white area smaller.(default is 0, always process before any mask invert)": "Positive value will make white area in the mask larger, negative value will make white area smaller.(default is 0, always process before any mask invert)",
     "Enable Mask Upload": "Enable Mask Upload",
