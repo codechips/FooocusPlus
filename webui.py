@@ -429,9 +429,9 @@ with common.GRADIO_ROOT:
                                                           'Outpainting always operates at full strength (1.0)')
                             inpaint_respective_field = gr.Slider(label='Inpainting Area',
                                                              minimum=0.0, maximum=1.0, step=0.001, value=0.618,
-                                                             info='Value 0 means "Only the Masked Area". '
-                                                                  'Value 1 means "The Whole Image". '
-                                                                  'Outpainting always uses 1.0')
+                                                             info='An area of 0 means "Only the Masked Area". '
+                                                                  'An area of 1 means "The Whole Image". '
+                                                                  'Outpainting affects the whole area and uses a value of 1.0')
                         gr.HTML('* Powered by Fooocus Inpaint Engine <a href="https://github.com/lllyasviel/Fooocus/discussions/414" target="_blank">\U0001F4D4 Documentation</a>')
                         
                         def generate_mask(image, mask_model, cloth_category, dino_prompt_text, sam_model, box_threshold, text_threshold, sam_max_detections, dino_erode_or_dilate, dino_debug, params_extra):
