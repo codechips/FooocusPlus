@@ -742,11 +742,12 @@ with common.GRADIO_ROOT:
                                     label='Content Type',
                                     choices=flags.describe_types,
                                     value=modules.config.default_describe_content_type)
-                            describe_apply_styles = gr.Checkbox(label='Apply Styles', value=modules.config.default_describe_apply_prompts_checkbox)
-                            auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image)                                
-                            describe_btn = gr.Button(value='Describe this Image into Prompt')
-                            describe_image_size = gr.Textbox(label='Original Size / Recommended Size', elem_id='describe_image_size', visible=False)
-                            gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/1363" target="_blank">\U0001F4D4 Documentation</a>')
+                            with gr.Row():
+                                describe_apply_styles = gr.Checkbox(label='Apply Styles', value=modules.config.default_describe_apply_prompts_checkbox)
+                                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image)                                
+                                describe_btn = gr.Button(value='Describe this Image into Prompt')
+                                describe_image_size = gr.Textbox(label='Original Size / Recommended Size', elem_id='describe_image_size', visible=False)
+                                gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/1363" target="_blank">\U0001F4D4 Documentation</a>')
 
                                 def trigger_show_image_properties(image):
                                     image_size = modules.util.get_image_size_info(image, modules.flags.available_aspect_ratios[0])
