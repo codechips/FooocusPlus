@@ -1074,7 +1074,7 @@ with common.GRADIO_ROOT:
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
             iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=flags.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
-            layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
+            layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch, auto_describe_checkbox] + lora_ctrls
             def toggle_image_tab(tab, styles):
                 result = []
                 if 'layer' in tab:
@@ -1131,8 +1131,8 @@ with common.GRADIO_ROOT:
         load_data_outputs = [advanced_checkbox, image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
-                 adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg, clip_skip,
-                 base_model, refiner_model, refiner_switch, sampler_name, scheduler_name, vae_name,
+                 adm_scaler_negative, adm_scaler_end, refiner_swap_method, auto_describe_checkbox, adaptive_cfg,
+                 clip_skip, base_model, refiner_model, refiner_switch, sampler_name, scheduler_name, vae_name,
                  seed_random, image_seed, inpaint_engine, inpaint_engine_state,
                  inpaint_mode] + enhance_inpaint_mode_ctrls + [generate_button,
                  load_parameter_button] + freeu_ctrls + lora_ctrls
