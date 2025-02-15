@@ -11,7 +11,7 @@
             "base_model_dtype": "auto"
 	    }
     	},
-    "default_model": "auto",
+    "default_model": "Flux\\flux1-schnell-bnb-nf4.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -45,7 +45,7 @@
     "default_aspect_ratio": "1280*720",
     "default_overwrite_step": 4,
     "checkpoint_downloads": {
-        "flux1-schnell.safetensors": "https://huggingface.co/metercai/SimpleSDXL2/resolve/main/flux1-schnell.safetensors"
+        "Flux\\flux1-schnell-bnb-nf4.safetensors": "https://huggingface.co/silveroxides/flux1-nf4-weights/resolve/main/flux1-schnell-bnb-nf4.safetensors?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {},
