@@ -49,7 +49,7 @@ def get_welcome_image():
     skip_jpg = os.path.join(path_welcome, 'skip.jpg')
     if not os.path.isfile(skip_jpg):                  # if skip.jpg exists then ignore all jpgs & jpegs
         image_count = len(glob.glob1(path_welcome,'*.jpg')) + len(glob.glob1(path_welcome,'*.jpeg'))
-        if image_count>1:
+        if image_count > 0:
             welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.jpg', '.jpeg'], None, None)]
             return os.path.join(path_welcome, random.choice(welcomes))
             
