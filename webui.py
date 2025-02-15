@@ -426,7 +426,7 @@ with common.GRADIO_ROOT:
                                                      minimum=0.0, maximum=1.0, step=0.001, value=1.0,
                                                      info='Adjust the degree to which Inpainting will change the image. '
                                                           'Inpainting Strength is also called "denoising strength". '
-                                                          'Outpainting operates at full strength (1.0)')
+                                                          'Outpainting operates at full strength: 1.0')
                             inpaint_respective_field = gr.Slider(label='Inpainting Area',
                                                              minimum=0.0, maximum=1.0, step=0.001, value=0.618,
                                                              info='An area of 0 means "Only the Masked Area". '
