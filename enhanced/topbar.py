@@ -128,7 +128,7 @@ def get_system_message():
         body_f = '<b id="update_f"> </b>'
     import mistune
     body = mistune.html(body_f)
-    if first_line_f and (first_line_f != config_ext['fooocus_line']]):
+    if first_line_f and (first_line_f != config_ext['fooocus_line']):
         config_ext['fooocus_line']=first_line_f
         with open(enhanced_config, "w", encoding="utf-8") as config_file:
             json.dump(config_ext, config_file)
