@@ -79,7 +79,7 @@ default = {
     'inpaint_engine': 'v2.6',
     'inpaint_strength': 1,
     'inpaint_respective_field': 0.618,
-    'inpaint_advanced_masking_checkbox': True,
+    'inpaint_advanced_masking_checkbox': False,
     'invert_mask_checkbox': False,
     'inpaint_erode_or_dilate': 0,
     'loras_min_weight': -2,
