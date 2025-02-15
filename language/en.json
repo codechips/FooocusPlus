@@ -395,7 +395,7 @@
     "Inpaint Engine": "Inpaint Engine",
     "Version of Fooocus inpaint model": "Version of Fooocus inpaint model",
     "Inpainting Strength": "Inpainting Strength",
-    "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting always operates at full strength (1.0)": "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting always operates at full strength (1.0)",
+    "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting operates at full strength: 1.0": "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting operates at full strength: 1.0",
     "Inpainting Area": "Inpainting Area",
     "An area of 0 means \"Only the Masked Area\". An area of 1 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "An area of 0 means \"Only the Masked Area\". An area of 1 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0",
     "Mask Erode or Dilate": "Mask Erode or Dilate",
