@@ -374,12 +374,11 @@ with common.GRADIO_ROOT:
                                            queue=False, show_progress=False)
 
                     with gr.Tab(label='Inpaint or Outpaint', id='inpaint_tab') as inpaint_tab:
-                        with gr.Column():
+                        with gr.Row():
                             mixing_image_prompt_and_inpaint = gr.Checkbox(label='Mix Image Prompt & Inpaint', value=False, container=False)
+                            inpaint_mask_color = gr.ColorPicker(label='Inpaint Brush Color', value='#FFFFFF', elem_id='inpaint_brush_color', container=False)                            
                             inpaint_advanced_masking_checkbox = gr.Checkbox(label='Enable Advanced Masking', value=modules.config.default_inpaint_advanced_masking_checkbox, container=False)
                             invert_mask_checkbox = gr.Checkbox(label='Invert Mask When Generating', value=modules.config.default_invert_mask_checkbox, container=False)                            
-                        with gr.Column():
-                            inpaint_mask_color = gr.ColorPicker(label='Inpaint Brush Color', value='#FFFFFF', elem_id='inpaint_brush_color', container=False)
 
                         with gr.Row():
                             with gr.Column():
