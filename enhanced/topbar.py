@@ -102,8 +102,7 @@ def is_models_file_absent(preset_name):
 def get_system_message():
     global config_ext
 
-    fooocus_log = os.path.abspath(f'./update_log.md')
-    simplesdxl_log = os.path.abspath(f'./simplesdxl_log.md')
+    fooocus_log = os.path.abspath(f'./fooocusplus_log.md')
     update_msg_f = ''
     first_line_f = None
     if os.path.exists(fooocus_log):
@@ -120,40 +119,17 @@ def get_system_message():
                 if first_line_f:
                     update_msg_f += line
                 line = log_file.readline()
-    update_msg_s = ''
-    first_line_s = None
-    if os.path.exists(simplesdxl_log):
-        with open(simplesdxl_log, "r", encoding="utf-8") as log_file:
-            line = log_file.readline()
-            while line:
-                if line == '\n':
-                    line = log_file.readline()
-                    continue
-                if line.startswith("# ") and first_line_s is None:
-                    first_line_s = line.strip()
-                if line.strip() == config_ext['simplesdxl_line']:
-                    break
-                if first_line_s:
-                    update_msg_s += line
-                line = log_file.readline()
     update_msg_f = update_msg_f.replace("\n","  ")
-    update_msg_s = update_msg_s.replace("\n","  ")
     
-    f_log_path = os.path.abspath("./update_log.md")
-    s_log_path = os.path.abspath("./simplesdxl_log.md")
+    f_log_path = os.path.abspath("./fooocusplus_log.md")
     if len(update_msg_f)>0:
-        body_f = f'<b id="update_f">[Fooocus更新信息]</b>: {update_msg_f}<a href="{args_manager.args.webroot}/file={f_log_path}">更多>></a>   '
+        body_f = f'<b id="update_f">[FooocusPlus]</b>: {update_msg_f}<a href="{args_manager.args.webroot}/file={f_log_path}">>></a>   '
     else:
         body_f = '<b id="update_f"> </b>'
-    if len(update_msg_s)>0:
-        body_s = f'<b id="update_s">[系统消息 - 已更新内容]</b>: {update_msg_s}<a href="{args_manager.args.webroot}/file={s_log_path}">更多>></a>'
-    else:
-         body_s = '<b id="update_s"> </b>'
     import mistune
-    body = mistune.html(body_f+body_s)
-    if first_line_f and first_line_s and (first_line_f != config_ext['fooocus_line'] or first_line_s != config_ext['simplesdxl_line']):
+    body = mistune.html(body_f)
+    if first_line_f and (first_line_f != config_ext['fooocus_line']]):
         config_ext['fooocus_line']=first_line_f
-        config_ext['simplesdxl_line']=first_line_s
         with open(enhanced_config, "w", encoding="utf-8") as config_file:
             json.dump(config_ext, config_file)
     return body if body else ''
