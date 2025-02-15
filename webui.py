@@ -299,7 +299,7 @@ with common.GRADIO_ROOT:
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                 prompt_panel_checkbox = gr.Checkbox(label='Prompt Panel', value=False, container=False, elem_classes='min_check')
-                advanced_checkbox = gr.Checkbox(label='Advanced Mode', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')            
+                advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')            
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
                 prompt_info_button = gr.Button(value='View Info', size='sm', visible=True)
@@ -741,9 +741,10 @@ with common.GRADIO_ROOT:
                                 describe_methods = gr.CheckboxGroup(
                                     label='Content Type',
                                     choices=flags.describe_types,
-                                    value=modules.config.default_describe_content_type)                                
-                                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image)
+                                    value=modules.config.default_describe_content_type)                             
+                            with gr.row():
                                 describe_apply_styles = gr.Checkbox(label='Apply Styles', value=modules.config.default_describe_apply_prompts_checkbox)
+                                auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image)                                
                                 describe_btn = gr.Button(value='Describe this Image into Prompt')
                                 describe_image_size = gr.Textbox(label='Original Size / Recommended Size', elem_id='describe_image_size', visible=False)
                                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/1363" target="_blank">\U0001F4D4 Documentation</a>')
