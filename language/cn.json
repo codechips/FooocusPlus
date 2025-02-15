@@ -307,7 +307,7 @@
   "SD3T Api": "SD3TApi",
   "Api engine needs to configure the api key before use": "使用接口引擎需要事先配置接口密钥。密钥从stability.ai官网申请。",
   "Original Size / Recommended Size": "图片尺寸 / 推荐尺寸",
-  "Inpaint brush color": "画笔颜色",
+  "Inpaint Brush Color": "画笔颜色",
   "VAE": "变分自编码器VAE",
   "Hyper-SD": "超速",
   "CLIP Skip": "CLIP跳过层数CLIP Skip",
