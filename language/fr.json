@@ -149,7 +149,7 @@
   "Debug Inpaint Preprocessing": "Déboguer le prétraitement de la peinture",
   "Disable Initial Latent in Inpaint": "Désactiver le latent initial en peinture",
   "Inpainting Strength": "Force de débruitage en peinture",
-  "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting operates at full strength: 1.0": "Identique à la force de débruitage en peinture dans A1111. Utilisé uniquement en peinture, pas en peinture externe. (Peinture externe utilise toujours 1.0)",
+  "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting operates at full strength: 1.0": "Identique à la force de débruitage en peinture dans A1111. Utilisé uniquement en peinture, pas en peinture externe. (Peinture externe utilise toujours 1.0)",
   "Inpainting Area": "Coefficient de fusion du masque",
   "An area of 0 means \"Only the Masked Area\". An area of 1 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "Zone à peindre. Valeur 0 équivaut à \"Masqué uniquement\" dans A1111. Valeur 1 équivaut à \"Image entière\" dans A1111. Utilisé uniquement en peinture, pas en peinture externe. (Peinture externe utilise toujours 1.0)",
   "FreeU": "Amélioration FreeU",
