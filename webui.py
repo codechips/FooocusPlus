@@ -422,18 +422,16 @@ with common.GRADIO_ROOT:
                                 inpaint_mask_color = gr.ColorPicker(label='Inpaint Brush Color', value='#FFFFFF', elem_id='inpaint_brush_color', container=True)
                         
                         with gr.Row():
-                            inpaint_strength = gr.Slider(label='Inpaint Denoising Strength',
+                            inpaint_strength = gr.Slider(label='Inpainting Strength',
                                                      minimum=0.0, maximum=1.0, step=0.001, value=1.0,
-                                                     info='Same as the denoising strength in A1111 inpaint. '
-                                                          'Only used in inpaint, not used in outpaint. '
-                                                          '(Outpaint always use 1.0)')
-                            inpaint_respective_field = gr.Slider(label='Inpaint Respective Field',
+                                                     info='Adjust the degree to which Inpainting will change the image. '
+                                                          'Inpainting Strength is also called "denoising strength". '
+                                                          'Outpainting always operates at full strength (1.0)')
+                            inpaint_respective_field = gr.Slider(label='Inpainting Area',
                                                              minimum=0.0, maximum=1.0, step=0.001, value=0.618,
-                                                             info='The area to inpaint. '
-                                                                  'Value 0 is same as "Only Masked" in A1111. '
-                                                                  'Value 1 is same as "Whole Image" in A1111. '
-                                                                  'Only used in inpaint, not used in outpaint. '
-                                                                  '(Outpaint always use 1.0)')
+                                                             info='Value 0 means "Only the Masked Area". '
+                                                                  'Value 1 means "The Whole Image". '
+                                                                  'Outpainting always uses 1.0')
                         gr.HTML('* Powered by Fooocus Inpaint Engine <a href="https://github.com/lllyasviel/Fooocus/discussions/414" target="_blank">\U0001F4D4 Documentation</a>')
                         
                         def generate_mask(image, mask_model, cloth_category, dino_prompt_text, sam_model, box_threshold, text_threshold, sam_max_detections, dino_erode_or_dilate, dino_debug, params_extra):
