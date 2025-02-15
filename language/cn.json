@@ -154,7 +154,7 @@
   "Inpainting Strength": "重绘强度",
   "Adjust the degree to which Inpainting will change the image. Inpainting Strength is also called \"denoising strength\". Outpainting always operates at full strength (1.0)": "仅在内部重绘有效，外部重绘保持为1。",
   "Inpainting Area": "重绘羽化系数",
-  "Value 0 means \"Only the Masked Area\". Value 1 means \"The Whole Image\". Outpainting always uses 1.0": "重绘边缘的羽化值，内部重绘有效，外部重绘保持为1。",
+  "An area of 0 means \"Only the Masked Area\". An area of 1 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "重绘边缘的羽化值，内部重绘有效，外部重绘保持为1。",
   "FreeU": "FreeU增强",
   "Enabled": "启用",
   "Extreme Speed": "极速",
