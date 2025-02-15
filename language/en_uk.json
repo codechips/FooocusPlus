@@ -505,11 +505,7 @@
     "Improve Detail (face, hand, eyes, etc.)": "Improve Detail (face, hand, eyes, etc.)",
     "Modify Content (add objects, change background, etc.)": "Modify Content (add objects, change background, etc.)",
     "Disable Initial Latent in Inpaint": "Disable Initial Latent in Inpaint",
-    "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.": "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.",
-    "Inpaint Denoising Strength": "Inpaint Denoising Strength",
-    "Same as the denoising strength in A1111 inpaint. Only used in inpaint, not used in outpaint. (Outpaint always use 1.0)": "Same as the denoising strength in A1111 inpaint. Only used in inpaint, not used in outpaint. (Outpaint always use 1.0)",
-    "Inpaint Respective Field": "Inpaint Respective Field",
-    "The area to inpaint. Value 0 is same as \"Only Masked\" in A1111. Value 1 is same as \"Whole Image\" in A1111. Only used in inpaint, not used in outpaint. (Outpaint always use 1.0)": "The area to inpaint. Value 0 is same as \"Only Masked\" in A1111. Value 1 is same as \"Whole Image\" in A1111. Only used in inpaint, not used in outpaint. (Outpaint always use 1.0)",
+    "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.": "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.",Adjusts the amount that Inpainting changes the image
     "Mask Erode or Dilate": "Mask Erode or Dilate",
     "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)": "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)",
     "Invert Mask When Generating": "Invert Mask When Generating",
