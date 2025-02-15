@@ -152,7 +152,7 @@
   "Debug Inpaint Preprocessing": "重绘预处理调试",
   "Disable Initial Latent in Inpaint": "重绘中不用初始化潜空间",
   "Inpainting Strength": "重绘强度",
-  "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting operates at full strength: 1.0": "仅在内部重绘有效，外部重绘保持为1。",
+  "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0": "仅在内部重绘有效，外部重绘保持为1。",
   "Inpainting Area": "重绘羽化系数",
   "An area of 0 means \"Only the Masked Area\". An area of 1 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "重绘边缘的羽化值，内部重绘有效，外部重绘保持为1。",
   "FreeU": "FreeU增强",
