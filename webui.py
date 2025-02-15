@@ -314,7 +314,7 @@ with common.GRADIO_ROOT:
                             with gr.Column():
                                 uov_input_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False)
                             with gr.Column():
-                                mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mixing Image Prompt and Vary/Upscale', value=False)
+                                mixing_image_prompt_and_vary_upscale = gr.Checkbox(label='Mix Image Prompt & Vary/Upscale', value=False)
                                 uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
                         with gr.Row():
                             overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of Upscale Variation',
@@ -374,12 +374,12 @@ with common.GRADIO_ROOT:
                                            queue=False, show_progress=False)
 
                     with gr.Tab(label='Inpaint or Outpaint', id='inpaint_tab') as inpaint_tab:
-                        with gr.Row():
-                            mixing_image_prompt_and_inpaint = gr.Checkbox(label='Mixing Image Prompt & Inpaint', value=False, container=False)
+                        with gr.Col():
+                            mixing_image_prompt_and_inpaint = gr.Checkbox(label='Mix Image Prompt & Inpaint', value=False, container=False)
                             inpaint_advanced_masking_checkbox = gr.Checkbox(label='Enable Advanced Masking', value=modules.config.default_inpaint_advanced_masking_checkbox, container=False)
-                        with gr.Row():                            
-                            invert_mask_checkbox = gr.Checkbox(label='Invert Mask When Generating', value=modules.config.default_invert_mask_checkbox, container=False)
-                            inpaint_mask_color = gr.ColorPicker(label='Inpaint Brush Color', value='#FFFFFF', elem_id='inpaint_brush_color')
+                            invert_mask_checkbox = gr.Checkbox(label='Invert Mask When Generating', value=modules.config.default_invert_mask_checkbox, container=False)                            
+                        with gr.Col():
+                            inpaint_mask_color = gr.ColorPicker(label='Inpaint Brush Color', value='#FFFFFF', elem_id='inpaint_brush_color', container=False)
 
                         with gr.Row():
                             with gr.Column():
