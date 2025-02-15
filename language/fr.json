@@ -142,7 +142,7 @@
   "Canny Low Threshold": "Seuil bas Canny",
   "Canny High Threshold": "Seuil haut Canny",
   "Inpaint": "Peinture",
-  "Mixing Image Prompt & Inpaint": "Mixing Image Prompt & Inpaint",
+  "Mix Image Prompt & Inpaint": "Mixing Image Prompt & Inpaint",
   "Enable Advanced Masking": "Enable Advanced Masking",
   "Invert Mask When Generating": "Invert Mask When Generating",
   "Inpaint Brush Color": "Inpaint Brush Color",  
