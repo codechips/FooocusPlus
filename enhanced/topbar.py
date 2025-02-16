@@ -231,7 +231,7 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"__finished_nums_pages": f'{finished_nums},{finished_pages}'})
     state_params.update({"infobox_state": 0})
     state_params.update({"note_box_state": ['',0,0]})
-#    state_params.update({"array_wildcards_mode": '['})
+    state_params.update({"array_wildcards_mode": ''})
     state_params.update({"wildcard_in_wildcards": 'root'})
     state_params.update({"bar_button": config.preset})
     state_params.update({"init_process": 'finished'})
