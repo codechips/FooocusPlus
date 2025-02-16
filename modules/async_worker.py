@@ -269,7 +269,6 @@ def worker():
     ldm_patched.modules.model_management.print_memory_info()
 
     def progressbar(async_task, number, text):
-        print()
         print(f'[Fooocus] {text}')
         async_task.yields.append(['preview', (number, text, None)])
 
@@ -758,6 +757,7 @@ def worker():
             pipeline.reload_expansion()
         if advance_progress:
             current_progress += 1
+        print()
         progressbar(async_task, current_progress, 'Processing prompts...')
                            
         tasks = []
