@@ -238,7 +238,7 @@ def worker():
     import extras.face_crop
     import fooocus_version
     import enhanced.version as version
-    import enhanced.wildcards as wildcards
+#    import enhanced.wildcards as wildcards
     
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
@@ -256,7 +256,7 @@ def worker():
 
     pid = os.getpid()
     print()
-    print('Starting the FooocusPlus generative AI worker...') # Used to print the PID, which seems to be irrelevant in a single user app.
+    print('Starting the FooocusPlus generative AI worker...') # previously printed the PID, which seems to be irrelevant in a single user app.
 
     try:
         async_gradio_app = common.GRADIO_ROOT
@@ -269,6 +269,7 @@ def worker():
     ldm_patched.modules.model_management.print_memory_info()
 
     def progressbar(async_task, number, text):
+        print()
         print(f'[Fooocus] {text}')
         async_task.yields.append(['preview', (number, text, None)])
 
