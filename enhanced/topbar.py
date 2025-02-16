@@ -56,8 +56,8 @@ def get_welcome_image():
     skip_png = os.path.join(path_welcome, 'skip.png')
     if not os.path.isfile(skip_png):                   # if skip.png exists then use the fallback, welcome.png    
         image_count = len(glob.glob1(path_welcome,'*.png'))
-        if image_count > 0:
-            welcomes = [p for p in util.get_files_from_folder(path_welcome, ['.png'], None, None) if p != 'welcome.png']
+        if image_count > 1:
+            welcomes = [p for p in util.get_files_from_folder(path_welcome, '.png', None, None) if p != 'welcome.png']
             if len(welcomes) > 0:
                 file_welcome = random.choice(welcomes) # a call to the dynamic startup code will follow this line
                 return os.path.join(path_welcome, file_welcome)
