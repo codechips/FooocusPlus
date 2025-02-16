@@ -248,7 +248,7 @@ def get_words(arrays, totalMult, index):
         return [word] + get_words(arrays[1:], math.floor(totalMult/len(words)), index)
 
 
-def apply_arrays(text, index, arrays, mult):
+def OLDapply_arrays(text, index, arrays, mult):
     if len(arrays) == 0 or mult == 0:
         return text
     
