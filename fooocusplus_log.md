@@ -15,8 +15,10 @@
 * the Gradio startup messages are FooocusPlus specific and do not refer to sharing
 * a checkbox in the Describe pane now switches the auto-describe feature on or off
 * two wildcard files have been added and some of the existing wildcards are improved
-* the welcome logic is improved, is skip_jpg is present all downloaded welcome JPGs are ignored
+* the welcome logic is improved, if skip_jpg is present all downloaded welcome JPGs are ignored
 * if skip.png is also present, the welcome image is the default black screen
+* welcome images are stored in enhanced\welcome_images instead of enhanced\attached
+* the control images (skip.jpg and skip.png) are stored in enhanced\control_images
 
 
 # 0.9.6
