@@ -5,8 +5,18 @@
 * fully integrated the upscale or vary (UOV) sliders into normal operation
 * the Vary (Subtle) and Vary (Strong) radio buttons no longer exist,
   instead their values are indicated in the info. text below the vary slider
+* upscale and vary descriptions are now more friendly and helpful  
 * set the widths for the Random Prompt and Generate columns to 75 pixels
 * except for Describe and Meta, the Input Image tabs are restored to the Fooocus standard
+* system message updates now only report on FooocusPlus changes
+* the Brush Colour selector is integrated into the Inpainting pane
+* Inpainting descriptions are now more friendly and helpful
+* the Advanced and Enable Advanced Masking checkboxes now default to disabled
+* the Gradio startup messages are FooocusPlus specific and do not reference sharing
+* a checkbox in the Describe pane now switches the auto-describe feature on or off
+* two wildcard files have been added and some of the existing wildcards are improved
+* the welcome logic is improved, is skip_jpg is present all downloaded welcome JPGs are ignored
+* if skip.png is also present, the welcome image is a black screen
 
 
 # 0.9.6
@@ -18,7 +28,7 @@
 * "Disable Seed Increment" now works (this was an inherited bug)
 * wildcards are now always random, even when the seed is frozen (another inherited bug)
 * "Read Wildcards in Order" has been restored
-* whatever JPGs are stored in enhanced/attached/ will be randomly displayed as startup images
+* whatever JPGs are stored in enhanced/attached/ will be randomly displayed as welcome images
 * removed all __pycache__ and .pyc files from the FooocusPlus repository
 
 
