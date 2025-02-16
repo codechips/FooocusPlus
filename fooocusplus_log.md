@@ -16,7 +16,7 @@
 * a checkbox in the Describe pane now switches the auto-describe feature on or off
 * two wildcard files have been added and some of the existing wildcards are improved
 * the welcome logic is improved, is skip_jpg is present all downloaded welcome JPGs are ignored
-* if skip.png is also present, the welcome image is a black screen
+* if skip.png is also present, the welcome image is the default black screen
 
 
 # 0.9.6
