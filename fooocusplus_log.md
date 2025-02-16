@@ -12,7 +12,7 @@
 * the Brush Colour selector is integrated into the Inpainting pane
 * Inpainting descriptions are now more friendly and helpful
 * the Advanced and Enable Advanced Masking checkboxes now default to disabled
-* the Gradio startup messages are FooocusPlus specific and do not reference sharing
+* the Gradio startup messages are FooocusPlus specific and do not refer to sharing
 * a checkbox in the Describe pane now switches the auto-describe feature on or off
 * two wildcard files have been added and some of the existing wildcards are improved
 * the welcome logic is improved, is skip_jpg is present all downloaded welcome JPGs are ignored
