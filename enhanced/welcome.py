@@ -1,6 +1,7 @@
 import os
 import glob
 import modules.util as util
+import random
 
 
 def get_welcome_image():
