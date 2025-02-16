@@ -144,7 +144,7 @@ def get_words_with_wildcard(wildcard, rng, method='R', number=1, start_at=1):
     return words_result
 
 
-def compile_arrays(text, rng):
+def OLD_compile_arrays(text, rng):
     global wildcards, wildcards_max_bfs_depth, array_regex, tag_regex1, tag_regex2, tag_regex3, tag_regex4, tag_regex5
 
     _ = get_wildcards_samples()
