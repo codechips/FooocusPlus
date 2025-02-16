@@ -515,7 +515,7 @@ def prompt_token_prediction(text, style_selections):
     extra_positive_prompts = prompts[1:] if len(prompts) > 1 else []
     task_rng = random.Random(random.randint(constants.MIN_SEED, constants.MAX_SEED))
     prompt, wildcards_arrays, arrays_mult, seed_fixed = wildcards.compile_arrays(prompt, task_rng)
-    task_prompt = wildcards.apply_arrays(prompt, 0, wildcards_arrays, arrays_mult)
+#    task_prompt = wildcards.apply_arrays(prompt, 0, wildcards_arrays, arrays_mult)
     task_prompt = wildcards.replace_wildcard(task_prompt, task_rng)
     task_extra_positive_prompts = [wildcards.apply_wildcards(pmt, task_rng) for pmt in extra_positive_prompts]
     positive_basic_workloads = []
