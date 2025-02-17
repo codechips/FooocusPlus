@@ -770,7 +770,7 @@ def worker():
                 wild_seed = task_seed
 
             task_rng = random.Random(wild_seed)  # may bind to inpaint noise in the future
-            task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
+#            task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
             task_negative_prompt = apply_wildcards(negative_prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_extra_positive_prompts = [apply_wildcards(pmt, task_rng, i, async_task.read_wildcards_in_order) for pmt
@@ -829,7 +829,7 @@ def worker():
             if advance_progress:
                 current_progress += 1
             for i, t in enumerate(tasks):
-
+                print()
                 progressbar(async_task, current_progress, f'Preparing Fooocus text #{i + 1}...')
                 expansion = pipeline.final_expansion(t['task_prompt'], t['task_seed'])
                 print(f'[Prompt Expansion] {expansion}')
