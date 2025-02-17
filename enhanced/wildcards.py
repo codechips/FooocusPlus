@@ -269,7 +269,7 @@ def OLDapply_arrays(text, index, arrays, mult):
     return text
 
 
-def apply_wildcards(wildcard_text, rng, directory=wildcards_path):
+def OLDapply_wildcards(wildcard_text, rng, directory=wildcards_path):
     global tag_regex2, wildcards
 
     for _ in range(wildcards_max_bfs_depth):
