@@ -24,8 +24,9 @@ def get_welcome_image():
             welcomes = [p for p in util.get_files_from_folder(path_welcome, '.png', None, None) if p != 'welcome.png']
             if len(welcomes) > 0:
                 file_welcome = random.choice(welcomes) # a call to the dynamic startup code will follow this line
-                
-                return os.path.join(path_welcome, file_welcome)
+ #               file_welcome = fill_background_png(path_welcome, file_welcome, 1152, 896)
+                if file_welcome != "":
+                    return os.path.join(path_welcome, file_welcome)
     file_welcome = os.path.join(path_welcome, 'welcome.png')
     if not os.path.isfile(file_welcome):
         print()
@@ -91,13 +92,13 @@ def generate_background(width, height):
     return background_rgb
 
 # pil image paste
-def add_logo(background, logo):
-    logo_file = Path(logo).resolve()
-    logo_rgb = Image.open(logo_file).convert("RGBA")
+def add_foreground(background, foreground):
+    foreground_file = Path(foreground).resolve()
+    foreground_rgb = Image.open(foreground_file).convert("RGBA")
 
     composite = background.convert("RGBA")
     bg_width, bg_height = composite.size
-    logo_width, logo_height = logo_rgb.size
+    foreground_width, foreground_height = foreground_rgb.size
 
     width_max = bg_width / 3
     height_max = bg_height / 2.25
@@ -110,34 +111,34 @@ def add_logo(background, logo):
         test_max = width_max
 
     if test_width > test_max:
-        resize_scale = logo_width / test_max
-        resize_width = int(logo_width / resize_scale)
-        resize_height = int(logo_height / resize_scale)
-        logo_rgb = logo_rgb.resize((resize_width, resize_height), Image.LANCZOS)
-        logo_width, logo_height = logo_rgb.size
+        resize_scale = foreground_width / test_max
+        resize_width = int(foreground_width / resize_scale)
+        resize_height = int(foreground_height / resize_scale)
+        foreground_rgb = foreground_rgb.resize((resize_width, resize_height), Image.LANCZOS)
+        foreground_width, foreground_height = foreground_rgb.size
 
     if bg_height > bg_width:
-        # put the logo in the centre
-        margin_horizontal = int((bg_width - logo_width) / 2)
+        # put the foreground in the centre
+        margin_horizontal = int((bg_width - foreground_width) / 2)
         margin_vertical = int(height_max / 5)
     else:
-        # put the logo on the right hand side
+        # put the foreground on the right hand side
         margin_horizontal = int(width_max / 10)
         margin_vertical = int(height_max / 10)
 
-    paste_horizontal = bg_width - logo_width - margin_horizontal
-    paste_vertical = bg_height - logo_height - margin_vertical
+    paste_horizontal = bg_width - foreground_width - margin_horizontal
+    paste_vertical = bg_height - foreground_height - margin_vertical
 
-    composite.paste(logo_rgb, (paste_horizontal, paste_vertical), mask=logo_rgb)
+    composite.paste(foreground_rgb, (paste_horizontal, paste_vertical), mask=foreground_rgb)
     return composite
 
-def splashscreen(width, height, logo):
+def fill_background_png(pathname, filename, width, height):
     splash_bg = generate_background(width, height)
-    splash_full = add_logo(splash_bg, logo)
+    splash_full = add_foreground(splash_bg, filename)
     return splash_full
 
 def test_splash(width, height):
-    test_image = splashscreen(width, height, 'logo.png')
+    test_image = splashscreen(width, height, 'foreground.png')
     test_timestamp = time.strftime("%Y%m%d-%H%M%S")
     test_filename = (test_timestamp + '_' + str(width) + '_' + str(height) + '.png')
     test_image.save(test_filename, format="png", quality=100)
@@ -149,14 +150,14 @@ def test_welcome_image(is_mobile=False):
     # define the size
     width = 1152
     height = 896
-    # get the logo file ready
-    path_logo = os.path.join(root, 'logo.png') # need to put the logo png someplace
+    # get the foreground file ready
+    path_foreground = os.path.join(root, 'foreground.png') # need to put the foreground png someplace
     # generate the temporary filename
     splash_timestamp = time.strftime("%Y%m%d-%H%M%S")
     splash_filename = (splash_timestamp + '_' + str(width) + '_' + str(height) + '.png')
     path_splash = os.path.join(args.temp_path, splash_filename)
     # generate and save the temporary file
-    splash_image = splashscreen(width, height, path_logo)
+    splash_image = splashscreen(width, height, path_foreground)
     splash_image.save(path_splash, format="png", quality=100)
     # return the path to the ui
     return path_splash
