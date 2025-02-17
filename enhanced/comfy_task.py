@@ -64,30 +64,15 @@ def get_default_base_SD3m_name():
             return sd3name
     return default_base_SD3m_name_list[0]
 
-default_base_Flux_name_list = ['flux1-dev.safetensors', 'flux1-dev-bnb-nf4.safetensors', 'flux1-dev-bnb-nf4-v2.safetensors', 'flux-hyp8-Q5_K_M.gguf', 'flux1-schnell.safetensors', 'flux1-schnell-bnb-nf4.safetensors']
+default_base_Flux_name_list = [''flux1-schnell-bnb-nf4.safetensors', flux1-dev-bnb-nf4.safetensors', 'flux-hyp8-Q5_K_M.gguf']
 flux_model_urls = {
-    "flux1-dev.safetensors": "https://huggingface.co/realung/flux1-dev.safetensors/resolve/main/flux1-dev.safetensors",
-    "flux1-dev-bnb-nf4-v2.safetensors": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors",
-    "flux1-schnell.safetensors": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors",
-    "flux1-schnell-bnb-nf4.safetensors": "https://huggingface.co/silveroxides/flux1-nf4-weights/resolve/main/flux1-schnell-bnb-nf4.safetensors",
+    "flux1-schnell-bnb-nf4.safetensors": "https://huggingface.co/silveroxides/flux1-nf4-weights/resolve/main/flux1-schnell-bnb-nf4.safetensors?download=true",    
+    "flux1-dev-bnb-nf4-v2.safetensors": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors?download=true",
     "Flux\\hyperfluxDiversity_q5KS.gguf": "https://civitai.com/api/download/models/1147912?type=Model&format=GGUF&size=pruned&fp=fp8"
     }
 
 def get_default_base_Flux_name(plus=False):
-    if plus:
-        if is_lowlevel_device():
-            checklist = [default_base_Flux_name_list[5], default_base_Flux_name_list[3]]
-        else:
-            checklist = [default_base_Flux_name_list[4], default_base_Flux_name_list[5], default_base_Flux_name_list[3]]
-    else:
-        if is_highlevel_device():
-            checklist = [default_base_Flux_name_list[0], default_base_Flux_name_list[2], default_base_Flux_name_list[1], default_base_Flux_name_list[3]]
-        else:
-            checklist = [default_base_Flux_name_list[2], default_base_Flux_name_list[1], default_base_Flux_name_list[3]]
-    for i in range(0, len(checklist)):
-        fluxname = checklist[i]
-        if common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=fluxname):
-            return fluxname
+    checklist = [default_base_Flux_name_list[0], default_base_Flux_name_list[1], default_base_Flux_name_list[2]]
     return checklist[0]
         
 
@@ -118,7 +103,6 @@ quick_subjects = [[x] for x in quick_subjects]
 
 
 class ComfyTask:
-
     def __init__(self, name, params, images=None):
         self.name = name
         self.params = params
@@ -191,8 +175,8 @@ def get_comfy_task(task_name, task_method, default_params, input_images, options
         total_ram = ldm_patched.modules.model_management.get_sysram()
         total_vram = ldm_patched.modules.model_management.get_vram()
         if base_model == 'auto':
-            model_dev = 'flux1-dev.safetensors'
-            model_nf4 = 'flux1-dev-bnb-nf4-v2.safetensors'
+            model_dev = 'Flux\\flux1-dev-bnb-nf4-v2.safetensors'
+            model_nf4 = 'Flux\\flux1-dev-bnb-nf4-v2.safetensors'
             model_hyp8 = 'Flux\\hyperfluxDiversity_q5KS.gguf'
             base_model = model_nf4 if total_vram<=VRAM8G1 else model_dev
             if not common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=base_model) and common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=model_hyp8):
@@ -245,8 +229,6 @@ def get_comfy_task(task_name, task_method, default_params, input_images, options
         comfy_params = ComfyTaskParams(default_params)
         #check_download_base_model(default_params["base_model"])
         return ComfyTask(task_method, comfy_params)
-
-
 
 def fixed_width_height(width, height, factor): 
     fixed_width = int(((height // factor + 1) * factor * width)/height)
@@ -380,7 +362,7 @@ def check_download_flux_model(base_model, clip_model=None):
             )
         if not common.MODELS_INFO.exists_model(catalog="vae", model_path='ae.safetensors'):
             load_file_from_url(
-                url='https://huggingface.co/metercai/SimpleSDXL2/resolve/main/flux1/ae.safetensors',
+                url='https://huggingface.co/lovis93/testllm/resolve/ed9cf1af7465cebca4649157f118e331cf2a084f/ae.safetensors?download=true',
                 model_dir=config.path_vae,
                 file_name='ae.safetensors'
             )
