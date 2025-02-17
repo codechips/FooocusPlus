@@ -994,8 +994,8 @@ def get_base_model_list(engine='Fooocus', task_method=None):
     base_model_list = modelsinfo.get_model_names('checkpoints', file_filter)
     if engine in ['Fooocus', 'Comfy']:
         base_model_list = modelsinfo.get_model_names('checkpoints', modules.flags.model_file_filter['Fooocus'], reverse=True)
-    elif task_method == 'flux_base2_gguf':
-        base_model_list = [f for f in base_model_list if ("hyp8" in f or "hyp16" in f or "hyperflux" in f) and f.endswith("gguf")]
+    elif task_method == 'flux_base2_gguf':    # adjusted the GGUF filter to include "flux", not just "hyperflux"
+        base_model_list = [f for f in base_model_list if ("hyp8" in f or "hyp16" in f or "flux" in f) and f.endswith("gguf")]
     return base_model_list
 
 def update_files(engine='Fooocus', task_method=None):
