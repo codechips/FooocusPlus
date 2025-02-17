@@ -1,5 +1,7 @@
 # 0.9.7 Dev
 
+* this release restores all mainline Fooocus functions
+  including prompt and wildcard operation
 * enabled automatic updating from the development (dev) branch
 * removed offensive language from the One Button Prompt texts
 * fully integrated the upscale or vary (UOV) sliders into normal operation
