@@ -8,7 +8,7 @@
             "task_method": "flux_base2_gguf"
             }
     	},
-    "default_model": "Flux\\flux1-schnell-Q8_0.gguf",
+    "default_model": "Flux\\flux1-dev-Q8_0.gguf",
     "default_refiner": "None",
     "default_refiner_switch": 0.6,
     "default_loras": [
@@ -49,7 +49,7 @@
     "default_aspect_ratio": "1024*1024",
     "default_overwrite_step": 4,
     "checkpoint_downloads": {
-        "Flux\\flux1-schnell-Q8_0.gguf": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf?download=true"
+        "Flux\\flux1-dev-Q8_0.gguf": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {},
