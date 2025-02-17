@@ -145,8 +145,6 @@ def test_splash(width, height):
 def test_desktop_splash():
     test_splash(1344, 752)
 
-from enhanced import splashimage
-
 def test_welcome_image(is_mobile=False):
     # define the size
     width = 1152
