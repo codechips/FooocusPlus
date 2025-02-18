@@ -332,9 +332,7 @@ class Performance(Enum):
 
     @classmethod
     def list(cls) -> list:
-        item = list(map(lambda c: c.value, cls))
-        item.remove('Extreme Speed')
-        return item
+        return list(map(lambda c: (c.name, c.value), cls))
 
     @classmethod
     def values(cls) -> list:
@@ -349,7 +347,6 @@ class Performance(Enum):
         if isinstance(x, Performance):
             x = x.value
         return x in [cls.EXTREME_SPEED.value, cls.LIGHTNING.value, cls.HYPER_SD.value]
-        #return x in [cls.LIGHTNING.value, cls.HYPER_SD.value]
 
     def steps(self) -> int | None:
         return Steps[self.name].value if self.name in Steps.__members__ else None
