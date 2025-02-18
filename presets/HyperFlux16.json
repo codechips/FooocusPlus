@@ -1,5 +1,5 @@
 { 
-    "preset category": "HyperFlux",
+    "preset category": "Flux",
     "default_engine": {
 	"backend_engine": "Flux",
 	"disvisible": ["backend_selection", "performance_selection", "negative_prompt"],
