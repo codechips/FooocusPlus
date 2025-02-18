@@ -24,7 +24,7 @@
 * the control images (skip.jpg and skip.png) are stored in enhanced\control_images
 
 
-# 0.9.6
+# 0.9.6 Beta2
 
 * introduced support for 4GB SDXL compatible models
 * system defaults to a 4GB version of SAI SDXL if VRAM<6GB
@@ -35,6 +35,7 @@
 * "Read Wildcards in Order" has been restored
 * whatever JPGs are stored in enhanced/attached/ will be randomly displayed as welcome images
 * removed all __pycache__ and .pyc files from the FooocusPlus repository
+* in Beta2, updated the presets and Flux file selector to better support Flux models
 
 
 # 0.9.5
