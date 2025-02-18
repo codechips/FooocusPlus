@@ -64,7 +64,7 @@ def get_default_base_SD3m_name():
             return sd3name
     return default_base_SD3m_name_list[0]
 
-default_base_Flux_name_list = ['flux1-schnell-bnb-nf4.safetensors', flux1-dev-bnb-nf4.safetensors', 'flux-hyp8-Q5_K_M.gguf']
+default_base_Flux_name_list = ['flux1-schnell-bnb-nf4.safetensors', 'flux1-dev-bnb-nf4.safetensors', 'flux-hyp8-Q5_K_M.gguf']
 flux_model_urls = {
     "flux1-schnell-bnb-nf4.safetensors": "https://huggingface.co/silveroxides/flux1-nf4-weights/resolve/main/flux1-schnell-bnb-nf4.safetensors?download=true",    
     "flux1-dev-bnb-nf4-v2.safetensors": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors?download=true",
