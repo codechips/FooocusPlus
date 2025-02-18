@@ -45,7 +45,6 @@
     "default_overwrite_step": -1,
     "default_inpaint_engine_version": "None",
     "checkpoint_downloads": {
-        "Pony\\ponyFaetality_v11.safetensors": "https://civitai.com/api/download/models/464939?type=Model&format=SafeTensor&size=full&fp=fp16"
     },
     "embeddings_downloads": {},
     "lora_downloads": {},
