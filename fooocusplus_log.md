@@ -4,6 +4,7 @@
   including prompt and wildcard operation
 * enabled automatic updating from the development (dev) branch
 * removed offensive language from the One Button Prompt texts
+* the SuperPrompter is now functional
 * fully integrated the upscale or vary (UOV) sliders into normal operation
 * the Vary (Subtle) and Vary (Strong) radio buttons no longer exist,
   instead their values are indicated in the info. text below the vary slider
