@@ -254,11 +254,7 @@ def get_previewer(model):
             x_sample = x0.to(VAE_approx_model.current_type)
             x_sample = VAE_approx_model(x_sample) * 127.5 + 127.5
             x_sample = einops.rearrange(x_sample, 'b c h w -> b h w c')[0]
-            try:
-                x_sample = x_sample.cpu().numpy().clip(0, 255).astype(np.uint8)
-            except:
-                pass
-            print(f'x_sample: {x_sample}')
+            x_sample = x_sample.cpu().numpy().clip(0, 255).astype(np.uint8)
             return x_sample
     return preview_function
 
