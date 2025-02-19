@@ -27,7 +27,7 @@ from modules.model_loader import load_file_from_url
 # hard-coded limit to topbar preset display
 # the value inherited from SimpeSDXL2 was 14
 # use preset dropdown for no limits
-topbar_limit = 25
+topbar_limit = 30
 
 css = '''
 '''
