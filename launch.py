@@ -153,7 +153,7 @@ def download_models(default_model, previous_default_models, checkpoint_downloads
     return default_model, checkpoint_downloads
 
 launch_vram = int(ldm_patched.modules.model_management.get_vram())
-if launch_vram<6000:
+if launch_vram<4000:  # some folks actually can run Flux with 4GB VRAM cards, so don't lock them out
     print()
     if args.language == 'cn':
         print(f'系统GPU显存容量太小，无法正常运行Flux, SD3, Kolors和HyDiT等最新模型，将自动禁用Comfyd引擎。请知晓，尽早升级硬件。')
