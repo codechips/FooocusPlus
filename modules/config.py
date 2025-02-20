@@ -112,7 +112,6 @@ def get_presets():
     if not os.path.exists(preset_folder):
         print('No presets found.')
         return presets
-
     return presets + [f[:f.index(".json")] for f in os.listdir(preset_folder) if f.endswith('.json')]
 
 def update_presets():
@@ -137,10 +136,10 @@ def try_get_preset_content(preset):
 
 available_presets = get_presets()
 preset = args_manager.args.preset
-#if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
-#and (os.path.exists('./presets/LowVRAMdefault.json')):
-#    preset='LowVRAMdefault'
-#    print('Loading the "LowVRAMdefault" preset, the default for low VRAM systems')
+if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
+and (os.path.exists('./presets/LowVRAMdef.json')):
+    preset='LowVRAMdef'
+    print('Loading the "LowVRAMdef" preset, the default for low VRAM systems')
 config_dict.update(try_get_preset_content(preset))
 theme = args_manager.args.theme
 
@@ -1212,7 +1211,7 @@ def downloading_sd35_large_model():
 
 def downloading_base_sd15_model():
     load_file_from_url(
-        url='https://huggingface.co/metercai/SimpleSDXL2/resolve/main/ckpt/realisticVisionV60B1_v51VAE.safetensors',
+        url='https://huggingface.co/moiu2998/mymo/resolve/3c3093fa083909be34a10714c93874ce5c9dabc4/realisticVisionV60B1_v51VAE.safetensors?download=true',
         model_dir=paths_checkpoints[0] + '\SD1.5',
         file_name='realisticVisionV60B1_v51VAE.safetensors'
     )
