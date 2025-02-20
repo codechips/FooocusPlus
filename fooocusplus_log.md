@@ -6,6 +6,7 @@
 * if VRAM<6GB the UI now defaults to the VegaRT model
 * console warnings of unreliability occur if VRAM<6GB
 * if VRAM<4GB then the use of large models is locked out
+* added error control for file downloads
 * removed offensive language from the One Button Prompt texts
 * the SuperPrompter is now functional
 * fully integrated the upscale or vary (UOV) sliders into normal operation
