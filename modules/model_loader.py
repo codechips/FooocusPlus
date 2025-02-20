@@ -11,11 +11,11 @@ def load_file_from_url(
         file_name: Optional[str] = None,
 ) -> str:
     """Download a file from `url` into `model_dir`, using the file present if possible.
-
     Returns the path to the downloaded file.
+    The references to huggingface caused more harm than good and have been removed.
     """
-    domain = os.environ.get("HF_MIRROR", "https://huggingface.co").rstrip('/')
-    url = str.replace(url, "https://huggingface.co", domain, 1)
+    # domain = os.environ.get("HF_MIRROR", "https://huggingface.co").rstrip('/')
+    # url = str.replace(url, "https://huggingface.co", domain, 1)
     os.makedirs(model_dir, exist_ok=True)
     if not file_name:
         parts = urlparse(url)
@@ -24,5 +24,10 @@ def load_file_from_url(
     if not os.path.exists(cached_file):
         print(f'Downloading: "{url}" to {cached_file}\n')
         from torch.hub import download_url_to_file
-        download_url_to_file(url, cached_file, progress=progress)
+        try: 
+                download_url_to_file(url, cached_file, progress=progress)
+        except:
+                print(f'Could not download {cached_file} from the {url}')
+                print('It may need to be downloaded manually')
+                print()
     return cached_file
