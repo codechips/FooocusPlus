@@ -2,7 +2,7 @@
     "preset category": "LowVRAM",
     "default_model": "LowVRAM\\segmind-vega.safetensors",
     "default_refiner": "None",
-    "default_refiner_switch": 0.75,
+    "default_refiner_switch": 0.6,
     "default_loras": [
         [
             true,
