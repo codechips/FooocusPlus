@@ -5,6 +5,7 @@ import numbers
 import args_manager
 import tempfile
 import ldm_patched
+from ldm_patched.modules import model_management
 import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
@@ -136,7 +137,7 @@ def try_get_preset_content(preset):
 
 available_presets = get_presets()
 preset = args_manager.args.preset
-if (preset=='initial' or preset=='default') and (int(ldm_patched.modules.model_management.get_vram())<6000)\
+if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
 and (os.path.exists('./presets/LowVRAMdefault.json')):
     preset='LowVRAMdefault'
     print('Loading the "LowVRAMdefault" preset, the default for low VRAM systems')
