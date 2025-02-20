@@ -1,6 +1,6 @@
 {
     "preset category": "LowVRAM",
-    "default_model": "segmind-vega.safetensors",
+    "default_model": "LowVRAM\\segmind-vega.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.75,
     "default_loras": [
@@ -44,7 +44,7 @@
     "default_aspect_ratio": "1024*1024",
     "default_overwrite_step": 4,
     "checkpoint_downloads": {
-        "segmind-vega.safetensors": "https://huggingface.co/segmind/Segmind-Vega/resolve/main/segmind-vega.safetensors?download=true"
+        "LowVRAM\\segmind-vega.safetensors": "https://huggingface.co/segmind/Segmind-Vega/resolve/main/segmind-vega.safetensors?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {"pytorch_lora_weights_vega.safetensors": "https://huggingface.co/segmind/Segmind-VegaRT/resolve/main/pytorch_lora_weights.safetensors?download=true"}
