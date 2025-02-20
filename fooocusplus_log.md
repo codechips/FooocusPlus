@@ -3,6 +3,9 @@
 * this release restores all mainline Fooocus functions
   including prompt and wildcard operation
 * enabled automatic updating from the development (dev) branch
+* if VRAM<6GB the UI now defaults to the VegaRT model
+* console warnings of unreliability occur if VRAM<6GB
+* if VRAM<4GB then the use of large models is locked out
 * removed offensive language from the One Button Prompt texts
 * the SuperPrompter is now functional
 * fully integrated the upscale or vary (UOV) sliders into normal operation
