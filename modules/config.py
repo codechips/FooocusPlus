@@ -137,10 +137,10 @@ def try_get_preset_content(preset):
 
 available_presets = get_presets()
 preset = args_manager.args.preset
-if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
-and (os.path.exists('./presets/LowVRAMdefault.json')):
-    preset='LowVRAMdefault'
-    print('Loading the "LowVRAMdefault" preset, the default for low VRAM systems')
+#if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
+#and (os.path.exists('./presets/LowVRAMdefault.json')):
+#    preset='LowVRAMdefault'
+#    print('Loading the "LowVRAMdefault" preset, the default for low VRAM systems')
 config_dict.update(try_get_preset_content(preset))
 theme = args_manager.args.theme
 
