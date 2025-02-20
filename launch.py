@@ -161,7 +161,8 @@ if launch_vram<4000:  # some folks actually can run Flux with 4GB VRAM cards, so
         print(f'The video card has about',(launch_vram),'MB of memory (VRAM)')
         print('and will not be able to run large models such as Flux, SD3, Kolors and HyDiT')
         print('but FooocusPlus will give you access to models that are optimized')
-        print('for Low VRAM systems.')
+        print('for Low VRAM systems. However, any system with less than 6GB of VRAM will tend')
+        print('to be slow and unreliable, and may or may not be able to generate images.')
     print()
     args.async_cuda_allocation = False
     args.disable_async_cuda_allocation = True
