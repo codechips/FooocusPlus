@@ -136,10 +136,10 @@ def try_get_preset_content(preset):
 
 available_presets = get_presets()
 preset = args_manager.args.preset
-if preset=='initial' and (int(ldm_patched.modules.model_management.get_vram())<6000)\
-and (os.path.exists('./presets/4GB_Default.json')):
-    preset='4GB_Default'
-    print('Loading the "4GB_Default" preset, the default for low VRAM systems')
+if (preset=='initial' or preset=='default') and (int(ldm_patched.modules.model_management.get_vram())<6000)\
+and (os.path.exists('./presets/LowVRAMdefault.json')):
+    preset='LowVRAMdefault'
+    print('Loading the "LowVRAMdefault" preset, the default for low VRAM systems')
 config_dict.update(try_get_preset_content(preset))
 theme = args_manager.args.theme
 
@@ -386,7 +386,7 @@ default_refiner_model_name = default_refiner = get_config_item_or_set_default(
 
 default_refiner_switch = get_config_item_or_set_default(
     key='default_refiner_switch',
-    default_value=0.8,
+    default_value=0.60,
     validator=lambda x: isinstance(x, numbers.Number) and 0 <= x <= 1,
     expected_type=numbers.Number
 )
