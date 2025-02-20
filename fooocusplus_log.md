@@ -14,7 +14,7 @@
 * upscale and vary descriptions are now more friendly and helpful  
 * set the widths for the Random Prompt and Generate columns to 75 pixels
 * except for Describe and Meta, the Input Image tabs are restored to the Fooocus standard
-* the number of pages in the image catalogue now defaults to 100 instead of 65
+* the number of pages in the image catalogue now defaults to a maximum of 100 instead of 65
 * system message updates now only report on FooocusPlus changes
 * the Brush Colour selector is integrated into the Inpainting pane
 * Inpainting descriptions are now more friendly and helpful
