@@ -159,7 +159,7 @@ if launch_vram<6:
     print('will give you access to models that are optimized for Low VRAM systems.')
     print('However, any system with less than 6GB of VRAM will tend to be slow')
     print('and unreliable, and may or may not be able to generate Flux images.')
-    print('Some 4GB VRAM cards may even have difficulty generating SDXL images.')
+    print('Some 4GB VRAM cards may even be unable to generate SDXL images.')
     
     if launch_vram<4: # some folks actually can run Flux with 4GB VRAM cards, so only lock out those with less than that
         print()
