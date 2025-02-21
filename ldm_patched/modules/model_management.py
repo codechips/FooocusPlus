@@ -248,7 +248,6 @@ ALWAYS_VRAM_OFFLOAD = args.always_offload_from_vram
 
 if ALWAYS_VRAM_OFFLOAD:
     print("Always offload VRAM")
-    print('THIS IS IT!')
 
 def get_torch_device_name(device):
     if hasattr(device, 'type'):
