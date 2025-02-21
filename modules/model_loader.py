@@ -11,8 +11,8 @@ def load_file_from_url(
         file_name: Optional[str] = None,
 ) -> str:
     # this line traps LowVRAMdef when used as the default preset
-    print(f'model_dir: {model_dir}')
-    if model_dir.find('\\LowVRAM\\LowVRAM\\') != -1:
+    print(f'url: {url}')
+    if url.find('segmind-vega.safetensors') != -1:
             return ''
     """Download a file from `url` into `model_dir`, using the file present if possible.
     Returns the path to the downloaded file.
