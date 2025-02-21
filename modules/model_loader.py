@@ -12,7 +12,7 @@ def load_file_from_url(
 ) -> str:
     # this line traps LowVRAMdef when used as the default preset
     print(f'URL: {url}')
-    if url.find('\LowVRAM\LowVRAM\') != -1:
+    if url.find('\\LowVRAM\\LowVRAM\\') != -1:
             return ''
     """Download a file from `url` into `model_dir`, using the file present if possible.
     Returns the path to the downloaded file.
