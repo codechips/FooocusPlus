@@ -66,7 +66,10 @@ args_parser.parser.set_defaults(
 args_parser.args = args_parser.parser.parse_args()
 
 # (Disable by default because of issues like https://github.com/lllyasviel/Fooocus/issues/724)
-args_parser.args.always_offload_from_vram = not args_parser.args.disable_offload_from_vram
+# This "solution" was introduced in mainline Fooocus 2.1.699
+# I do not know why the always_offload_from_vram argument was not considered sufficient
+# Let's try it without this secret override - David Sage
+# args_parser.args.always_offload_from_vram = not args_parser.args.disable_offload_from_vram
 
 if args_parser.args.disable_in_browser:
     args_parser.args.in_browser = False
