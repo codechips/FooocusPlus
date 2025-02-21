@@ -130,8 +130,8 @@ total_ram = get_sysram()
 print("Total VRAM {:0.0f} MB, total RAM {:0.0f} MB".format(total_vram, total_ram))
 if not args.always_normal_vram and not args.always_cpu:
     if lowvram_available and total_vram <= 4096:
-        print('Trying to enable lowvram mode because your GPU seems to have 4GB or less.')
-        print('If you don't want this use: --always-normal-vram')
+        print("Trying to enable lowvram mode because your GPU seems to have 4GB or less.")
+        print("If you don't want this use: --always-normal-vram")
         set_vram_to = VRAMState.LOW_VRAM
 
 try:
