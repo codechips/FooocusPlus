@@ -152,16 +152,16 @@ def download_models(default_model, previous_default_models, checkpoint_downloads
 
     return default_model, checkpoint_downloads
 
-launch_vram = int(ldm_patched.modules.model_management.get_vram())
-if launch_vram<6000:
+launch_vram = int(ldm_patched.modules.model_management.get_vram()/1000)
+if launch_vram<6:
     print()
-    print(f'The video card has about',(launch_vram),'MB of memory (VRAM)')
-    print('but FooocusPlus will give you access to models that are optimized')
-    print('for Low VRAM systems. However, any system with less than 6GB of VRAM will tend')
-    print('to be slow and unreliable, and may or may not be able to generate Flux images.')
+    print(f'The video card has only {launch_vram}GB of memory (VRAM) but FooocusPlus')
+    print('will give you access to models that are optimized for Low VRAM systems.')
+    print('However, any system with less than 6GB of VRAM will tend to be slow')
+    print('and unreliable, and may or may not be able to generate Flux images.')
     print('Some 4GB VRAM cards may even have difficulty generating SDXL images.')
     
-    if launch_vram<4000:  # some folks actually can run Flux with 4GB VRAM cards, so only lock out those with less than that
+    if launch_vram<4: # some folks actually can run Flux with 4GB VRAM cards, so only lock out those with less than that
         print()
         if args.language == 'cn':
             print(f'系统GPU显存容量太小，无法正常运行Flux, SD3, Kolors和HyDiT等最新模型，将自动禁用Comfyd引擎。请知晓，尽早升级硬件。')
