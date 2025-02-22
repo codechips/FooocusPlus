@@ -1073,9 +1073,6 @@ with common.GRADIO_ROOT:
                 with gr.Row():
                     try:
                         video_sys = get_torch_device_name(get_torch_device())
-                        print()
-                        print(f'{video_sys}')
-                        print()                        
                         #common.torch_device = "{}".format(get_torch_device())
                     except:
                         video_sys = 'Unknown (could not determine the video system)'
@@ -1083,7 +1080,7 @@ with common.GRADIO_ROOT:
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
                     Video RAM: {int(ldm_patched.modules.model_management.get_vram())} MB<br>\
-                    Video System: {video_sys}<br>\
+#                    Video System: {video_sys}<br>\
                     Smart Memory: {smartmem}<br><br>\                    
                     Python {platform.python_version()}, Library: <br>\
                     Comfy {comfy.comfy_version.version}<br>\
