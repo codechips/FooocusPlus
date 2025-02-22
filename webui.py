@@ -19,7 +19,6 @@ import modules.meta_parser
 import args_manager
 import copy
 import ldm_patched
-from ldm_patched.modules.model_management import get_torch_device_name
 from extras.inpaint_mask import SAMOptions
 
 from PIL import Image
@@ -1072,7 +1071,7 @@ with common.GRADIO_ROOT:
                     super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
                     try:
-                        video_system = get_torch_device_name(get_torch_device())
+                        video_system = ldm_patched.modules.model_management.get_torch_device_name(get_torch_device())
                     except:
                         video_system = 'Unknown (could not determine the video system)'
                     if args_manager.args.always_offload_from_vram:
