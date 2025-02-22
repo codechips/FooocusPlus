@@ -245,7 +245,7 @@ if cpu_state == CPUState.MPS:
 print(f"Set VRAM state to: {vram_state.name}")
 
 ALWAYS_VRAM_OFFLOAD = False
-if disable_offload_from_vram:
+if args.disable_offload_from_vram:
     print("Never offload VRAM")
 elif args.always_offload_from_vram or (get_vram() < 12000):
     ALWAYS_VRAM_OFFLOAD = True
