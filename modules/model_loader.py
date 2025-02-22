@@ -14,10 +14,10 @@ def load_file_from_url(
     if url.find('segmind-vega.safetensors') != -1: return ''
     """Download a file from `url` into `model_dir`, using the file present if possible.
     Returns the path to the downloaded file.
-    The references to huggingface caused more harm than good and have been removed.
+    The HF_MIRROR processing at Lines 19 & 20 may be causing more harm than good
     """
-    # domain = os.environ.get("HF_MIRROR", "https://huggingface.co").rstrip('/')
-    # url = str.replace(url, "https://huggingface.co", domain, 1)
+    domain = os.environ.get("HF_MIRROR", "https://huggingface.co").rstrip('/')
+    url = str.replace(url, "https://huggingface.co", domain, 1)
     os.makedirs(model_dir, exist_ok=True)
     if not file_name:
         parts = urlparse(url)
