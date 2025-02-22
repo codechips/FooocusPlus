@@ -246,14 +246,20 @@ print(f"Set VRAM state to: {vram_state.name}")
 
 ALWAYS_VRAM_OFFLOAD = False
 if args.disable_offload_from_vram:
+    args.always_offload_from_vram = False
     print("Never offload VRAM")
 elif args.always_offload_from_vram or (get_vram() < 12000):
     ALWAYS_VRAM_OFFLOAD = True
     if args.always_offload_from_vram:
         print("Always offload VRAM")
     else:
+        args.always_offload_from_vram = True
         print("Unloading VRAM because the system has less than 12GB")
         print("Use the --disable-offload-from-vram argument to prevent this")
+        # args.always_offload_from_vram sets Comfy --disable-smart-memory
+        # in simpleai_base.comfyd.py at Line 144
+else:
+    print("VRAM will only be unloaded when necessary")
 
 def get_torch_device_name(device):
     if hasattr(device, 'type'):
