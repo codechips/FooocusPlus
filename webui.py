@@ -1070,10 +1070,10 @@ with common.GRADIO_ROOT:
                     #super_prompter = gr.Button(value="<<SuperPrompt", size="sm", min_width = 70)
                     super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
-                    try:
-                        video_system = ldm_patched.modules.model_management.get_torch_device_name(get_torch_device())
-                    except:
-                        video_system = 'Unknown (could not determine the video system)'
+#                    try:
+                    video_system = ldm_patched.modules.model_management.get_torch_device_name(get_torch_device())
+ #                   except:
+ #                       video_system = 'Unknown (could not determine the video system)'
                     if args_manager.args.always_offload_from_vram:
                         smart_memory = "Disabled"
                     else:
