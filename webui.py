@@ -1072,22 +1072,22 @@ with common.GRADIO_ROOT:
                     super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
                     try:
-                        video_sys = get_torch_device_name(get_torch_device())
+                        video_system = get_torch_device_name(get_torch_device())
                     except:
-                        video_sys = 'Unknown (could not determine the video system)'
+                        video_system = 'Unknown (could not determine the video system)'
                     if args_manager.args.always_offload_from_vram:
-                        smartmem = "Disabled"
+                        smart_memory = "Disabled"
                     else:
-                        smartmem = "Enabled"
+                        smart_memory = "Enabled"
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
                     Video RAM: {int(ldm_patched.modules.model_management.get_vram())} MB<br>\
-                    Smart Memory: {smartmem}<br><br>\                    
+                    Smart Memory: {smart_memory}<br><br>\
                     Python {platform.python_version()}, Library: <br>\
                     Comfy {comfy.comfy_version.version}<br>\
                     Fooocus {fooocus_version.version}, SimpleSDXL2 {version.get_simplesdxl_ver()}<br>\
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
-#                    Video System: {video_sys}<br>\
+#                    Video System: {video_system}<br>\
             iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=flags.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
             layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
             def toggle_image_tab(tab, styles):
