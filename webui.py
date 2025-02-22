@@ -1076,7 +1076,7 @@ with common.GRADIO_ROOT:
                         #common.torch_device = "{}".format(get_torch_device())
                     except:
                         video_sys = 'Unknown (could not determine the video system)'
-                    if args_manager.args.always_offload_from_vram smartmem = 'Disabled' else smartmem = 'Enabled'                        
+                    if args_manager.args.always_offload_from_vram: smartmem = 'Disabled' else: smartmem = 'Enabled'                        
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
                     Video RAM: {int(ldm_patched.modules.model_management.get_vram())} MB<br>\
