@@ -281,7 +281,7 @@ try:
     import common
     common.torch_device = "{}".format(get_torch_device())
 except:
-    print("Could not pick default device.")
+    print("Could not determine the default device.")
 
 print("VAE dtype:", VAE_DTYPE)
 
