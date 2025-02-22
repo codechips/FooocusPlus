@@ -91,7 +91,7 @@ def stop():
     if comfyd_active:
         free(all=True)
         gc.collect()
-        print("[Comfyd] Comfyd freeing!")
+        print("[Comfyd] Releasing Comfyd!")
         return
     if is_running():
         comfyd_process.terminate()
@@ -100,7 +100,7 @@ def stop():
     comfyclient_pipeline.ws = None
     free()
     gc.collect()
-    print("[Comfyd] Comfyd stopped!")
+    print("[Comfyd] Comfyd has stopped!")
 
 def free(all=False):
     global comfyd_process
@@ -143,7 +143,7 @@ def args_mapping(args_fooocus):
     if "--always-offload-from-vram" in args_fooocus:
         args_comfy += [["--disable-smart-memory"]]
         print("\nSmart memory disabled")
-    else
+    else:
         print("\nSmart memory enabled")
     if not utils.echo_off:
         print(f'[Comfyd] args_fooocus: {args_fooocus}\nargs_comfy: {args_comfy}')
