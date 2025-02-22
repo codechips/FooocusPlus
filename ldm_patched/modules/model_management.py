@@ -119,10 +119,10 @@ def get_total_memory(dev=None, torch_total_too=False):
     else:
         return mem_total
 
-def get_vram():
+def get_vram():   # returns VRAM in MB
     return get_total_memory(get_torch_device()) / (1024 * 1024)
 
-def get_sysram():
+def get_sysram(): # returns RAM in MB
     return psutil.virtual_memory().total / (1024 * 1024)
 
 total_vram = get_vram()
@@ -242,12 +242,18 @@ if cpu_state != CPUState.GPU:
 if cpu_state == CPUState.MPS:
     vram_state = VRAMState.SHARED
 
-print(f"Set vram state to: {vram_state.name}")
+print(f"Set VRAM state to: {vram_state.name}")
 
-ALWAYS_VRAM_OFFLOAD = args.always_offload_from_vram
-
-if ALWAYS_VRAM_OFFLOAD:
-    print("Always offload VRAM")
+ALWAYS_VRAM_OFFLOAD = False
+if disable_offload_from_vram:
+    print("Never offload VRAM")
+elif args.always_offload_from_vram or (get_vram() < 12000):
+    ALWAYS_VRAM_OFFLOAD = True
+    if args.always_offload_from_vram:
+        print("Always offload VRAM")
+    else:
+        print("Unloading VRAM because the system has less than 12GB")
+        print("Use the --disable-offload-from-vram argument to prevent this")
 
 def get_torch_device_name(device):
     if hasattr(device, 'type'):
