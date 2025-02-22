@@ -1076,17 +1076,16 @@ with common.GRADIO_ROOT:
                         #common.torch_device = "{}".format(get_torch_device())
                     except:
                         video_sys = 'Unknown (could not determine the video system)'
-                    if args_manager.args.always_offload_from_vram: smartmem = 'Disabled' else: smartmem = 'Enabled'                        
+                    if args_manager.args.always_offload_from_vram: smartmem = "Disabled" else: smartmem = "Enabled"
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
                     Video RAM: {int(ldm_patched.modules.model_management.get_vram())} MB<br>\
-#                    Video System: {video_sys}<br>\
                     Smart Memory: {smartmem}<br><br>\                    
                     Python {platform.python_version()}, Library: <br>\
                     Comfy {comfy.comfy_version.version}<br>\
                     Fooocus {fooocus_version.version}, SimpleSDXL2 {version.get_simplesdxl_ver()}<br>\
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
-
+#                    Video System: {video_sys}<br>\
             iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=flags.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
             layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
             def toggle_image_tab(tab, styles):
