@@ -19,6 +19,7 @@ import modules.meta_parser
 import args_manager
 import copy
 import ldm_patched
+from ldm_patched.modules.model_management import get_torch_device_name
 from extras.inpaint_mask import SAMOptions
 
 from PIL import Image
@@ -1070,10 +1071,19 @@ with common.GRADIO_ROOT:
                     #super_prompter = gr.Button(value="<<SuperPrompt", size="sm", min_width = 70)
                     super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
+                    try:
+                        video_sys = 'Device:, get_torch_device_name(get_torch_device())'
+                        #common.torch_device = "{}".format(get_torch_device())
+                    except:
+                        video_sys = 'Could not determine the video system.'
+                    if args_manager.args.always_offload_from_vram smartmem = "Disabled" else smartmem = "Enabled"                        
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
                     Video RAM: {int(ldm_patched.modules.model_management.get_vram())} MB<br>\
-                    Python {platform.python_version()}, Comfy {comfy.comfy_version.version}<br>\
+                    Video System: {video_sys}<br>\
+                    Smart Memory: {smartmem}<br><br>\                    
+                    Python {platform.python_version()}, Library: <br>\
+                    Comfy {comfy.comfy_version.version}<br>\
                     Fooocus {fooocus_version.version}, SimpleSDXL2 {version.get_simplesdxl_ver()}<br>\
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
