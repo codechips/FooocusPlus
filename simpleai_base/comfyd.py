@@ -140,11 +140,12 @@ def args_mapping(args_fooocus):
         args_comfy += [["--lowvram"]]
     if "--always-gpu" in args_fooocus:
         args_comfy += [["--gpu-only"]]
+    print()
     if "--always-offload-from-vram" in args_fooocus:
         args_comfy += [["--disable-smart-memory"]]
-        print("\nSmart memory disabled")
+        print("Smart memory disabled")
     else:
-        print("\nSmart memory enabled")
+        print("Smart memory enabled")
     if not utils.echo_off:
         print(f'[Comfyd] args_fooocus: {args_fooocus}\nargs_comfy: {args_comfy}')
     return args_comfy
