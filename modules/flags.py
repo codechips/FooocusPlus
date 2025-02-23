@@ -108,8 +108,8 @@ COMFY_KSAMPLER_NAMES = ["euler", "euler_cfg_pp", "euler_ancestral", "euler_ances
 comfy_scheduler_list = COMFY_SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform", "beta"]
 comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
-aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
-default_aspect_ratio = ['1024*1024', '1024*1024', '1024*1024', '1024*1024']
+aspect_ratios_templates = ['SDXL', 'SD1.5', 'Common', 'Flux']
+default_aspect_ratio = ['1024*1024', '768*768', '1024*1024', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
     '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
@@ -119,8 +119,8 @@ available_aspect_ratios = [
     '1344*704', '1408*704', '1472*704', '1536*640', '1600*640',
     '1664*576', '1728*576', '2048*512'],
 
-    ['768*1280', '960*1280', '1024*1024',
-    '1280*768', '1280*960', '1280*1280',],
+    ['384x640', '384x576', '384*512', '512*512', '768*768', '512*384', '576*384',
+    '640*384'],
     
     ['576*1344', '768*1152', '896*1152', '768*1280', '960*1280',
     '1024*1024', '1024*1280', '1280*1280', '1280*1024',
