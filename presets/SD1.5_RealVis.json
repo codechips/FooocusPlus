@@ -2,9 +2,9 @@
 "preset category": "SD1.5",
 "default_engine":	{
 	"backend_engine":"Comfy",
-	"disvisible": ["backend_selection","performance_selection"],
-	"disinteractive" ["input_image_checkbox", enhance_checkbox", "performance_selection", "loras", "refiner_model"],
-	"backend_params": {"task_method": "SD_SIMPLE"	}
+	"disvisible": ["backend_selection", "performance_selection"],
+	"disinteractive" ["input_image_checkbox", "enhance_checkbox", "performance_selection", "refiner_model"],
+	"backend_params": {"task_method": "SD_SIMPLE"}
 		},
 "default_model": "SD1.5\\realisticVisionV60B1_v51VAE.safetensors",
 "default_refiner": "None",
@@ -38,16 +38,15 @@
     ],
 "default_cfg_scale": 6.0,
 "default_sample_sharpness": 2.0,
-"default_sampler":"dpmpp_2m_sde_gpu",
-"default_scheduler":"karras",
-"default_performance":"Speed",
-"default_prompt_negative":"",
+"default_sampler": "dpmpp_2m_sde_gpu",
+"default_scheduler": "karras",
+"default_performance": "Speed",
+"default_prompt_negative": "",
 "default_styles": [
 	"Fooocus V2",
 	"Fooocus Enhance"
 ],
 "default_aspect_ratio": "768*768",
-"default_overwrite_step": 30,
 "checkpoint_downloads": {"SD1.5\\realisticVisionV60B1_v51VAE.safetensors": "https://civitai.com/api/download/models/245598?type=Model&format=SafeTensor&size=pruned&fp=fp16"},
 "embeddings_downloads": {},
 "lora_downloads": {}
