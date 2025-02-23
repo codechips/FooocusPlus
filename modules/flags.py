@@ -178,6 +178,7 @@ task_class_mapping = {
             'HyDiT'  : 'Hunyuan-DiT',
             'HyDiT+' : 'Hunyuan-DiT+',
             'Flux'   : 'Flux.1',
+            'SD1.5'  : 'SD1.5',
             }
 def get_taskclass_by_fullname(fullname):
     for taskclass, fname in task_class_mapping.items():
@@ -185,7 +186,7 @@ def get_taskclass_by_fullname(fullname):
             return taskclass
     return None
 
-comfy_classes = ['Comfy', 'Kolors', 'Kolors+', 'SD3x', 'HyDiT+', 'Flux']
+comfy_classes = ['Comfy', 'Kolors', 'Kolors+', 'SD3x', 'HyDiT+', 'Flux', 'SD1.5']
 
 default_class_params = {
     'Fooocus': {
@@ -267,6 +268,14 @@ default_class_params = {
             "base_model_dtype": "auto",
             },
         },
+    'SD1.5': {
+        'disvisible': ["backend_selection", "performance_selection"],
+        'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "loras", "refiner_model"],
+        'available_aspect_ratios_selection': 'SD1.5',
+        'available_sampler_name': sampler_list,
+        'available_scheduler_name': scheduler_list,
+        "backend_params": {"task_method": "SD_SIMPLE"}
+        },    
     }
 
 get_engine_default_params = lambda x: default_class_params['Fooocus'] if x not in default_class_params else default_class_params[x]
