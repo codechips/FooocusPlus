@@ -270,7 +270,7 @@ default_class_params = {
     'SD1': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "loras", "refiner_model"],
-        'available_aspect_ratios_selection': 'SD1',
+        'available_aspect_ratios_selection': 'Common',
         'available_sampler_name': sampler_list,
         'available_scheduler_name': scheduler_list,
         "backend_params": {"task_method": "SD_SIMPLE"}
