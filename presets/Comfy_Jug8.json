@@ -1,12 +1,12 @@
 {
-"preset category": "SD1.5",
+"preset category": "Alternative",
 "default_engine":	{
 	"backend_engine":"Comfy",
-	"disvisible": ["backend_selection", "performance_selection"],
-	"disinteractive": ["input_image_checkbox", "enhance_checkbox", "performance_selection", "refiner_model"],
+	"disvisible": ["backend_selection"],
+	"disinteractive": ["input_image_checkbox", "enhance_checkbox", "refiner_model"],
 	"backend_params": {"task_method": "SD_SIMPLE"}
 		},
-"default_model": "SD1.5\\realisticVisionV60B1_v51VAE.safetensors",
+"default_model": "juggernautXL_v8Rundiffusion.safetensors",
 "default_refiner": "None",
 "default_refiner_switch": 0.6,
     "default_loras": [
@@ -46,8 +46,8 @@
 	"Fooocus V2",
 	"Fooocus Enhance"
 ],
-"default_aspect_ratio": "768*768",
-"checkpoint_downloads": {"SD1.5\\realisticVisionV60B1_v51VAE.safetensors": "https://civitai.com/api/download/models/245598?type=Model&format=SafeTensor&size=pruned&fp=fp16"},
+"default_aspect_ratio": "1024*1024",
+"checkpoint_downloads": {"juggernautXL_v8Rundiffusion.safetensors": "https://huggingface.co/lllyasviel/fav_models/resolve/main/fav/juggernautXL_v8Rundiffusion.safetensors?download=true"},
 "embeddings_downloads": {},
 "lora_downloads": {}
 }
