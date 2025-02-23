@@ -1,11 +1,12 @@
 {
 "preset category": "SD1.5",
-"default_engine":	{
+"default_engine": {
 	"backend_engine":"Comfy",
 	"disvisible": ["backend_selection", "performance_selection"],
 	"disinteractive": ["input_image_checkbox", "enhance_checkbox", "performance_selection", "loras", "refiner_model"],
+	"available_aspect_ratios_selection": "SD1.5",
 	"backend_params": {"task_method": "SD_SIMPLE"}
-		},
+		  },
 "default_model": "SD1.5\\realisticVisionV60B1_v51VAE.safetensors",
 "default_refiner": "None",
 "default_refiner_switch": 0.6,
