@@ -1071,9 +1071,9 @@ with common.GRADIO_ROOT:
                     super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
                 with gr.Row():
                     if args_manager.args.always_offload_from_vram:
-                        smart_memory = "Disabled"
+                        smart_memory = "Disabled (VRAM unloaded whenever possible")"
                     else:
-                        smart_memory = "Enabled"                    
+                        smart_memory = "Enabled (VRAM unloaded only when necessary")
                     video_system = ldm_patched.modules.model_management.get_torch_device_name\
                         (ldm_patched.modules.model_management.get_torch_device())
                     gr.Markdown(value=f'<h3>System Information</h3>\
