@@ -108,7 +108,7 @@ COMFY_KSAMPLER_NAMES = ["euler", "euler_cfg_pp", "euler_ancestral", "euler_ances
 comfy_scheduler_list = COMFY_SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform", "beta"]
 comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
-aspect_ratios_templates = ['SDXL', 'SD1.5', 'Common', 'Flux']
+aspect_ratios_templates = ['SDXL', 'SD1', 'Common', 'Flux']
 default_aspect_ratio = ['1024*1024', '768*768', '1024*1024', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
@@ -178,7 +178,7 @@ task_class_mapping = {
             'HyDiT'  : 'Hunyuan-DiT',
             'HyDiT+' : 'Hunyuan-DiT+',
             'Flux'   : 'Flux.1',
-            'SD1.5'  : 'SD1.5',
+            'SD1'  : 'SD1',
             }
 def get_taskclass_by_fullname(fullname):
     for taskclass, fname in task_class_mapping.items():
@@ -186,7 +186,7 @@ def get_taskclass_by_fullname(fullname):
             return taskclass
     return None
 
-comfy_classes = ['Comfy', 'Kolors', 'Kolors+', 'SD3x', 'HyDiT+', 'Flux', 'SD1.5']
+comfy_classes = ['Comfy', 'Kolors', 'Kolors+', 'SD3x', 'HyDiT+', 'Flux', 'SD1']
 
 default_class_params = {
     'Fooocus': {
@@ -268,10 +268,10 @@ default_class_params = {
             "base_model_dtype": "auto",
             },
         },
-    'SD1.5': {
+    'SD1': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "loras", "refiner_model"],
-        'available_aspect_ratios_selection': 'SD1.5',
+        'available_aspect_ratios_selection': 'SD1',
         'available_sampler_name': sampler_list,
         'available_scheduler_name': scheduler_list,
         "backend_params": {"task_method": "SD_SIMPLE"}
