@@ -681,14 +681,14 @@ with common.GRADIO_ROOT:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False) 
                         aspect_ratios_selections = []
                         for template in flags.aspect_ratios_templates:
-                            aspect_ratios_selections.append(gr.Radio(choices=flags.available_aspect_ratios_list[template], value=flags.default_aspect_ratios[template], visible= template=='SDXL', info='Vertical(9:16), Portrait(4:5), Photo(4:3), Landscape(3:2), Widescreen(16:9), Cinematic(21:9)', elem_classes='aspect_ratios'))
+                            aspect_ratios_selections.append(gr.Radio(choices=flags.available_aspect_ratios_list[template], value=flags.default_aspect_ratios[template], visible= template=='SDXL', info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (7:3)', elem_classes='aspect_ratios'))
                         
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(lambda x: x, inputs=aspect_ratios_select, outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                                             minimum=-1, maximum=2048, step=1, value=-1,
-                                            info='Set as -1 to disable.'
-                                            'Results will be worse for non-standard numbers that SDXL is not trained on.')
+                                            info='Set to -1 to disable. '
+                                            'Results will be worse for non-standard numbers that the model is not trained on.')
                         overwrite_height = gr.Slider(label='Forced Overwrite of Generating Height',
                                             minimum=-1, maximum=2048, step=1, value=-1)
                         def overwrite_aspect_ratios(width, height):
