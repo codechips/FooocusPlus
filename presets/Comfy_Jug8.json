@@ -2,8 +2,8 @@
 "preset category": "Alternative",
 "default_engine":	{
 	"backend_engine":"Comfy",
-	"disvisible": ["backend_selection"],
-	"disinteractive": ["input_image_checkbox", "enhance_checkbox", "refiner_model"],
+	"disvisible": ["backend_selection", "performance_selection"],
+	"disinteractive": ["input_image_checkbox", "enhance_checkbox", "loras", "performance_selection"],
 	"backend_params": {"task_method": "SD_SIMPLE"}
 		},
 "default_model": "juggernautXL_v8Rundiffusion.safetensors",
