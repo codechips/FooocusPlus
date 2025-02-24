@@ -22,7 +22,7 @@ def get_library_ver():
 def get_required_library():
     if not os.path.exists('enhanced/required_library.py'):
         return True
-    if get_library_ver() >= enhanced.required_library.version:
+    if get_library_ver() >= required_library.version:
         return True
     else:
         return False
