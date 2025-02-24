@@ -5,7 +5,9 @@
 * enabled automatic updating from the development (dev) branch
 * if VRAM<6GB the UI now defaults to the VegaRT model
 * console warnings of unreliability occur if VRAM<6GB
-* if VRAM<4GB then the use of large models is locked out
+* if VRAM<4GB then the use of large models is locked out (Comfy lockout)
+* Smart Memory is now enabled by default if VRAM=>12GB
+* added video card information and Smart Memory status to the UI ("System Information")
 * added error control for file downloads
 * removed offensive language from the One Button Prompt texts
 * the SuperPrompter is now functional
@@ -28,6 +30,7 @@
 * if skip.png is also present, the welcome image is the default black screen
 * welcome images are stored in enhanced\welcome_images instead of enhanced\attached
 * the control images (skip.jpg and skip.png) are stored in enhanced\control_images
+* "python_embeded" is renamed "python_embedded", only startup batch files needed changing
 
 
 # 0.9.6 Beta3
