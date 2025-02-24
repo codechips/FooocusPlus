@@ -29,6 +29,14 @@ from modules.model_loader import load_file_from_url
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
 
+if not version.required_libary():
+    print()
+    print('Our apologies for the inconvenience, but the installed')
+    print('Python library does not support Fooocus {fooocus_version.version}')
+    print('Please reinstall the FooocusPlus Windows program archive from')
+    print('https://huggingface.co/DavidDragonsage/FooocusPlus/')
+    print()
+    quit()
 
 def prepare_environment():
     torch_index_url = os.environ.get('TORCH_INDEX_URL', "https://download.pytorch.org/whl/cu121")
