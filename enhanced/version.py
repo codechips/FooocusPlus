@@ -10,15 +10,15 @@ simplesdxl_ver = ''
 def get_library_ver():
     current_library = Path('../python_embedded/library_version.py')
     if os.path.exists(current_library):
-        embedded_dir = os.path.abspath('../python_embedded/library_version.py')
+        embedded_dir = os.path.abspath('../python_embedded')
         sys.path.append(embedded_dir)
-        from embedded_dir import current_library
-        return (embedded_dir.current_library.version)
+        from embedded_dir import library_version
+        return (embedded_dir.library_version.version)
     else:
         return 0.96
 
 def required_libary():
-    if not os.path.exists(required_library.py):
+    if not os.path.exists('required_library.py'):
         return True
     if get_library_ver() >= required_library.version:
         return True
