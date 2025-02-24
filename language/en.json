@@ -360,7 +360,7 @@
     "Set to -1 to disable.": "Set to -1 to disable.",
     "Forced Overwrite of Refiner Switch Step": "Forced Overwrite of Refiner Switch Step",
     "Forced Overwrite of Generating Width": "Forced Overwrite of Generating Width",
-    "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.": Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.",
+    "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.": "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.",
     "Forced Overwrite of Generating Height": "Forced Overwrite of Generating Height",
     "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
     "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
