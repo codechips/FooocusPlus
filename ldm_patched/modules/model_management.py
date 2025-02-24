@@ -140,11 +140,11 @@ else:
             pass
         try:
             XFORMERS_VERSION = xformers.version.__version__
-            print("xformers version:", XFORMERS_VERSION)
+            print("Xformers version:", XFORMERS_VERSION)
             if XFORMERS_VERSION.startswith("0.0.18"):
                 print()
-                print("WARNING: This version of xformers has a major bug where you will get black images when generating high resolution images.")
-                print("Please downgrade or upgrade xformers to a different version.")
+                print("WARNING: This version of Xformers has a major bug where you will get black images when generating high resolution images.")
+                print("Please downgrade or upgrade Xformers to a different version.")
                 print()
                 XFORMERS_ENABLED_VAE = False
         except:
