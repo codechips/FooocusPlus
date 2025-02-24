@@ -5,18 +5,18 @@ commit_id = ''
 fooocusplus_ver = ''
 simplesdxl_ver = ''
 
-def get_library_ver()
-    if os.path.exists(..\\python_embedded\\library_version.py)
+def get_library_ver():
+    if os.path.exists(..\\python_embedded\\library_version.py):
         return (..\\python_embedded\\library_version.version)
-    else
+    else:
         return 0.96
 
-def required_libary()
-    if not os.path.exists(required_library.py)
+def required_libary():
+    if not os.path.exists(required_library.py):
         return True
-    if get_library_ver() >= required_library.version
+    if get_library_ver() >= required_library.version:
         return True
-    else
+    else:
         return False
 
 def get_fooocusplus_ver():
