@@ -8,12 +8,14 @@ fooocusplus_ver = ''
 simplesdxl_ver = ''
 
 def get_library_ver():
-    current_library = Path('../python_embedded/library_version.py')
+    current_library = Path('../python_embedded/version/library_version.py')
+    print(f'current_library {current_library}')
     if os.path.exists(current_library):
-        embedded_dir = os.path.abspath('../python_embedded')
-        sys.path.append(embedded_dir)
-        from embedded_dir import library_version
-        return (embedded_dir.library_version.version)
+        embedded_version = os.path.abspath('../python_embedded/version')
+        print(f'embedded_version {embedded_version}')
+        sys.path.append(embedded_version)
+        from embedded_version import library_version
+        return (embedded_version.library_version.version)
     else:
         return 0.96
 
