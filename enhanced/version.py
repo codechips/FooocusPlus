@@ -15,7 +15,7 @@ def get_library_ver():
         print(f'embedded_version {embedded_version}')
         sys.path.append(embedded_version)
         from embedded_version import library_version
-        return (embedded_version.library_version.version)
+        return (library_version.version)
     else:
         return 0.96
 
