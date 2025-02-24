@@ -29,7 +29,7 @@ from modules.model_loader import load_file_from_url
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
 
-if not version.required_libary():
+if not version.required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
     print('Python library does not support Fooocus {fooocus_version.version}')
