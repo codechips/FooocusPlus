@@ -44,7 +44,7 @@ def prepare_environment():
                                    f"pip install torch==2.1.0 torchvision==0.16.0 --extra-index-url {torch_index_url}")
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
-    print(f"Python {sys.version}")
+    print(f"Python {sys.version}, Library {version.get_library_ver()}")
     print(f"Comfy version: {comfy.comfy_version.version}")    
     print(f"Fooocus version: {fooocus_version.version}")
     print(f"SimpleSDXL2 version: {version.get_simplesdxl_ver()}")
