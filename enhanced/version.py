@@ -1,4 +1,6 @@
 import os
+import sys
+from pathlib import Path
 
 branch = ''
 commit_id = ''
@@ -6,8 +8,12 @@ fooocusplus_ver = ''
 simplesdxl_ver = ''
 
 def get_library_ver():
-    if os.path.exists(..\\python_embedded\\library_version.py):
-        return (..\\python_embedded\\library_version.version)
+    current_library = Path('../python_embedded/library_version.py')
+    if os.path.exists(current_library):
+        embedded_dir = os.path.abspath('../python_embedded/library_version.py')
+        sys.path.append(embedded_dir)
+        from embedded_dir import current_library
+        return (embedded_dir.current_library.version)
     else:
         return 0.96
 
