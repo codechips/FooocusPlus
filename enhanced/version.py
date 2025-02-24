@@ -1,4 +1,4 @@
-import os
+hanceimport os
 import sys
 from pathlib import Path
 
@@ -20,9 +20,9 @@ def get_library_ver():
         return 0.96
 
 def get_required_library():
-    if not os.path.exists('required_library.py'):
+    if not os.path.exists('enhanced/required_library.py'):
         return True
-    if get_library_ver() >= required_library.version:
+    if get_library_ver() >= enhanced.required_library.version:
         return True
     else:
         return False
