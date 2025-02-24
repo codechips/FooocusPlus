@@ -18,9 +18,9 @@ def get_library_ver():
         return 0.96
 
 def get_required_library():
-    print(f'library_version {get_library_ver()}')
     if not os.path.exists('required_library.py'):
         return True
+    import required_library
     if get_library_ver() >= (required_library.version):
         return True
     else:
