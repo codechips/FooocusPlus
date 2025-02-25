@@ -17,7 +17,7 @@ FooocusPlus is a community-developed AI image generation application that makes 
 
 **Supported Models**
 
-FooocusPlus gives you access to all of the latest AI image generation models, including:
+FooocusPlus gives you access to a diversity of AI image generation models, including:
 
 - Stable Diffusion XL
 - Pony Diffusion XL
@@ -25,6 +25,7 @@ FooocusPlus gives you access to all of the latest AI image generation models, in
 - Kwai Kolors
 - Playground 2.5
 - Hunyuan-DiT
+- Stable Diffusion 1.5
 - Stable Diffusion 3.5 (temporarily disabled)
 
 If you’re new to AI art, don’t worry! Our simple preset selectors, located either in a bar at the top of the FooocusPlus window or as a dropdown menu to the right of the main canvas (your choice), will give you one-click access to all of these exciting AI image generation models without any prior knowledge required. You'll be able to choose your own favorite model in no time.
