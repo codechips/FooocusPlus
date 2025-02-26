@@ -47,7 +47,7 @@ async function setup() {
 				// Start the server on first iteration if it fails to connect
 				console.log("Starting ComfyUI server...");
 
-				let python = resolve("../../python_embeded/python.exe");
+				let python = resolve("../../python_embedded/python.exe");
 				let args;
 				let cwd;
 				if (existsSync(python)) {
