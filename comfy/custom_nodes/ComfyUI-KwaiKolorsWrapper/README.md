@@ -29,7 +29,7 @@ Install the dependencies in requirements.txt, transformers version 4.38.0 minimu
 
 or if you use portable (run this in ComfyUI_windows_portable -folder):
 
-`python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-KwaiKolorsWrapper\requirements.txt`
+`python_embedded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-KwaiKolorsWrapper\requirements.txt`
 
 
 Models (fp16, 16.5GB) are automatically downloaded from https://huggingface.co/Kwai-Kolors/Kolors/tree/main
