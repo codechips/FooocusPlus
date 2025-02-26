@@ -11,7 +11,7 @@ This is still work in progress, like everything else.
 2. Install dependencies: `pip install -r requirements.txt`
    or if you use the portable install, run this in ComfyUI_windows_portable -folder:
 
-  `python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-KJNodes\requirements.txt`
+  `python_embedded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-KJNodes\requirements.txt`
    
 
 ## Javascript
