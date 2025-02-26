@@ -1,6 +1,6 @@
 @echo off
 
-set "python_exec=..\..\..\python_embeded\python.exe"
+set "python_exec=..\..\..\python_embedded\python.exe"
 
 echo Installing node...
 
