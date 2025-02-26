@@ -7,5 +7,5 @@ python -m unittest tests/
 
 Embedded python (Windows zip file installation method):
 ```
-..\python_embeded\python.exe -m unittest
+..\python_embedded\python.exe -m unittest
 ```
