@@ -26,7 +26,7 @@ If you can't run **install.bat** (e.g. you are a Linux user). Open the CMD/Shell
   - Run `git clone https://github.com/Fannovel16/comfyui_controlnet_aux/`
   - Navigate to your `comfyui_controlnet_aux` folder
     - Portable/venv:
-       - Run `path/to/ComfUI/python_embeded/python.exe -s -m pip install -r requirements.txt`
+       - Run `path/to/ComfUI/python_embedded/python.exe -s -m pip install -r requirements.txt`
 	- With system python
 	   - Run `pip install -r requirements.txt`
   - Start ComfyUI
