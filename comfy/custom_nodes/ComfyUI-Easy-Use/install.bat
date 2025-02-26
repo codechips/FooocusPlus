@@ -2,7 +2,7 @@
 
 set "requirements_txt=%~dp0\requirements.txt"
 set "requirements_repair_txt=%~dp0\repair_dependency_list.txt"
-set "python_exec=..\..\..\python_embeded\python.exe"
+set "python_exec=..\..\..\python_embedded\python.exe"
 set "aki_python_exec=..\..\python\python.exe"
 
 echo Installing EasyUse Requirements...
