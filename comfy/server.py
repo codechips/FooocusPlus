@@ -493,7 +493,7 @@ class PromptServer():
                     "comfyui_version": get_comfyui_version(),
                     "python_version": sys.version,
                     "pytorch_version": comfy.model_management.torch_version,
-                    "embedded_python": os.path.split(os.path.split(sys.executable)[0])[1] == "python_embeded",
+                    "embedded_python": os.path.split(os.path.split(sys.executable)[0])[1] == "python_embedded",
                     "argv": sys.argv
                 },
                 "devices": [
