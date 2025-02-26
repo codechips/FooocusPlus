@@ -11,16 +11,8 @@ if exist "%python_exec%" (
     echo Installing with ComfyUI Portable
     "%python_exec%" -s -m pip install -r "%requirements_txt%"
 )^
-else if exist "%aki_python_exec%" (
-    echo Installing with ComfyUI Aki
-    "%aki_python_exec%" -s -m pip install -r "%requirements_txt%"
-    for /f "delims=" %%i in (%requirements_repair_txt%) do (
-        %aki_python_exec% -s -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple "%%i"
-        )
-)^
 else (
-    echo Installing with system Python
+    echo Installing with Python
     pip install -r "%requirements_txt%"
 )
-
 pause
