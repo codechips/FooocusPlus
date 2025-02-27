@@ -201,6 +201,9 @@ with common.GRADIO_ROOT:
             with gr.Group():
                 with gr.Row():
                     if not args_manager.args.disable_preset_selection:
+                        # disable the iFrame display of help for preset selections:
+                        preset_instruction = gr.HTML(visible=False, value=topbar.preset_no_instruction())
+                        
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
                         for i in range(topbar.topbar_limit):
@@ -661,15 +664,15 @@ with common.GRADIO_ROOT:
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
 
-                if not args_manager.args.disable_preset_selection:
+#               if not args_manager.args.disable_preset_selection:
                     # disable the iFrame display of help for preset selections:
-                    preset_instruction = gr.HTML(visible=False, value=topbar.preset_no_instruction())
+#                   preset_instruction = gr.HTML(visible=False, value=topbar.preset_no_instruction())
                     
-                    preset_selection = gr.Dropdown(label='Preset',
-                        visible=(args_manager.args.presetmenu=='dropdown'),
-                        choices=modules.config.available_presets,
-                        value=args_manager.args.preset if args_manager.args.preset else "initial",
-                        interactive=True) #as dropdown_menu
+#                    preset_selection = gr.Dropdown(label='Preset',
+#                        visible=(args_manager.args.presetmenu=='dropdown'),
+#                        choices=modules.config.available_presets,
+#                        value=args_manager.args.preset if args_manager.args.preset else "initial",
+#                        interactive=True) #as dropdown_menu
                 
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
