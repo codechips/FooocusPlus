@@ -260,7 +260,7 @@ elif args.always_offload_from_vram or (get_vram() < 12000):
         # in simpleai_base.comfyd.py at Line 144
 if not args.always_offload_from_vram:
     print("FooocusPlus is operating in Smart Memory mode:")
-    print("VRAM will only be unloaded when necessary")
+    print("VRAM will be unloaded only when necessary")
 print()
 
 def get_torch_device_name(device):
