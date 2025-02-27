@@ -37,7 +37,7 @@ class SaveImageWebsocket:
 
         return {}
 
-    def IS_CHANGED(s, images):
+    def IS_CHANGED(images):
         return time.time()
 
 NODE_CLASS_MAPPINGS = {
