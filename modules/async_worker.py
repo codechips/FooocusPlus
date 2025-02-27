@@ -1437,6 +1437,7 @@ def worker():
         persist_image = not async_task.should_enhance or not async_task.save_final_enhanced_image_only
 
         for current_task_id, task in enumerate(tasks):
+            print()
             progressbar(async_task, current_progress, f'Preparing {async_task.task_class} task {current_task_id + 1}/{async_task.image_number}...')
             execution_start_time = time.perf_counter()
 
