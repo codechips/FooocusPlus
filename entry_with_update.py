@@ -1,13 +1,13 @@
 import os
 import sys
 
+print()
+print()
+print()
 root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(root)
 os.chdir(root)
 
-print()
-print()
-print()
 
 def get_fooocusplus_version():
     fooocusplus_log = os.path.abspath(f'./fooocusplus_log.md')
