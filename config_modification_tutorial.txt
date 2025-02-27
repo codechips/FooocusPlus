@@ -5,6 +5,7 @@ Remember to split the paths with "\\" rather than "\", and there is no "," befor
 
 
 {
+    "path_user_dir": "..\\UserDir\\",
     "path_models_root": "..\\UserDir\\models\\",
     "path_checkpoints": ["..\\UserDir\\models\\checkpoints"],
     "path_loras": ["..\\UserDir\\models\\loras"],
