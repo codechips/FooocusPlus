@@ -1,4 +1,4 @@
-# 0.9.7
+# 0.9.7 Dev
 
 * this release restores all mainline Fooocus functions
   including prompt and wildcard operation
