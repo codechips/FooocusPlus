@@ -10,22 +10,19 @@ args_parser.parser.add_argument("--language", type=str, default='en',
                                   "For example, [--language example] will use [language/example.json] for translation.")
 
 args_parser.parser.add_argument("--webroot", type=str, default='', help="Set the webroot path.")
-args_parser.parser.add_argument("--location", type=str, default='CN', help="Set the location access location.")
+args_parser.parser.add_argument("--location", type=str, default='CN', help="Set the access location by country")
 
 # For example, https://github.com/lllyasviel/Fooocus/issues/849
 args_parser.parser.add_argument("--disable-offload-from-vram", action="store_true",
-                                help="Force loading models to vram when the unload can be avoided. "
-                                  "Some Mac users may need this.")
+                                help="Operating in Smart Memory mode: VRAM will be unloaded only when necessary")
 
-args_parser.parser.add_argument("--theme", type=str, help="Launches the UI with light or dark theme", default='dark')
-
-args_parser.parser.add_argument("--presetmenu", type=str, help="Preset menu style: specify topbar or dropdown", default='')
+args_parser.parser.add_argument("--theme", type=str, help="Launches the UI with a light or dark theme", default='dark')
 
 args_parser.parser.add_argument("--disable-image-log", action='store_true',
                                 help="Prevent writing images and logs to the outputs folder.")
 
 args_parser.parser.add_argument("--disable-analytics", action='store_true',
-                                help="Disables analytics for Gradio.")
+                                help="This is an obsolete argument: Gradio Analytics are always disabled.")
 args_parser.args.disable_analytics = True
 os.environ["GRADIO_ANALYTICS_ENABLED"] = "False" # Gradio is no longer allowed to call home
 
@@ -36,7 +33,7 @@ args_parser.parser.add_argument("--disable-preset-download", action='store_true'
                                 help="Disables downloading models for presets", default=False)
 
 args_parser.parser.add_argument("--disable-enhance-output-sorting", action='store_true',
-                                help="Disables enhance output sorting for final image gallery.")
+                                help="Disables enhanced output sorting of the image gallery.")
 
 args_parser.parser.add_argument("--enable-auto-describe-image", action='store_true',
                                 help="Enables automatic description of uov and enhance image when prompt is empty", default=False)
@@ -48,16 +45,16 @@ args_parser.parser.add_argument("--rebuild-hash-cache", help="Generates missing 
                                 type=int, nargs="?", metavar="CPU_NUM_THREADS", const=-1)
 
 args_parser.parser.add_argument("--dev", action='store_true',
-                                help="launch the dev branch", default=False)
+                                help="Launch the dev branch", default=False)
 
-args_parser.parser.add_argument("--user-dir", type=str, help="Set the path root of models", default='..UserDir\\')
+args_parser.parser.add_argument("--user-dir", type=str, help="Set the default path to the user directory", default='..UserDir\\')
 
-args_parser.parser.add_argument("--models-root", type=str, help="Set the path root of models", default='..UserDir\models\\')
+args_parser.parser.add_argument("--models-root", type=str, help="Set the default path to the models directory", default='..UserDir\\models\\')
 
-args_parser.parser.add_argument("--config", type=str, help="Set the path of config.txt", default=None)
+args_parser.parser.add_argument("--config", type=str, help="Set the default path for config.txt", default=None)
 
 args_parser.parser.add_argument("--disable-comfyd", action='store_true',
-                                help="disable auto start comfyd server at launch", default=False)
+                                help="Do not auto-start the Comfy server at launch", default=False)
 
 args_parser.parser.set_defaults(
     disable_cuda_malloc=True,
