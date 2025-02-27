@@ -65,6 +65,7 @@ rich
 #google-generativeai
 ultralytics>=8.2.0
 blind-watermark
+cmake
 qrcode
 pyzbar
 transparent-background
