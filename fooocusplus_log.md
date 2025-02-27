@@ -1,8 +1,8 @@
-# 0.9.7 Dev
+# 0.9.7
 
 * this release restores all mainline Fooocus functions
   including prompt and wildcard operation
-* enabled automatic updating from the development (dev) branch
+* enabled automatic updating for the development (dev) branch
 * if VRAM<6GB the UI now defaults to the VegaRT model
 * console warnings of unreliability occur if VRAM<6GB
 * if VRAM<4GB then the use of large models is locked out (Comfy lockout)
@@ -30,7 +30,9 @@
 * if skip.png is also present, the welcome image is the default black screen
 * welcome images are stored in enhanced\welcome_images instead of enhanced\attached
 * the control images (skip.jpg and skip.png) are stored in enhanced\control_images
-* "python_embeded" is renamed "python_embedded": only startup batch files needed changing
+* "python_embeded" is renamed "python_embedded": changed all internal references
+* updated many Python libraries and fixed the Onnx Graphsurgeon bug
+* resolved the bug: "SaveImageWebsocket.IS_CHANGED() missing 1 required positional argument: 's'"
 
 
 # 0.9.6 Beta3
