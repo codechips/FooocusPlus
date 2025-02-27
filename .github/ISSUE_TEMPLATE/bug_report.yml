@@ -1,5 +1,5 @@
 name: Bug Report
-description: You think something is broken in Fooocus
+description: You think something is broken in FooocusPlus
 title: "[Bug]: "
 labels: ["bug", "triage"]
 
@@ -16,14 +16,14 @@ body:
       description: |
         Please perform basic debugging to see if your configuration is the cause of the issue.
         Basic debug procedure
-        　1. Update Fooocus - sometimes things just need to be updated
+        　1. Update FooocusPlus - sometimes things just need to be updated
         　2. Backup and remove your config.txt - check if the issue is caused by bad configuration
-        　3. Try a fresh installation of Fooocus in a different directory - see if a clean installation solves the issue
+        　3. Try a fresh installation of FooocusPlus in a different directory - see if a clean installation solves the issue
         Before making a issue report please, check that the issue hasn't been reported recently.
       options:
         - label: The issue has not been resolved by following the [troubleshooting guide](https://github.com/lllyasviel/Fooocus/blob/main/troubleshoot.md)
-        - label: The issue exists on a clean installation of Fooocus
-        - label: The issue exists in the current version of Fooocus
+        - label: The issue exists on a clean installation of FooocusPlus
+        - label: The issue exists in the current version of FooocusPlus
         - label: The issue has not been reported before recently
         - label: The issue has been reported before but has not been fixed yet
   - type: markdown
@@ -56,13 +56,13 @@ body:
       label: What should have happened?
       description: Tell us what you think the normal behavior should be
       placeholder: |
-        Fooocus should ...
+        FooocusPlus should ...
     validations:
       required: true
   - type: dropdown
     id: browsers
     attributes:
-      label: What browsers do you use to access Fooocus?
+      label: What browsers do you use to access FooocusPlus?
       multiple: true
       options:
         - Mozilla Firefox
@@ -76,7 +76,7 @@ body:
   - type: dropdown
     id: hosting
     attributes:
-      label: Where are you running Fooocus?
+      label: Where are you running FooocusPlus?
       multiple: false
       options:
         - Locally
