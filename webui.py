@@ -415,11 +415,11 @@ with common.GRADIO_ROOT:
 
                         with gr.Row():
                             with gr.Column():
-                                inpaint_advanced_masking_checkbox = gr.Checkbox(label='Enable Advanced Masking', value=modules.config.default_inpaint_advanced_masking_checkbox, container=False)                                
-                                mixing_image_prompt_and_inpaint = gr.Checkbox(label='Mix Image Prompt & Inpaint', value=False, container=False)
-                                invert_mask_checkbox = gr.Checkbox(label='Invert Mask When Generating', value=modules.config.default_invert_mask_checkbox, container=False)                            
-                            with gr.Column():
                                 inpaint_mask_color = gr.ColorPicker(label='Inpaint Brush Color', value='#FFFFFF', elem_id='inpaint_brush_color', container=True)
+                            with gr.Column():
+                                inpaint_advanced_masking_checkbox = gr.Checkbox(label='Enable Advanced Masking', value=modules.config.default_inpaint_advanced_masking_checkbox, container=False)                                
+                                invert_mask_checkbox = gr.Checkbox(label='Invert Mask When Generating', value=modules.config.default_invert_mask_checkbox, container=False)                            
+                                mixing_image_prompt_and_inpaint = gr.Checkbox(label='Mix Image Prompt & Inpaint', value=False, container=False)
                         
                         with gr.Row():
                             inpaint_strength = gr.Slider(label='Inpainting Strength',
@@ -820,7 +820,7 @@ with common.GRADIO_ROOT:
             with gr.Tab(label='Models', elem_id="scrollable-box"):
                 with gr.Group():
                     with gr.Row():
-                        base_model = gr.Dropdown(label='Base Model (SDXL only)', choices=modules.config.model_filenames, value=modules.config.default_base_model_name, show_label=True)
+                        base_model = gr.Dropdown(label='Base Model', choices=modules.config.model_filenames, value=modules.config.default_base_model_name, show_label=True)
                         refiner_model = gr.Dropdown(label='Refiner (SDXL or SD 1.5)', choices=['None'] + modules.config.model_filenames, value=modules.config.default_refiner_model_name, show_label=True)
 
                     refiner_switch = gr.Slider(label='Refiner Switch At', minimum=0.1, maximum=1.0, step=0.0001,
