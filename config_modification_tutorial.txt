@@ -1,46 +1,30 @@
-You can modify your "F:\\FooocusPlus\\FooocusPlusAI\\config.txt" using the below keys, formats, and examples.
+You can modify your "config.txt" using the below keys, formats, and examples.
 Do not modify this file. Modifications in this file will not take effect.
-This file is a tutorial and example. Please edit "F:\\FooocusPlus\\FooocusPlusAI\\config.txt" to really change any settings.
+This file is a tutorial and example. Please edit "config.txt" to really change any settings.
 Remember to split the paths with "\\" rather than "\", and there is no "," before the last "}". 
 
 
 {
-    "path_models_root": "F:\\FooocusPlus\\FooocusPlusAI\\models",
-    "path_checkpoints": [
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\checkpoints",
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\checkpoints"
-    ],
-    "path_loras": [
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\loras",
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\loras"
-    ],
-    "path_embeddings": "F:\\FooocusPlus\\FooocusPlusAI\\models\\embeddings",
-    "path_vae_approx": "F:\\FooocusPlus\\FooocusPlusAI\\models\\vae_approx",
-    "path_vae": "F:\\FooocusPlus\\FooocusPlusAI\\models\\vae",
-    "path_upscale_models": "F:\\FooocusPlus\\FooocusPlusAI\\models\\upscale_models",
-    "path_inpaint": [
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\inpaint",
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\inpaint"
-    ],
-    "path_controlnet": [
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\controlnet",
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\controlnet"
-    ],
-    "path_clip": "F:\\FooocusPlus\\FooocusPlusAI\\models\\clip",
-    "path_clip_vision": "F:\\FooocusPlus\\FooocusPlusAI\\models\\clip_vision",
-    "path_fooocus_expansion": "F:\\FooocusPlus\\FooocusPlusAI\\models\\prompt_expansion\\fooocus_expansion",
-    "path_llms": [
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\llms"
-    ],
-    "path_wildcards": "F:\\FooocusPlus\\FooocusPlusAI\\wildcards",
-    "path_safety_checker": "F:\\FooocusPlus\\FooocusPlusAI\\models\\safety_checker",
-    "path_outputs": "F:\\FooocusPlus\\Outputs",
-    "path_unet": "F:\\FooocusPlus\\FooocusPlusAI\\models\\unet",
-    "path_rembg": "F:\\FooocusPlus\\FooocusPlusAI\\models\\rembg",
-    "path_layer_model": "F:\\FooocusPlus\\FooocusPlusAI\\models\\layer_model",
-    "path_diffusers": [
-        "F:\\FooocusPlus\\FooocusPlusAI\\models\\diffusers"
-    ],
+    "path_models_root": "..\\UserDir\\models\\",
+    "path_checkpoints": ["..\\UserDir\\models\\checkpoints"],
+    "path_loras": ["..\\UserDir\\models\\loras"],
+    "path_embeddings": "..\\UserDir\\models\\embeddings",
+    "path_vae_approx": "..\\UserDir\\models\\vae_approx",
+    "path_vae": "..\\UserDir\\models\\vae",
+    "path_upscale_models": "..\\UserDir\\models\\upscale_models",
+    "path_inpaint": ["..\\UserDir\\models\\inpaint"],
+    "path_controlnet": "..\\UserDir\\models\\controlnet",
+    "path_clip": "..\\UserDir\\models\\clip",
+    "path_clip_vision": "..\\UserDir\\models\\clip_vision",
+    "path_fooocus_expansion": "..\\UserDir\\models\\prompt_expansion\\fooocus_expansion",
+    "path_llms": ["..\\UserDir\\models\\llms"],
+    "path_wildcards": "..\\UserDir\\wildcards",
+    "path_safety_checker": "..\\UserDir\\models\\safety_checker",
+    "path_unet": "..\\UserDir\\models\\unet",
+    "path_rembg": "..\\UserDir\\models\\rembg",
+    "path_layer_model": "..\\UserDir\\models\\layer_model",
+    "path_diffusers": ["..\\UserDir\\models\\diffusers"],
+    "path_outputs": "..\\Outputs",
     "default_loras": [
         [
             false,
@@ -69,7 +53,7 @@ Remember to split the paths with "\\" rather than "\", and there is no "," befor
         ]
     ],
     "default_max_lora_number": 5,
-    "temp_path": "C:\\Users\\buyer\\AppData\\Local\\Temp\\fooocus",
+    "temp_path": "",
     "temp_path_cleanup_on_launch": true,
     "default_engine": {},
     "default_model": "Elsewhere XL.safetensors",
@@ -92,7 +76,7 @@ Remember to split the paths with "\\" rather than "\", and there is no "," befor
     "default_performance": "Speed",
     "default_image_prompt_checkbox": false,
     "default_enhance_checkbox": false,
-    "default_advanced_checkbox": true,
+    "default_advanced_checkbox": false,
     "default_developer_debug_mode_checkbox": false,
     "default_image_prompt_advanced_checkbox": false,
     "default_max_image_number": 50,
@@ -192,7 +176,7 @@ Remember to split the paths with "\\" rather than "\", and there is no "," befor
     "default_sam_max_detections": 0,
     "default_black_out_nsfw": false,
     "default_save_only_final_enhanced_image": false,
-    "default_save_metadata_to_images": false,
+    "default_save_metadata_to_images": true,
     "default_metadata_scheme": "simple",
     "metadata_created_by": "FooocusPlus",
     "default_invert_mask_checkbox": false,
@@ -204,7 +188,7 @@ Remember to split the paths with "\\" rather than "\", and there is no "," befor
     "default_translation_methods": "Third APIs",
     "default_backfill_prompt": false,
     "default_comfyd_active_checkbox": false,
-    "default_image_catalog_max_number": 65,
+    "default_image_catalog_max_number": 100,
     "default_mixing_image_prompt_and_vary_upscale": false,
     "default_mixing_image_prompt_and_inpaint": false,
     "default_describe_apply_prompts_checkbox": false,
