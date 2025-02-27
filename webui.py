@@ -22,6 +22,7 @@ import ldm_patched
 from extras.inpaint_mask import SAMOptions
 
 from PIL import Image
+from modules.model_structure import create_model_structure
 from modules.sdxl_styles import legal_style_names, fooocus_expansion
 from modules.private_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
@@ -1013,6 +1014,7 @@ with common.GRADIO_ROOT:
                                         queue=False, show_progress=False)
 
                 def refresh_files_clicked(state_params):
+                    create_model_structure()
                     engine = state_params.get('engine', 'Fooocus')
                     task_method = state_params.get('task_method', None)
                     model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)
