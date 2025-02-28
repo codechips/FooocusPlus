@@ -5,7 +5,7 @@ import ldm_patched
 from common import ROOT
 
 print('[System ARGV] ' + str(sys.argv))
-print(f'{old_version}')
+
 sys.path.append(ROOT)
 os.chdir(ROOT)
 
@@ -102,12 +102,12 @@ if args.hf_mirror is not None:
 
 from modules import config
 from modules.hash_cache import init_cache
-from modules.model_structure import create_model_structure
+from modules.user_structure import create_user_structure
 os.environ["U2NET_HOME"] = config.paths_inpaint[0]
 os.environ["BERT_HOME"] = config.paths_llms[0]
 os.environ['GRADIO_TEMP_DIR'] = config.temp_path
 
-create_model_structure()
+create_user_structure()
 
 if config.temp_path_cleanup_on_launch:
     print(f'[Cleanup] Attempting to delete the content of the temp. dir {config.temp_path}')
