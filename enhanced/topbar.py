@@ -65,8 +65,6 @@ def is_models_file_absent(preset_name):
         with open(preset_path, "r", encoding="utf-8") as json_file:
             config_preset = json.load(json_file)
         if config_preset["default_model"] and config_preset["default_model"] != 'None':
-            if 'Flux' in preset_name and config_preset["default_model"]== 'auto':
-                config_preset["default_model"] = comfy_task.get_default_base_Flux_name('+' in preset_name)
             model_key = f'checkpoints/{config_preset["default_model"]}'
             return not common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=config_preset["default_model"])
         if config_preset["default_refiner"] and config_preset["default_refiner"] != 'None':
@@ -379,21 +377,6 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     vae_downloads = preset_prepared.get('vae_downloads', {})
 
     model_dtype = preset_prepared.get('engine', {}).get('backend_params', {}).get('base_model_dtype', '')
-    if engine == 'SD3x' and model_dtype == 'auto':
-        base_model = comfy_task.get_default_base_SD3x_name()
-        if common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=base_model):
-            default_model = base_model
-            preset_prepared['base_model'] = base_model
-            checkpoint_downloads = {}
-    if engine == 'Flux' and default_model=='auto':
-        default_model = comfy_task.get_default_base_Flux_name('FluxS' in preset)
-        preset_prepared['base_model'] = default_model
-        if common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=default_model):
-            checkpoint_downloads = {}
-        else:
-            checkpoint_downloads = {default_model: comfy_task.flux_model_urls[default_model]}
-        if 'merged' in default_model:
-            preset_prepared.update({'default_overwrite_step': 6})
 
     download_models(default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads, vae_downloads)
 
