@@ -1,4 +1,5 @@
 import os
+import args_manager
 import glob
 import modules.util as util
 import numpy as np
@@ -9,7 +10,7 @@ from PIL import Image
 
 
 def get_welcome_image():
-    path_welcome = os.path.abspath(f'./enhanced/welcome_images/')
+    path_welcome = os.path.abspath(f'{args_manager.args.user_dir}\\welcome_images\\')
     skip_jpg = os.path.join(path_welcome, 'skip.jpg')
     if not os.path.isfile(skip_jpg):                   # if skip.jpg exists then ignore all jpgs & jpegs
         image_count = len(glob.glob1(path_welcome,'*.jpg')) + len(glob.glob1(path_welcome,'*.jpeg'))
