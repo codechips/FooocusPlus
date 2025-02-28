@@ -5,7 +5,7 @@ import ldm_patched
 from common import ROOT
 
 print('[System ARGV] ' + str(sys.argv))
-
+print(f'{old_version}')
 sys.path.append(ROOT)
 os.chdir(ROOT)
 
