@@ -7,7 +7,7 @@ import enhanced.translator as translator
 from modules.util import get_files_from_folder
 from args_manager import args
 
-wildcards_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../wildcards/'))
+wildcards_path = f'{args_manager.args.user_dir}\\wildcards'
 wildcards_max_bfs_depth = 64
 wildcards = {}
 wildcards_list = {}
