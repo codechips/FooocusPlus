@@ -123,7 +123,7 @@ def update_presets():
 
 def try_get_preset_content(preset):
     if isinstance(preset, str):
-        preset_path = f'{args_manager.args.user_dir}/presets/{preset}.json')
+        preset_path = f'{args_manager.args.user_dir}/presets/{preset}.json'
         try:
             if os.path.exists(preset_path):
                 with open(preset_path, "r", encoding="utf-8") as json_file:
@@ -140,7 +140,7 @@ def try_get_preset_content(preset):
 available_presets = get_presets()
 preset = args_manager.args.preset
 if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
-and (os.path.exists(f'{args_manager.args.user_dir}/presets/LowVRAMdef.json')):
+and (os.path.exists(f'{args_manager.args.user_dir}/presets/LowVRAMdef.json'):
     preset='LowVRAMdef'
     print('Loading the "LowVRAMdef" preset, the default for low VRAM systems')
 config_dict.update(try_get_preset_content(preset))
