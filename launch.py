@@ -33,7 +33,7 @@ if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
     print(f'Python library does not support FooocusPlus {version.get_fooocusplus_ver()}')
-    print('Please reinstall the FooocusPlus Windows program archive from')
+    print('Please reinstall the FooocusPlus program archive from')
     print('https://huggingface.co/DavidDragonsage/FooocusPlus/')
     print()
     quit()
