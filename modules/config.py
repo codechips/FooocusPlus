@@ -33,7 +33,7 @@ always_save_keys = []
 visited_keys = []
 
 try:
-    with open(f'{args_manager.args.user_dir}\\presets', "r", encoding="utf-8") as json_file:
+    with open(f'{args_manager.args.user_dir}\\presets\\default.json', "r", encoding="utf-8") as json_file:
         config_dict.update(json.load(json_file))
 except Exception as e:
     print(f'Loading Default preset failed.')
