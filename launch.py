@@ -110,12 +110,12 @@ os.environ['GRADIO_TEMP_DIR'] = config.temp_path
 create_model_structure()
 
 if config.temp_path_cleanup_on_launch:
-    print(f'[Cleanup] Attempting to delete content of temp dir {config.temp_path}')
+    print(f'[Cleanup] Attempting to delete the content of the temp. dir {config.temp_path}')
     result = delete_folder_content(config.temp_path, '[Cleanup] ')
     if result:
         print("[Cleanup] Cleanup successful")
     else:
-        print(f"[Cleanup] Failed to delete content of temp dir.")
+        print(f"[Cleanup] Failed to delete the content of the temp. directory")
 
 def download_models(default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads, vae_downloads):
     from modules.util import get_file_from_folder_list
