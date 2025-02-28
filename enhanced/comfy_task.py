@@ -42,39 +42,12 @@ default_base_SD15_name = 'SD1.5\realisticVisionV60B1_v51VAE.safetensors'
 default_base_SD3m_name_list = ['SD3x\sd3_medium_incl_clips.safetensors', 'SD3x\sd3_medium_incl_clips_t5xxlfp8.safetensors', 'SD3x\sd3_medium_incl_clips_t5xxlfp16.safetensors']
 default_base_SD3x_name_list = ['SD3x\stableDiffusion35_large.safetensors', 'SD3x\sd3_medium_incl_clips_t5xxlfp8.safetensors', 'SD3x\sd3_medium_incl_clips_t5xxlfp16.safetensors']
 
-def get_default_base_SD3x_name():
-    total_vram = ldm_patched.modules.model_management.get_vram()
-    total_ram = ldm_patched.modules.model_management.get_sysram()
-    dtype = 0 if total_vram<VRAM8G and total_ram<RAM16G\
-        else 1 if total_vram<VRAM16G and total_ram<RAM32G else 2
-    for i in range(dtype, -1 ,-1):
-        sd3name = default_base_SD3x_name_list[i]
-        if common.MODELS_INFO.exists_model_key(f'checkpoints/{sd3name}'):
-            return sd3name
-    return default_base_SD3x_name_list[0]
-
-def get_default_base_SD3m_name():
-    total_vram = ldm_patched.modules.model_management.get_vram()
-    total_ram = ldm_patched.modules.model_management.get_sysram()
-    dtype = 0 if total_vram<VRAM8G and total_ram<RAM16G\
-        else 1 if total_vram<VRAM16G and total_ram<RAM32G else 2
-    for i in range(dtype, -1 ,-1):
-        sd3name = default_base_SD3m_name_list[i]
-        if common.MODELS_INFO.exists_model_key(f'checkpoints/{sd3name}'):
-            return sd3name
-    return default_base_SD3m_name_list[0]
-
 default_base_Flux_name_list = ['flux1-schnell-bnb-nf4.safetensors', 'flux1-dev-bnb-nf4.safetensors', 'flux-hyp8-Q5_K_M.gguf']
 flux_model_urls = {
     "flux1-schnell-bnb-nf4.safetensors": "https://huggingface.co/silveroxides/flux1-nf4-weights/resolve/main/flux1-schnell-bnb-nf4.safetensors?download=true",    
     "flux1-dev-bnb-nf4-v2.safetensors": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors?download=true",
     "Flux\\hyperfluxDiversity_q5KS.gguf": "https://civitai.com/api/download/models/1147912?type=Model&format=GGUF&size=pruned&fp=fp8"
     }
-
-def get_default_base_Flux_name(plus=False):
-    checklist = [default_base_Flux_name_list[0], default_base_Flux_name_list[1], default_base_Flux_name_list[2]]
-    return checklist[0]
-        
 
 quick_prompts = [
     'sunshine from window',
