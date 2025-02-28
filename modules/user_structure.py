@@ -20,8 +20,9 @@ def create_model_structure():
   os.makedirs(config.paths_loras[0] + '\SD3x', exist_ok=True)
   return
 
-def create_user_structure():
+def create_user_structure():  
   create_model_structure()
+  # initialize the user directory, user_dir
   shutil.copytree('./master_batch_startups', f'{args_manager.args.user_dir}/batch_startups')
   shutil.copytree('./master_control_images', f'{args_manager.args.user_dir}/control_images')
   shutil.copytree('./master_presets', f'{args_manager.args.user_dir}/presets')
