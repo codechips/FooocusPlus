@@ -19,4 +19,5 @@ def create_model_structure():
   os.makedirs(config.paths_loras[0] + '\SD3x', exist_ok=True)
 
   shutil.copytree('./master_batch_startups', f'{args_manager.args.user_dir}/batch_startups')
+  shutil.copytree('./master_presets', f'{args_manager.args.user_dir}/presets')
   return
