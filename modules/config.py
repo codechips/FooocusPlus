@@ -122,7 +122,7 @@ def update_presets():
 
 def try_get_preset_content(preset):
     if isinstance(preset, str):
-        preset_path = os.path.join(args_manager.args.user_dir, '/presets'))
+        preset_path = os.path.join(args_manager.args.user_dir, '/presets')
         try:
             if os.path.exists(preset_path):
                 with open(preset_path, "r", encoding="utf-8") as json_file:
