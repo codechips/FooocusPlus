@@ -166,8 +166,8 @@ def get_path_models_root() -> str:
         models_root = args_manager.args.models_root
         path_models_root = os.path.abspath(models_root)
         config_dict['path_models_root'] = path_models_root
-    path_models_root = get_dir_or_set_default('path_models_root', f'../{models_root}')
-    print(f'Generative models are stored here: {path_models_root}')
+    path_models_root = get_dir_or_set_default('path_models_root', f'../UserDir/{models_root}')
+    print(f'Generative models are stored in {path_models_root}')
     return path_models_root
 
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
