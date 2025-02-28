@@ -71,6 +71,7 @@ def try_load_deprecated_user_path_config():
                 config_dict[new_key] = deprecated_config_dict[old_key]
                 del deprecated_config_dict[old_key]
 
+        replace_config('user_dir', 'user_dir')
         replace_config('modelfile_path', 'path_checkpoints')
         replace_config('lorafile_path', 'path_loras')
         replace_config('embeddings_path', 'path_embeddings')
@@ -109,7 +110,7 @@ try_load_deprecated_user_path_config()
 def get_presets():
     preset_folder = f'{args_manager.args.user_dir}/presets'
     print()
-    print(f'Preset Folder: {preset_folder})
+    print(f'Preset Folder: {preset_folder}')
     pinrt()
     presets = ['initial']
     if not os.path.exists(preset_folder):
