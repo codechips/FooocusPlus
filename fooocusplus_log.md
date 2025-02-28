@@ -1,5 +1,9 @@
 # 0.9.8 Dev
 
+* initialized the UserDir folder, its location defaults to the repo's parent
+* by default, UserDir contains the models, presets, startup batch & wildcards folders
+* removed "auto" model support in presets, a confusing & unnessary "feature"
+* added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
 
 
 # 0.9.7 Dev
