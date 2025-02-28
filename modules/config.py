@@ -33,7 +33,7 @@ always_save_keys = []
 visited_keys = []
 
 try:
-    with open(os.path.abspath(os.path.join(args_manager.args.user_dir, '/presets/default.json')), "r", encoding="utf-8") as json_file:
+    with open(os.path.join(args_manager.args.user_dir, '/presets/default.json'), "r", encoding="utf-8") as json_file:
         config_dict.update(json.load(json_file))
 except Exception as e:
     print(f'Loading Default preset failed.')
@@ -108,6 +108,7 @@ try_load_deprecated_user_path_config()
 def get_presets():
     preset_folder = os.path.join(args_manager.args.user_dir, '/presets')
     print()
+    print(f'args_manager.args.user_dir: {args_manager.args.user_dir}')    
     print(f'Preset Folder: {preset_folder}')
     print()
     presets = ['initial']
