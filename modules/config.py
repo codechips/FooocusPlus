@@ -111,7 +111,7 @@ def get_presets():
     preset_folder = f'{args_manager.args.user_dir}/presets'
     print()
     print(f'Preset Folder: {preset_folder}')
-    pinrt()
+    print()
     presets = ['initial']
     if not os.path.exists(preset_folder):
         print('No presets found.')
