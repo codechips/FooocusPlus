@@ -45,7 +45,7 @@ else:
    
 
 def get_preset_name_list():
-    path_preset = os.path.abspath(f'./presets/')
+    path_preset = f'{args_manager.args.user_dir}/presets/')
     presets = [p for p in util.get_files_from_folder(path_preset, ['.json'], None) if not p.startswith('.')]
     file_times = [(f, os.path.getmtime(os.path.join(path_preset, f))) for f in presets]
     sorted_file_times = sorted(file_times, key=lambda x: x[1], reverse=True)
