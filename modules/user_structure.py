@@ -23,9 +23,9 @@ def create_model_structure():
 def create_user_structure():  
   create_model_structure()
   # initialize the user directory, user_dir
-  shutil.copytree('./master_batch_startups', f'{args_manager.args.user_dir}batch_startups', dirs_exist_ok = True)
-  shutil.copytree('./master_control_images', f'{args_manager.args.user_dir}control_images, dirs_exist_ok = True')
-  shutil.copytree('./master_presets', f'{args_manager.args.user_dir}presets, dirs_exist_ok = True')
-  shutil.copytree('./master_welcome_images', f'{args_manager.args.user_dir}welcome_images, dirs_exist_ok = True')
-  shutil.copytree('./master_wildcards', f'{args_manager.args.user_dir}wildcards, dirs_exist_ok = True')
+  shutil.copytree('./master_batch_startups', f'{args_manager.args.user_dir}/batch_startups', dirs_exist_ok = True)
+  shutil.copytree('./master_control_images', f'{args_manager.args.user_dir}/control_images, dirs_exist_ok = True')
+  shutil.copytree('./master_presets', f'{args_manager.args.user_dir}/presets, dirs_exist_ok = True')
+  shutil.copytree('./master_welcome_images', f'{args_manager.args.user_dir}/welcome_images, dirs_exist_ok = True')
+  shutil.copytree('./master_wildcards', f'{args_manager.args.user_dir}/wildcards, dirs_exist_ok = True')
   return
