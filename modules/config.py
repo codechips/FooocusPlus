@@ -33,7 +33,7 @@ always_save_keys = []
 visited_keys = []
 
 try:
-    with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
+    with open(f'{args_manager.args.user_dir}/presets/default.json'), "r", encoding="utf-8") as json_file:
         config_dict.update(json.load(json_file))
 except Exception as e:
     print(f'Loading Default preset failed.')
@@ -103,12 +103,11 @@ def try_load_deprecated_user_path_config():
         print('Processing deprecated config failed')
         print(e)
     return
-
-
 try_load_deprecated_user_path_config()
 
+
 def get_presets():
-    preset_folder = f'{args_manager.args.user_dir}presets'
+    preset_folder = f'{args_manager.args.user_dir}/presets'
     print()
     print(f'Preset Folder: {preset_folder}')
     print()
@@ -124,7 +123,7 @@ def update_presets():
 
 def try_get_preset_content(preset):
     if isinstance(preset, str):
-        preset_path = os.path.abspath(f'./presets/{preset}.json')
+        preset_path = f'{args_manager.args.user_dir}/presets/{preset}.json')
         try:
             if os.path.exists(preset_path):
                 with open(preset_path, "r", encoding="utf-8") as json_file:
@@ -141,7 +140,7 @@ def try_get_preset_content(preset):
 available_presets = get_presets()
 preset = args_manager.args.preset
 if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
-and (os.path.exists('./presets/LowVRAMdef.json')):
+and (os.path.exists(f'{args_manager.args.user_dir}/presets/LowVRAMdef.json')):
     preset='LowVRAMdef'
     print('Loading the "LowVRAMdef" preset, the default for low VRAM systems')
 config_dict.update(try_get_preset_content(preset))
