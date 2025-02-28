@@ -29,7 +29,7 @@ def load_file_from_url(
         try: 
                 download_url_to_file(url, cached_file, progress=progress)
         except:
-                print(f'Could not download {cached_file} from the {url}')
+                print(f'Could not download {cached_file} from {url}')
                 print('It may need to be downloaded manually')
                 print()
     return cached_file
