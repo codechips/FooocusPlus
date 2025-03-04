@@ -29,4 +29,10 @@ def create_user_structure():
   shutil.copytree('./master_presets', f'{args_manager.args.user_dir}/presets', dirs_exist_ok = True)
   shutil.copytree('./master_welcome_images', f'{args_manager.args.user_dir}/welcome_images', dirs_exist_ok = True)
   shutil.copytree('./master_wildcards', f'{args_manager.args.user_dir}/wildcards', dirs_exist_ok = True)
+  if os.path.exists(f'{args_manager.args.user_dir}/presets'):
+    working_presets = os.path.abspath(f'{args_manager.args.user_dir}/presets')
+    sys.path.append(working_presets)
+    print()
+    print(f'Working Presets: {working_presets})
+    print()
   return
