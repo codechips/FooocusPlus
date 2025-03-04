@@ -45,7 +45,7 @@ else:
    
 
 def get_preset_name_list():
-    path_preset = os.path.abspath(os.path.join(args_manager.args.user_dir, '/presets'))
+    path_preset = os.path.abspath(f'./presets/')
     presets = [p for p in util.get_files_from_folder(path_preset, ['.json'], None) if not p.startswith('.')]
     file_times = [(f, os.path.getmtime(os.path.join(path_preset, f))) for f in presets]
     sorted_file_times = sorted(file_times, key=lambda x: x[1], reverse=True)
@@ -60,7 +60,7 @@ def get_preset_name_list():
     return name_list
 
 def is_models_file_absent(preset_name):
-    preset_path = os.path.abspath(os.path.join(args_manager.args.user_dir, '/presets/{preset_name}.json'))
+    preset_path = os.path.abspath(f'./presets/{preset_name}.json')
     if os.path.exists(preset_path):
         with open(preset_path, "r", encoding="utf-8") as json_file:
             config_preset = json.load(json_file)
@@ -106,14 +106,6 @@ def get_system_message():
         with open(enhanced_config, "w", encoding="utf-8") as config_file:
             json.dump(config_ext, config_file)
     return body if body else ''
-
-
-#def preset_instruction():
-#    head = "<div style='max-width:100%; max-height:86px; overflow:hidden'>"
-#    foot = "</div>"
-#    body = '预置包简介:<span style="position: absolute;right: 0;"><a href="https://gitee.com/metercai/SimpleSDXL/blob/SimpleSDXL/presets/readme.md">\U0001F4DD 什么是预置包</a></span>'
-#    body += f'<iframe id="instruction" src="{get_preset_inc_url()}" frameborder="0" scrolling="no" width="100%"></iframe>'
-#    return head + body + foot
 
 def preset_no_instruction():
     head = "<div style='max-width:0px; max-height:0px; overflow:hidden'>"
