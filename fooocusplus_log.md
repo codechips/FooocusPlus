@@ -4,6 +4,7 @@
 * by default, UserDir contains the models, presets, startup batch, startup images & wildcards folders
 * removed "auto" model support in presets, a confusing & unnessary "feature"
 * added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
+* added the Flux AntiBlur.safetensors & Hyper-FLUX.1-dev-8steps-lora.safetensors to the Starter Pack LoRAs
 
 
 # 0.9.7 Dev
