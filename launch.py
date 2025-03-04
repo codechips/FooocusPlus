@@ -25,6 +25,9 @@ import fooocus_version
 from build_launcher import build_launcher
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met, delete_folder_content
 from modules.model_loader import load_file_from_url
+from modules.user_structure import create_user_structure
+import importlib
+import common
 
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
@@ -87,7 +90,7 @@ def ini_args():
     from args_manager import args
     return args
 
-
+create_user_structure()
 prepare_environment()
 build_launcher()
 args = ini_args()
@@ -102,12 +105,9 @@ if args.hf_mirror is not None:
 
 from modules import config
 from modules.hash_cache import init_cache
-from modules.user_structure import create_user_structure
 os.environ["U2NET_HOME"] = config.paths_inpaint[0]
 os.environ["BERT_HOME"] = config.paths_llms[0]
 os.environ['GRADIO_TEMP_DIR'] = config.temp_path
-
-create_user_structure()
 
 if config.temp_path_cleanup_on_launch:
     print(f'[Cleanup] Attempting to delete the content of the temp. dir {config.temp_path}')
