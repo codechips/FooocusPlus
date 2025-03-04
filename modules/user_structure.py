@@ -33,6 +33,6 @@ def create_user_structure():
     working_presets = os.path.abspath(f'{args_manager.args.user_dir}/presets')
     sys.path.append(working_presets)
     print()
-    print(f'Working Presets: {working_presets})
+    print(f'Working Presets: {working_presets}')
     print()
   return
