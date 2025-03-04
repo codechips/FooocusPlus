@@ -41,6 +41,8 @@ if not version.get_required_library():
     print()
     quit()
 
+create_user_structure()
+
 def prepare_environment():
     torch_index_url = os.environ.get('TORCH_INDEX_URL', "https://download.pytorch.org/whl/cu121")
     torch_command = os.environ.get('TORCH_COMMAND',
@@ -90,7 +92,6 @@ def ini_args():
     from args_manager import args
     return args
 
-create_user_structure()
 prepare_environment()
 build_launcher()
 args = ini_args()
