@@ -99,10 +99,10 @@ def try_load_deprecated_user_path_config():
 try_load_deprecated_user_path_config()
 
 def get_presets():
-    preset_folder = 'presets'
+    preset_folder = '.\presets'
     presets = ['initial']
     if not os.path.exists(preset_folder):
-        print('No presets found.')
+        print('No presets found')
         return presets
     return presets + [f[:f.index(".json")] for f in os.listdir(preset_folder) if f.endswith('.json')]
 
