@@ -1,14 +1,14 @@
 {
     "preset category": "LowVRAM",
     "Download manually from": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors",
-    "default_model": "LowVRAM\\4gbPONY4STEP2GB_fp8FullCheckpoint.safetensors",
+    "default_model": "LowVRAM\\sdxl4GB2GBImprovedFP8_fp8FullCheckpoint.safetensors",
     "default_refiner": "None",
-    "default_refiner_switch": 0.6,
+    "default_refiner_switch": 0.75,
     "default_loras": [
         [
             true,
-            "None",
-            1.0
+            "sd_xl_offset_example-lora_1.0.safetensors",
+            0.5
         ],
         [
             true,
@@ -39,15 +39,17 @@
     "default_prompt": "",
     "default_prompt_negative": "",
     "default_styles": [
-        "Pony Real"
+        "Fooocus V2",
+        "Fooocus Enhance"
     ],
     "default_aspect_ratio": "1024*1024",
     "default_overwrite_step": -1,
-    "default_inpaint_engine_version": "None",
     "checkpoint_downloads": {
-        "4gbPONY4STEP2GB_fp8FullCheckpoint.safetensors": "https://civitai.com/api/download/models/968654?type=Model&format=SafeTensor&size=full&fp=fp8&token=b9c06333099ba600ef8e993a5e97f31a"
+        "LowVRAM\\sdxl4GB2GBImprovedFP8_fp8FullCheckpoint.safetensors": "https://civitai.com/api/download/models/971447?type=Model&format=SafeTensor&size=full&fp=fp8&token=b9c06333099ba600ef8e993a5e97f31a"
     },
     "embeddings_downloads": {},
-    "lora_downloads": {},
-    "vae_downloads": {}
+    "lora_downloads": {
+        "sd_xl_offset_example-lora_1.0.safetensors": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors"
+    },
+    "previous_default_models": []
 }
