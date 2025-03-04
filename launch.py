@@ -26,8 +26,6 @@ from build_launcher import build_launcher
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met, delete_folder_content
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure
-import importlib
-import common
 
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
@@ -36,12 +34,11 @@ if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
     print(f'Python library does not support FooocusPlus {version.get_fooocusplus_ver()}')
-    print('Please reinstall the FooocusPlus program archive from')
+    print('Please reinstall the python_embedded archive from')
     print('https://huggingface.co/DavidDragonsage/FooocusPlus/')
     print()
     quit()
 
-create_user_structure()
 
 def prepare_environment():
     torch_index_url = os.environ.get('TORCH_INDEX_URL', "https://download.pytorch.org/whl/cu121")
@@ -92,6 +89,7 @@ def ini_args():
     from args_manager import args
     return args
 
+create_user_structure()
 prepare_environment()
 build_launcher()
 args = ini_args()
