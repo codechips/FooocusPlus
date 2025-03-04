@@ -2,6 +2,7 @@ import os
 import sys
 import shutil
 import args_manager
+import common
 from modules import config
 
 def create_model_structure():
@@ -33,7 +34,7 @@ def create_user_structure():
   if os.path.exists(f'{args_manager.args.user_dir}/presets'):
     working_presets = os.path.abspath(f'{args_manager.args.user_dir}/presets')
     sys.path.append(working_presets)
-    print()
+    common.working_presets = working_presets
     print(f'Working Presets: {working_presets}')
     print()
   return
