@@ -5,7 +5,6 @@ import os
 GRADIO_ROOT = None
 MODELS_INFO = None
 torch_device = ''
-working_presets = ''
 
 # ROOT is used as a constant that
 # is referenced by several modules
