@@ -127,22 +127,6 @@ def try_get_preset_content(preset):
             print(e)
     return {}
 
-create_user_structure()
-try:
-    with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
-        config_dict.update(json.load(json_file))
-except Exception as e:
-    print(f'Loading Default preset failed.')
-    print(e)
-available_presets = get_presets()
-preset = args_manager.args.preset
-if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
-and (os.path.exists('./presets/LowVRAMdef.json')):
-    preset='LowVRAMdef'
-    print('Loading the "LowVRAMdef" preset, the default for low VRAM systems')
-config_dict.update(try_get_preset_content(preset))
-theme = args_manager.args.theme
-
 def get_path_output() -> str:
     """
     Checking output path argument and overriding default path.
@@ -252,6 +236,22 @@ modelsinfo = init_modelsinfo(path_models_root, dict(
     unet=[path_unet],
     vae=[path_vae]
     ))
+
+create_user_structure()
+try:
+    with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
+        config_dict.update(json.load(json_file))
+except Exception as e:
+    print(f'Loading Default preset failed.')
+    print(e)
+available_presets = get_presets()
+preset = args_manager.args.preset
+if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
+and (os.path.exists('./presets/LowVRAMdef.json')):
+    preset='LowVRAMdef'
+    print('Loading the "LowVRAMdef" preset, the default for low VRAM systems')
+config_dict.update(try_get_preset_content(preset))
+theme = args_manager.args.theme
 
 def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False, expected_type=None):
     global config_dict, visited_keys
