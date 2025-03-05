@@ -12,6 +12,7 @@ import enhanced.all_parameters as ads
 
 from common import ROOT
 from modules.model_loader import load_file_from_url
+from modules.user_structure import create_user_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
 
@@ -110,13 +111,6 @@ def update_presets():
     global available_presets
     available_presets = get_presets()
 
-try:
-    with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
-        config_dict.update(json.load(json_file))
-except Exception as e:
-    print(f'Loading Default preset failed.')
-    print(e)
-
 def try_get_preset_content(preset):
     if isinstance(preset, str):
         preset_path = os.path.abspath(f'./presets/{preset}.json')
@@ -133,6 +127,13 @@ def try_get_preset_content(preset):
             print(e)
     return {}
 
+create_user_structure()
+try:
+    with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
+        config_dict.update(json.load(json_file))
+except Exception as e:
+    print(f'Loading Default preset failed.')
+    print(e)
 available_presets = get_presets()
 preset = args_manager.args.preset
 if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
