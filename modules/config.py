@@ -125,6 +125,7 @@ def try_get_preset_content(preset):
         except Exception as e:
             print(f'Load preset [{preset_path}] failed')
             print(e)
+        print()
     return {}
 
 def get_path_output() -> str:
