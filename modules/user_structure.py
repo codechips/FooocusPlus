@@ -21,9 +21,9 @@ def create_model_structure():
   return
 
 def create_user_structure():
+  print(f'Initializing the user folder at {os.path.abspath(args_manager.args.user_dir)}')
   create_model_structure()
-  print(f'Initializing file structure at {os.path.abspath(args_manager.args.user_dir)}')
-  # initialize the user directory, user_dir
+   # initialize the user directory, user_dir
   shutil.copytree('./master_batch_startups', f'{args_manager.args.user_dir}/batch_startups', dirs_exist_ok = True)
   shutil.copytree('./master_control_images', f'{args_manager.args.user_dir}/control_images', dirs_exist_ok = True)
   shutil.copytree('./master_welcome_images', f'{args_manager.args.user_dir}/welcome_images', dirs_exist_ok = True)
@@ -44,5 +44,4 @@ def create_user_structure():
   if os.path.exists(f'{args_manager.args.user_dir}/user_presets'):
     shutil.copytree(f'{args_manager.args.user_dir}/user_presets', working_presets, dirs_exist_ok = True)
   print(f'Updated the working preset folder: {os.path.abspath(working_presets)}')
-  print()
   return
