@@ -103,7 +103,11 @@ def get_path_models_root() -> str:
         models_root = args_manager.args.models_root
         path_models_root = os.path.abspath(models_root)
         config_dict['path_models_root'] = path_models_root
-    path_models_root = get_dir_or_set_default('path_models_root', f'{args_manager.args.models_root}/{models_root}')
+    elif args_manager.args.user_dir:
+        models_root = (f'{args_manager.args.user_dir}/models')
+        path_models_root = os.path.abspath(models_root)
+        config_dict['path_models_root'] = path_models_root
+    path_models_root = get_dir_or_set_default('path_models_root', '..UserDir/models')
     print(f'Generative models are stored in {path_models_root}')
     return path_models_root
 
@@ -870,25 +874,13 @@ allow_missing_preset_key = [
     "previous_default_models",
     ]
 
-REWRITE_PRESET = False
-
-if REWRITE_PRESET and isinstance(args_manager.args.preset, str):
-    save_path = 'presets/' + args_manager.args.preset + '.json'
-    with open(save_path, "w", encoding="utf-8") as json_file:
-        json.dump({k: config_dict[k] for k in possible_preset_keys}, json_file, indent=4)
-    print(f'Preset saved to {save_path}. Exiting ...')
-    exit(0)
-
-
 default_aspect_ratio = modules.flags.default_aspect_ratios['SDXL']
 available_aspect_ratios_labels = modules.flags.available_aspect_ratios_list['SDXL']
-
 
 # Only write config in the first launch.
 if not os.path.exists(config_path):
     with open(config_path, "w", encoding="utf-8") as json_file:
         json.dump({k: config_dict[k] for k in always_save_keys}, json_file, indent=4)
-
 
 # Always write tutorials.
 with open(config_example_path, "w", encoding="utf-8") as json_file:
