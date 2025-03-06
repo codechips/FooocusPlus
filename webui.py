@@ -1050,8 +1050,9 @@ with common.GRADIO_ROOT:
                     # selection is later restored to the UI it needs to be more universal.
                     language_ui = gr.Radio(visible=False, label='Language of UI', choices=['En', '中文'], value=modules.flags.language_radio(args_manager.args.language), interactive=False)
                     background_theme = gr.Radio(label='Background Theme', choices=['light', 'dark'], value=args_manager.args.theme, interactive=True)
+                    prompt_preset_button = gr.Button(label='Make New Preset', \
+                        value='All current parameters will be saved. Clear the positive and negative prompts unless you want them to be part of the preset')
                 with gr.Group():
-                    prompt_preset_button = gr.Button(value='Save the current parameters as a preset package')
                     comfyd_active_checkbox = gr.Checkbox(label='Enable Comfyd Always Active', value=not args_manager.args.disable_comfyd, info='Enabling will improve execution speed but occupy some memory.')
                     image_tools_checkbox = gr.Checkbox(label='Enable ParamsTools', value=True, info='Management of published image sets, located in the middle toolbox on the right side of the image set.')
                     #finished_catalog_max_number = gr.Slider(label='Catalog Max Number', minimum=1, maximum=60, step=5, value=1)
