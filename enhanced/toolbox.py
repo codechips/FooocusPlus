@@ -3,6 +3,8 @@ import json
 import copy
 import re
 import math
+import shutil
+import args_manager
 import time
 import gradio as gr
 import modules.config as config
@@ -465,21 +467,23 @@ def save_preset(*args):
         embeddings = embeddings.keys()
         preset["embeddings_downloads"] = {} 
 
-
-        m_dict = {}
-        for key in style_selections:
-            if key!='Fooocus V2':
-                m_dict.update({key: sdxl_styles.styles[key]})
-        if len(m_dict.keys())>0:
-            preset["styles_definition"] = m_dict
+#        Do not append lists of keywords for each style that is used
+#        This does not meet normal preset standards        
+#        m_dict = {}
+#        for key in style_selections:
+#            if key!='Fooocus V2':
+#                m_dict.update({key: sdxl_styles.styles[key]})
+#        if len(m_dict.keys())>0:
+#            preset["styles_definition"] = m_dict
 
         #print(f'preset:{preset}')
         save_path = 'presets/' + name + '.json'
+        user_path = f"{args_manager.args.user_dir}/user_presets/ + name + '.json'"
         with open(save_path, "w", encoding="utf-8") as json_file:
-            json.dump(preset, json_file, indent=4)
-
+            json.dump(preset, json_file, indent=4) # temp. save to working presets
+        shutil.copy(save_path, user_path)          # perm. save to user presets
         state_params.update({"__preset": name})
-        print(f'[ToolBox] Saved the current params and reset to {save_path}.')
+        print(f'[ToolBox] Saved the current parameters to {os.path.abspath(user_presets)}')
     state_params.update({"note_box_state": ['',0,0]})
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += topbar.refresh_nav_bars(state_params)
