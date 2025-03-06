@@ -49,7 +49,10 @@ args_parser.parser.add_argument("--dev", action='store_true',
 
 args_parser.parser.add_argument("--user-dir", type=str, help="Set the default path to the user directory", default='..\\UserDir')
 
-args_parser.parser.add_argument("--models-root", type=str, help="Set the default path to the models directory", default='..\\UserDir\\models')
+args_parser.parser.add_argument("--models-root", type=str, help="Set the default path to the models directory", default=args_manager.args.user_dir)
+print()
+print(f'args_manager.args.models_root {args_manager.args.models_root}')
+print()
 
 args_parser.parser.add_argument("--config", type=str, help="Set the default path for config.txt", default=None)
 
