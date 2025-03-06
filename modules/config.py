@@ -41,9 +41,10 @@ try:
         for key in always_save_keys:
             if key.startswith('default_') and key[8:] in ads.default:
                 ads.default[key[8:]] = config_dict[key]
-        print(f'Load config data from {config_path}.')
+        print(f'Loading config data from {config_path}')
 except Exception as e:
-    print(f'Failed to load config file "{config_path}" . The reason is: {str(e)}')
+    print(f'Failed to load config data from {config_path}
+    print(f'because of {str(e)}')
     print('Please make sure that:')
     print(f'1. The file "{config_path}" is a valid text file, and you have access to read it.')
     print('2. Use "\\\\" instead of "\\" when describing paths.')
