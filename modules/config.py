@@ -158,7 +158,7 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
     config_dict[key] = dp
     return dp
 
-user_dir = get_dir_or_set_default('user_dir', [{args_manager.args.user_dir}, '../UserDir'], True)
+user_dir = get_dir_or_set_default('user_dir', [args_manager.args.user_dir, '../UserDir'], True)
 path_models_root = get_path_models_root()
 paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True)
 paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True)
