@@ -69,7 +69,7 @@ def get_config_path():
         config_path = args_manager.args.config
     elif args_manager.args.user_dir:
         config_path = args_manager.args.user_dir
-    else
+    else:
         config_path = '../user_dir'
     return os.path.abspath(config_path)
 
