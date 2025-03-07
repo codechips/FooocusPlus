@@ -1,5 +1,5 @@
 {
-    "preset category": "Pony",
+    "preset_category": "Pony",
     "Download manually from": "https://civitai.com/api/download/models/464939?type=Model&format=SafeTensor&size=full&fp=fp16",
     "default_model": "Pony\\ponyFaetality_v11.safetensors",
     "default_refiner": "None",

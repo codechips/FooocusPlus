@@ -1,5 +1,5 @@
 {
-"preset category": "SD1.5",
+"preset_category": "SD1.5",
 "default_engine": {
 	"backend_engine":"Comfy",
 	"disvisible": ["backend_selection", "performance_selection"],

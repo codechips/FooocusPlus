@@ -1,5 +1,5 @@
 {
-    "preset category": "Favorite",
+    "preset_category": "Favorite",
     "default_model": "CHEYENNE_v18.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.6,

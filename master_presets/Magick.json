@@ -1,5 +1,5 @@
 {
-    "preset category": "Fantasy",
+    "preset_category": "Fantasy",
     "default_model": "magickXL_v10.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.6,

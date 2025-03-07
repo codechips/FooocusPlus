@@ -1,5 +1,5 @@
 {
-    "preset category": "Realism",
+    "preset_category": "Realism",
     "default_engine": {
         "backend_engine": "Comfy",
         "disvisible": ["backend_selection", "performance_selection"],

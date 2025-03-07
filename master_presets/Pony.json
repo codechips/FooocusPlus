@@ -1,5 +1,5 @@
 {
-    "preset category": "Pony",
+    "preset_category": "Pony",
     "default_model": "Pony\\ponyDiffusionV6XL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.6,
