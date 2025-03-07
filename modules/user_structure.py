@@ -21,9 +21,8 @@ def create_model_structure():
   return
 
 def create_user_structure():
+  # initialize the user directory, user_dir
   print(f'Initializing the user folder at {os.path.abspath(args_manager.args.user_dir)}')
-  create_model_structure()
-   # initialize the user directory, user_dir
   shutil.copytree('./master_batch_startups', f'{args_manager.args.user_dir}/batch_startups', dirs_exist_ok = True)
   shutil.copytree('./master_control_images', f'{args_manager.args.user_dir}/control_images', dirs_exist_ok = True)
   shutil.copytree('./master_welcome_images', f'{args_manager.args.user_dir}/welcome_images', dirs_exist_ok = True)
