@@ -871,8 +871,10 @@ possible_preset_keys = {
 }
 
 allow_missing_preset_key = [
+    "default_aspect_ratio"
     "default_prompt",
     "default_prompt_negative",
+    "default_image_number"
     "default_output_format",
     "input_image_checkbox",
     "styles_definition",
@@ -884,14 +886,14 @@ allow_missing_preset_key = [
 default_aspect_ratio = modules.flags.default_aspect_ratios['SDXL']
 available_aspect_ratios_labels = modules.flags.available_aspect_ratios_list['SDXL']
 
-# Only write config in the first launch.
+# Only write to config.txt in the first launch
 if not os.path.exists(config_path):
     with open(config_path, "w", encoding="utf-8") as json_file:
-        # write all parameters to config.txt, just like tutorial
+        # write all the parameters to config.txt, just like the tutorial
         json.dump({k: config_dict[k] for k in visited_keys}, json_file, indent=4)
 #        json.dump({k: config_dict[k] for k in always_save_keys}, json_file, indent=4)
 
-# Always write tutorial
+# Always write to the tutorial
 with open(config_example_path, "w", encoding="utf-8") as json_file:
     cpa = config_path.replace("\\", "\\\\")
     json_file.write(f'You can modify your "{cpa}" using the below keys, formats, and examples.\n'
