@@ -16,6 +16,10 @@ from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
 
+config_dict = {}
+always_save_keys = []
+visited_keys = []
+wildcards_max_bfs_depth = 64
 
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
     global config_dict, visited_keys, always_save_keys
@@ -73,12 +77,8 @@ def get_config_path():
         config_path = '../user_dir'
     return os.path.abspath(config_path)
 
+user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
 create_user_structure()
-config_dict = {}
-always_save_keys = []
-visited_keys = []
-wildcards_max_bfs_depth = 64
-user_dir = get_dir_or_set_default('user_dir', args_manager.args.user_dir)
 config_path = os.path.join(get_config_path(), "/config.txt")
 config_example_path = os.path.join(get_config_path(), "/config_modification_tutorial.txt")
 
