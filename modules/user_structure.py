@@ -28,12 +28,16 @@ def create_user_structure():
   shutil.copytree('./master_welcome_images', f'{args_manager.args.user_dir}/welcome_images', dirs_exist_ok = True)
   shutil.copytree('./master_wildcards', f'{args_manager.args.user_dir}/wildcards', dirs_exist_ok = True)
 
-  # copy './master_presets' to user_dir for the user's reference only
+  # delete the contents of user_dir/master_presets to get a clean start
+  # copy the contents of './master_presets' to user_dir for the user's reference only
   # ensure that './presets' exists
   # delete the contents of './presets' which is used as a temporary working folder
   # initialize './presets' with the contents of './master_presets'
   # overwrite './presets' with the contents of user_dir './user_presets'
   # this allows a user to completely customize their presets, if desired
+  master_presets = f'{args_manager.args.user_dir}/master_presets'
+  if os.path.exists(master_presets):
+    shutil.rmtree(master_presets, ignore_errors=True)
   shutil.copytree('./master_presets', f'{args_manager.args.user_dir}/master_presets', dirs_exist_ok = True)
   working_presets = './presets'
   if os.path.exists(working_presets):
