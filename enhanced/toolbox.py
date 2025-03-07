@@ -362,6 +362,7 @@ def save_preset(*args):
     args = list(args)  
     args.reverse()
     save_name = args.pop() # retrieve the save_name the user entered
+    preset_category = args.pop()
     backend_params = dict(args.pop())
     output_format = args.pop()
     inpaint_advanced_masking_checkbox = args.pop()
