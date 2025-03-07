@@ -81,6 +81,8 @@ user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.
 create_user_structure()
 config_path = os.path.join(get_config_path(), "/config.txt")
 config_example_path = os.path.join(get_config_path(), "/config_modification_tutorial.txt")
+print(config_path)
+print(config_example_path)
 
 try:
     if os.path.exists(config_path):
