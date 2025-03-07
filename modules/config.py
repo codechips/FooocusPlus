@@ -68,20 +68,20 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
     config_dict[key] = dp
     return dp
 
-def get_config_path():
+def get_config_path(config_file):
     if args_manager.args.config:
         config_path = args_manager.args.config
     elif args_manager.args.user_dir:
         config_path = args_manager.args.user_dir
     else:
         config_path = '../user_dir'
+    config_path = f'{config_path}/{config_file}'
     return os.path.abspath(config_path)
 
 user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
 create_user_structure()
-print(get_config_path())
-config_path = os.path.join(get_config_path(), "/config.txt")
-config_example_path = os.path.join(get_config_path(), "/config_modification_tutorial.txt")
+config_path = get_config_path('/config.txt')
+config_example_path = get_config_path('/config_modification_tutorial.txt')
 print(config_path)
 print(config_example_path)
 
