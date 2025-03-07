@@ -133,7 +133,7 @@ css = '''
 
 
 # app context
-toolbox_note_preset_title='Save a new preset for the current params and configuration.'
+toolbox_note_preset_title='Create a new preset using the current parameters.'
 toolbox_note_regenerate_title='Extract parameters to backfill for regeneration. Please note that some parameters will be modified!'
 toolbox_note_embed_title='Embed parameters into images for easy identification of image sources and communication and learning.'
 toolbox_note_missing_muid='The model in the params and configuration is missing MUID. And the system will spend some time calculating the hash of model files and synchronizing information to obtain the muid for usability and transferability.'
@@ -361,7 +361,14 @@ def apply_enabled_loras(loras):
 def save_preset(*args):    
     args = list(args)  
     args.reverse()
+    
+    # retrieve the save_name the user entered,
+    # then remove leading & trailing spaces
+    # and convert in-string spaces to underscore
     save_name = args.pop()
+    save_name = save_name.strip()
+    save_name = save_name.replace(" ", "_")
+    
     backend_params = dict(args.pop())
     output_format = args.pop()
     inpaint_advanced_masking_checkbox = args.pop()
