@@ -82,8 +82,7 @@ user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.
 create_user_structure()
 config_path = get_config_path('/config.txt')
 config_example_path = get_config_path('/config_modification_tutorial.txt')
-print(config_path)
-print(config_example_path)
+print(f'User configurations are stored in {config_path}')
 
 try:
     if os.path.exists(config_path):
@@ -164,8 +163,8 @@ def get_path_models_root() -> str:
     return path_models_root
 
 path_models_root = get_path_models_root()
-paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
-paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True, False)
+paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'])
+paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'])
 path_embeddings = get_dir_or_set_default('path_embeddings', f'{path_models_root}/embeddings/')
 path_vae_approx = get_dir_or_set_default('path_vae_approx', f'{path_models_root}/vae_approx/')
 path_vae = get_dir_or_set_default('path_vae', f'{path_models_root}/vae/')
