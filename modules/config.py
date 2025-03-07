@@ -79,6 +79,7 @@ def get_config_path():
 
 user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
 create_user_structure()
+print(get_config_path())
 config_path = os.path.join(get_config_path(), "/config.txt")
 config_example_path = os.path.join(get_config_path(), "/config_modification_tutorial.txt")
 print(config_path)
