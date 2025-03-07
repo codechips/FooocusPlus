@@ -477,13 +477,13 @@ def save_preset(*args):
 #            preset["styles_definition"] = m_dict
 
         #print(f'preset:{preset}')
-        save_path = 'presets/' + name + '.json'
-        user_path = f"{args_manager.args.user_dir}/user_presets/ + name + '.json'"
+        save_path = f'presets/{name}.json'
+        user_path = f'{args_manager.args.user_dir}/user_presets/{name}.json'
         with open(save_path, "w", encoding="utf-8") as json_file:
             json.dump(preset, json_file, indent=4) # temp. save to working presets
         shutil.copy(save_path, user_path)          # perm. save to user presets
+        print(f'[ToolBox] Saved the current parameters to {os.path.abspath(user_path)}')
         state_params.update({"__preset": name})
-        print(f'[ToolBox] Saved the current parameters to {os.path.abspath(user_presets)}')
     state_params.update({"note_box_state": ['',0,0]})
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += topbar.refresh_nav_bars(state_params)
