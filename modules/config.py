@@ -12,26 +12,75 @@ import enhanced.all_parameters as ads
 
 from common import ROOT
 from modules.model_loader import load_file_from_url
-from modules.user_structure import create_user_structure
+from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
 
 
-def get_config_path(key, default_value):
-    env = os.getenv(key)
-    if env is not None and isinstance(env, str):
-        print(f"Environment: {key} = {env}")
-        return env
-    else:
-        return os.path.abspath(default_value)
+def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
+    global config_dict, visited_keys, always_save_keys
 
-wildcards_max_bfs_depth = 64
-config_path = get_config_path('config_path', "config.txt") if args_manager.args.config is None else os.path.abspath(os.path.join(args_manager.args.config, "config.txt"))
-print(config_path)
-config_example_path = get_config_path('config_example_path', "config_modification_tutorial.txt")
+    if key not in visited_keys:
+        visited_keys.append(key)
+
+    if key not in always_save_keys:
+        always_save_keys.append(key)
+
+    v = os.getenv(key)
+    if v is not None:
+        print(f"Environment: {key} = {v}")
+        config_dict[key] = v
+    else:
+        v = config_dict.get(key, None)
+
+    if isinstance(v, str):
+        if make_directory:
+            makedirs_with_log(v)
+        if os.path.exists(v) and os.path.isdir(v):
+            return v if not as_array else [v]
+    elif isinstance(v, list):
+        if make_directory:
+            for d in v:
+                makedirs_with_log(d)
+        if all([os.path.exists(d) and os.path.isdir(d) for d in v]):
+            return v
+
+    if v is not None:
+        if 'Outputs' in v:
+            print('Creating the',v,'folder...')
+        else:
+            print(f'Failed to load config key: {json.dumps({key:v})} is invalid or does not exist; will use {json.dumps({key:default_value})} instead.')
+    if isinstance(default_value, list):
+        dp = []
+        for path in default_value:
+            abs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path))
+            dp.append(abs_path)
+            os.makedirs(abs_path, exist_ok=True)
+    else:
+        dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
+        os.makedirs(dp, exist_ok=True)
+        if as_array:
+            dp = [dp]
+    config_dict[key] = dp
+    return dp
+
+def get_config_path():
+    if args_manager.args.config:
+        config_path = args_manager.args.config
+    elif args_manager.args.user_dir:
+        config_path = args_manager.args.user_dir
+    else
+        config_path = '../user_dir'
+    return os.path.abspath(config_path)
+
+create_user_structure()
 config_dict = {}
 always_save_keys = []
 visited_keys = []
+wildcards_max_bfs_depth = 64
+user_dir = get_dir_or_set_default('user_dir', args_manager.args.user_dir)
+config_path = os.path.join(get_config_path(), "/config.txt")
+config_example_path = os.path.join(get_config_path(), "/config_modification_tutorial.txt")
 
 try:
     if os.path.exists(config_path):
@@ -111,67 +160,19 @@ def get_path_models_root() -> str:
     print(f'Generative models are stored in {path_models_root}')
     return path_models_root
 
-def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
-    global config_dict, visited_keys, always_save_keys
-
-    if key not in visited_keys:
-        visited_keys.append(key)
-
-    if key not in always_save_keys:
-        always_save_keys.append(key)
-
-    v = os.getenv(key)
-    if v is not None:
-        print(f"Environment: {key} = {v}")
-        config_dict[key] = v
-    else:
-        v = config_dict.get(key, None)
-
-    if isinstance(v, str):
-        if make_directory:
-            makedirs_with_log(v)
-        if os.path.exists(v) and os.path.isdir(v):
-            return v if not as_array else [v]
-    elif isinstance(v, list):
-        if make_directory:
-            for d in v:
-                makedirs_with_log(d)
-        if all([os.path.exists(d) and os.path.isdir(d) for d in v]):
-            return v
-
-    if v is not None:
-        if 'Outputs' in v:
-            print('Creating the',v,'folder...')
-        else:
-            print(f'Failed to load config key: {json.dumps({key:v})} is invalid or does not exist; will use {json.dumps({key:default_value})} instead.')
-    if isinstance(default_value, list):
-        dp = []
-        for path in default_value:
-            abs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path))
-            dp.append(abs_path)
-            os.makedirs(abs_path, exist_ok=True)
-    else:
-        dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
-        os.makedirs(dp, exist_ok=True)
-        if as_array:
-            dp = [dp]
-    config_dict[key] = dp
-    return dp
-
-user_dir = get_dir_or_set_default('user_dir', [args_manager.args.user_dir, '../UserDir'])
 path_models_root = get_path_models_root()
-paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True)
-paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True)
+paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
+paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True, False)
 path_embeddings = get_dir_or_set_default('path_embeddings', f'{path_models_root}/embeddings/')
 path_vae_approx = get_dir_or_set_default('path_vae_approx', f'{path_models_root}/vae_approx/')
 path_vae = get_dir_or_set_default('path_vae', f'{path_models_root}/vae/')
 path_upscale_models = get_dir_or_set_default('path_upscale_models', f'{path_models_root}/upscale_models/')
-paths_inpaint = get_dir_or_set_default('path_inpaint', [f'{path_models_root}/inpaint/', '../UserDir/models/inpaint/'], True)
-paths_controlnet = get_dir_or_set_default('path_controlnet', [f'{path_models_root}/controlnet/', '../UserDir/models/controlnet/'], True)
+paths_inpaint = get_dir_or_set_default('path_inpaint', [f'{path_models_root}/inpaint/', '../UserDir/models/inpaint/'], True, False)
+paths_controlnet = get_dir_or_set_default('path_controlnet', [f'{path_models_root}/controlnet/', '../UserDir/models/controlnet/'], True, False)
 path_clip = get_dir_or_set_default('path_clip', f'{path_models_root}/clip/')
 path_clip_vision = get_dir_or_set_default('path_clip_vision', f'{path_models_root}/clip_vision/')
 path_fooocus_expansion = get_dir_or_set_default('path_fooocus_expansion', f'{path_models_root}/prompt_expansion/fooocus_expansion')
-paths_llms = get_dir_or_set_default('path_llms', [f'{path_models_root}/llms/'], True)
+paths_llms = get_dir_or_set_default('path_llms', [f'{path_models_root}/llms/'], True, False)
 path_wildcards = get_dir_or_set_default('path_wildcards', '../wildcards/')
 path_safety_checker = get_dir_or_set_default('path_safety_checker', f'{path_models_root}/safety_checker/')
 path_sam = paths_inpaint[0]
@@ -179,7 +180,7 @@ path_outputs = get_path_output()
 path_unet = get_dir_or_set_default('path_unet', f'{path_models_root}/unet')
 path_rembg = get_dir_or_set_default('path_rembg', f'{path_models_root}/rembg')
 path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_root}/layer_model')
-paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True)
+paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
 
 from enhanced.simpleai import init_modelsinfo
 modelsinfo = init_modelsinfo(path_models_root, dict(
@@ -195,7 +196,7 @@ modelsinfo = init_modelsinfo(path_models_root, dict(
     vae=[path_vae]
     ))
 
-create_user_structure()
+create_model_structure()
 try:
     with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
         config_dict.update(json.load(json_file))
@@ -814,6 +815,7 @@ config_dict["default_loras"] = default_loras = default_loras[:default_max_lora_n
 
 # mapping config to meta parameter
 possible_preset_keys = {
+    "preset_category": "preset_category",
     "default_engine": "engine",
     "default_model": "base_model",
     "default_refiner": "refiner_model",
@@ -881,9 +883,11 @@ available_aspect_ratios_labels = modules.flags.available_aspect_ratios_list['SDX
 # Only write config in the first launch.
 if not os.path.exists(config_path):
     with open(config_path, "w", encoding="utf-8") as json_file:
-        json.dump({k: config_dict[k] for k in always_save_keys}, json_file, indent=4)
+        # write all parameters to config.txt, just like tutorial
+        json.dump({k: config_dict[k] for k in visited_keys}, json_file, indent=4)
+#        json.dump({k: config_dict[k] for k in always_save_keys}, json_file, indent=4)
 
-# Always write tutorials.
+# Always write tutorial
 with open(config_example_path, "w", encoding="utf-8") as json_file:
     cpa = config_path.replace("\\", "\\\\")
     json_file.write(f'You can modify your "{cpa}" using the below keys, formats, and examples.\n'
