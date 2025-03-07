@@ -154,7 +154,7 @@ def get_path_output() -> str:
     global config_dict
     if args_manager.args.output_path:
         path_output = args_manager.args.output_path
-    else
+    else:
         path_output = f'{args_manager.args.user_dir}/{path_output}'
     path_output_abs = os.path.abspath(path_output)
     config_dict['path_outputs'] = path_output_abs
