@@ -361,14 +361,7 @@ def apply_enabled_loras(loras):
 def save_preset(*args):    
     args = list(args)  
     args.reverse()
-    
-    # retrieve the save_name the user entered,
-    # then remove leading & trailing spaces
-    # and convert in-string spaces to underscore
-    save_name = args.pop()
-    save_name = save_name.strip()
-    save_name = save_name.replace(" ", "_")
-    
+    save_name = args.pop() # retrieve the save_name the user entered
     backend_params = dict(args.pop())
     output_format = args.pop()
     inpaint_advanced_masking_checkbox = args.pop()
@@ -416,6 +409,10 @@ def save_preset(*args):
     loras = [(bool(args.pop()), str(args.pop()), float(args.pop())) for _ in range(config.default_max_lora_number)]
   
     if save_name:
+        # remove save_name's leading & trailing spaces
+        # and convert in-string spaces to underscore
+        save_name = save_name.strip()
+        save_name = save_name.replace(" ", "_")
         preset = {}
         if 'backend_engine' in backend_params and backend_params['backend_engine']!='Fooocus':
             preset["default_engine"] = backend_params
