@@ -356,14 +356,12 @@ def apply_enabled_loras(loras):
         for lora_enabled, lora_model, lora_weight in loras:
             if lora_enabled:
                 enabled_loras.append([lora_model, lora_weight])
-
         return enabled_loras
 
 def save_preset(*args):    
-    args = list(args)
-    
+    args = list(args)  
     args.reverse()
-    name = args.pop()
+    save_name = args.pop()
     backend_params = dict(args.pop())
     output_format = args.pop()
     inpaint_advanced_masking_checkbox = args.pop()
@@ -409,13 +407,11 @@ def save_preset(*args):
     load_parameter_button = args.pop()
     freeu_ctrls = [bool(args.pop()), float(args.pop()), float(args.pop()), float(args.pop()), float(args.pop())]
     loras = [(bool(args.pop()), str(args.pop()), float(args.pop())) for _ in range(config.default_max_lora_number)]
-    
-
-    if name:
+  
+    if save_name:
         preset = {}
         if 'backend_engine' in backend_params and backend_params['backend_engine']!='Fooocus':
             preset["default_engine"] = backend_params
-
         preset["default_model"] = base_model
         preset["default_refiner"] = refiner_model
         preset["default_refiner_switch"] = refiner_switch
@@ -467,42 +463,14 @@ def save_preset(*args):
         embeddings = embeddings.keys()
         preset["embeddings_downloads"] = {} 
 
-#        Do not append lists of keywords for each style that is used
-#        This does not meet normal preset standards        
-#        m_dict = {}
-#        for key in style_selections:
-#            if key!='Fooocus V2':
-#                m_dict.update({key: sdxl_styles.styles[key]})
-#        if len(m_dict.keys())>0:
-#            preset["styles_definition"] = m_dict
-
-        #print(f'preset:{preset}')
-        save_path = f'presets/{name}.json'
-        user_path = f'{args_manager.args.user_dir}/user_presets/{name}.json'
+        save_path = f'presets/{save_name}.json'
+        user_path = f'{args_manager.args.user_dir}/user_presets/{save_name}.json'
         with open(save_path, "w", encoding="utf-8") as json_file:
             json.dump(preset, json_file, indent=4) # temp. save to working presets
         shutil.copy(save_path, user_path)          # perm. save to user presets
         print(f'[ToolBox] Saved the current parameters to {os.path.abspath(user_path)}')
-        state_params.update({"__preset": name})
+        state_params.update({"__preset": save_name})
     state_params.update({"note_box_state": ['',0,0]})
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += topbar.refresh_nav_bars(state_params)
     return results
-
-
-def sync_model_info_click(*args):
-
-    downurls = list(args)
-    #print(f'downurls:{downurls} \nargs:{args}, len={len(downurls)}')
-    keylist = sync_model_info(downurls)
-    results = []
-    nums = 0
-    for k in keylist:
-        muid = ' ' 
-        durl = None 
-        nums += 1 
-        results += [gr.update(info=f'MUID={muid}', value=durl)]
-    if nums:
-        print(f'[ModelInfo] There are {nums} model files missing MUIDs, which need to be added with download URLs before synchronizing.')
-    return results
-
