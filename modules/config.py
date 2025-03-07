@@ -78,30 +78,6 @@ def get_config_path(config_file):
     config_path = f'{config_path}/{config_file}'
     return os.path.abspath(config_path)
 
-user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
-create_user_structure()
-config_path = get_config_path('/config.txt')
-config_example_path = get_config_path('/config_modification_tutorial.txt')
-print(f'User configurations are stored in {config_path}')
-
-try:
-    if os.path.exists(config_path):
-        with open(config_path, "r", encoding="utf-8") as json_file:
-            config_dict.update(json.load(json_file))
-        always_save_keys = list(config_dict.keys())
-        for key in always_save_keys:
-            if key.startswith('default_') and key[8:] in ads.default:
-                ads.default[key[8:]] = config_dict[key]
-        print(f'Loading config data from {config_path}')
-except Exception as e:
-    print(f'Failed to load config data from {config_path}')
-    print(f'because of {str(e)}')
-    print('Please make sure that:')
-    print(f'1. The file "{config_path}" is a valid text file, and you have access to read it.')
-    print('2. Use "\\\\" instead of "\\" when describing paths.')
-    print('3. There is no "," before the last "}".')
-    print('4. All key/value formats are correct.')
-
 def get_presets():
     preset_folder = '.\presets'
     presets = ['initial']
@@ -130,6 +106,46 @@ def try_get_preset_content(preset):
             print(e)
         print()
     return {}
+
+user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
+create_user_structure()
+
+try:
+    with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
+        config_dict.update(json.load(json_file))
+except Exception as e:
+    print(f'Loading Default preset failed.')
+    print(e)
+available_presets = get_presets()
+preset = args_manager.args.preset
+if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
+and (os.path.exists('./presets/LowVRAMdef.json')):
+    preset='LowVRAMdef'
+    print('Loading the "LowVRAMdef" preset, the default for low VRAM systems')
+config_dict.update(try_get_preset_content(preset))
+theme = args_manager.args.theme
+
+config_path = get_config_path('/config.txt')
+config_example_path = get_config_path('/config_modification_tutorial.txt')
+print(f'User configurations are stored in {config_path}')
+
+try:
+    if os.path.exists(config_path):
+        with open(config_path, "r", encoding="utf-8") as json_file:
+            config_dict.update(json.load(json_file))
+        always_save_keys = list(config_dict.keys())
+        for key in always_save_keys:
+            if key.startswith('default_') and key[8:] in ads.default:
+                ads.default[key[8:]] = config_dict[key]
+        print(f'Loading config data from {config_path}')
+except Exception as e:
+    print(f'Failed to load config data from {config_path}')
+    print(f'because of {str(e)}')
+    print('Please make sure that:')
+    print(f'1. The file "{config_path}" is a valid text file, and you have access to read it.')
+    print('2. Use "\\\\" instead of "\\" when describing paths.')
+    print('3. There is no "," before the last "}".')
+    print('4. All key/value formats are correct.')
 
 def get_path_output() -> str:
     """
@@ -163,8 +179,8 @@ def get_path_models_root() -> str:
     return path_models_root
 
 path_models_root = get_path_models_root()
-paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'])
-paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'])
+paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
+paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True, False)
 path_embeddings = get_dir_or_set_default('path_embeddings', f'{path_models_root}/embeddings/')
 path_vae_approx = get_dir_or_set_default('path_vae_approx', f'{path_models_root}/vae_approx/')
 path_vae = get_dir_or_set_default('path_vae', f'{path_models_root}/vae/')
@@ -199,20 +215,6 @@ modelsinfo = init_modelsinfo(path_models_root, dict(
     ))
 
 create_model_structure()
-try:
-    with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
-        config_dict.update(json.load(json_file))
-except Exception as e:
-    print(f'Loading Default preset failed.')
-    print(e)
-available_presets = get_presets()
-preset = args_manager.args.preset
-if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
-and (os.path.exists('./presets/LowVRAMdef.json')):
-    preset='LowVRAMdef'
-    print('Loading the "LowVRAMdef" preset, the default for low VRAM systems')
-config_dict.update(try_get_preset_content(preset))
-theme = args_manager.args.theme
 
 def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False, expected_type=None):
     global config_dict, visited_keys
