@@ -59,10 +59,8 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
         for path in default_value:
             abs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path))
             abs_path = abs_path.replace("FooocusPlusAI\\", "")
-            print(f'default_value {default_value}')
-            print(f'abs_path {abs_path}')
             dp.append(abs_path)
-            os.makedirs(abs_path, exist_ok=True)
+#            os.makedirs(abs_path, exist_ok=True)
     else:
         dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
         os.makedirs(dp, exist_ok=True)
