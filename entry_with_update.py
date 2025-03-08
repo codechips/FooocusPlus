@@ -2,6 +2,7 @@ import os
 import sys
 
 root = os.path.dirname(os.path.abspath(__file__))
+print(f'Root: {root}')
 sys.path.append(root)
 os.chdir(root)
 
