@@ -33,7 +33,7 @@ if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
     print(f'Python library does not support FooocusPlus {version.get_fooocusplus_ver()}')
-    print('Please reinstall the python_embedded archive from')
+    print('Please install the new python_embedded archive from')
     print('https://huggingface.co/DavidDragonsage/FooocusPlus/')
     print()
     quit()
@@ -89,6 +89,7 @@ def ini_args():
     return args
 
 prepare_environment()
+print(f"{check_error}")
 build_launcher()
 args = ini_args()
 
