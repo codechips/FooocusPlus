@@ -3,7 +3,7 @@ import ssl
 import sys
 import ldm_patched
 from common import ROOT
-print(f"{check_error4}")
+
 print('[System ARGV] ' + str(sys.argv))
 
 sys.path.append(ROOT)
