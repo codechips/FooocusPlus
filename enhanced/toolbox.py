@@ -362,7 +362,7 @@ def save_preset(*args):
     args = list(args)  
     args.reverse()
     save_name = args.pop() # retrieve the save_name the user entered
-    preset_category = args.pop()
+    # preset_category = args.pop()
     backend_params = dict(args.pop())
     output_format = args.pop()
     inpaint_advanced_masking_checkbox = args.pop()
@@ -415,6 +415,8 @@ def save_preset(*args):
         save_name = save_name.strip()
         save_name = save_name.replace(" ", "_")
         preset = {}
+        if not preset_category:
+            preset["preset_category"] = "Favorite"
         if 'backend_engine' in backend_params and backend_params['backend_engine']!='Fooocus':
             preset["default_engine"] = backend_params
         preset["default_model"] = base_model
