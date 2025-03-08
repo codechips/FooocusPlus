@@ -20,6 +20,7 @@ config_dict = {}
 always_save_keys = []
 visited_keys = []
 wildcards_max_bfs_depth = 64
+print({config_error})
 
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
     global config_dict, visited_keys, always_save_keys
