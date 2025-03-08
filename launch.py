@@ -3,7 +3,7 @@ import ssl
 import sys
 import ldm_patched
 from common import ROOT
-print(f"{check_error1}")
+print(f"{check_error4}")
 print('[System ARGV] ' + str(sys.argv))
 
 sys.path.append(ROOT)
@@ -28,7 +28,7 @@ from modules.model_loader import load_file_from_url
 
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
-print(f"{check_error2}")
+
 if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
@@ -40,12 +40,12 @@ if not version.get_required_library():
 
 
 def prepare_environment():
-    print(f"{check_error2}")
+
     torch_index_url = os.environ.get('TORCH_INDEX_URL', "https://download.pytorch.org/whl/cu121")
     torch_command = os.environ.get('TORCH_COMMAND',
                                    f"pip install torch==2.1.0 torchvision==0.16.0 --extra-index-url {torch_index_url}")
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
-    print(f"{check_error3}")
+
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}")
     print(f"Comfy version: {comfy.comfy_version.version}")    
