@@ -34,7 +34,7 @@ def create_user_structure():
   # delete the contents of './presets' which is used as a temporary working folder
   # initialize './presets' with the contents of './master_presets'
   # overwrite './presets' with the contents of user_dir './user_presets'
-  # this allows a user to completely customize their presets, if desired
+  # this allows a user to completely customize the master presets, if desired
   master_presets = f'{args_manager.args.user_dir}/master_presets'
   if os.path.exists(master_presets):
     shutil.rmtree(master_presets, ignore_errors=True)
