@@ -1,8 +1,17 @@
 # 0.9.8 Dev
 
-* initialized the UserDir folder, its location defaults to the repo's parent
-* by default, UserDir contains the models, presets, startup batch, startup images & wildcards folders
-* removed "auto" model support in presets, a confusing & unnessary "feature"
+* initialized the UserDir folder: its location defaults to the repo's parent
+* UserDir contains the models, master & user presets, startup batch, startup & control images, and wildcards folders
+* startup_batch now holds all the optional batch files, besides the default run_FooocusPlus.bat
+* master_presets is a copy of the same folder in the repo, for user reference only
+* user_presets is designed for custom modifications of the master presets and presets saved within the UI
+* during runtime, presets are loaded from the scratchpad presets folder within the repo, which is dynamically stocked
+  from master_presets and then overwritten with the contents of user_presets
+* this system enables the any master preset to be superceded by a user preset, reducing potential preset bloat
+* accessed from the Extras tab, the Make New Preset button enables creation of a preset based on the current parameters
+* the UserDir also contains config.txt and config_modification_tutorial.txt
+* config.txt now contains all the settings listed in config_modification_tutorial.txt, making changes much easier
+* removed "auto" model support in presets, a confusing & unnecessary "feature"
 * added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
 * added the Flux AntiBlur.safetensors & Hyper-FLUX.1-dev-8steps-lora.safetensors to the Starter Pack LoRAs
 
