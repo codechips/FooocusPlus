@@ -20,6 +20,8 @@ config_dict = {}
 always_save_keys = []
 visited_keys = []
 wildcards_max_bfs_depth = 64
+current_dir = os.path.split(os.getcwd())[-1]
+print(current_dir)
 
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
     global config_dict, visited_keys, always_save_keys
@@ -58,9 +60,9 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
         dp = []
         for path in default_value:
             abs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path))
-            abs_path = abs_path.replace("FooocusPlusAI\\", "")
+            abs_path = abs_path.replace(f'{current_dir}\\', '')
             dp.append(abs_path)
-#            os.makedirs(abs_path, exist_ok=True)
+            os.makedirs(abs_path, exist_ok=True)
     else:
         dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
         os.makedirs(dp, exist_ok=True)
