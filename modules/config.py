@@ -21,7 +21,6 @@ always_save_keys = []
 visited_keys = []
 wildcards_max_bfs_depth = 64
 current_dir = os.path.split(os.getcwd())[-1]
-print(current_dir)
 
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
     global config_dict, visited_keys, always_save_keys
@@ -65,6 +64,7 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
             os.makedirs(abs_path, exist_ok=True)
     else:
         dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
+        dp = dp.replace(f'{current_dir}\\', '')
         os.makedirs(dp, exist_ok=True)
         if as_array:
             dp = [dp]
