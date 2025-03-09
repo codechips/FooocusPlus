@@ -17,28 +17,30 @@ FooocusPlus is a community-developed AI image generation application that makes 
 
 **Supported Models**
 
-FooocusPlus gives you access to a diversity of AI image generation models, including:
+FooocusPlus gives you access to a diversity of AI image generation base models, including:
 
-- Stable Diffusion XL
+- Stable Diffusion XL (SDXL) and a large number of SDXL variants
 - Pony Diffusion XL
-- Flux
+- Flux from Black Forest Labs
+- Hunyuan-DiT
 - Kwai Kolors
 - Playground 2.5
-- Hunyuan-DiT
-- Stable Diffusion 1.5
+- Stable Diffusion 1.5 (SD1.5)
 - Stable Diffusion 3.5 (temporarily disabled)
 
-If you’re new to AI art, don’t worry! Our simple preset selectors, located either in a bar at the top of the FooocusPlus window or as a dropdown menu to the right of the main canvas (your choice), will give you one-click access to all of these exciting AI image generation models without any prior knowledge required. You'll be able to choose your own favorite model in no time.
+If you’re new to AI art, don’t worry! Our simple preset selectors, located in a bar at the top of the FooocusPlus main canvas, will give you one-click access to all of these exciting AI image generation models without any prior knowledge required. You'll be able to choose your own favorite model in no time.
 
 **System Requirements**
 
 To run FooocusPlus, you will need a computer with a graphics card capable of running advanced AI software, including at least:
 
-- 6GB of video RAM (8GB recommended for SDXL, 12GB for Flux)
+- 6GB of video RAM (8GB recommended for SDXL base models, 12GB for Flux)
 - 16GB of system RAM (32GB recommended for SDXL, 48GB for Flux)
 - 50GB of hard drive space
 
-While some graphics cards with 4GB of video RAM (VRAM) will work - some of them even supporting Flux - image generation may be slow, erratic or even non-functional. For those systems that are capable of generating FooocusPlus images with only 4GB of VRAM, we include a unique default base model that is small and fast. In addition, FooocusPlus supports Stable Diffusion 1.5 (SD1.5), which should run in most 4GB VRAM cards.
+While some graphics cards with 4GB of video RAM (VRAM) will work - some of them even supporting Flux - image generation may be slow or erratic. Some 4GB VRAM cards may not support image generation at all.
+
+For those systems that are capable of generating FooocusPlus images with only 4GB of VRAM, we include a unique default base model that is small and fast. In addition, FooocusPlus supports Stable Diffusion 1.5 (SD1.5), which should run in most 4GB VRAM cards.
 
 FooocusPlus supports NVIDIA graphics cards on Windows and Linux, macOS on Silicon, and many AMD graphics cards on Linux. We also support using AMD graphics cards on Windows at a reduced speed, and provide limited support for macOS on Intel.
 
@@ -54,7 +56,7 @@ After your downloads have completed, first install 7-Zip. Next, install the Wind
 
 **Getting Help**
 
-Have a question or concern? Visit the Discussions page to join our friendly community here at GitHub or join the Facebook [Pure Fooocus](https://www.facebook.com/groups/fooocus) group. If you think you have found a bug or want to suggest a missing feature, visit the Issues page to file a report so that we can investigate.
+Have a question or concern? Visit the Discussions page here at GitHub or join our friendly community at the Facebook [Pure Fooocus](https://www.facebook.com/groups/fooocus) group. If you think you have found a bug or want to suggest a missing feature, visit the GitHub Issues page to file a report so that we can investigate.
 
 **Licensing**
 
