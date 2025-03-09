@@ -1,8 +1,10 @@
 import os
 from ast import literal_eval
 
+current_dir = os.path.split(os.getcwd())[-1]
 
 def makedirs_with_log(path):
+    path = path.replace(f'{current_dir}\\', '')
     try:
         os.makedirs(path, exist_ok=True)
     except OSError as error:
