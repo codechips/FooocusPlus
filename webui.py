@@ -706,8 +706,12 @@ with common.GRADIO_ROOT:
                                         info='Describe what you do not want to see.', lines=2,
                                         elem_id='negative_prompt',
                                         value=modules.config.default_prompt_negative)
-                    seed_random = gr.Checkbox(label='Random', value=True)
-                    image_seed = gr.Textbox(label='Seed', value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
+                    seed_random = gr.Checkbox(label='Random Seed', value=True)
+                    disable_seed_increment = gr.Checkbox(label='Disable Seed Increment',
+                        info='Disable automatic seed increment when image quantity is > 1.',
+                        value=False)                    
+                    image_seed = gr.Textbox(label='Fixed Seed', value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
+
 
                 def random_checked(r):
                     return gr.update(visible=not r)
@@ -909,9 +913,6 @@ with common.GRADIO_ROOT:
                                                 value=flags.Performance.has_restricted_features(modules.config.default_performance),
                                                 info='Disable intermediate results during generation, only show final gallery.')
 
-                        disable_seed_increment = gr.Checkbox(label='Disable Seed Increment',
-                                                info='Disable automatic seed increment when image number is > 1.',
-                                                value=False)
                         read_wildcards_in_order = gr.Checkbox(label="Read Wildcards in Order", value=False, visible=True)
 
                         black_out_nsfw = gr.Checkbox(label='Black Out NSFW', value=modules.config.default_black_out_nsfw,
