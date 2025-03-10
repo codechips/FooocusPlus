@@ -86,7 +86,7 @@ default = {
     'loras_max_weight': 3,
     'max_lora_number': 5,
     'max_image_number': 50,
-    'image_number': 5,
+    'image_number': 4,
     'output_format': 'png',
     'save_metadata_to_images': False,
     'metadata_scheme': 'simple',
