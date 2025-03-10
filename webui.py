@@ -41,7 +41,7 @@ import enhanced.comfy_task as comfy_task
 from enhanced.simpleai import comfyd
 
 print()
-print('Initializing user interface...')
+print('Initializing the user interface...')
 
 def get_task(*args):
     args = list(args)
@@ -708,13 +708,13 @@ with common.GRADIO_ROOT:
                                         elem_id='negative_prompt',
                                         value=modules.config.default_prompt_negative)
                     seed_random = gr.Checkbox(label='Random Seed', value=True)
-                    disable_seed_increment = gr.Checkbox(label='Freeze Seed',
-                        info='Make similar images while processing an array or wildcards',
-                        value=False)                    
+                    disable_seed_increment = gr.Checkbox(label='Freeze Seed', value=False)
+                    gr.Markdown(value='Make similar images while processing an array or wildcards')
+                    extra_variation = gr.Checkbox(label='Extra Variation', value=False)
+                    gr.Markdown(value='Increase the randomness of image creation')
                     image_seed = gr.Textbox(label='Specific Seed',
                         info='Reuse a particular seed value to recreate an image',
                         value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
-
 
                 def random_checked(r):
                     return gr.update(visible=not r)
