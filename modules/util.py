@@ -7,6 +7,7 @@ import math
 import os
 import cv2
 import re
+from enhanced.config import path_outputs
 from typing import List, Tuple, AnyStr, NamedTuple
 
 import json
@@ -165,7 +166,7 @@ def join_prompts(*args, **kwargs):
     return ', '.join(prompts)
 
 
-def generate_temp_filename(folder='./outputs/', extension='png'):
+def generate_temp_filename(folder=f'{path_outputs}/', extension='png'):
     current_time = datetime.datetime.now()
     date_string = current_time.strftime("%Y-%m-%d")
     time_string = current_time.strftime("%Y-%m-%d_%H-%M-%S")
