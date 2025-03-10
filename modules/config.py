@@ -1186,3 +1186,4 @@ def downloading_hydit_model():
     return os.path.join(paths_checkpoints[0] + '\Alternative', 'hunyuan_dit_1.2.safetensors')
 
 update_files()
+print(fake_variable)
