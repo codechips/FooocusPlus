@@ -9,7 +9,6 @@ from args_manager import args
 from modules.config import path_wildcards
 
 wildcards_path = path_wildcards
-print(f'path_wildcards {path_wildcards}')
 wildcards_max_bfs_depth = 64
 wildcards = {}
 wildcards_list = {}
