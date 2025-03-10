@@ -291,6 +291,7 @@ with common.GRADIO_ROOT:
 
                 with gr.Accordion(label='Wildcards', visible=False, open=True) as prompt_wildcards:
                     wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcard Filenames', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
+                    read_wildcards_in_order = gr.Checkbox(label="Generate Wildcards in Order", value=False, visible=True)
                     with gr.Accordion(label='Wildcard Contents', visible=True, open=False) as words_in_wildcard:
                         wildcard_tag_name_selection = gr.Dataset(components=[prompt], label='Words in the Wildcards:', samples=wildcards.get_words_of_wildcard_samples(), visible=True, samples_per_page=30, type='index')
                     wildcards_list.click(wildcards.add_wildcards_and_array_to_prompt, inputs=[wildcards_list, prompt, state_topbar], outputs=[prompt, wildcard_tag_name_selection, words_in_wildcard], show_progress=False, queue=False)
@@ -914,8 +915,6 @@ with common.GRADIO_ROOT:
                         disable_intermediate_results = gr.Checkbox(label='Disable Intermediate Results',
                                                 value=flags.Performance.has_restricted_features(modules.config.default_performance),
                                                 info='Disable intermediate results during generation, only show final gallery.')
-
-                        read_wildcards_in_order = gr.Checkbox(label="Read Wildcards in Order", value=False, visible=True)
 
                         black_out_nsfw = gr.Checkbox(label='Black Out NSFW', value=modules.config.default_black_out_nsfw,
                                             interactive=not modules.config.default_black_out_nsfw,
