@@ -190,19 +190,19 @@ path_vae_approx = get_dir_or_set_default('path_vae_approx', f'{path_models_root}
 path_vae = get_dir_or_set_default('path_vae', f'{path_models_root}/vae/')
 path_upscale_models = get_dir_or_set_default('path_upscale_models', f'{path_models_root}/upscale_models/')
 paths_inpaint = get_dir_or_set_default('path_inpaint', [f'{path_models_root}/inpaint/', '../UserDir/models/inpaint/'], True, False)
+path_sam = paths_inpaint[0]
 paths_controlnet = get_dir_or_set_default('path_controlnet', [f'{path_models_root}/controlnet/', '../UserDir/models/controlnet/'], True, False)
 path_clip = get_dir_or_set_default('path_clip', f'{path_models_root}/clip/')
 path_clip_vision = get_dir_or_set_default('path_clip_vision', f'{path_models_root}/clip_vision/')
 path_fooocus_expansion = get_dir_or_set_default('path_fooocus_expansion', f'{path_models_root}/prompt_expansion/fooocus_expansion')
 paths_llms = get_dir_or_set_default('path_llms', [f'{path_models_root}/llms/'], True, False)
-path_wildcards = get_dir_or_set_default('path_wildcards', '../wildcards/')
 path_safety_checker = get_dir_or_set_default('path_safety_checker', f'{path_models_root}/safety_checker/')
-path_sam = paths_inpaint[0]
-path_outputs = get_path_output()
 path_unet = get_dir_or_set_default('path_unet', f'{path_models_root}/unet')
 path_rembg = get_dir_or_set_default('path_rembg', f'{path_models_root}/rembg')
 path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_root}/layer_model')
 paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
+path_outputs = get_path_output()
+path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
 
 from enhanced.simpleai import init_modelsinfo
 modelsinfo = init_modelsinfo(path_models_root, dict(
