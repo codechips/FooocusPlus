@@ -165,7 +165,7 @@ def join_prompts(*args, **kwargs):
     return ', '.join(prompts)
 
 
-def generate_temp_filename(folder=modules.config.path_outputs, extension='png'):
+def generate_temp_filename(folder='./outputs/', extension='png'):
     current_time = datetime.datetime.now()
     date_string = current_time.strftime("%Y-%m-%d")
     time_string = current_time.strftime("%Y-%m-%d_%H-%M-%S")
