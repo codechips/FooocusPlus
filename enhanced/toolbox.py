@@ -133,7 +133,7 @@ css = '''
 
 
 # app context
-toolbox_note_preset_title='Create a new preset using the current parameters. Leave blank and click Enter to abort.'
+toolbox_note_preset_title='Create a new preset using the current parameters. Leave blank and click Enter to cancel.'
 toolbox_note_regenerate_title='Extract parameters to backfill for regeneration. Please note that some parameters will be modified!'
 toolbox_note_embed_title='Embed parameters into images for easy identification of image sources and communication and learning.'
 toolbox_note_missing_muid='The model in the params and configuration is missing MUID. And the system will spend some time calculating the hash of model files and synchronizing information to obtain the muid for usability and transferability.'
