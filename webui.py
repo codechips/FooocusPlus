@@ -192,6 +192,8 @@ common.GRADIO_ROOT = gr.Blocks(
     title=title,
     css=topbar.css + toolbox.css).queue()
 
+print({debug1})
+
 with common.GRADIO_ROOT:
     state_topbar = gr.State({})
     params_backend = gr.State({'translation_methods': modules.config.default_translation_methods})
