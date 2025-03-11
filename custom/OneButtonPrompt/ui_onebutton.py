@@ -1,4 +1,5 @@
 import gradio as gr
+print({trap6})
 import custom.OneButtonPrompt.shared
 print({trap7})
 from custom.OneButtonPrompt.shared import add_ctrl
