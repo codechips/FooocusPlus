@@ -9,9 +9,9 @@ from custom.OneButtonPrompt.utils import path_fixed, root_path_fixed
 
 class PathManager:
     DEFAULT_PATHS = {
-        "path_checkpoints": root_path_fixed(config.paths_checkpoints),
-        "path_loras": root_path_fixed(config.paths_loras),
-        "path_controlnet": root_path_fixed(config.paths_controlnet),
+        "path_checkpoints": root_path_fixed(config.paths_checkpoints[0]),
+        "path_loras": root_path_fixed(config.paths_loras[0]),
+        "path_controlnet": root_path_fixed(config.paths_controlnet[0]),
         "path_vae_approx": root_path_fixed(config.path_vae_approx),
         "path_faceswap": root_path_fixed(f'{path_models_root}/faceswap/'),
         "path_upscalers": root_path_fixed(config.path_upscale_models),
