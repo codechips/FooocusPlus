@@ -768,7 +768,7 @@ def worker():
             if extra_variation:
                 j = 10*(int(currentDateAndTime.strftime("%S")))
                 print(j)
-            else
+            else:
                 j = 0  # initialize "extra variation" to a neutral value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
