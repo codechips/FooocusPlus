@@ -415,7 +415,9 @@ def save_preset(*args):
         save_name = save_name.strip()
         save_name = save_name.replace(" ", "_")
         preset = {}
-        if not preset_category:
+        try preset_category:
+            preset["preset_category"] = preset_category
+        except:
             preset["preset_category"] = "Favorite"
         if 'backend_engine' in backend_params and backend_params['backend_engine']!='Fooocus':
             preset["default_engine"] = backend_params
