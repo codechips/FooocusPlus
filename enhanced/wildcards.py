@@ -8,7 +8,6 @@ from modules.util import get_files_from_folder
 from args_manager import args
 from modules.config import path_wildcards
 
-wildcards_path = path_wildcards
 wildcards_max_bfs_depth = 64
 wildcards = {}
 wildcards_list = {}
@@ -39,10 +38,10 @@ def set_wildcard_path_list(name, list_value):
 
 
 def get_wildcards_samples(path="root"):
-    global wildcards_path, wildcards, wildcards_list, wildcards_translation, wildcards_template, wildcards_weight_range, wildcard_regex
-    wildcards_list_all = sorted([f[:-4] for f in get_files_from_folder(wildcards_path, ['.txt'], None, variation=True)])
+    global path_wildcards, wildcards, wildcards_list, wildcards_translation, wildcards_template, wildcards_weight_range, wildcard_regex
+    wildcards_list_all = sorted([f[:-4] for f in get_files_from_folder(path_wildcards, ['.txt'], None, variation=True)])
     for wildcard in wildcards_list_all:
-        words = open(os.path.join(wildcards_path, f'{wildcard}.txt'), encoding='utf-8').read().splitlines()
+        words = open(os.path.join(path_wildcards, f'{wildcard}.txt'), encoding='utf-8').read().splitlines()
         words = [x.split('?')[0] for x in words if x != '' and not wildcard_regex.findall(x)]
         templates = [x for x in words if '|' in x]  #  word|template|weight_range
         for line in templates:
@@ -71,13 +70,13 @@ def get_wildcards_samples(path="root"):
             set_wildcard_path_list(f'{wildcard_path[0]}/{wildcard_path[1]}', wildcard_path[2])
             set_wildcard_path_list(wildcard_path[0], wildcard_path[1])
         else:
-            print(f'[Wildcards] The level of wildcards is too deep: {wildcards_path}.')
+            print(f'[Wildcards] The level of wildcards is too deep: {path_wildcards}.')
     if wildcards_list_all:
         load_words_translation(True)
         print(f'[Wildcards] Refresh and Load {len(wildcards_list_all)}/{len(wildcards.keys())} wildcards: {", ".join(wildcards_list_all)}.')
     if args.language=='cn':
         if len(wildcards_translation.keys())==0:
-            wildcards_translation_file = os.path.join(wildcards_path, 'cn_list.json')
+            wildcards_translation_file = os.path.join(path_wildcards, 'cn_list.json')
             if os.path.exists(wildcards_translation_file):
                 with open(wildcards_translation_file, "r", encoding="utf-8") as json_file:
                     wildcards_translation.update(json.load(json_file))
@@ -86,16 +85,16 @@ def get_wildcards_samples(path="root"):
 
 get_wildcard_translation = lambda x: x if args.language!='cn' or f'list/{x}' not in wildcards_translation else wildcards_translation[f'list/{x}']
 def load_words_translation(reload_flag=False):
-    global wildcards_path, wildcards_words_translation
+    global path_wildcards, wildcards_words_translation
     if len(wildcards_words_translation.keys())==0 or reload_flag:
-        translation_file = os.path.join(wildcards_path, 'cn_words.json')
+        translation_file = os.path.join(path_wildcards, 'cn_words.json')
         if os.path.exists(translation_file):
             with open(translation_file, "r", encoding="utf-8") as json_file:
                 wildcards_words_translation.update(json.load(json_file))
 
 
 def get_words_of_wildcard_samples(wildcard="root"):
-    global wildcards, wildcards_list, wildcards_path, wildcards_words_translation
+    global wildcards, wildcards_list, path_wildcards, wildcards_words_translation
 
     if wildcard == "root":
         wildcard = wildcards_list[wildcard][0]
