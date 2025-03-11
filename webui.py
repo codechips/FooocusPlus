@@ -1062,11 +1062,9 @@ with common.GRADIO_ROOT:
 
                 # custom plugin "OneButtonPrompt"
                 import custom.OneButtonPrompt.ui_onebutton as ui_onebutton
-                print({trap1})
+                print({trap10})
                 run_event = gr.Number(visible=False, value=0)
-                print({trap2})
                 ui_onebutton.ui_onebutton(prompt, run_event, random_button)
-                print({trap3})
                 with gr.Tab(label="SuperPrompter"):
                     #super_prompter = gr.Button(value="<<SuperPrompt", size="sm", min_width = 70)
                     super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
