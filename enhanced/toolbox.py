@@ -411,9 +411,11 @@ def save_preset(*args):
   
     if save_name:
         # remove save_name's leading & trailing spaces
-        # and convert in-string spaces to underscore
+        # convert in-string spaces to underscore
+        # then make initial character upper, do not change the rest
         save_name = save_name.strip()
         save_name = save_name.replace(" ", "_")
+        save_name = save_name[:1].upper() + save_name[1:]
         preset = {}
         try:
             preset["preset_category"] = preset_category
