@@ -415,7 +415,7 @@ def save_preset(*args):
         save_name = save_name.strip()
         save_name = save_name.replace(" ", "_")
         preset = {}
-        try preset_category:
+        try:
             preset["preset_category"] = preset_category
         except:
             preset["preset_category"] = "Favorite"
