@@ -240,6 +240,7 @@ def worker():
     import enhanced.version as version
 #    import enhanced.wildcards as wildcards
     
+    from datetime import datetime
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
     from modules.private_logger import log
@@ -726,8 +727,10 @@ def worker():
             height = async_task.overwrite_height
         return steps, switch, width, height
 
+    
     def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number, disable_seed_increment, use_expansion, use_style,
                        use_synthetic_refiner, current_progress, advance_progress=False):
+        from webui import extra_variation
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
@@ -762,11 +765,16 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
+            if extra_variation:
+                j = 10*(int(currentDateAndTime.strftime("%S")))
+                print(j)
+            else
+                j = 0  # initialize "extra variation" to a neutral value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
-                wild_seed = (async_task.seed + i) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
+                wild_seed = (async_task.seed + i + j) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
             else:
-                task_seed = (async_task.seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
+                task_seed = (async_task.seed + i +j) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
 
             task_rng = random.Random(wild_seed)  # may bind to inpaint noise in the future
