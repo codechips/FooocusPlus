@@ -825,7 +825,7 @@ with common.GRADIO_ROOT:
                                        show_progress=False).then(
                     lambda: None, _js='()=>{refresh_style_localization();}')
                 prompt.change(lambda x,y: calculateTokenCounter(x,y), inputs=[prompt, style_selections], outputs=prompt_token_counter)
-
+            print({debug3})
             with gr.Tab(label='Models', elem_id="scrollable-box"):
                 with gr.Group():
                     with gr.Row():
@@ -874,7 +874,7 @@ with common.GRADIO_ROOT:
                                       info='Higher value means image and texture are sharper.')
                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/117" target="_blank">\U0001F4D4 Documentation</a>')
                 dev_mode = gr.Checkbox(label='Expert Mode', value=modules.config.default_developer_debug_mode_checkbox, container=False)
-
+                print({debug4})
                 with gr.Column(visible=modules.config.default_developer_debug_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list,
@@ -1324,7 +1324,7 @@ with common.GRADIO_ROOT:
 
         metadata_import_button.click(trigger_metadata_import, inputs=[metadata_input_image, state_is_generating, state_topbar], outputs=reset_preset_layout + reset_preset_func + load_data_outputs, queue=False, show_progress=True) \
             .then(style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False)
-
+        print({debug4})
         model_check = [prompt, negative_prompt, base_model, refiner_model] + lora_ctrls
         nav_bars = [bar_title] + bar_buttons
         protections = [random_button, translator_button, super_prompter, background_theme, image_tools_checkbox]
@@ -1421,7 +1421,7 @@ with common.GRADIO_ROOT:
         .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, queue=False, show_progress=False) \
         .then(fn=lambda x: None, inputs=system_params, _js=topbar.refresh_topbar_status_js)
 
-
+    print({debug5})
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
@@ -1450,7 +1450,7 @@ def dump_default_english_config():
     from modules.localization import dump_english_config
     dump_english_config(grh.all_components)
 
-print({debug1})
+print({debug6})
 #dump_default_english_config()
 import logging
 import httpx
