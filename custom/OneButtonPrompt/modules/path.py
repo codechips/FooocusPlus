@@ -18,7 +18,7 @@ class PathManager:
         "path_clip": root_path_fixed(config.path_clip),
         "path_cache": root_path_fixed("../cache/"),
         "path_outputs": root_path_fixed(config.path_outputs),
-        "path_preview": root_path_fixed(f'{config.path_outputs}/preview.jpg"),        
+        "path_preview": root_path_fixed(f'{config.path_outputs}/preview.jpg'),        
     }
 
     EXTENSIONS = [".pth", ".ckpt", ".bin", ".safetensors"]
