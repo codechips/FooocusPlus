@@ -50,8 +50,8 @@ class AsyncTask:
         self.base_model_name = args.pop()
         self.refiner_model_name = args.pop()
         self.refiner_switch = args.pop()
-        self.loras = get_enabled_loras([(bool(args.pop()), str(args.pop()), float(args.pop())) for _ in
-                                        range(default_max_lora_number)])
+        self.loras = get_enabled_loras([(bool(args.pop()), str(args.pop()),
+             float(args.pop())) for _ in range(default_max_lora_number)])
         self.input_image_checkbox = args.pop()
         self.current_tab = args.pop()
         self.uov_method = args.pop()
@@ -238,7 +238,6 @@ def worker():
     import extras.face_crop
     import fooocus_version
     import enhanced.version as version
-#    import enhanced.wildcards as wildcards
     
     from datetime import datetime
     from extras.censor import default_censor
@@ -766,7 +765,7 @@ def worker():
         tasks = []
         for i in range(image_number):
             if extra_variation:
-                j = 10*(int(currentDateAndTime.strftime("%S")))
+                j = 10+(int(datetime.now().microsecond)//500)
                 print(j)
             else:
                 j = 0  # initialize "extra variation" to a neutral value
