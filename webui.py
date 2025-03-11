@@ -700,18 +700,18 @@ with common.GRADIO_ROOT:
                         overwrite_width.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height], outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_height.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height], outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                     output_format = gr.Radio(label='Output Format',
-                                         choices=flags.OutputFormat.list(),
-                                         value=modules.config.default_output_format)
+                         choices=flags.OutputFormat.list(),
+                         value=modules.config.default_output_format)
                        
                     negative_prompt = gr.Textbox(label='Negative Prompt', show_label=True, placeholder="Type negative prompt here.",
-                                        info='Describe what you do not want to see.', lines=2,
-                                        elem_id='negative_prompt',
-                                        value=modules.config.default_prompt_negative)
+                        info='Describe what you do not want to see.', lines=2,
+                        elem_id='negative_prompt',
+                        value=modules.config.default_prompt_negative)
                     seed_random = gr.Checkbox(label='Random Seed', value=True)
-                    disable_seed_increment = gr.Checkbox(label='Freeze Seed', value=False)
-                    gr.Markdown(value='Make similar images while processing an array or wildcards')
-                    extra_variation = gr.Checkbox(label='Extra Variation', value=False)
-                    gr.Markdown(value='Increase the randomness of image creation')
+                    extra_variation = gr.Checkbox(label='Extra Variation',
+                        info='Increase the randomness of image creation', value=False)
+                    disable_seed_increment = gr.Checkbox(label='Freeze Seed',
+                        info='Make similar images while processing an array or wildcards', value=False)
                     image_seed = gr.Textbox(label='Specific Seed',
                         info='Reuse a particular seed value to recreate an image',
                         value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
