@@ -13,7 +13,7 @@ from random_prompt.one_button_presets import OneButtonPresets
 settings = default_settings
 custom_obp_values = OBPresets.get_obp_preset(settings["OBP_preset"])
 
-
+print({trap0})
 insanitylevel = 5
 subjects = ["all"]
 subjectsubtypesobject = ["all"]
