@@ -874,7 +874,7 @@ with common.GRADIO_ROOT:
                                       info='Higher value means image and texture are sharper.')
                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/117" target="_blank">\U0001F4D4 Documentation</a>')
                 dev_mode = gr.Checkbox(label='Expert Mode', value=modules.config.default_developer_debug_mode_checkbox, container=False)
-                #print({debug4})
+
                 with gr.Column(visible=modules.config.default_developer_debug_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list,
@@ -1059,7 +1059,7 @@ with common.GRADIO_ROOT:
                         params.update({key:v})
                         return params
                     translation_methods.change(lambda x,y: sync_params_backend('translation_methods',x,y), inputs=[translation_methods, params_backend], outputs=params_backend)
-                print({debug4})
+                #print({debug4})
                 # custom plugin "OneButtonPrompt"
                 import custom.OneButtonPrompt.ui_onebutton as ui_onebutton
                 run_event = gr.Number(visible=False, value=0)
