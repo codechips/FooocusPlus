@@ -7,7 +7,7 @@ import math
 import os
 import cv2
 import re
-from enhanced.config import path_outputs
+from modules.config import path_outputs
 from typing import List, Tuple, AnyStr, NamedTuple
 
 import json
