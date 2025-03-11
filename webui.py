@@ -825,7 +825,7 @@ with common.GRADIO_ROOT:
                                        show_progress=False).then(
                     lambda: None, _js='()=>{refresh_style_localization();}')
                 prompt.change(lambda x,y: calculateTokenCounter(x,y), inputs=[prompt, style_selections], outputs=prompt_token_counter)
-            print({debug3})
+
             with gr.Tab(label='Models', elem_id="scrollable-box"):
                 with gr.Group():
                     with gr.Row():
