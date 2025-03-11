@@ -1062,7 +1062,6 @@ with common.GRADIO_ROOT:
 
                 # custom plugin "OneButtonPrompt"
                 import custom.OneButtonPrompt.ui_onebutton as ui_onebutton
-                print({trap10})
                 run_event = gr.Number(visible=False, value=0)
                 ui_onebutton.ui_onebutton(prompt, run_event, random_button)
                 with gr.Tab(label="SuperPrompter"):
