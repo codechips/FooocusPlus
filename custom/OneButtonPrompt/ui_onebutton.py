@@ -1,5 +1,6 @@
 import gradio as gr
 import custom.OneButtonPrompt.shared
+print({trap7})
 from custom.OneButtonPrompt.shared import add_ctrl
 
 from random_prompt.build_dynamic_prompt import build_dynamic_prompt, OBPresets
@@ -8,12 +9,12 @@ from random_prompt.csv_reader import load_config_csv
 
 from .modules.settings import default_settings
 from random_prompt.one_button_presets import OneButtonPresets
-
+print({trap8})
 #OBPresets = OneButtonPresets()
 settings = default_settings
 custom_obp_values = OBPresets.get_obp_preset(settings["OBP_preset"])
 
-print({trap0})
+print({trap9})
 insanitylevel = 5
 subjects = ["all"]
 subjectsubtypesobject = ["all"]
