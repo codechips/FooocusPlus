@@ -13,7 +13,7 @@ class PathManager:
         "path_loras": root_path_fixed(config.paths_loras[0]),
         "path_controlnet": root_path_fixed(config.paths_controlnet[0]),
         "path_vae_approx": root_path_fixed(config.path_vae_approx),
-        "path_faceswap": root_path_fixed(f'{path_models_root}/faceswap/'),
+        "path_faceswap": root_path_fixed(f'{config.path_models_root}/faceswap/'),
         "path_upscalers": root_path_fixed(config.path_upscale_models),
         "path_clip": root_path_fixed(config.path_clip),
         "path_cache": root_path_fixed("../cache/"),
