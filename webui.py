@@ -192,7 +192,6 @@ common.GRADIO_ROOT = gr.Blocks(
     title=title,
     css=topbar.css + toolbox.css).queue()
 
-print({debug1})
 
 with common.GRADIO_ROOT:
     state_topbar = gr.State({})
@@ -1451,7 +1450,7 @@ def dump_default_english_config():
     from modules.localization import dump_english_config
     dump_english_config(grh.all_components)
 
-
+print({debug1})
 #dump_default_english_config()
 import logging
 import httpx
