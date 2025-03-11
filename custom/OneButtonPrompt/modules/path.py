@@ -4,20 +4,21 @@ import threading
 from .civit import Civit
 import time
 import os
+import modules.config as config
 from custom.OneButtonPrompt.utils import path_fixed, root_path_fixed
 
 class PathManager:
     DEFAULT_PATHS = {
-        "path_checkpoints": root_path_fixed("../models/checkpoints/"),
-        "path_loras": root_path_fixed("../models/loras/"),
-        "path_controlnet": root_path_fixed("../models/controlnet/"),
-        "path_vae_approx": root_path_fixed("../models/vae_approx/"),
-        "path_preview": root_path_fixed("../outputs/preview.jpg"),
-        "path_faceswap": root_path_fixed("../models/faceswap/"),
-        "path_upscalers": root_path_fixed("../models/upscale_models"),
-        "path_outputs": root_path_fixed("../outputs/"),
-        "path_clip": root_path_fixed("../models/clip/"),
+        "path_checkpoints": root_path_fixed(config.paths_checkpoints),
+        "path_loras": root_path_fixed(config.paths_loras),
+        "path_controlnet": root_path_fixed(config.paths_controlnet),
+        "path_vae_approx": root_path_fixed(config.path_vae_approx),
+        "path_faceswap": root_path_fixed(f'{path_models_root}/faceswap/'),
+        "path_upscalers": root_path_fixed(config.path_upscale_models),
+        "path_clip": root_path_fixed(config.path_clip),
         "path_cache": root_path_fixed("../cache/"),
+        "path_outputs": root_path_fixed(config.path_outputs),
+        "path_preview": root_path_fixed(f'{config.path_outputs}/preview.jpg"),        
     }
 
     EXTENSIONS = [".pth", ".ckpt", ".bin", ".safetensors"]
