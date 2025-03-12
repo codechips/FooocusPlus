@@ -25,6 +25,7 @@ FooocusPlus gives you access to a diversity of AI image generation base models, 
 - Hunyuan-DiT
 - Kwai Kolors
 - Playground 2.5
+- Segmind-Vega
 - Stable Diffusion 1.5 (SD1.5)
 - Stable Diffusion 3.5 (temporarily disabled)
 
@@ -80,8 +81,11 @@ This software was made possible by integrating open-source technologies from pro
 
 - Fooocus by illyasviel and mashb1t
 - ComfyUI by comfyanonymous and the Comfy-Org team
-- SimpleSDXL by metercai
+- SimpleSDXL2 by metercai
 - diffusers by the huggingface team
 - torchruntime by cmdr2 and the easydiffusion team
-- OneButtonPrompt by AIrjen
+- OneButtonPrompt by AIrjen, via SimpleSDXL2 and RuinedFooocus
+- Superprompter by sammcj
+- Stable Diffusion 1.5 (SD1.5) support by Irmagon (Thomas Gaud)
+- the members of the Pure Fooocus Facebook group for their encouragement, enthusiasm and careful Beta testing
 
