@@ -7,7 +7,7 @@ from random_prompt.csv_reader import load_config_csv
 from random_prompt.one_button_presets import OneButtonPresets
 
 #OBPresets = OneButtonPresets()
-custom_obp_values = OBPresets.get_obp_preset('Standard'])
+custom_obp_values = OBPresets.get_obp_preset('Standard')
 
 insanitylevel = 5
 subjects = ["all"]
