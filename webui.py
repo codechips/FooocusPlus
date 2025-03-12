@@ -708,7 +708,8 @@ with common.GRADIO_ROOT:
                         info='Describe what you do not want to see.', lines=2,
                         elem_id='negative_prompt',
                         value=modules.config.default_prompt_negative)
-                    seed_random = gr.Checkbox(label='Random Seed', value=True)
+                    seed_random = gr.Checkbox(label='Random Seed', 
+                        info='Generate an image at random', value=True)
                     extra_variation = gr.Checkbox(label='Extra Variation',
                         info='Increase the randomness of image creation', value=False)
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
