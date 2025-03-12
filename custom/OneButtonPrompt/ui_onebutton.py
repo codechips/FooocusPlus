@@ -1,13 +1,18 @@
 import gradio as gr
 import custom.OneButtonPrompt.shared
-
 from custom.OneButtonPrompt.shared import add_ctrl
+
 from random_prompt.build_dynamic_prompt import build_dynamic_prompt, OBPresets
+
 from random_prompt.csv_reader import load_config_csv
+
+from .modules.settings import default_settings
 from random_prompt.one_button_presets import OneButtonPresets
 
 #OBPresets = OneButtonPresets()
-custom_obp_values = OBPresets.get_obp_preset('Standard')
+settings = default_settings
+custom_obp_values = OBPresets.get_obp_preset(settings["OBP_preset"])
+
 
 insanitylevel = 5
 subjects = ["all"]
@@ -571,10 +576,11 @@ def ui_onebutton(prompt, run_event, random_button):
                     label="One Button Preset",
                     choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
                     + [OBPresets.CUSTOM_OBP],
-                    value='Standard',
+                    value=settings["OBP_preset"],
                 )
                 add_ctrl("OBP_preset", OBP_preset)
         
+
                 
         with gr.Group(visible=False) as maingroup:
             with gr.Row():
