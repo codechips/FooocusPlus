@@ -1,3 +1,7 @@
+# Fooocus Troubleshooting
+
+These original troubleshooting notes from mainline Fooocus are also applicable to FooocusPlus. - David Sage
+
 Below are many common problems that people encountered:
 
 ### RuntimeError: CPUAllocator
