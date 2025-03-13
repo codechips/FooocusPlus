@@ -239,7 +239,7 @@ def worker():
     import fooocus_version
     import enhanced.version as version
 
-    from datetime import datetime    
+#    from datetime import datetime    
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
     from modules.private_logger import log
