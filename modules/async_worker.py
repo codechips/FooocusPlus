@@ -763,7 +763,7 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
-            if modules.config.extra_variation:
+            if modules.config.default_extra_variation:
                 j = 10+(int(datetime.now().microsecond)//500)
                 print(j)
             else:
