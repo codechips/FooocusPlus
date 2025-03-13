@@ -711,7 +711,7 @@ with common.GRADIO_ROOT:
                     seed_random = gr.Checkbox(label='Random Seed', 
                         info='Generate a random series of images', value=True)
                     extra_variation = gr.Checkbox(label='Extra Variation',
-                        info='Increase the randomness of image creation', value=modules.config.extra_variation)
+                        info='Increase the randomness of image creation', value=modules.config.default_extra_variation)
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
                         info='Make similar images while processing an array or wildcards', value=False)
                     image_seed = gr.Textbox(label='Specific Seed',
