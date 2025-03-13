@@ -767,15 +767,15 @@ def worker():
 #                ev = 10+(int(datetime.now().microsecond)//500)
 #                print(ev)
 #            else:
-            ev = 0  # initialize "extra variation" to a neutral value
+            ev = i  # initialize "extra variation" to a neutral value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
-                wild_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
+                wild_seed = (async_task.seed + ev) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
             else:
-                task_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
+                task_seed = (async_task.seed + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
 
-            task_rng = random.Random(wild_seed)  # may bind to inpaint noise in the future
+            task_rng = random.Random(wild_seed)
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
             task_negative_prompt = apply_wildcards(negative_prompt, task_rng, i, async_task.read_wildcards_in_order)
