@@ -709,13 +709,13 @@ with common.GRADIO_ROOT:
                         elem_id='negative_prompt',
                         value=modules.config.default_prompt_negative)
                     seed_random = gr.Checkbox(label='Random Seed', 
-                        info='Generate an image at random', value=True)
+                        info='Generate a random series of images', value=True)
                     extra_variation = gr.Checkbox(label='Extra Variation',
-                        info='Increase the randomness of image creation', value=False)
+                        info='Increase the randomness of image creation', value=modules.config.extra_variation)
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
                         info='Make similar images while processing an array or wildcards', value=False)
                     image_seed = gr.Textbox(label='Specific Seed',
-                        info='Reuse a particular seed value to recreate an image',
+                        info='Reuse a particular seed value to recreate images',
                         value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
 
                 def random_checked(r):
