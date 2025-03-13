@@ -767,7 +767,7 @@ def worker():
                 j = 10+(int(datetime.now().microsecond)//500)
             else:
                 j = 0  # set "extra_variation" to a neutral value
-            print(f'Extra Variation: {extra_variation}')
+            print(f'Extra Variation: {modules.config.default_extra_variation}')
             print(f'J Value: {j}')
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
