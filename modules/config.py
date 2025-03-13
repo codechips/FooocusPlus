@@ -165,28 +165,14 @@ def get_path_output() -> str:
     print('Loading support files...')
     return path_output
 
-def get_path_models_root() -> str:
-    global config_dict
-    models_root = 'models'
-    if args_manager.args.models_root:
-        models_root = args_manager.args.models_root
-    elif args_manager.args.user_dir:
-        models_root = (f'{args_manager.args.user_dir}/models')
-    else:
-        models_root = '..UserDir/models'
-    path_models_root = os.path.abspath(models_root)
-    config_dict['path_models_root'] = path_models_root   
-    path_models_root = get_dir_or_set_default('path_models_root', '..UserDir/models')
-    print(f'Generative models are stored in {path_models_root}')
-    return path_models_root
-
 if args_manager.args.models_root:
     path_models_root = get_dir_or_set_default('path_models_root', args_manager.args.models_root)
 elif args_manager.args.user_dir:
     path_models_root = get_dir_or_set_default('path_models_root', f'{args_manager.args.user_dir}/models')
 else:
     path_models_root = get_dir_or_set_default('path_models_root', '..UserDir/models')
-print(f'path_models_root: {path_models_root}')
+print(f'Generative models are stored in {path_models_root}')
+
 paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
 paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True, False)
 path_embeddings = get_dir_or_set_default('path_embeddings', f'{path_models_root}/embeddings/')
@@ -205,8 +191,18 @@ path_unet = get_dir_or_set_default('path_unet', f'{path_models_root}/unet')
 path_rembg = get_dir_or_set_default('path_rembg', f'{path_models_root}/rembg')
 path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_root}/layer_model')
 paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
-path_outputs = get_path_output()
+
+if args_manager.args.output_path:
+    path_outputs = get_dir_or_set_default('path_outputs', args_manager.args.output_path)
+elif args_manager.args.user_dir:
+    path_outputs = get_dir_or_set_default('path_outputs', f'{args_manager.args.user_dir}/Outputs')
+else:
+    path_outputs = get_dir_or_set_default('path_outputs', '..UserDir/Outputs')
+
 path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
+print(f'Generated images will be stored in {path_outputs}')
+print()
+print('Loading support files...')
 
 from enhanced.simpleai import init_modelsinfo
 modelsinfo = init_modelsinfo(path_models_root, dict(
