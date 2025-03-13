@@ -763,11 +763,11 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
-            if extra_variation:
-                j = 10+(int(datetime.now().microsecond)//500)
-                print(j)
-            else:
-                j = 0  # initialize "extra variation" to a neutral value
+#            if extra_variation:
+#                j = 10+(int(datetime.now().microsecond)//500)
+#                print(j)
+#            else:
+            j = 0  # initialize "extra variation" to a neutral value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
                 wild_seed = (async_task.seed + i + j) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
