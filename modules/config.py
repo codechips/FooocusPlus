@@ -845,7 +845,7 @@ possible_preset_keys = {
     "default_image_number": "image_number",
     "default_prompt": "prompt",
     "default_prompt_negative": "negative_prompt",
-    default_extra_variation": "extra_variation",
+    "default_extra_variation": "extra_variation",
     "default_styles": "styles",
     "default_aspect_ratio": "resolution",
     "default_save_metadata_to_images": "save_metadata_to_images",
