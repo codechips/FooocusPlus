@@ -729,8 +729,6 @@ def worker():
     
     def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number, disable_seed_increment, use_expansion, use_style,
                        use_synthetic_refiner, current_progress, advance_progress=False):
-#        from webui import extra_variation
-        extra_variation = False
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
@@ -765,11 +763,11 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
-            if extra_variation:
+            if modules.config.extra_variation:
                 j = 10+(int(datetime.now().microsecond)//500)
                 print(j)
             else:
-                j = 0  # initialize "extra variation" to a neutral value
+                j = 0  # set "extra variation" to a neutral value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
                 wild_seed = (async_task.seed + i + j) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
