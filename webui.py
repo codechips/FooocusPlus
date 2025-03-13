@@ -1046,10 +1046,13 @@ with common.GRADIO_ROOT:
                     prompt_preset_button = gr.Button(value='Make New Preset')
                     gr.Markdown(value='All current parameters will be saved. Clear the positive and negative prompts unless you want them to be part of the preset.')
                 with gr.Group():
-                    comfyd_active_checkbox = gr.Checkbox(label='Enable Comfyd Always Active', value=not args_manager.args.disable_comfyd, info='Enabling will improve execution speed but occupy some memory.')
-                    image_tools_checkbox = gr.Checkbox(label='Enable ParamsTools', value=True, info='Management of published image sets, located in the middle toolbox on the right side of the image set.')
-                    #finished_catalog_max_number = gr.Slider(label='Catalog Max Number', minimum=1, maximum=60, step=5, value=1)
-                    backfill_prompt = gr.Checkbox(label='Backfill Prompt While Switching Images', value=modules.config.default_backfill_prompt, interactive=True, info='Extract and backfill prompt and negative prompt while switching historical gallery images.')
+                    comfyd_active_checkbox = gr.Checkbox(label='Enable Comfyd Always Active', value=not args_manager.args.disable_comfyd,\
+                        info='Enabling will improve execution speed but occupy some memory.')
+                    image_tools_checkbox = gr.Checkbox(label='Enable Gallery Tools', value=True,\
+                        info='Use the image gallery Toolbox to View Info, Regenerate or Delete an Image')
+                    finished_catalog_max_number = gr.Slider(label='Gallery Page Limit', minimum=1, maximum=100, step=5, value=1)
+                    backfill_prompt = gr.Checkbox(label='Copy Prompts While Switching Images', value=modules.config.default_backfill_prompt,\
+                        interactive=True, info='Fill the positive and and negative prompts from the gallery images.')
                     if (args_manager.args.language=='cn'):
                         translation_methods = gr.Radio(visible=True, label='Translation Methods', choices=modules.flags.translation_methods, value=modules.config.default_translation_methods, info='\'Model\' requires more GPU/CPU and \'APIs\' rely on third parties.')
                     else:
