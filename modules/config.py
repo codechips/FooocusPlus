@@ -180,7 +180,13 @@ def get_path_models_root() -> str:
     print(f'Generative models are stored in {path_models_root}')
     return path_models_root
 
-path_models_root = get_path_models_root()
+if args_manager.args.models_root:
+    path_models_root = get_dir_or_set_default('path_models_root', args_manager.args.models_root)
+elif args_manager.args.user_dir:
+    path_models_root = get_dir_or_set_default('path_models_root', f'{args_manager.args.user_dir}/models')
+else:
+    path_models_root = get_dir_or_set_default('path_models_root', '..UserDir/models')
+print(f'path_models_root: {path_models_root}')
 paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
 paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True, False)
 path_embeddings = get_dir_or_set_default('path_embeddings', f'{path_models_root}/embeddings/')
