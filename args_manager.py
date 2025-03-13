@@ -47,11 +47,14 @@ args_parser.parser.add_argument("--rebuild-hash-cache", help="Generates missing 
 args_parser.parser.add_argument("--dev", action='store_true',
                                 help="Launch the dev branch", default=False)
 
-args_parser.parser.add_argument("--user-dir", type=str, help="Set the default path to the user directory", default='..\\UserDir')
+args_parser.parser.add_argument("--user-dir", type=str, help="Set the default path to the user directory",\
+                                default=os.path.join(os.pardir, './UserDir'))
 
-args_parser.parser.add_argument("--models-root", type=str, help="Set the default path to the models directory", default='..\\UserDir\\models')
+args_parser.parser.add_argument("--models-root", type=str, help="Set the default path to the models directory",\
+                                default=os.path.join(os.pardir, './UserDir/models'))
 
-args_parser.parser.add_argument("--config", type=str, help="Set the default path for config.txt", default=None)
+args_parser.parser.add_argument("--config", type=str, help="Set the default path for config.txt",\
+                                default=os.path.join(os.pardir, './UserDir'))
 
 args_parser.parser.add_argument("--disable-comfyd", action='store_true',
                                 help="Do not auto-start the Comfy server at launch", default=False)
