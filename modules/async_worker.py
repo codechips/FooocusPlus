@@ -238,8 +238,8 @@ def worker():
     import extras.face_crop
     import fooocus_version
     import enhanced.version as version
-#    import enhanced.wildcards as wildcards
-    
+
+    from datetime import datetime    
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
     from modules.private_logger import log
@@ -1257,6 +1257,7 @@ def worker():
                 ip_adapter_path, ip_negative_path, skip_prompt_processing, use_synthetic_refiner)
 
         # Load or unload CNs
+        print()
         progressbar(async_task, current_progress, 'Loading control models...')
         pipeline.refresh_controlnets([controlnet_canny_path, controlnet_cpds_path])
         ip_adapter.load_ip_adapter(clip_vision_path, ip_negative_path, ip_adapter_path)
