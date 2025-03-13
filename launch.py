@@ -52,6 +52,8 @@ def prepare_environment():
     print(f"Fooocus version: {fooocus_version.version}")
     print(f"SimpleSDXL2 version: {version.get_simplesdxl_ver()}")
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
+    print()
+    print('Loading Xformers...')
 
     if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
