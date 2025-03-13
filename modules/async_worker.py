@@ -775,10 +775,10 @@ def worker():
                 task_seed = (async_task.seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
 
-            if (wild_seed + ev) >= constants.MAX_SEED:
-                wild_seed = ev
-            else:
-                wild_seed = wild_seed + ev
+#            if (wild_seed + ev) >= constants.MAX_SEED:
+#                wild_seed = ev
+#            else:
+#                wild_seed = wild_seed + ev
             task_rng = random.Random(wild_seed)
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
