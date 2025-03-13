@@ -406,6 +406,13 @@ default_styles = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, list) and all(y in modules.sdxl_styles.legal_style_names for y in x),
     expected_type=list
 )
+default_prompt = get_config_item_or_set_default(
+    key='default_prompt',
+    default_value='',
+    validator=lambda x: isinstance(x, str),
+    disable_empty_as_none=True,
+    expected_type=str
+)
 default_prompt_negative = get_config_item_or_set_default(
     key='default_prompt_negative',
     default_value='',
@@ -413,12 +420,11 @@ default_prompt_negative = get_config_item_or_set_default(
     disable_empty_as_none=True,
     expected_type=str
 )
-default_prompt = get_config_item_or_set_default(
-    key='default_prompt',
-    default_value='',
-    validator=lambda x: isinstance(x, str),
-    disable_empty_as_none=True,
-    expected_type=str
+default_extra_variation = get_config_item_or_set_default(
+    key='default_extra_variation',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
 )
 default_performance = get_config_item_or_set_default(
     key='default_performance',
@@ -753,20 +759,11 @@ default_inpaint_mask_sam_model = get_config_item_or_set_default(
     default_value='sam_vit_b_01ec64',
     validator=lambda x: x in modules.flags.inpaint_mask_sam_model
 )
-
-default_presetmenu = get_config_item_or_set_default(
-    key='default_presetmenu',
-    default_value='',
-    validator=lambda x: isinstance(x, str),
-    expected_type=str
-)
-
 default_translation_methods = get_config_item_or_set_default(
     key='default_translation_methods',
     default_value=ads.default['translation_methods'],
     validator=lambda x: x in modules.flags.translation_methods
 )
-
 default_backfill_prompt = get_config_item_or_set_default(
     key='default_backfill_prompt',
     default_value=ads.default['backfill_prompt'],
@@ -842,6 +839,7 @@ possible_preset_keys = {
     "default_image_number": "image_number",
     "default_prompt": "prompt",
     "default_prompt_negative": "negative_prompt",
+    default_extra_variation": "extra_variation",
     "default_styles": "styles",
     "default_aspect_ratio": "resolution",
     "default_save_metadata_to_images": "save_metadata_to_images",
@@ -863,7 +861,6 @@ possible_preset_keys = {
     "default_inpaint_advanced_masking_checkbox": "inpaint_advanced_masking_checkbox",
     "default_mixing_image_prompt_and_vary_upscale": "mixing_image_prompt_and_vary_upscale",
     "default_mixing_image_prompt_and_inpaint": "mixing_image_prompt_and_inpaint",
-    "default_presetmenu": "presetmenu",
     "default_backfill_prompt": "backfill_prompt",
     "default_translation_methods": "translation_methods",
     "default_image_catalog_max_number": "image_catalog_max_number",
