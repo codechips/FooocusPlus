@@ -148,22 +148,23 @@ except Exception as e:
     print('3. There is no "," before the last "}".')
     print('4. All key/value formats are correct.')
 
-def get_path_output() -> str:
-    """
-    Checking output path argument and overriding default path.
-    """
-    global config_dict
-    if args_manager.args.output_path:
-        path_output = args_manager.args.output_path
-    else:
-        path_output = f'{args_manager.args.user_dir}/{path_output}'
-    path_output_abs = os.path.abspath(path_output)
-    config_dict['path_outputs'] = path_output_abs
-    path_output = get_dir_or_set_default('path_outputs', f'{args_manager.args.user_dir}/{path_output}')
-    print(f'Generated images will be stored in {path_output_abs}')
-    print()
-    print('Loading support files...')
-    return path_output
+def init_temp_path(path: str | None, default_path: str) -> str:
+    if args_manager.args.temp_path:
+        path = args_manager.args.temp_path
+
+    if path != '' and path != default_path:
+        try:
+            if not os.path.isabs(path):
+                path = os.path.abspath(path)
+            os.makedirs(path, exist_ok=True)
+            print(f'Using temp path {path}')
+            return path
+        except Exception as e:
+            print(f'Could not create temp path {path}. Reason: {e}')
+            print(f'Using default temp path {default_path} instead.')
+
+    os.makedirs(default_path, exist_ok=True)
+    return default_path
 
 if args_manager.args.models_root:
     path_models_root = get_dir_or_set_default('path_models_root', args_manager.args.models_root)
@@ -248,24 +249,19 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         config_dict[key] = default_value
         return default_value
 
-def init_temp_path(path: str | None, default_path: str) -> str:
-    if args_manager.args.temp_path:
-        path = args_manager.args.temp_path
-
-    if path != '' and path != default_path:
-        try:
-            if not os.path.isabs(path):
-                path = os.path.abspath(path)
-            os.makedirs(path, exist_ok=True)
-            print(f'Using temp path {path}')
-            return path
-        except Exception as e:
-            print(f'Could not create temp path {path}. Reason: {e}')
-            print(f'Using default temp path {default_path} instead.')
-
-    os.makedirs(default_path, exist_ok=True)
-    return default_path
-
+default_temp_path = os.path.join(tempfile.gettempdir(), 'fooocus')
+temp_path = init_temp_path(get_config_item_or_set_default(
+    key='temp_path',
+    default_value=default_temp_path,
+    validator=lambda x: isinstance(x, str),
+    expected_type=str
+), default_temp_path)
+temp_path_cleanup_on_launch = get_config_item_or_set_default(
+    key='temp_path_cleanup_on_launch',
+    default_value=True,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
 
 default_loras = get_config_item_or_set_default(
     key='default_loras',
@@ -310,19 +306,6 @@ default_max_lora_number = get_config_item_or_set_default(
 
 ads.init_all_params_index(default_max_lora_number, args_manager.args.disable_metadata)
 
-default_temp_path = os.path.join(tempfile.gettempdir(), 'fooocus')
-temp_path = init_temp_path(get_config_item_or_set_default(
-    key='temp_path',
-    default_value=default_temp_path,
-    validator=lambda x: isinstance(x, str),
-    expected_type=str
-), default_temp_path)
-temp_path_cleanup_on_launch = get_config_item_or_set_default(
-    key='temp_path_cleanup_on_launch',
-    default_value=True,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
 default_engine = get_config_item_or_set_default(
     key='default_engine',
     default_value={},
@@ -476,17 +459,17 @@ default_max_image_number = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, int) and x >= 1,
     expected_type=int
 )
-default_output_format = get_config_item_or_set_default(
-    key='default_output_format',
-    default_value=ads.default['output_format'],
-    validator=lambda x: x in OutputFormat.list(),
-    expected_type=str
-)
 default_image_number = get_config_item_or_set_default(
     key='default_image_number',
     default_value=ads.default['image_number'],
     validator=lambda x: isinstance(x, int) and 1 <= x <= default_max_image_number,
     expected_type=int
+)
+default_output_format = get_config_item_or_set_default(
+    key='default_output_format',
+    default_value=ads.default['output_format'],
+    validator=lambda x: x in OutputFormat.list(),
+    expected_type=str
 )
 checkpoint_downloads = get_config_item_or_set_default(
     key='checkpoint_downloads',
