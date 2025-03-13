@@ -763,8 +763,8 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
-            time_obj = datetime.now()
-            print(time_obj)
+#            time_obj = datetime.now()
+#            print(time_obj)
 #            if extra_variation:
 #                ev = 10+(int(time_obj.microsecond)//500)
 #            else:
