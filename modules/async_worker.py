@@ -728,6 +728,7 @@ def worker():
 
     def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number, disable_seed_increment, use_expansion, use_style,
                        use_synthetic_refiner, current_progress, advance_progress=False):
+        from webui import extra_variation
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
