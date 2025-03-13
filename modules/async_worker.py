@@ -775,7 +775,7 @@ def worker():
                 task_seed = (async_task.seed + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
 
-            if wild_seed + ev => constants.MAX_SEED:
+            if (wild_seed + ev) => constants.MAX_SEED:
                 wild_seed = ev
             else:
                 wild_seed = wild_seed + ev
