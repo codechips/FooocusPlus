@@ -1049,8 +1049,8 @@ with common.GRADIO_ROOT:
                     comfyd_active_checkbox = gr.Checkbox(label='Enable Comfyd Always Active', value=not args_manager.args.disable_comfyd,\
                         info='Enabling will improve execution speed but occupy some memory.')
                     image_tools_checkbox = gr.Checkbox(label='Enable Gallery Tools', value=True,\
-                        info='Use the image gallery Toolbox to View Info, Regenerate or Delete an Image')
-                    finished_catalog_max_number = gr.Slider(label='Gallery Page Limit', minimum=1, maximum=100, step=5, value=1)
+                        info='Located on the main canvas, use the Toolbox to View Info, Regenerate or Delete an image from the gallery')
+                    #finished_catalog_max_number = gr.Slider(label='Gallery Page Limit', minimum=1, maximum=100, step=5, value=1)
                     backfill_prompt = gr.Checkbox(label='Copy Prompts While Switching Images', value=modules.config.default_backfill_prompt,\
                         interactive=True, info='Fill the positive and and negative prompts from the gallery images.')
                     if (args_manager.args.language=='cn'):
