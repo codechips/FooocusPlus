@@ -767,15 +767,15 @@ def worker():
                 ev = 10+(int(datetime.now().microsecond)//500)
                 print(ev)
             else:
-                ev = i  # initialize "extra variation" to a neutral value
+                ev = 0  # initialize "extra variation" to a neutral value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
-                wild_seed = (async_task.seed + ev) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
+                wild_seed = (async_task.seed + i) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
             else:
-                task_seed = (async_task.seed + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
+                task_seed = (async_task.seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
 
-            if (wild_seed + ev) => constants.MAX_SEED:
+            if (wild_seed + ev) >= constants.MAX_SEED:
                 wild_seed = ev
             else:
                 wild_seed = wild_seed + ev
