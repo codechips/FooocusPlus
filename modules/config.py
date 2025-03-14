@@ -11,6 +11,7 @@ import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
 from common import ROOT
+from common import EXTRA_VARIATION
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
@@ -263,48 +264,134 @@ temp_path_cleanup_on_launch = get_config_item_or_set_default(
     expected_type=bool
 )
 
-default_loras = get_config_item_or_set_default(
-    key='default_loras',
-    default_value=[
-        [
-            True,
-            "None",
-            1.0
-        ],
-        [
-            True,
-            "None",
-            1.0
-        ],
-        [
-            True,
-            "None",
-            1.0
-        ],
-        [
-            True,
-            "None",
-            1.0
-        ],
-        [
-            True,
-            "None",
-            1.0
-        ]
-    ],
-    validator=lambda x: isinstance(x, list) and all(
-        len(y) == 3 and isinstance(y[0], bool) and isinstance(y[1], str) and isinstance(y[2], numbers.Number)
-        or len(y) == 2 and isinstance(y[0], str) and isinstance(y[1], numbers.Number)
-        for y in x)
-)
-default_loras = [(y[0], y[1].replace('\\', os.sep).replace('/', os.sep), y[2]) if len(y) == 3 else (True, y[0].replace('\\', os.sep).replace('/', os.sep), y[1]) for y in default_loras]
-default_max_lora_number = get_config_item_or_set_default(
-    key='default_max_lora_number',
-    default_value=len(default_loras) if isinstance(default_loras, list) and len(default_loras) > 0 else ads.default['max_lora_number'],
-    validator=lambda x: isinstance(x, int) and x >= 1
+default_image_catalog_max_number = get_config_item_or_set_default(
+    key='default_image_catalog_max_number',
+    default_value=ads.default['image_catalog_max_number'],
+    validator=lambda x: isinstance(x, int),
+    expected_type=int
 )
 
-ads.init_all_params_index(default_max_lora_number, args_manager.args.disable_metadata)
+default_image_prompt_checkbox = get_config_item_or_set_default(
+    key='default_image_prompt_checkbox',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+default_enhance_checkbox = get_config_item_or_set_default(
+    key='default_enhance_checkbox',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+default_advanced_checkbox = get_config_item_or_set_default(
+    key='default_advanced_checkbox',
+    default_value=ads.default['advanced_checkbox'],
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+default_developer_debug_mode_checkbox = get_config_item_or_set_default(
+    key='default_developer_debug_mode_checkbox',
+    default_value=ads.default['developer_debug_mode_checkbox'],
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+default_image_prompt_advanced_checkbox = get_config_item_or_set_default(
+    key='default_image_prompt_advanced_checkbox',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+
+default_performance = get_config_item_or_set_default(
+    key='default_performance',
+    default_value=Performance.SPEED.value,
+    validator=lambda x: x in Performance.values(),
+    expected_type=str
+)
+
+default_max_image_number = get_config_item_or_set_default(
+    key='default_max_image_number',
+    default_value=ads.default['max_image_number'],
+    validator=lambda x: isinstance(x, int) and x >= 1,
+    expected_type=int
+)
+default_image_number = get_config_item_or_set_default(
+    key='default_image_number',
+    default_value=ads.default['image_number'],
+    validator=lambda x: isinstance(x, int) and 1 <= x <= default_max_image_number,
+    expected_type=int
+)
+
+available_aspect_ratios = get_config_item_or_set_default(
+    key='available_aspect_ratios',
+    default_value=modules.flags.available_aspect_ratios[0],
+    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+    expected_type=list
+)
+default_aspect_ratio = get_config_item_or_set_default(
+    key='default_aspect_ratio',
+    default_value='1024*1024',
+    validator=lambda x: x in available_aspect_ratios,
+    expected_type=str
+)
+
+default_output_format = get_config_item_or_set_default(
+    key='default_output_format',
+    default_value=ads.default['output_format'],
+    validator=lambda x: x in OutputFormat.list(),
+    expected_type=str
+)
+
+default_prompt = get_config_item_or_set_default(
+    key='default_prompt',
+    default_value='',
+    validator=lambda x: isinstance(x, str),
+    disable_empty_as_none=True,
+    expected_type=str
+)
+default_prompt_negative = get_config_item_or_set_default(
+    key='default_prompt_negative',
+    default_value='',
+    validator=lambda x: isinstance(x, str),
+    disable_empty_as_none=True,
+    expected_type=str
+)
+default_extra_variation = get_config_item_or_set_default(
+    key='default_extra_variation',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+
+default_describe_apply_prompts_checkbox = get_config_item_or_set_default(
+    key='default_describe_apply_prompts_checkbox',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+default_describe_content_type = get_config_item_or_set_default(
+    key='default_describe_content_type',
+    default_value=[modules.flags.describe_type_photo, modules.flags.describe_type_anime],
+    validator=lambda x: all(k in modules.flags.describe_types for k in x),
+    expected_type=list
+)
+enable_auto_describe_image = get_config_item_or_set_default(
+    key='enable_auto_describe_image',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+
+default_styles = get_config_item_or_set_default(
+    key='default_styles',
+    default_value=[
+        "Fooocus V2",
+        "Fooocus Enhance"
+    ],
+    validator=lambda x: isinstance(x, list) and all(y in modules.sdxl_styles.legal_style_names for y in x),
+    expected_type=list
+)
+
 
 default_engine = get_config_item_or_set_default(
     key='default_engine',
@@ -340,6 +427,51 @@ default_refiner_switch = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, numbers.Number) and 0 <= x <= 1,
     expected_type=numbers.Number
 )
+
+default_loras = get_config_item_or_set_default(
+    key='default_loras',
+    default_value=[
+        [
+            True,
+            "None",
+            1.0
+        ],
+        [
+            True,
+            "None",
+            1.0
+        ],
+        [
+            True,
+            "None",
+            1.0
+        ],
+        [
+            True,
+            "None",
+            1.0
+        ],
+        [
+            True,
+            "None",
+            1.0
+        ]
+    ],
+    validator=lambda x: isinstance(x, list) and all(
+        len(y) == 3 and isinstance(y[0], bool) and isinstance(y[1], str) and isinstance(y[2], numbers.Number)
+        or len(y) == 2 and isinstance(y[0], str) and isinstance(y[1], numbers.Number)
+        for y in x)
+)
+default_loras = [(y[0], y[1].replace('\\', os.sep).replace('/', os.sep), y[2]) if len(y) == 3 else (True, y[0].replace('\\', os.sep).replace('/', os.sep), y[1]) for y in default_loras]
+
+default_max_lora_number = get_config_item_or_set_default(
+    key='default_max_lora_number',
+    default_value=len(default_loras) if isinstance(default_loras, list) and len(default_loras) > 0 else ads.default['max_lora_number'],
+    validator=lambda x: isinstance(x, int) and x >= 1
+)
+
+ads.init_all_params_index(default_max_lora_number, args_manager.args.disable_metadata)
+
 default_loras_min_weight = get_config_item_or_set_default(
     key='default_loras_min_weight',
     default_value=ads.default['loras_min_weight'],
@@ -352,6 +484,7 @@ default_loras_max_weight = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, numbers.Number) and -10 <= x <= 10,
     expected_type=numbers.Number
 )
+
 default_cfg_scale = get_config_item_or_set_default(
     key='default_cfg_scale',
     default_value=7.0,
@@ -382,95 +515,8 @@ default_vae = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, str),
     expected_type=str
 )
-default_styles = get_config_item_or_set_default(
-    key='default_styles',
-    default_value=[
-        "Fooocus V2",
-        "Fooocus Enhance"
-    ],
-    validator=lambda x: isinstance(x, list) and all(y in modules.sdxl_styles.legal_style_names for y in x),
-    expected_type=list
-)
-default_prompt = get_config_item_or_set_default(
-    key='default_prompt',
-    default_value='',
-    validator=lambda x: isinstance(x, str),
-    disable_empty_as_none=True,
-    expected_type=str
-)
-default_prompt_negative = get_config_item_or_set_default(
-    key='default_prompt_negative',
-    default_value='',
-    validator=lambda x: isinstance(x, str),
-    disable_empty_as_none=True,
-    expected_type=str
-)
-default_extra_variation = get_config_item_or_set_default(
-    key='default_extra_variation',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-default_performance = get_config_item_or_set_default(
-    key='default_performance',
-    default_value=Performance.SPEED.value,
-    validator=lambda x: x in Performance.values(),
-    expected_type=str
-)
-default_image_prompt_checkbox = get_config_item_or_set_default(
-    key='default_image_prompt_checkbox',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-enable_auto_describe_image = get_config_item_or_set_default(
-    key='enable_auto_describe_image',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-default_enhance_checkbox = get_config_item_or_set_default(
-    key='default_enhance_checkbox',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-default_advanced_checkbox = get_config_item_or_set_default(
-    key='default_advanced_checkbox',
-    default_value=ads.default['advanced_checkbox'],
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-default_developer_debug_mode_checkbox = get_config_item_or_set_default(
-    key='default_developer_debug_mode_checkbox',
-    default_value=ads.default['developer_debug_mode_checkbox'],
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-default_image_prompt_advanced_checkbox = get_config_item_or_set_default(
-    key='default_image_prompt_advanced_checkbox',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-default_max_image_number = get_config_item_or_set_default(
-    key='default_max_image_number',
-    default_value=ads.default['max_image_number'],
-    validator=lambda x: isinstance(x, int) and x >= 1,
-    expected_type=int
-)
-default_image_number = get_config_item_or_set_default(
-    key='default_image_number',
-    default_value=ads.default['image_number'],
-    validator=lambda x: isinstance(x, int) and 1 <= x <= default_max_image_number,
-    expected_type=int
-)
-default_output_format = get_config_item_or_set_default(
-    key='default_output_format',
-    default_value=ads.default['output_format'],
-    validator=lambda x: x in OutputFormat.list(),
-    expected_type=str
-)
+
+
 checkpoint_downloads = get_config_item_or_set_default(
     key='checkpoint_downloads',
     default_value={},
@@ -495,18 +541,7 @@ vae_downloads = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in x.items()),
     expected_type=dict
 )
-available_aspect_ratios = get_config_item_or_set_default(
-    key='available_aspect_ratios',
-    default_value=modules.flags.available_aspect_ratios[0],
-    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
-    expected_type=list
-)
-default_aspect_ratio = get_config_item_or_set_default(
-    key='default_aspect_ratio',
-    default_value='1024*1024',
-    validator=lambda x: x in available_aspect_ratios,
-    expected_type=str
-)
+
 default_inpaint_engine_version = get_config_item_or_set_default(
     key='default_inpaint_engine_version',
     default_value=ads.default['inpaint_engine'],
@@ -761,13 +796,6 @@ default_comfyd_active_checkbox = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool)
 )
 
-default_image_catalog_max_number = get_config_item_or_set_default(
-    key='default_image_catalog_max_number',
-    default_value=ads.default['image_catalog_max_number'],
-    validator=lambda x: isinstance(x, int),
-    expected_type=int
-)
-
 default_mixing_image_prompt_and_vary_upscale = get_config_item_or_set_default(
     key='default_mixing_image_prompt_and_vary_upscale',
     default_value=ads.default['mixing_image_prompt_and_vary_upscale'],
@@ -786,20 +814,8 @@ styles_definition = {}
 instruction = ''
 reference = ''
 
-default_describe_apply_prompts_checkbox = get_config_item_or_set_default(
-    key='default_describe_apply_prompts_checkbox',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-default_describe_content_type = get_config_item_or_set_default(
-    key='default_describe_content_type',
-    default_value=[modules.flags.describe_type_photo, modules.flags.describe_type_anime],
-    validator=lambda x: all(k in modules.flags.describe_types for k in x),
-    expected_type=list
-)
-
 config_dict["default_loras"] = default_loras = default_loras[:default_max_lora_number] + [[True, 'None', 1.0] for _ in range(default_max_lora_number - len(default_loras))]
+
 
 # mapping config to meta parameter
 possible_preset_keys = {
