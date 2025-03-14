@@ -712,7 +712,7 @@ with common.GRADIO_ROOT:
                         info='Generate a random series of images', value=True)
 
                     def save_extra_variation():
-                        print(f'Checkbox Extra Variation: {EXTRA_VARIATION}')
+                        print(f'Checkbox Extra Variation: {extra_variation_checkbox}')
                         common.EXTRA_VARIATION = extra_variation_checkbox
                         print(f'common.EXTRA_VARIATION: {common.EXTRA_VARIATION}')
                         return                
