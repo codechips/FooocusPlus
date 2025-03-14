@@ -2,7 +2,6 @@ import os
 
 # These pseudo globals are imported by several
 # functions and are subject to change
-EXTRA_VARIATION = False
 GRADIO_ROOT = None
 MODELS_INFO = None
 torch_device = ''
