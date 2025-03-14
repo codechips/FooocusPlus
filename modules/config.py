@@ -11,7 +11,6 @@ import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
 from common import ROOT
-from common import EXTRA_VARIATION
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
