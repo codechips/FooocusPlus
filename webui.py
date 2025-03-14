@@ -729,7 +729,6 @@ with common.GRADIO_ROOT:
                             seed_value = int(seed_string)
                             if constants.MIN_SEED <= seed_value <= constants.MAX_SEED:
                                 return seed_value
-#                        ValueError: orginal coding "ValueError" is not recognized
                         except:
                             pass
                         return random.randint(constants.MIN_SEED, constants.MAX_SEED)
@@ -1050,7 +1049,6 @@ with common.GRADIO_ROOT:
                         info='Enabling will improve execution speed but occupy some memory.')
                     image_tools_checkbox = gr.Checkbox(label='Enable Gallery Tools', value=True,\
                         info='Located on the main canvas, use the Toolbox to View Info, Regenerate or Delete an image from the gallery')
-                    #finished_catalog_max_number = gr.Slider(label='Gallery Page Limit', minimum=1, maximum=100, step=5, value=1)
                     backfill_prompt = gr.Checkbox(label='Copy Prompts While Switching Images', value=modules.config.default_backfill_prompt,\
                         interactive=True, info='Fill the positive and and negative prompts from the gallery images.')
                     if (args_manager.args.language=='cn'):
@@ -1266,7 +1264,7 @@ with common.GRADIO_ROOT:
         ctrls += [uov_method, uov_input_image]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += [layer_method, layer_input_image, iclight_enable, iclight_source_radio]
-        ctrls += [disable_preview, disable_intermediate_results, disable_seed_increment, black_out_nsfw]
+        ctrls += [disable_preview, disable_intermediate_results, extra_variation, disable_seed_increment, black_out_nsfw]
         ctrls += [adm_scaler_positive, adm_scaler_negative, adm_scaler_end, adaptive_cfg, clip_skip]
         ctrls += [sampler_name, scheduler_name, vae_name]
         ctrls += [overwrite_step, overwrite_switch, overwrite_width, overwrite_height, overwrite_vary_strength]
