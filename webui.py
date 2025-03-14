@@ -712,8 +712,9 @@ with common.GRADIO_ROOT:
                         info='Generate a random series of images', value=True)
 
                     def save_extra_variation(extra_variation):
-                        print(f'Checkbox Extra Variation: {extra_variation}')
-                        common.EXTRA_VARIATION = extra_variation
+                        modules.config.default_extra_variation = not modules.config.default_extra_variation
+                        print(f'Checkbox Extra Variation: {modules.config.default_extra_variation}')
+                        common.EXTRA_VARIATION = modules.config.default_extra_variation
                         print(f'common.EXTRA_VARIATION: {common.EXTRA_VARIATION}')
                         return                
                     extra_variation = gr.Checkbox(label='Extra Variation',
