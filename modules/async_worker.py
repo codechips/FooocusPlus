@@ -68,7 +68,6 @@ class AsyncTask:
 
         self.disable_preview = args.pop()
         self.disable_intermediate_results = args.pop()
-        self.extra_variation = args.pop()
         self.disable_seed_increment = args.pop()
         self.black_out_nsfw = args.pop()
         self.adm_scaler_positive = args.pop()
@@ -241,6 +240,7 @@ def worker():
     import enhanced.version as version
     
     from datetime import datetime
+    from common import EXTRA_VARIATION
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
     from modules.private_logger import log
@@ -729,8 +729,8 @@ def worker():
 
     
     def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number,
-                       extra_variation, disable_seed_increment, use_expansion, use_style,
-                       use_synthetic_refiner, current_progress, advance_progress=False):
+                       disable_seed_increment, use_expansion, use_style, use_synthetic_refiner,
+                       current_progress, advance_progress=False):
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
@@ -765,11 +765,11 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
-            if extra_variation:
+            if EXTRA_VARIATION:
                 j = 10+(int(datetime.now().microsecond)//500)
             else:
                 j = 0  # set "extra_variation" to a neutral value
-            print(f'Extra Variation: {extra_variation}')
+            print(f'Extra Variation: {EXTRA_VARIATION}')
             print(f'J Value: {j}')
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
