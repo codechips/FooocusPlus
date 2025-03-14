@@ -710,8 +710,14 @@ with common.GRADIO_ROOT:
                         value=modules.config.default_prompt_negative)
                     seed_random = gr.Checkbox(label='Random Seed', 
                         info='Generate a random series of images', value=True)
-                    extra_variation = gr.Checkbox(label='Extra Variation',
+
+                    def save_extra_variation():
+                        common.EXTRA_VARIATION = extra_variation_checkbox
+                        return                
+                    extra_variation_checkbox = gr.Checkbox(label='Extra Variation',
                         info='Increase the randomness of image creation', value=modules.config.default_extra_variation)
+                    extra_variation_checkbox.change(lambda x: save_extra_variation(), inputs=extra_variation_checkbox)
+                    
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
                         info='Make similar images while processing an array or wildcards', value=False)
                     image_seed = gr.Textbox(label='Specific Seed',
@@ -1264,7 +1270,7 @@ with common.GRADIO_ROOT:
         ctrls += [uov_method, uov_input_image]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += [layer_method, layer_input_image, iclight_enable, iclight_source_radio]
-        ctrls += [disable_preview, disable_intermediate_results, extra_variation, disable_seed_increment, black_out_nsfw]
+        ctrls += [disable_preview, disable_intermediate_results, disable_seed_increment, black_out_nsfw]
         ctrls += [adm_scaler_positive, adm_scaler_negative, adm_scaler_end, adaptive_cfg, clip_skip]
         ctrls += [sampler_name, scheduler_name, vae_name]
         ctrls += [overwrite_step, overwrite_switch, overwrite_width, overwrite_height, overwrite_vary_strength]
