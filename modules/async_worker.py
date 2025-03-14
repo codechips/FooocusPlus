@@ -68,6 +68,7 @@ class AsyncTask:
 
         self.disable_preview = args.pop()
         self.disable_intermediate_results = args.pop()
+        self.extra_variation = args.pop()
         self.disable_seed_increment = args.pop()
         self.black_out_nsfw = args.pop()
         self.adm_scaler_positive = args.pop()
@@ -727,7 +728,8 @@ def worker():
         return steps, switch, width, height
 
     
-    def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number, disable_seed_increment, use_expansion, use_style,
+    def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number,
+                       extra_variation, disable_seed_increment, use_expansion, use_style,
                        use_synthetic_refiner, current_progress, advance_progress=False):
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
@@ -763,11 +765,11 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
-            if modules.config.default_extra_variation:
+            if extra_variation:
                 j = 10+(int(datetime.now().microsecond)//500)
             else:
                 j = 0  # set "extra_variation" to a neutral value
-            print(f'Extra Variation: {modules.config.default_extra_variation}')
+            print(f'Extra Variation: {extra_variation}')
             print(f'J Value: {j}')
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
