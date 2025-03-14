@@ -490,6 +490,12 @@ default_cfg_scale = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, numbers.Number),
     expected_type=numbers.Number
 )
+default_overwrite_step = get_config_item_or_set_default(
+    key='default_overwrite_step',
+    default_value=ads.default['overwrite_step'],
+    validator=lambda x: isinstance(x, int),
+    expected_type=int
+)
 default_sample_sharpness = get_config_item_or_set_default(
     key='default_sample_sharpness',
     default_value=2.0,
@@ -626,12 +632,6 @@ default_clip_skip = get_config_item_or_set_default(
     key='default_clip_skip',
     default_value=2,
     validator=lambda x: isinstance(x, int) and 1 <= x <= modules.flags.clip_skip_max,
-    expected_type=int
-)
-default_overwrite_step = get_config_item_or_set_default(
-    key='default_overwrite_step',
-    default_value=ads.default['overwrite_step'],
-    validator=lambda x: isinstance(x, int),
     expected_type=int
 )
 default_overwrite_switch = get_config_item_or_set_default(
