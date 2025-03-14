@@ -711,14 +711,14 @@ with common.GRADIO_ROOT:
                     seed_random = gr.Checkbox(label='Random Seed', 
                         info='Generate a random series of images', value=True)
 
-                    def save_extra_variation():
-                        print(f'Checkbox Extra Variation: {extra_variation_checkbox}')
-                        common.EXTRA_VARIATION = extra_variation_checkbox
+                    def save_extra_variation(extra_variation):
+                        print(f'Checkbox Extra Variation: {extra_variation}')
+                        common.EXTRA_VARIATION = extra_variation
                         print(f'common.EXTRA_VARIATION: {common.EXTRA_VARIATION}')
                         return                
-                    extra_variation_checkbox = gr.Checkbox(label='Extra Variation',
+                    extra_variation = gr.Checkbox(label='Extra Variation',
                         info='Increase the randomness of image creation', value=modules.config.default_extra_variation)
-                    extra_variation_checkbox.change(lambda x: save_extra_variation(), inputs=extra_variation_checkbox)
+                    extra_variation.change(lambda x: save_extra_variation(extra_variation), inputs=extra_variation)
                     
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
                         info='Make similar images while processing an array or wildcards', value=False)
