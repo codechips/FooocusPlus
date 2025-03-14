@@ -760,10 +760,10 @@ def worker():
         if advance_progress:
             current_progress += 1
         print()
-        progressbar(async_task, current_progress, 'Processing prompts...')
         if modules.config.default_extra_variation:
-            print('Operating in "Extra Variation" mode')
-            print()                           
+            progressbar(async_task, current_progress, 'Processing the prompts in "Extra Variation" mode...')
+        else:
+            progressbar(async_task, current_progress, 'Processing the prompts...')
         tasks = []
         for i in range(image_number):
             ev = 0  # set "extra_variation" to a neutral value
@@ -776,10 +776,10 @@ def worker():
             task_rng = random.Random(wild_seed)
             if modules.config.default_extra_variation: # extra_variation does not apply to initial value of seed
                 ev_base = ev    # the additional increment added to the seed is cumulative
-                ev = 10 + (random.Random(int(datetime.now().microsecond)))
-                ev = 10 + ev_base + (ev//500)
+                ev = random.Random((datetime.now().microsecond))
+                ev = ev_base + (ev*100000)
                 print(f'Extra Variation: {modules.config.default_extra_variation}')
-                print(f'J Value: {j}')
+                print(f'J Value: {ev}')
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
             task_negative_prompt = apply_wildcards(negative_prompt, task_rng, i, async_task.read_wildcards_in_order)
