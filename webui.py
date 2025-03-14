@@ -711,15 +711,12 @@ with common.GRADIO_ROOT:
                     seed_random = gr.Checkbox(label='Random Seed', 
                         info='Generate a random series of images', value=True)
 
-                    def save_extra_variation(extra_variation):
+                    def toggle_extra_variation():
                         modules.config.default_extra_variation = not modules.config.default_extra_variation
-                        print(f'Checkbox Extra Variation: {modules.config.default_extra_variation}')
-                        common.EXTRA_VARIATION = modules.config.default_extra_variation
-                        print(f'common.EXTRA_VARIATION: {common.EXTRA_VARIATION}')
                         return                
                     extra_variation = gr.Checkbox(label='Extra Variation',
                         info='Increase the randomness of image creation', value=modules.config.default_extra_variation)
-                    extra_variation.change(lambda x: save_extra_variation(extra_variation), inputs=extra_variation)
+                    extra_variation.change(lambda x: toggle_extra_variation(), inputs=extra_variation)
                     
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
                         info='Make similar images while processing an array or wildcards', value=False)
@@ -1056,7 +1053,7 @@ with common.GRADIO_ROOT:
                 with gr.Group():
                     comfyd_active_checkbox = gr.Checkbox(label='Enable Comfyd Always Active', value=not args_manager.args.disable_comfyd,\
                         info='Enabling will improve execution speed but occupy some memory.')
-                    image_tools_checkbox = gr.Checkbox(label='Enable Gallery Tools', value=True,\
+                    image_tools_checkbox = gr.Checkbox(label='Enable Gallery Toolbox', value=True,\
                         info='Located on the main canvas, use the Toolbox to View Info, Regenerate or Delete an image from the gallery')
                     backfill_prompt = gr.Checkbox(label='Copy Prompts While Switching Images', value=modules.config.default_backfill_prompt,\
                         interactive=True, info='Fill the positive and and negative prompts from the gallery images.')
@@ -1128,7 +1125,6 @@ with common.GRADIO_ROOT:
               print()
               print(f'Auto-Describe {bool_string}')
               return
-
             auto_describe_checkbox.change(lambda x: toggle_auto_describe(), inputs=auto_describe_checkbox)
             
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
