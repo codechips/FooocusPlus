@@ -11,6 +11,7 @@ import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
 from common import ROOT
+from common import EXTRA_VARIATION
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
@@ -361,6 +362,7 @@ default_extra_variation = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
+EXTRA_VARIATION = default_extra_variation # update the pseudo-global
 
 default_describe_apply_prompts_checkbox = get_config_item_or_set_default(
     key='default_describe_apply_prompts_checkbox',
