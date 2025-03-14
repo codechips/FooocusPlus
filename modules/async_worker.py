@@ -240,7 +240,6 @@ def worker():
     import enhanced.version as version
     
     from datetime import datetime
-    from common import EXTRA_VARIATION
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
     from modules.private_logger import log
@@ -765,11 +764,11 @@ def worker():
                            
         tasks = []
         for i in range(image_number):
-            if EXTRA_VARIATION:
+            if modules.config.default_extra_variation:
                 j = 10+(int(datetime.now().microsecond)//500)
             else:
                 j = 0  # set "extra_variation" to a neutral value
-            print(f'Extra Variation: {EXTRA_VARIATION}')
+            print(f'Extra Variation: {modules.config.default_extra_variation}')
             print(f'J Value: {j}')
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
