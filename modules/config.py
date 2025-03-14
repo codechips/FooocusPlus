@@ -11,7 +11,6 @@ import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
 from common import ROOT
-from common import EXTRA_VARIATION
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
@@ -362,7 +361,6 @@ default_extra_variation = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
-EXTRA_VARIATION = default_extra_variation # update the pseudo-global
 
 default_describe_apply_prompts_checkbox = get_config_item_or_set_default(
     key='default_describe_apply_prompts_checkbox',
@@ -728,81 +726,72 @@ metadata_created_by = get_config_item_or_set_default(
 example_inpaint_prompts = [[x] for x in example_inpaint_prompts]
 example_enhance_detection_prompts = [[x] for x in example_enhance_detection_prompts]
 
-default_invert_mask_checkbox = get_config_item_or_set_default(
-    key='default_invert_mask_checkbox',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
-)
-
-default_inpaint_mask_model = get_config_item_or_set_default(
-    key='default_inpaint_mask_model',
-    default_value='isnet-general-use',
-    validator=lambda x: x in modules.flags.inpaint_mask_models,
-    expected_type=str
-)
-
-default_enhance_inpaint_mask_model = get_config_item_or_set_default(
-    key='default_enhance_inpaint_mask_model',
-    default_value='sam',
-    validator=lambda x: x in modules.flags.inpaint_mask_models,
-    expected_type=str
-)
-
-default_inpaint_mask_cloth_category = get_config_item_or_set_default(
-    key='default_inpaint_mask_cloth_category',
-    default_value='full',
-    validator=lambda x: x in modules.flags.inpaint_mask_cloth_category,
-    expected_type=str
-)
-
-default_inpaint_mask_sam_model = get_config_item_or_set_default(
-    key='default_inpaint_mask_sam_model',
-    default_value='vit_b',
-    validator=lambda x: x in modules.flags.inpaint_mask_sam_model,
-    expected_type=str
-)
-
-default_inpaint_mask_model = get_config_item_or_set_default(
-    key='default_inpaint_mask_model',
-    default_value='isnet-general-use',
-    validator=lambda x: x in modules.flags.inpaint_mask_models
-)
-
-default_inpaint_mask_cloth_category = get_config_item_or_set_default(
-    key='default_inpaint_mask_cloth_category',
-    default_value='full',
-    validator=lambda x: x in modules.flags.inpaint_mask_cloth_category
-)
-
-default_inpaint_mask_sam_model = get_config_item_or_set_default(
-    key='default_inpaint_mask_sam_model',
-    default_value='sam_vit_b_01ec64',
-    validator=lambda x: x in modules.flags.inpaint_mask_sam_model
-)
-default_translation_methods = get_config_item_or_set_default(
-    key='default_translation_methods',
-    default_value=ads.default['translation_methods'],
-    validator=lambda x: x in modules.flags.translation_methods
+default_comfyd_active_checkbox = get_config_item_or_set_default(
+    key='default_comfyd_active_checkbox',
+    default_value=ads.default['comfyd_active_checkbox'],
+    validator=lambda x: isinstance(x, bool)
 )
 default_backfill_prompt = get_config_item_or_set_default(
     key='default_backfill_prompt',
     default_value=ads.default['backfill_prompt'],
     validator=lambda x: isinstance(x, bool)
 )
-
-default_comfyd_active_checkbox = get_config_item_or_set_default(
-    key='default_comfyd_active_checkbox',
-    default_value=ads.default['comfyd_active_checkbox'],
-    validator=lambda x: isinstance(x, bool)
+default_translation_methods = get_config_item_or_set_default(
+    key='default_translation_methods',
+    default_value=ads.default['translation_methods'],
+    validator=lambda x: x in modules.flags.translation_methods
 )
 
+default_invert_mask_checkbox = get_config_item_or_set_default(
+    key='default_invert_mask_checkbox',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+default_inpaint_mask_model = get_config_item_or_set_default(
+    key='default_inpaint_mask_model',
+    default_value='isnet-general-use',
+    validator=lambda x: x in modules.flags.inpaint_mask_models,
+    expected_type=str
+)
+default_enhance_inpaint_mask_model = get_config_item_or_set_default(
+    key='default_enhance_inpaint_mask_model',
+    default_value='sam',
+    validator=lambda x: x in modules.flags.inpaint_mask_models,
+    expected_type=str
+)
+default_inpaint_mask_cloth_category = get_config_item_or_set_default(
+    key='default_inpaint_mask_cloth_category',
+    default_value='full',
+    validator=lambda x: x in modules.flags.inpaint_mask_cloth_category,
+    expected_type=str
+)
+default_inpaint_mask_sam_model = get_config_item_or_set_default(
+    key='default_inpaint_mask_sam_model',
+    default_value='vit_b',
+    validator=lambda x: x in modules.flags.inpaint_mask_sam_model,
+    expected_type=str
+)
+default_inpaint_mask_model = get_config_item_or_set_default(
+    key='default_inpaint_mask_model',
+    default_value='isnet-general-use',
+    validator=lambda x: x in modules.flags.inpaint_mask_models
+)
+default_inpaint_mask_cloth_category = get_config_item_or_set_default(
+    key='default_inpaint_mask_cloth_category',
+    default_value='full',
+    validator=lambda x: x in modules.flags.inpaint_mask_cloth_category
+)
+default_inpaint_mask_sam_model = get_config_item_or_set_default(
+    key='default_inpaint_mask_sam_model',
+    default_value='sam_vit_b_01ec64',
+    validator=lambda x: x in modules.flags.inpaint_mask_sam_model
+)
 default_mixing_image_prompt_and_vary_upscale = get_config_item_or_set_default(
     key='default_mixing_image_prompt_and_vary_upscale',
     default_value=ads.default['mixing_image_prompt_and_vary_upscale'],
     validator=lambda x: isinstance(x, bool)
 )
-
 default_mixing_image_prompt_and_inpaint = get_config_item_or_set_default(
     key='default_mixing_image_prompt_and_inpaint',
     default_value=ads.default['mixing_image_prompt_and_inpaint'],
