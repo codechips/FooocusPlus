@@ -769,11 +769,12 @@ def worker():
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
                 wild_seed = (async_task.seed + i + j) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
             else:
-                task_seed = (async_task.seed + i +j) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
+                task_seed = (async_task.seed + i + j) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
             task_rng = random.Random(wild_seed)
             if modules.config.default_extra_variation: # extra_variation does not apply to initial value of seed
-                j = 10+(int(datetime.now().microsecond)//100)
+                j = int(datetime.now().microsecond)
+                j = 10 + ((random.Random(j))//500)
                 print(f'Extra Variation: {modules.config.default_extra_variation}')
                 print(f'J Value: {j}')
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
