@@ -666,14 +666,6 @@ with common.GRADIO_ROOT:
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
-
-#               if not args_manager.args.disable_preset_selection:
-#                    preset_selection = gr.Dropdown(label='Preset',
-#                        visible=(args_manager.args.presetmenu=='dropdown'),
-#                        choices=modules.config.available_presets,
-#                        value=args_manager.args.preset if args_manager.args.preset else "initial",
-#                        interactive=True) #as dropdown_menu
-                
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
                                              choices=flags.Performance.values(),
@@ -1031,12 +1023,12 @@ with common.GRADIO_ROOT:
                     return results
 
                 refresh_files_output = [base_model, refiner_model, vae_name]
-                if not args_manager.args.disable_preset_selection:
+#                if not args_manager.args.disable_preset_selection:
 #                    try:
 #                       preset_selection
 #                    except:           #catch the error if a preset is not yet initialized
 #                       preset_selection  = ''
-                    refresh_files_output += [preset_selection]
+#                    refresh_files_output += [preset_selection]
                 refresh_files.click(refresh_files_clicked, [state_topbar], refresh_files_output + lora_ctrls,
                                     queue=False, show_progress=False)
 
