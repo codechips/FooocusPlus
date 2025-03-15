@@ -1028,7 +1028,7 @@ with common.GRADIO_ROOT:
                     return results
 
                 refresh_files_output = [base_model, refiner_model, vae_name]
-#                if not args_manager.args.disable_preset_selection:                    
+                if not args_manager.args.disable_preset_selection:                    
 #                    try:
 #                       preset_selection
 #                    except:           #catch the error if a preset is not yet initialized
