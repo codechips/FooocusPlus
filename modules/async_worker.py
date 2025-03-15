@@ -784,7 +784,7 @@ def worker():
                     ev = ev//30
                 elif (ev % 5) == 0: 
                     ev = ev//500
-                else
+                else:
                     ev = ev//1000
                 ev = ev + ev_base
 
