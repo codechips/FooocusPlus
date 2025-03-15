@@ -778,8 +778,9 @@ def worker():
                 else:
                      ev = ev*100
                 print(ev)
-                print(ev_base)
                 ev = ev + ev_base # the additional increment added to the seed is cumulative
+                ev_base = ev
+                print(ev_base)
             else:
                 ev = 0  # set "extra_variation" to a neutral value
                 ev_base = ev
