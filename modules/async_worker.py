@@ -777,6 +777,8 @@ def worker():
             print(task_rng)
             if modules.config.default_extra_variation: # extra_variation does not apply to initial value of seed
                 ev_base = ev    # the additional increment added to the seed is cumulative
+                print(datetime.now().microsecond)
+                print(type(datetime.now().microsecond))
                 ev = random.Random((datetime.now().microsecond))
                 print(ev)
                 print(type(ev))
