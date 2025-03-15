@@ -766,6 +766,7 @@ def worker():
             progressbar(async_task, current_progress, 'Processing the prompts...')
         tasks = []
         for i in range(image_number):
+            print(i)
             ev = 0  # set "extra_variation" to a neutral float value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
