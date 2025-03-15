@@ -766,8 +766,33 @@ def worker():
             progressbar(async_task, current_progress, 'Processing the prompts...')
         tasks = []
         for i in range(image_number):
-            print(i)
-            ev = 0  # set "extra_variation" to a neutral float value
+            if i>0 and modules.config.default_extra_variation: # extra_variation does not apply to the initial image
+                ev = datetime.now().microsecond
+                if (ev % 2) == 0:
+                    if ev < 500000:
+                        ev = ev*2
+                    else:
+                        ev = ev//2
+                elif (ev % 3) == 0:
+                    if ev < 300000:
+                        ev = ev*3
+                    else:
+                        ev = ev//3
+                elif (ev % 5) == 0:
+                    if ev < 200000:
+                        ev = ev*5
+                    else:
+                        ev = ev//5
+                else:
+                    if ev < 100000:
+                        ev = ev*10
+                    else:
+                        ev = ev//10
+                ev = ev + ev_base # the additional increment added to the seed is cumulative
+            else:
+                ev = 0  # set "extra_variation" to a neutral value
+                ev_base = ev
+                
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
                 wild_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
@@ -775,22 +800,6 @@ def worker():
                 task_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
             task_rng = random.Random(wild_seed)
-            
-            if modules.config.default_extra_variation: # extra_variation does not apply to the initial image
-                ev_base = ev    # the additional increment added to the seed will be cumulative
-                ev = datetime.now().microsecond
-                if (ev % 2) == 0:
-                    ev = ev//2
-                elif (ev % 3) == 0:
-                    ev = ev//30
-                elif (ev % 5) == 0: 
-                    ev = ev//500
-                else:
-                    ev = ev//1000
-                print(ev)
-                ev = ev + ev_base
-                print(ev)
-
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
             task_negative_prompt = apply_wildcards(negative_prompt, task_rng, i, async_task.read_wildcards_in_order)
