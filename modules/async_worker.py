@@ -774,17 +774,10 @@ def worker():
                 task_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
             task_rng = random.Random(wild_seed)
-            print(task_rng)
-            if modules.config.default_extra_variation: # extra_variation does not apply to initial value of seed
+            if modules.config.default_extra_variation: # extra_variation does not apply to the initial image
                 ev_base = ev    # the additional increment added to the seed is cumulative
-                print(datetime.now().microsecond)
-                print(type(datetime.now().microsecond))
                 ev = random.Random((datetime.now().microsecond))
-                print(ev)
-                print(type(ev))
-                ev = ev_base + (ev*100000)
-                print(f'Extra Variation: {modules.config.default_extra_variation}')
-                print(f'J Value: {ev}')
+                ev = ev_base + random.randint(10, 2000)
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
             task_negative_prompt = apply_wildcards(negative_prompt, task_rng, i, async_task.read_wildcards_in_order)
