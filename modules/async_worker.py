@@ -761,14 +761,13 @@ def worker():
             current_progress += 1
         print()
         if modules.config.default_extra_variation:
-            progressbar(async_task, current_progress, 'Processing the prompts in "Extra Variation" mode...')
+            progressbar(async_task, current_progress, 'Processing the prompts, "Extra Variation" randomness active...')
         else:
             progressbar(async_task, current_progress, 'Processing the prompts...')
         tasks = []
         for i in range(image_number):
             if i>0 and modules.config.default_extra_variation: # extra_variation does not apply to the initial image
                 ev = datetime.now().microsecond
-                print(ev)
                 if (ev % 2) == 0:
                     ev = ev*20
                 elif (ev % 3) == 0:
@@ -777,10 +776,8 @@ def worker():
                      ev = ev*50
                 else:
                      ev = ev*100
-                print(ev)
                 ev = ev + ev_base # the additional increment added to the seed is cumulative
                 ev_base = ev
-                print(ev_base)
             else:
                 ev = 0  # set "extra_variation" to a neutral value
                 ev_base = ev
