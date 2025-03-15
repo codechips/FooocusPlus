@@ -786,7 +786,9 @@ def worker():
                     ev = ev//500
                 else:
                     ev = ev//1000
+                print(ev)
                 ev = ev + ev_base
+                print(ev)
 
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
