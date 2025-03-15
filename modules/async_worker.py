@@ -768,26 +768,17 @@ def worker():
         for i in range(image_number):
             if i>0 and modules.config.default_extra_variation: # extra_variation does not apply to the initial image
                 ev = datetime.now().microsecond
+                print(ev)
                 if (ev % 2) == 0:
-                    if ev < 500000:
-                        ev = ev*2
-                    else:
-                        ev = ev//2
+                    ev = ev*20
                 elif (ev % 3) == 0:
-                    if ev < 300000:
-                        ev = ev*3
-                    else:
-                        ev = ev//3
+                    ev = ev*30
                 elif (ev % 5) == 0:
-                    if ev < 200000:
-                        ev = ev*5
-                    else:
-                        ev = ev//5
+                     ev = ev*50
                 else:
-                    if ev < 100000:
-                        ev = ev*10
-                    else:
-                        ev = ev//10
+                     ev = ev*100
+                print(ev)
+                print(ev_base)
                 ev = ev + ev_base # the additional increment added to the seed is cumulative
             else:
                 ev = 0  # set "extra_variation" to a neutral value
