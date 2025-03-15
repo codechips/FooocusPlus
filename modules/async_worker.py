@@ -779,13 +779,13 @@ def worker():
                 ev_base = ev    # the additional increment added to the seed will be cumulative
                 ev = datetime.now().microsecond
                 if (ev % 2) == 0:
-                    ev = ev\\2
+                    ev = ev//2
                 elif (ev % 3) == 0:
-                    ev = ev\\30
+                    ev = ev//30
                 elif (ev % 5) == 0: 
-                    ev = (ev % 500)
+                    ev = ev//500
                 else
-                    ev = ev\\1000
+                    ev = ev//1000
                 ev = ev + ev_base
 
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
