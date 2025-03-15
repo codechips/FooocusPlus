@@ -1008,10 +1008,10 @@ with common.GRADIO_ROOT:
                     print('Refreshing all files...')
                     modules.user_structure.create_model_structure()
                     modules.user_structure.create_user_structure()
-#                    engine = state_params.get('engine', 'Fooocus')
-#                    task_method = state_params.get('task_method', None)
-#                    model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)
-                    modules.config.refresh_all_files()
+                    engine = state_params.get('engine', 'Fooocus')
+                    task_method = state_params.get('task_method', None)
+                    model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)
+#                    modules.config.refresh_all_files()
                     results = [gr.update(choices=model_filenames)]
                     results += [gr.update(choices=['None'] + model_filenames)]
                     results += [gr.update(choices=[flags.default_vae] + vae_filenames)]
