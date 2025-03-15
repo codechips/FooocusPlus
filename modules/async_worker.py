@@ -766,7 +766,7 @@ def worker():
             progressbar(async_task, current_progress, 'Processing the prompts...')
         tasks = []
         for i in range(image_number):
-            ev = 0.0  # set "extra_variation" to a neutral float value
+            ev = 0  # set "extra_variation" to a neutral float value
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
                 wild_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
@@ -774,10 +774,20 @@ def worker():
                 task_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
             task_rng = random.Random(wild_seed)
+            
             if modules.config.default_extra_variation: # extra_variation does not apply to the initial image
-                ev_base = ev    # the additional increment added to the seed is cumulative
-                ev = random.Random((datetime.now().microsecond))
-                ev = ev_base + random.randint(10, 2000)
+                ev_base = ev    # the additional increment added to the seed will be cumulative
+                ev = datetime.now().microsecond
+                if (ev % 2) == 0:
+                    ev = ev\\2
+                elif (ev % 3) == 0:
+                    ev = ev\\30
+                elif (ev % 5) == 0: 
+                    ev = (ev % 500)
+                else
+                    ev = ev\\1000
+                ev = ev + ev_base
+
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
             task_negative_prompt = apply_wildcards(negative_prompt, task_rng, i, async_task.read_wildcards_in_order)
