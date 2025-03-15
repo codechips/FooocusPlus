@@ -19,10 +19,10 @@ import modules.meta_parser
 import args_manager
 import copy
 import ldm_patched
-from extras.inpaint_mask import SAMOptions
+import modules.user_structure
 
+from extras.inpaint_mask import SAMOptions
 from PIL import Image
-from modules.user_structure import create_user_structure
 from modules.sdxl_styles import legal_style_names, fooocus_expansion
 from modules.private_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
@@ -1012,10 +1012,14 @@ with common.GRADIO_ROOT:
                                         queue=False, show_progress=False)
 
                 def refresh_files_clicked(state_params):
-  #                  create_user_structure()
-                    engine = state_params.get('engine', 'Fooocus')
-                    task_method = state_params.get('task_method', None)
-                    model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)
+                    print()
+                    print('Refreshing all files...')
+                    modules.user_structure.create_model_structure()
+                    modules.user_structure.create_user_structure()
+#                    engine = state_params.get('engine', 'Fooocus')
+#                    task_method = state_params.get('task_method', None)
+#                    model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)
+                    modules.config.refresh_all_files()
                     results = [gr.update(choices=model_filenames)]
                     results += [gr.update(choices=['None'] + model_filenames)]
                     results += [gr.update(choices=[flags.default_vae] + vae_filenames)]
