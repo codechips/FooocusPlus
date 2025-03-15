@@ -774,9 +774,12 @@ def worker():
                 task_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
             task_rng = random.Random(wild_seed)
+            print(task_rng)
             if modules.config.default_extra_variation: # extra_variation does not apply to initial value of seed
                 ev_base = ev    # the additional increment added to the seed is cumulative
                 ev = random.Random((datetime.now().microsecond))
+                print(ev)
+                print(type(ev))
                 ev = ev_base + (ev*100000)
                 print(f'Extra Variation: {modules.config.default_extra_variation}')
                 print(f'J Value: {ev}')
