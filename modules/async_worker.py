@@ -777,7 +777,7 @@ def worker():
                 else:
                      ev = ev*100
                 ev = ev + ev_base # the additional increment added to the seed is cumulative
-                ev_base = ev
+                ev_base = ev      # update the base for the next cycle
             else:
                 ev = 0  # set "extra_variation" to a neutral value
                 ev_base = ev
@@ -788,7 +788,8 @@ def worker():
             else:
                 task_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
-            print('Wildcard Seed: {wild_seed}')
+            print(f'Wildcard Seed: {wild_seed}')
+            
             task_rng = random.Random(wild_seed)
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
