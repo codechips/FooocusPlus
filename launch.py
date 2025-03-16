@@ -29,7 +29,7 @@ from modules.model_loader import load_file_from_url
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
 
-if not version.get_required_library():
+if not version.get_required_library() and (platform_system == "Windows"):
     print()
     print('Our apologies for the inconvenience, but the installed')
     print(f'Python library does not support FooocusPlus {version.get_fooocusplus_ver()}')
