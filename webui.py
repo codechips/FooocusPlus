@@ -862,19 +862,19 @@ with common.GRADIO_ROOT:
                             lora_ctrls += [lora_enabled, lora_model, lora_weight]
 
                 with gr.Row():
-                    refresh_files = gr.Button(label='Refresh', value='\U0001f504 Refresh All Files', variant='secondary', elem_classes='refresh_button')
+                    refresh_files = gr.Button(label='Refresh', value='\U0001f504 Refresh All Files')
 
             with gr.Tab(label='Advanced', elem_id="scrollable-box"):
                 guidance_scale = gr.Slider(label='Guidance Scale (CFG)', minimum=0.01, maximum=30.0, step=0.01,
-                                       value=modules.config.default_cfg_scale,
-                                       info='Higher value means style is cleaner, vivider, and more artistic.')
+                    value=modules.config.default_cfg_scale,
+                    info='Higher value means style is cleaner, vivider, and more artistic.')
                 overwrite_step = gr.Slider(label='Forced Overwrite of Sampling Step',
-                                       minimum=-1, maximum=200, step=1,
-                                       value=modules.config.default_overwrite_step,
-                                       info='Set as -1 to disable.')
+                    minimum=-1, maximum=200, step=1,
+                    value=modules.config.default_overwrite_step,
+                    info='Set as -1 to disable.')
                 sharpness = gr.Slider(label='Image Sharpness', minimum=0.0, maximum=30.0, step=0.001,
-                                      value=modules.config.default_sample_sharpness,
-                                      info='Higher value means image and texture are sharper.')
+                    value=modules.config.default_sample_sharpness,
+                    info='Higher value means image and texture are sharper.')
                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/117" target="_blank">\U0001F4D4 Documentation</a>')
                 dev_mode = gr.Checkbox(label='Expert Mode', value=modules.config.default_developer_debug_mode_checkbox, container=False)
 
@@ -1031,8 +1031,9 @@ with common.GRADIO_ROOT:
                 refresh_files_output = [base_model, refiner_model, vae_name]
                 if not args_manager.args.disable_preset_selection:                    
                     refresh_files_output += [preset_selection]
-                refresh_files.click(refresh_files_clicked, [state_topbar], refresh_files_output + lora_ctrls,
-                                    queue=False, show_progress=False)
+                refresh_files.click(refresh_files_clicked, [state_topbar],
+                    refresh_files_output + lora_ctrls,
+                    queue=False, show_progress=False)
 
             with gr.Tab(label='Extras', elem_id="scrollable-box"):
                 with gr.Row(visible=False):
