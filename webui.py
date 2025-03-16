@@ -667,12 +667,15 @@ with common.GRADIO_ROOT:
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
                 if not args_manager.args.disable_preset_selection:
-                    preset_selection = args_manager.args.preset if args_manager.args.preset else "initial"
+                    preset_selection = gr.Radio(label='Preset',
+                        choices=modules.config.available_presets,
+                        value=args_manager.args.preset if args_manager.args.preset else "initial",
+                        visible=False, interactive=False)
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
-                                             choices=flags.Performance.values(),
-                                             value=modules.config.default_performance,
-                                             elem_classes=['performance_selection'])
+                         choices=flags.Performance.values(),
+                         value=modules.config.default_performance,
+                         elem_classes=['performance_selection'])
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False) 
@@ -683,9 +686,9 @@ with common.GRADIO_ROOT:
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(lambda x: x, inputs=aspect_ratios_select, outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
-                                            minimum=-1, maximum=2048, step=1, value=-1,
-                                            info='Set to -1 to disable. '
-                                            'Results will be worse for non-standard numbers that the model is not trained on.')
+                            minimum=-1, maximum=2048, step=1, value=-1,
+                            info='Set to -1 to disable. '
+                            'Results will be worse for non-standard numbers that the model is not trained on.')
                         overwrite_height = gr.Slider(label='Forced Overwrite of Generating Height',
                                             minimum=-1, maximum=2048, step=1, value=-1)
                         def overwrite_aspect_ratios(width, height):
@@ -1013,7 +1016,6 @@ with common.GRADIO_ROOT:
                     engine = state_params.get('engine', 'Fooocus')
                     task_method = state_params.get('task_method', None)
                     model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)
-#                    modules.config.refresh_all_files()
                     results = [gr.update(choices=model_filenames)]
                     results += [gr.update(choices=['None'] + model_filenames)]
                     results += [gr.update(choices=[flags.default_vae] + vae_filenames)]
@@ -1023,14 +1025,11 @@ with common.GRADIO_ROOT:
                         results += [gr.update(interactive=True),
                                     gr.update(choices=['None'] + lora_filenames), gr.update()]
                     print('Refresh complete!')
+                    print()
                     return results
 
                 refresh_files_output = [base_model, refiner_model, vae_name]
                 if not args_manager.args.disable_preset_selection:                    
-#                    try:
-#                       preset_selection
-#                    except:           #catch the error if a preset is not yet initialized
-#                       preset_selection  = ''
                     refresh_files_output += [preset_selection]
                 refresh_files.click(refresh_files_clicked, [state_topbar], refresh_files_output + lora_ctrls,
                                     queue=False, show_progress=False)
