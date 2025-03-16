@@ -102,13 +102,6 @@ div:has(> #positive_prompt) {
   overflow: hidden;
 }
 
-.refresh_button {
-  border: none !important;
-  background: none !important;
-  font-size: none !important;
-  box-shadow: none !important;
-}
-
 .advanced_check_row{
   width: 350px !important;
 }
