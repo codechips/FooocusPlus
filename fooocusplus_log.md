@@ -54,7 +54,7 @@
 * resolved the bug: "SaveImageWebsocket.IS_CHANGED() missing 1 required positional argument: 's'"
 
 
-# 0.9.6 Beta6
+# 0.9.6 Beta7
 
 * introduced support for 4GB SDXL compatible models
 * system defaults to a 4GB version of SAI SDXL if VRAM<6GB
@@ -73,6 +73,7 @@
 * in Beta5, HyperFlux16 now uses flux-hyp16-Q8_0.gguf instead of Q5, and supports FaeTastic & AntiBlur LoRAs
 * in Beta5, the two 4GB presets now correctly download the specified base models
 * in Beta6, added clip_model error control to comfy_task and added clip_model parameter to Flux1S_GGUF
+* in Beta7, corrected a bug with "Refresh All Files" and also gave it a realistically sized button
 
 
 # 0.9.5
