@@ -16,6 +16,8 @@
 * moved "Disable Seed Increment" to just above "Specific Seed" and renamed it "Freeze Seed"
 * introduced "Seed Increment Skip" for large random increments, called "Extra Variation", placed directly below "Random Seed"
 * all four seed options now have descriptive help messages
+* removed further offensive text from the One Button Prompt, resolving some problems with Waifu's and Husbando's
+* cleaned up the file structure surrounding One Button Prompt which was causing the creation of ghost directories in the repo.
 * removed "auto" model support in presets, a confusing & unnecessary "feature"
 * added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
 * added the Flux AntiBlur.safetensors & Hyper-FLUX.1-dev-8steps-lora.safetensors to the Starter Pack LoRAs
