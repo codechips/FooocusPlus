@@ -46,6 +46,7 @@ class PathManager:
 
     def get_model_paths(self):
         return {
+            '''
             "modelfile_path": self.get_abspath_folder(self.paths["path_checkpoints"]),
             "lorafile_path": self.get_abspath_folder(self.paths["path_loras"]),
             "controlnet_path": self.get_abspath_folder(self.paths["path_controlnet"]),
@@ -55,9 +56,10 @@ class PathManager:
             "faceswap_path": self.get_abspath_folder(self.paths["path_faceswap"]),
             "upscaler_path": self.get_abspath_folder(self.paths["path_upscalers"]),
             "clip_path": self.get_abspath_folder(self.paths["path_clip"]),
+            '''
             "cache_path": self.get_abspath_folder(self.paths["path_cache"]),
         }
-
+'''
     def get_default_model_names(self):
         return {
             "default_base_model_name": "sd_xl_base_1.0_0.9vae.safetensors",
@@ -170,3 +172,4 @@ class PathManager:
         for child in path.rglob(filename):
             if child.name == filename:
                 return child.relative_to(path)
+'''
