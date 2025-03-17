@@ -1,6 +1,6 @@
 import gradio as gr
 import custom.OneButtonPrompt.shared
-from custom.OneButtonPrompt.shared import add_ctrl
+#from custom.OneButtonPrompt.shared import add_ctrl
 
 from random_prompt.build_dynamic_prompt import build_dynamic_prompt, OBPresets
 
@@ -581,7 +581,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 add_ctrl("OBP_preset", OBP_preset)
         
 
-                
+  '''              
         with gr.Group(visible=False) as maingroup:
             with gr.Row():
                     obp_preset_name = gr.Textbox(
@@ -868,7 +868,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 [giventypeofimage] +
                 [antistring], 
         )
-        
+'''        
         
         # turn things on and off for gender
         def subjectsvalue(subject):
