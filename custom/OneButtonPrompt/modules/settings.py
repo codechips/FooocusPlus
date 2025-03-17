@@ -10,11 +10,11 @@ DEFAULT_SETTINGS = {
 
 
 def load_settings():
-    if exists(path_fixed("settings/settings.json")):
-        with open(path_fixed("settings/settings.json")) as f:
-            settings = json.load(f)
-    else:
-        settings = {}
+#    if exists(path_fixed("settings/settings.json")):
+#        with open(path_fixed("settings/settings.json")) as f:
+#            settings = json.load(f)
+#    else:
+    settings = {}
 
     # Add any missing default settings
     changed = False
@@ -23,11 +23,10 @@ def load_settings():
             settings[key] = value
             changed = True
 
-    if changed:
-        with open(path_fixed("settings/settings.json"), "w") as f:
-            json.dump(settings, f, indent=2)
+#    if changed:
+#        with open(path_fixed("settings/settings.json"), "w") as f:
+#            json.dump(settings, f, indent=2)
 
     return settings
-
 
 default_settings = load_settings()
