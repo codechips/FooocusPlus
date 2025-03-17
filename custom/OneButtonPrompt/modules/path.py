@@ -5,7 +5,7 @@ import threading
 import time
 import os
 from custom.OneButtonPrompt.utils import path_fixed, root_path_fixed
-
+'''
 class PathManager:
     DEFAULT_PATHS = {
         "path_cache": root_path_fixed("../cache/"),
@@ -45,3 +45,4 @@ class PathManager:
         return {
             "cache_path": self.get_abspath_folder(self.paths["path_cache"]),
         }
+'''
