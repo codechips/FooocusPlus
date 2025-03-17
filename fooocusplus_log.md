@@ -14,9 +14,8 @@
 * "Read Wildcards in Order" is now grouped with the wildcard dropdowns and called "Generate Wildcards in Order"
 * renamed "Random" to "Random Seed" and "Fixed Seed" to "Specific Seed" (it is not really fixed because it still increments)
 * moved "Disable Seed Increment" to just above "Specific Seed" and renamed it "Freeze Seed"
-* introduced the "Extra Variation" seed option, which increments the seed by randomly large amounts
+* introduced "Seed Increment Skip" for large random increments, called "Extra Variation", placed directly below "Random Seed"
 * all four seed options now have descriptive help messages
-* introduced the "Seed Increment Skip" feature as "Extra Variation", placed directly below 
 * removed "auto" model support in presets, a confusing & unnecessary "feature"
 * added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
 * added the Flux AntiBlur.safetensors & Hyper-FLUX.1-dev-8steps-lora.safetensors to the Starter Pack LoRAs
