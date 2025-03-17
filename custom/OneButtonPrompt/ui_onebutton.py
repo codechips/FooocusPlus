@@ -557,7 +557,7 @@ def ui_onebutton(prompt, run_event, random_button):
         )
 
         return prompt
-
+  '''   
     with gr.Tab(label="OneButtonPrompt"):
         with gr.Row():
             #instant_obp = gr.Button(value="Instant OBP", size="sm", min_width = 1)
@@ -581,7 +581,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 add_ctrl("OBP_preset", OBP_preset)
         
 
-  '''              
+           
         with gr.Group(visible=False) as maingroup:
             with gr.Row():
                     obp_preset_name = gr.Textbox(
