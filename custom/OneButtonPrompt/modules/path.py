@@ -8,6 +8,7 @@ from custom.OneButtonPrompt.utils import path_fixed, root_path_fixed
 
 class PathManager:
     DEFAULT_PATHS = {
+        '''
         "path_checkpoints": root_path_fixed("../models/checkpoints/"),
         "path_loras": root_path_fixed("../models/loras/"),
         "path_controlnet": root_path_fixed("../models/controlnet/"),
@@ -17,6 +18,7 @@ class PathManager:
         "path_upscalers": root_path_fixed("../models/upscale_models"),
         "path_outputs": root_path_fixed("../outputs/"),
         "path_clip": root_path_fixed("../models/clip/"),
+        '''
         "path_cache": root_path_fixed("../cache/"),
     }
 
