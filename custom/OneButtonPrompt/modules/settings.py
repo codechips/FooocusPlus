@@ -1,6 +1,6 @@
 import json
 from os.path import exists
-from custom.OneButtonPrompt.shared import path_manager
+#from custom.OneButtonPrompt.shared import path_manager
 from custom.OneButtonPrompt.utils import path_fixed
 
 DEFAULT_SETTINGS = {
