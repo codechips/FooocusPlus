@@ -1,6 +1,6 @@
 import gradio as gr
 import custom.OneButtonPrompt.shared
-#from custom.OneButtonPrompt.shared import add_ctrl
+from custom.OneButtonPrompt.shared import add_ctrl
 
 from random_prompt.build_dynamic_prompt import build_dynamic_prompt, OBPresets
 
@@ -557,7 +557,7 @@ def ui_onebutton(prompt, run_event, random_button):
         )
 
         return prompt
-  '''   
+
     with gr.Tab(label="OneButtonPrompt"):
         with gr.Row():
             #instant_obp = gr.Button(value="Instant OBP", size="sm", min_width = 1)
@@ -798,9 +798,7 @@ def ui_onebutton(prompt, run_event, random_button):
                     outputs=[OBP_preset],
                 )
         
-        
-        
-        
+     
         def obppreset_changed(selection):
                 if selection == OBPresets.CUSTOM_OBP:
                     return (
@@ -817,8 +815,6 @@ def ui_onebutton(prompt, run_event, random_button):
                 inputs=[OBP_preset],
                 outputs=[obp_preset_name] + [maingroup]
             )
-        
-        
         
         
         def OBPPreset_changed_update_custom(selection):
@@ -868,7 +864,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 [giventypeofimage] +
                 [antistring], 
         )
-'''        
+      
         
         # turn things on and off for gender
         def subjectsvalue(subject):
