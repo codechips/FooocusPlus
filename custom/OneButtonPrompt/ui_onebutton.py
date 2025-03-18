@@ -565,7 +565,6 @@ def ui_onebutton(prompt, run_event, random_button):
     )
     add_ctrl("OBP_preset", OBP_preset)
 
-
     with gr.Group(visible=False) as maingroup:
         with gr.Row():
                 obp_preset_name = gr.Textbox(
@@ -590,6 +589,7 @@ def ui_onebutton(prompt, run_event, random_button):
         with gr.Row():
             subject = gr.Dropdown(subjects, label="Subjects", value=custom_obp_values["subject"])
             add_ctrl("obp_subject", subject)
+        with gr.Row():
             artist = gr.Dropdown(artists, label="Artists", value=custom_obp_values["artist"])
             add_ctrl("obp_artist", artist)
             chosensubjectsubtypeobject = gr.Dropdown(
@@ -598,6 +598,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 value=custom_obp_values["chosensubjectsubtypeobject"],
                 visible=True,)
             add_ctrl("obp_chosensubjectsubtypeobject", chosensubjectsubtypeobject)
+        with gr.Row():
             chosensubjectsubtypehumanoid = gr.Dropdown(
                 subjectsubtypeshumanoid,
                 label="Humanoid Type",
@@ -612,22 +613,22 @@ def ui_onebutton(prompt, run_event, random_button):
                 visible=True,
             )
             add_ctrl("obp_chosensubjectsubtypeconcept", chosensubjectsubtypeconcept)
+        with gr.Row():
             chosengender = gr.Dropdown(
                 genders, label="Gender", value=custom_obp_values["chosengender"], visible=True
             )
             add_ctrl("obp_chosengender", chosengender)
             imagetype = gr.Dropdown(imagetypes, label="Image Type", value=custom_obp_values["imagetype"])
             add_ctrl("obp_imagetype", imagetype)
-#            with gr.Column(scale=2, variant="compact"):
-            with gr.Row():
-                imagemodechance = gr.Slider(
-                    1,
-                    100,
-                    value=custom_obp_values["imagemodechance"],
-                    step=1,
-                    label="One in X Chance to Use Special Image Mode",
-                )
-                add_ctrl("obp_imagemodechance", imagemodechance)
+        with gr.Row():
+            imagemodechance = gr.Slider(
+                1,
+                100,
+                value=custom_obp_values["imagemodechance"],
+                step=1,
+                label="One in X Chance to Use Special Image Mode",
+            )
+            add_ctrl("obp_imagemodechance", imagemodechance)
         with gr.Row():
             gr.Markdown(
                 """
@@ -641,6 +642,7 @@ def ui_onebutton(prompt, run_event, random_button):
             add_ctrl("obp_givensubject", givensubject)
             givenoutfit = gr.Textbox(label="Overwrite Outfit: ", value=custom_obp_values["givenoutfit"])
             add_ctrl("obp_givenoutfit", givenoutfit)
+        with gr.Row():
             smartsubject = gr.Checkbox(label="Smart Subject", value=custom_obp_values["smartsubject"])
             add_ctrl("obp_smartsubject", smartsubject)
         with gr.Row():
@@ -672,20 +674,17 @@ def ui_onebutton(prompt, run_event, random_button):
             giventypeofimage = gr.Textbox(label="Overwrite the Image Type: ", value=custom_obp_values["giventypeofimage"])
             add_ctrl("obp_giventypeofimage", giventypeofimage)
         with gr.Row():
-            with gr.Column():
-                antistring = gr.Textbox(
-                    label="Filter Out These Properties (comma seperated), for example: "
-                    "film grain, purple, cat"
-                    " ", value=custom_obp_values["antistring"]
-                )
-                add_ctrl("obp_antistring", antistring)
-
+            antistring = gr.Textbox(
+                label="Filter Out These Properties (comma seperated), for example: "
+                "film grain, purple, cat"
+                " ", value=custom_obp_values["antistring"]
+            )
+            add_ctrl("obp_antistring", antistring)
         with gr.Row():
             promptenhance = gr.Dropdown(
                 choices=promptenhancelist, label="HYPERPROMPTING",
                 value="hyperprompt", visible=False)
-            add_ctrl("OBP_promptenhance", promptenhance)
-            
+            add_ctrl("OBP_promptenhance", promptenhance)          
             modeltype = gr.Dropdown(
                 choices=modeltypelist, label="Model type",
                 value="SDXL", visible=False)
