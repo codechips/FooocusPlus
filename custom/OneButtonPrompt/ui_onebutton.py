@@ -559,7 +559,7 @@ def ui_onebutton(prompt, run_event, random_button):
         with gr.Row():
             add_random_button = gr.Button(value="+More", size="sm", min_width=1)
         # Part of presets
-#        with gr.Row():
+        with gr.Row():
             OBP_preset = gr.Dropdown(
                 label="One Button Preset",
                 choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
@@ -694,14 +694,15 @@ def ui_onebutton(prompt, run_event, random_button):
 
         with gr.Row():
             promptenhance = gr.Dropdown(
-                choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
-            )
+                choices=promptenhancelist, label="HYPERPROMPTING",
+                value="hyperprompt", visible=False)
             add_ctrl("OBP_promptenhance", promptenhance)
             
             modeltype = gr.Dropdown(
-                choices=modeltypelist, label="Model type", value="SDXL, visible=False "
-            )
+                choices=modeltypelist, label="Model type",
+                value="SDXL", visible=False)
             add_ctrl("OBP_modeltype", modeltype)
+            
         obp_outputs = [
                     obp_preset_name,
                     obp_preset_save,
