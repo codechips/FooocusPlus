@@ -680,6 +680,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 " ", value=custom_obp_values["antistring"]
             )
             add_ctrl("obp_antistring", antistring)
+        with gr.Row():
             gr.HTML('<a href="https://github.com/AIrjen/OneButtonPrompt/blob/main/README.md" target="_blank">\U0001F4D4 Documentation</a>')
         with gr.Row():
             promptenhance = gr.Dropdown(
