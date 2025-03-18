@@ -230,7 +230,7 @@ with common.GRADIO_ROOT:
                     params_note_regen_button = gr.Button(value='Enter', visible=False)
                     params_note_preset_button = gr.Button(value='Enter', visible=False)
 
-                with gr.Accordion("Finished Images Catalog", open=False, visible=False, elem_id='finished_images_catalog') as index_radio:
+                with gr.Accordion("Generated Images Catalog", open=False, visible=False, elem_id='finished_images_catalog') as index_radio:
                     gallery_index_stat = gr.Textbox(value='', visible=False)
                     gallery_index = gr.Radio(choices=None, label="Gallery Index", value=None, show_label=False)
                     gallery_index.change(gallery_util.images_list_update, inputs=[gallery_index, state_topbar], outputs=[gallery, index_radio, state_topbar], show_progress=False)
@@ -1070,9 +1070,8 @@ with common.GRADIO_ROOT:
                 import custom.OneButtonPrompt.ui_onebutton as ui_onebutton
                 run_event = gr.Number(visible=False, value=0)
                 ui_onebutton.ui_onebutton(prompt, run_event, random_button)
-                with gr.Tab(label="SuperPrompter"):
-                    #super_prompter = gr.Button(value="<<SuperPrompt", size="sm", min_width = 70)
-                    super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='', info='Expand the following prompt to add more detail:', lines=1)
+#                super_prompter_prompt = gr.Textbox(label='SuperPrompt Prefix', value='',
+#                    info='Expand the following prompt to add more detail:', lines=1, visible=False)
 
                 with gr.Row():
                     if args_manager.args.always_offload_from_vram:
