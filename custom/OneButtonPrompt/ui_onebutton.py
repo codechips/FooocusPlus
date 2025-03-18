@@ -557,36 +557,17 @@ def ui_onebutton(prompt, run_event, random_button):
 
     with gr.Tab(label="OneButtonPrompt"):
         with gr.Row():
-            #instant_obp = gr.Button(value="Instant OBP", size="sm", min_width = 1)
-            #random_button = gr.Button(value="Random Prompt", size="sm", min_width = 1)
             add_random_button = gr.Button(value="+More", size="sm", min_width=1)
-
-        #with gr.Row():
-        #    assumedirectcontrol = gr.Checkbox(
-        #        label="BYPASS SAFETY PROTOCOLS", value=False
-        #    )
-        #    add_ctrl("obp_assume_direct_control", assumedirectcontrol)
-        
         # Part of presets
-        with gr.Row():
-                OBP_preset = gr.Dropdown(
-                    label="One Button Preset",
-                    choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
-                    + [OBPresets.CUSTOM_OBP],
-                    value=settings["OBP_preset"],
-                )
-                add_ctrl("OBP_preset", OBP_preset)
-      
-        with gr.Row():
-            insanitylevel = gr.Slider(
-                1,
-                10,
-                value=custom_obp_values["insanitylevel"],
-                step=1,
-                label="Higher levels increases complexity and randomness of generated prompt",
+#        with gr.Row():
+            OBP_preset = gr.Dropdown(
+                label="One Button Preset",
+                choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
+                + [OBPresets.CUSTOM_OBP],
+                value=settings["OBP_preset"],
             )
-            add_ctrl("obp_insanitylevel", insanitylevel)
-                
+            add_ctrl("OBP_preset", OBP_preset)
+'''
         with gr.Group(visible=False) as maingroup:
             with gr.Row():
                     obp_preset_name = gr.Textbox(
@@ -712,12 +693,12 @@ def ui_onebutton(prompt, run_event, random_button):
                     add_ctrl("obp_antistring", antistring)
         with gr.Row():
             promptenhance = gr.Dropdown(
-                choices=promptenhancelist, label="HYPERPROMPTING", value="none"
+                choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
             )
             add_ctrl("OBP_promptenhance", promptenhance)
             
             modeltype = gr.Dropdown(
-                choices=modeltypelist, label="Model type", value="SDXL"
+                choices=modeltypelist, label="Model type", value="SDXL, visible=False "
             )
             add_ctrl("OBP_modeltype", modeltype)
         #with gr.Row():
@@ -1005,4 +986,4 @@ def ui_onebutton(prompt, run_event, random_button):
             ],
             outputs=[prompt],
         )
-
+'''
