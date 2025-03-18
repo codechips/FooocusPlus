@@ -578,8 +578,7 @@ def ui_onebutton(prompt, run_event, random_button):
                     value="Save Topic",
                     visible=True,
                 )
-    
-     with gr.Row():
+        with gr.Row():
             insanitylevel = gr.Slider(
                 1,
                 10,
