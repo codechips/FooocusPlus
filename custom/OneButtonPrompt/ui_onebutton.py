@@ -556,7 +556,7 @@ def ui_onebutton(prompt, run_event, random_button):
         return prompt
 
     add_random_button = gr.Button(value="+More", size="sm", min_width=1, visible=False)
-    # Part of presets
+    # Save topic section
     OBP_preset = gr.Dropdown(
         label="Random Prompt Topic",
         choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
@@ -680,6 +680,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 " ", value=custom_obp_values["antistring"]
             )
             add_ctrl("obp_antistring", antistring)
+            gr.HTML('<a href="https://github.com/AIrjen/OneButtonPrompt/blob/main/README.md" target="_blank">\U0001F4D4 Documentation</a>')
         with gr.Row():
             promptenhance = gr.Dropdown(
                 choices=promptenhancelist, label="HYPERPROMPTING",
