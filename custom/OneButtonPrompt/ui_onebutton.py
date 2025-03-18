@@ -692,23 +692,16 @@ def ui_onebutton(prompt, run_event, random_button):
                     )
                     add_ctrl("obp_antistring", antistring)
 '''
-            with gr.Row():
-                promptenhance = gr.Dropdown(
-                    choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
-                )
-                add_ctrl("OBP_promptenhance", promptenhance)
-                
-                modeltype = gr.Dropdown(
-                    choices=modeltypelist, label="Model type", value="SDXL, visible=False "
-                )
-                add_ctrl("OBP_modeltype", modeltype)
-        #with gr.Row():
-        #    gr.Markdown(
-        #        """
-        #        Proud to be powered by [One Button Prompt](https://github.com/AIrjen/OneButtonPrompt)
-        #        """
-        #    )
-
+#        with gr.Row():
+        promptenhance = gr.Dropdown(
+            choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
+        )
+        add_ctrl("OBP_promptenhance", promptenhance)
+        
+        modeltype = gr.Dropdown(
+            choices=modeltypelist, label="Model type", value="SDXL, visible=False "
+        )
+        add_ctrl("OBP_modeltype", modeltype)
         obp_outputs = [
                     obp_preset_name,
                     obp_preset_save,
