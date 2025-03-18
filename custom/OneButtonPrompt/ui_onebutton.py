@@ -3,16 +3,13 @@ import custom.OneButtonPrompt.shared
 from custom.OneButtonPrompt.shared import add_ctrl
 
 from random_prompt.build_dynamic_prompt import build_dynamic_prompt, OBPresets
-
 from random_prompt.csv_reader import load_config_csv
-
 from .modules.settings import default_settings
 from random_prompt.one_button_presets import OneButtonPresets
 
 #OBPresets = OneButtonPresets()
 settings = default_settings
 custom_obp_values = OBPresets.get_obp_preset(settings["OBP_preset"])
-
 
 insanitylevel = 5
 subjects = ["all"]
@@ -573,15 +570,23 @@ def ui_onebutton(prompt, run_event, random_button):
         # Part of presets
         with gr.Row():
                 OBP_preset = gr.Dropdown(
-                    label="One Button Preset***",
+                    label="One Button Preset",
                     choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
                     + [OBPresets.CUSTOM_OBP],
                     value=settings["OBP_preset"],
                 )
                 add_ctrl("OBP_preset", OBP_preset)
-        
-
-           
+      
+        with gr.Row():
+            insanitylevel = gr.Slider(
+                1,
+                10,
+                value=custom_obp_values["insanitylevel"],
+                step=1,
+                label="Higher levels increases complexity and randomness of generated prompt",
+            )
+            add_ctrl("obp_insanitylevel", insanitylevel)
+                
         with gr.Group(visible=False) as maingroup:
             with gr.Row():
                     obp_preset_name = gr.Textbox(
