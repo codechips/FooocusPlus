@@ -579,9 +579,7 @@ def ui_onebutton(prompt, run_event, random_button):
                     visible=True,
                 )
     
-    # End of this part of presets
-    
-        with gr.Row():
+     with gr.Row():
             insanitylevel = gr.Slider(
                 1,
                 10,
@@ -592,15 +590,14 @@ def ui_onebutton(prompt, run_event, random_button):
             add_ctrl("obp_insanitylevel", insanitylevel)
         with gr.Row():
             subject = gr.Dropdown(subjects, label="Subjects", value=custom_obp_values["subject"])
-                add_ctrl("obp_subject", subject)
-                artist = gr.Dropdown(artists, label="Artists", value=custom_obp_values["artist"])
-                add_ctrl("obp_artist", artist)
+            add_ctrl("obp_subject", subject)
+            artist = gr.Dropdown(artists, label="Artists", value=custom_obp_values["artist"])
+            add_ctrl("obp_artist", artist)
             chosensubjectsubtypeobject = gr.Dropdown(
                 subjectsubtypesobject,
                 label="Object Type",
                 value=custom_obp_values["chosensubjectsubtypeobject"],
-                visible=True,
-            )
+                visible=True,)
             add_ctrl("obp_chosensubjectsubtypeobject", chosensubjectsubtypeobject)
             chosensubjectsubtypehumanoid = gr.Dropdown(
                 subjectsubtypeshumanoid,
