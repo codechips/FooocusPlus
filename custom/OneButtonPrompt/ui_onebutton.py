@@ -559,7 +559,7 @@ def ui_onebutton(prompt, run_event, random_button):
         with gr.Row():
             add_random_button = gr.Button(value="+More", size="sm", min_width=1)
         # Part of presets
-#        with gr.Row():
+        with gr.Row():
             OBP_preset = gr.Dropdown(
                 label="One Button Preset",
                 choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
@@ -568,138 +568,14 @@ def ui_onebutton(prompt, run_event, random_button):
             )
             add_ctrl("OBP_preset", OBP_preset)
 
-        with gr.Group(visible=False) as maingroup:
-            with gr.Row():
-                    obp_preset_name = gr.Textbox(
-                        show_label=False,
-                        placeholder="Name of new preset",
-                        interactive=True,
-                        visible=True,
-                    )
-                    obp_preset_save = gr.Button(
-                        value="Save as preset",
-                        visible=True,
-                    )
-        
-        # End of this part of presets
-        
-            with gr.Row():
-                insanitylevel = gr.Slider(
-                    1,
-                    10,
-                    value=custom_obp_values["insanitylevel"],
-                    step=1,
-                    label="Higher levels increases complexity and randomness of generated prompt",
-                )
-                add_ctrl("obp_insanitylevel", insanitylevel)
-            with gr.Row():
-                with gr.Column(scale=1, variant="compact"):
-                    subject = gr.Dropdown(subjects, label="Subject Types", value=custom_obp_values["subject"])
-                    add_ctrl("obp_subject", subject)
-                with gr.Column(scale=1, variant="compact"):
-                    artist = gr.Dropdown(artists, label="Artists", value=custom_obp_values["artist"])
-                    add_ctrl("obp_artist", artist)
-
-            with gr.Row():
-                chosensubjectsubtypeobject = gr.Dropdown(
-                    subjectsubtypesobject,
-                    label="Type of object",
-                    value=custom_obp_values["chosensubjectsubtypeobject"],
-                    visible=False,
-                )
-                add_ctrl("obp_chosensubjectsubtypeobject", chosensubjectsubtypeobject)
-                chosensubjectsubtypehumanoid = gr.Dropdown(
-                    subjectsubtypeshumanoid,
-                    label="Type of humanoids",
-                    value=custom_obp_values["chosensubjectsubtypehumanoid"],
-                    visible=False,
-                )
-                add_ctrl("obp_chosensubjectsubtypehumanoid", chosensubjectsubtypehumanoid)
-                chosensubjectsubtypeconcept = gr.Dropdown(
-                    subjectsubtypesconcept,
-                    label="Type of concept",
-                    value=custom_obp_values["chosensubjectsubtypeconcept"],
-                    visible=False,
-                )
-                add_ctrl("obp_chosensubjectsubtypeconcept", chosensubjectsubtypeconcept)
-                chosengender = gr.Dropdown(
-                    genders, label="gender", value=custom_obp_values["chosengender"], visible=False
-                )
-                add_ctrl("obp_chosengender", chosengender)
-            with gr.Row():
-                with gr.Column(scale=2, variant="compact"):
-                    imagetype = gr.Dropdown(imagetypes, label="type of image", value=custom_obp_values["imagetype"])
-                    add_ctrl("obp_imagetype", imagetype)
-                with gr.Column(scale=2, variant="compact"):
-                    imagemodechance = gr.Slider(
-                        1,
-                        100,
-                        value=custom_obp_values["imagemodechance"],
-                        step=1,
-                        label="One in X chance to use special image type mode",
-                    )
-                    add_ctrl("obp_imagemodechance", imagemodechance)
-            with gr.Row():
-                gr.Markdown(
-                    """
-                            <font size="2">
-                            Override options (choose the related subject type first for better results)
-                            </font>
-                            """
-                )
-            with gr.Row():
-                givensubject = gr.Textbox(label="Overwrite subject: ", value=custom_obp_values["givensubject"])
-                add_ctrl("obp_givensubject", givensubject)
-                smartsubject = gr.Checkbox(label="Smart subject", value=custom_obp_values["smartsubject"])
-                add_ctrl("obp_smartsubject", smartsubject)
-                givenoutfit = gr.Textbox(label="Overwrite outfit: ", value=custom_obp_values["givenoutfit"])
-                add_ctrl("obp_givenoutfit", givenoutfit)
-            with gr.Row():
-                gr.Markdown(
-                    """
-                            <font size="2">
-                            Prompt fields
-                            </font>
-                            """
-                )
-            with gr.Row():
-                with gr.Column():
-                    prefixprompt = gr.Textbox(
-                        label="Place this in front of generated prompt (prefix)", value=custom_obp_values["prefixprompt"]
-                    )
-                    add_ctrl("obp_prefixprompt", prefixprompt)
-                    suffixprompt = gr.Textbox(
-                        label="Place this at back of generated prompt (suffix)", value=custom_obp_values["suffixprompt"]
-                    )
-                    add_ctrl("obp_suffixprompt", suffixprompt)
-            with gr.Row():
-                gr.Markdown(
-                    """
-                            <font size="2">
-                            Additional options
-                            </font>
-                            """
-                )
-            with gr.Row():
-                giventypeofimage = gr.Textbox(label="Overwrite type of image: ", value=custom_obp_values["giventypeofimage"])
-                add_ctrl("obp_giventypeofimage", giventypeofimage)
-            with gr.Row():
-                with gr.Column():
-                    antistring = gr.Textbox(
-                        label="Filter out following properties (comma seperated). Example "
-                        "film grain, purple, cat"
-                        " ", value=custom_obp_values["antistring"]
-                    )
-                    add_ctrl("obp_antistring", antistring)
-
         with gr.Row():
             promptenhance = gr.Dropdown(
-                choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
+                choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt", visible=False
             )
             add_ctrl("OBP_promptenhance", promptenhance)
             
             modeltype = gr.Dropdown(
-                choices=modeltypelist, label="Model type", value="SDXL, visible=False "
+                choices=modeltypelist, label="Model type", value="SDXL", visible=False
             )
             add_ctrl("OBP_modeltype", modeltype)
         obp_outputs = [
