@@ -555,12 +555,11 @@ def ui_onebutton(prompt, run_event, random_button):
 
         return prompt
 
-    with gr.Row():
-        add_random_button = gr.Button(value="+More", size="sm", min_width=1)
+    add_random_button = gr.Button(value="+More", size="sm", min_width=1, visible=False)
     # Part of presets
     with gr.Row():
         OBP_preset = gr.Dropdown(
-            label="One Button Preset",
+            label="Random Prompt Selector",
             choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
             + [OBPresets.CUSTOM_OBP],
             value=settings["OBP_preset"],
