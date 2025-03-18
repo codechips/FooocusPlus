@@ -567,7 +567,7 @@ def ui_onebutton(prompt, run_event, random_button):
                 value=settings["OBP_preset"],
             )
             add_ctrl("OBP_preset", OBP_preset)
-'''
+
         with gr.Group(visible=False) as maingroup:
             with gr.Row():
                     obp_preset_name = gr.Textbox(
@@ -693,15 +693,15 @@ def ui_onebutton(prompt, run_event, random_button):
                     add_ctrl("obp_antistring", antistring)
 
         with gr.Row():
-        promptenhance = gr.Dropdown(
-            choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
-        )
-        add_ctrl("OBP_promptenhance", promptenhance)
-        
-        modeltype = gr.Dropdown(
-            choices=modeltypelist, label="Model type", value="SDXL, visible=False "
-        )
-        add_ctrl("OBP_modeltype", modeltype)
+            promptenhance = gr.Dropdown(
+                choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
+            )
+            add_ctrl("OBP_promptenhance", promptenhance)
+            
+            modeltype = gr.Dropdown(
+                choices=modeltypelist, label="Model type", value="SDXL, visible=False "
+            )
+            add_ctrl("OBP_modeltype", modeltype)
         obp_outputs = [
                     obp_preset_name,
                     obp_preset_save,
@@ -777,7 +777,7 @@ def ui_onebutton(prompt, run_event, random_button):
                     inputs=obp_outputs,
                     outputs=[OBP_preset],
                 )
-   '''     
+      
      
         def obppreset_changed(selection):
                 if selection == OBPresets.CUSTOM_OBP:
