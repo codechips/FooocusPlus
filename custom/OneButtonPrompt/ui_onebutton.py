@@ -723,7 +723,6 @@ def ui_onebutton(prompt, run_event, random_button):
                     giventypeofimage,
                     antistring,
                 ]
-
                 
         def act_obp_preset_save(
                     obp_preset_name,
@@ -777,9 +776,8 @@ def ui_onebutton(prompt, run_event, random_button):
         obp_preset_save.click(act_obp_preset_save,
                     inputs=obp_outputs,
                     outputs=[OBP_preset],
-                )
-      
-     
+                )     
+    
         def obppreset_changed(selection):
                 if selection == OBPresets.CUSTOM_OBP:
                     return (
@@ -795,8 +793,7 @@ def ui_onebutton(prompt, run_event, random_button):
         OBP_preset.change(obppreset_changed,
                 inputs=[OBP_preset],
                 outputs=[obp_preset_name] + [maingroup]
-            )
-        
+            )       
         
         def OBPPreset_changed_update_custom(selection):
                 # Skip if Custom was selected
@@ -898,38 +895,6 @@ def ui_onebutton(prompt, run_event, random_button):
                 add_random_button: gr.update(visible=enable),
             }
 
-        #assumedirectcontrol.change(
-        #    assumedirectcontrolflip,
-        #    [assumedirectcontrol],
-        #    [instant_obp, random_button, add_random_button],
-        #)
-
-        #instant_obp.click(
-        #    instant_gen_prompt,
-        #    inputs=[
-        #        insanitylevel,
-        #        subject,
-        #        artist,
-        #        imagetype,
-        #        antistring,
-        #        prefixprompt,
-        #        suffixprompt,
-        #        givensubject,
-        #        smartsubject,
-        #        giventypeofimage,
-        #        imagemodechance,
-        #        chosengender,
-        #        chosensubjectsubtypeobject,
-        #        chosensubjectsubtypehumanoid,
-        #        chosensubjectsubtypeconcept,
-        #        givenoutfit,
-        #        OBP_preset,
-        #        promptenhance,
-        #        modeltype,
-        #        run_event,
-        #    ],
-        #    outputs=[prompt, run_event],
-        #)
         random_button.click(
             gen_prompt,
             inputs=[
