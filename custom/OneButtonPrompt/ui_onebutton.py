@@ -691,7 +691,7 @@ def ui_onebutton(prompt, run_event, random_button):
                         " ", value=custom_obp_values["antistring"]
                     )
                     add_ctrl("obp_antistring", antistring)
-'''
+
         with gr.Row():
         promptenhance = gr.Dropdown(
             choices=promptenhancelist, label="HYPERPROMPTING", value="hyperprompt, visible=False"
