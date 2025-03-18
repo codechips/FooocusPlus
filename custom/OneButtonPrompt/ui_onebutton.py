@@ -591,14 +591,10 @@ def ui_onebutton(prompt, run_event, random_button):
             )
             add_ctrl("obp_insanitylevel", insanitylevel)
         with gr.Row():
-            with gr.Column(scale=1, variant="compact"):
-                subject = gr.Dropdown(subjects, label="Subjects", value=custom_obp_values["subject"])
+            subject = gr.Dropdown(subjects, label="Subjects", value=custom_obp_values["subject"])
                 add_ctrl("obp_subject", subject)
-            with gr.Column(scale=1, variant="compact"):
                 artist = gr.Dropdown(artists, label="Artists", value=custom_obp_values["artist"])
                 add_ctrl("obp_artist", artist)
-
-        with gr.Row():
             chosensubjectsubtypeobject = gr.Dropdown(
                 subjectsubtypesobject,
                 label="Object Type",
@@ -624,7 +620,6 @@ def ui_onebutton(prompt, run_event, random_button):
                 genders, label="Gender", value=custom_obp_values["chosengender"], visible=True
             )
             add_ctrl("obp_chosengender", chosengender)
-        with gr.Row():
             with gr.Column(scale=2, variant="compact"):
                 imagetype = gr.Dropdown(imagetypes, label="Image Type", value=custom_obp_values["imagetype"])
                 add_ctrl("obp_imagetype", imagetype)
@@ -641,22 +636,22 @@ def ui_onebutton(prompt, run_event, random_button):
             gr.Markdown(
                 """
                         <font size="2">
-                        Override options (choose the related subject type first for better results)
+                        Override Options (choose the related subject type first for better results)
                         </font>
                         """
             )
         with gr.Row():
             givensubject = gr.Textbox(label="Overwrite Subject: ", value=custom_obp_values["givensubject"])
             add_ctrl("obp_givensubject", givensubject)
-            smartsubject = gr.Checkbox(label="Smart Subject", value=custom_obp_values["smartsubject"])
-            add_ctrl("obp_smartsubject", smartsubject)
             givenoutfit = gr.Textbox(label="Overwrite Outfit: ", value=custom_obp_values["givenoutfit"])
             add_ctrl("obp_givenoutfit", givenoutfit)
+            smartsubject = gr.Checkbox(label="Smart Subject", value=custom_obp_values["smartsubject"])
+            add_ctrl("obp_smartsubject", smartsubject)
         with gr.Row():
             gr.Markdown(
                 """
                         <font size="2">
-                        Prompt fields
+                        Prompt Fields
                         </font>
                         """
             )
@@ -674,7 +669,7 @@ def ui_onebutton(prompt, run_event, random_button):
             gr.Markdown(
                 """
                         <font size="2">
-                        Additional options
+                        Additional Options
                         </font>
                         """
             )
@@ -684,7 +679,7 @@ def ui_onebutton(prompt, run_event, random_button):
         with gr.Row():
             with gr.Column():
                 antistring = gr.Textbox(
-                    label="Filter Out These Properties (comma seperated). Example "
+                    label="Filter Out These Properties (comma seperated), for example: "
                     "film grain, purple, cat"
                     " ", value=custom_obp_values["antistring"]
                 )
