@@ -6,7 +6,7 @@ from custom.OneButtonPrompt.utils import path_fixed
 class OneButtonPresets:
     DEFAULT_OBP_FILE = Path(path_fixed("random_prompt/presets/obp_presets.default"))
     OBP_FILE = Path(path_fixed("random_prompt/userfiles/obp_presets.json"))
-    CUSTOM_OBP = "Custom..."
+    CUSTOM_OBP = "Create New Topic..."
     RANDOM_PRESET_OBP = "All (random)..."
 
     def __init__(self):
