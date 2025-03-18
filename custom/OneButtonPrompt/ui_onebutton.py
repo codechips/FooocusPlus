@@ -616,10 +616,10 @@ def ui_onebutton(prompt, run_event, random_button):
                 genders, label="Gender", value=custom_obp_values["chosengender"], visible=True
             )
             add_ctrl("obp_chosengender", chosengender)
-            with gr.Column(scale=2, variant="compact"):
-                imagetype = gr.Dropdown(imagetypes, label="Image Type", value=custom_obp_values["imagetype"])
-                add_ctrl("obp_imagetype", imagetype)
-            with gr.Column(scale=2, variant="compact"):
+            imagetype = gr.Dropdown(imagetypes, label="Image Type", value=custom_obp_values["imagetype"])
+            add_ctrl("obp_imagetype", imagetype)
+#            with gr.Column(scale=2, variant="compact"):
+            with gr.Row():
                 imagemodechance = gr.Slider(
                     1,
                     100,
@@ -652,15 +652,14 @@ def ui_onebutton(prompt, run_event, random_button):
                         """
             )
         with gr.Row():
-            with gr.Column():
-                prefixprompt = gr.Textbox(
-                    label="Place this Prefix in Front of the Generated Prompt", value=custom_obp_values["prefixprompt"]
-                )
-                add_ctrl("obp_prefixprompt", prefixprompt)
-                suffixprompt = gr.Textbox(
-                    label="Place this Suffix at the End of the Generated Prompt", value=custom_obp_values["suffixprompt"]
-                )
-                add_ctrl("obp_suffixprompt", suffixprompt)
+            prefixprompt = gr.Textbox(
+                label="Use this Prefix",
+                value=custom_obp_values["prefixprompt"])
+            add_ctrl("obp_prefixprompt", prefixprompt)
+            suffixprompt = gr.Textbox(
+                label="Use this Suffix",
+                value=custom_obp_values["suffixprompt"])
+            add_ctrl("obp_suffixprompt", suffixprompt)
         with gr.Row():
             gr.Markdown(
                 """
