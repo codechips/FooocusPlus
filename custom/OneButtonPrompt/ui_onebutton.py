@@ -558,7 +558,7 @@ def ui_onebutton(prompt, run_event, random_button):
     add_random_button = gr.Button(value="+More", size="sm", min_width=1, visible=False)
     # Part of presets
     OBP_preset = gr.Dropdown(
-        label="Random Prompt Selector",
+        label="Random Prompt Topic",
         choices=[OBPresets.RANDOM_PRESET_OBP] + list(OBPresets.opb_presets.keys())
         + [OBPresets.CUSTOM_OBP],
         value=settings["OBP_preset"],
@@ -570,12 +570,12 @@ def ui_onebutton(prompt, run_event, random_button):
         with gr.Row():
                 obp_preset_name = gr.Textbox(
                     show_label=False,
-                    placeholder="Name of new preset",
+                    placeholder="Name of New Topic",
                     interactive=True,
                     visible=True,
                 )
                 obp_preset_save = gr.Button(
-                    value="Save as preset",
+                    value="Save Topic",
                     visible=True,
                 )
     
@@ -587,12 +587,12 @@ def ui_onebutton(prompt, run_event, random_button):
                 10,
                 value=custom_obp_values["insanitylevel"],
                 step=1,
-                label="Higher levels increases complexity and randomness of generated prompt",
+                label="Insanity Level: higher levels increase the complexity and randomness of the generated prompt",
             )
             add_ctrl("obp_insanitylevel", insanitylevel)
         with gr.Row():
             with gr.Column(scale=1, variant="compact"):
-                subject = gr.Dropdown(subjects, label="Subject Types", value=custom_obp_values["subject"])
+                subject = gr.Dropdown(subjects, label="Subjects", value=custom_obp_values["subject"])
                 add_ctrl("obp_subject", subject)
             with gr.Column(scale=1, variant="compact"):
                 artist = gr.Dropdown(artists, label="Artists", value=custom_obp_values["artist"])
@@ -601,32 +601,32 @@ def ui_onebutton(prompt, run_event, random_button):
         with gr.Row():
             chosensubjectsubtypeobject = gr.Dropdown(
                 subjectsubtypesobject,
-                label="Type of object",
+                label="Object Type",
                 value=custom_obp_values["chosensubjectsubtypeobject"],
-                visible=False,
+                visible=True,
             )
             add_ctrl("obp_chosensubjectsubtypeobject", chosensubjectsubtypeobject)
             chosensubjectsubtypehumanoid = gr.Dropdown(
                 subjectsubtypeshumanoid,
-                label="Type of humanoids",
+                label="Humanoid Type",
                 value=custom_obp_values["chosensubjectsubtypehumanoid"],
-                visible=False,
+                visible=True,
             )
             add_ctrl("obp_chosensubjectsubtypehumanoid", chosensubjectsubtypehumanoid)
             chosensubjectsubtypeconcept = gr.Dropdown(
                 subjectsubtypesconcept,
-                label="Type of concept",
+                label="Concept",
                 value=custom_obp_values["chosensubjectsubtypeconcept"],
-                visible=False,
+                visible=True,
             )
             add_ctrl("obp_chosensubjectsubtypeconcept", chosensubjectsubtypeconcept)
             chosengender = gr.Dropdown(
-                genders, label="gender", value=custom_obp_values["chosengender"], visible=False
+                genders, label="Gender", value=custom_obp_values["chosengender"], visible=True
             )
             add_ctrl("obp_chosengender", chosengender)
         with gr.Row():
             with gr.Column(scale=2, variant="compact"):
-                imagetype = gr.Dropdown(imagetypes, label="type of image", value=custom_obp_values["imagetype"])
+                imagetype = gr.Dropdown(imagetypes, label="Image Type", value=custom_obp_values["imagetype"])
                 add_ctrl("obp_imagetype", imagetype)
             with gr.Column(scale=2, variant="compact"):
                 imagemodechance = gr.Slider(
@@ -634,7 +634,7 @@ def ui_onebutton(prompt, run_event, random_button):
                     100,
                     value=custom_obp_values["imagemodechance"],
                     step=1,
-                    label="One in X chance to use special image type mode",
+                    label="One in X Chance to Use Special Image Mode",
                 )
                 add_ctrl("obp_imagemodechance", imagemodechance)
         with gr.Row():
@@ -646,11 +646,11 @@ def ui_onebutton(prompt, run_event, random_button):
                         """
             )
         with gr.Row():
-            givensubject = gr.Textbox(label="Overwrite subject: ", value=custom_obp_values["givensubject"])
+            givensubject = gr.Textbox(label="Overwrite Subject: ", value=custom_obp_values["givensubject"])
             add_ctrl("obp_givensubject", givensubject)
-            smartsubject = gr.Checkbox(label="Smart subject", value=custom_obp_values["smartsubject"])
+            smartsubject = gr.Checkbox(label="Smart Subject", value=custom_obp_values["smartsubject"])
             add_ctrl("obp_smartsubject", smartsubject)
-            givenoutfit = gr.Textbox(label="Overwrite outfit: ", value=custom_obp_values["givenoutfit"])
+            givenoutfit = gr.Textbox(label="Overwrite Outfit: ", value=custom_obp_values["givenoutfit"])
             add_ctrl("obp_givenoutfit", givenoutfit)
         with gr.Row():
             gr.Markdown(
@@ -663,11 +663,11 @@ def ui_onebutton(prompt, run_event, random_button):
         with gr.Row():
             with gr.Column():
                 prefixprompt = gr.Textbox(
-                    label="Place this in front of generated prompt (prefix)", value=custom_obp_values["prefixprompt"]
+                    label="Place this Prefix in Front of the Generated Prompt", value=custom_obp_values["prefixprompt"]
                 )
                 add_ctrl("obp_prefixprompt", prefixprompt)
                 suffixprompt = gr.Textbox(
-                    label="Place this at back of generated prompt (suffix)", value=custom_obp_values["suffixprompt"]
+                    label="Place this Suffix at the End of the Generated Prompt", value=custom_obp_values["suffixprompt"]
                 )
                 add_ctrl("obp_suffixprompt", suffixprompt)
         with gr.Row():
@@ -679,12 +679,12 @@ def ui_onebutton(prompt, run_event, random_button):
                         """
             )
         with gr.Row():
-            giventypeofimage = gr.Textbox(label="Overwrite type of image: ", value=custom_obp_values["giventypeofimage"])
+            giventypeofimage = gr.Textbox(label="Overwrite the Image Type: ", value=custom_obp_values["giventypeofimage"])
             add_ctrl("obp_giventypeofimage", giventypeofimage)
         with gr.Row():
             with gr.Column():
                 antistring = gr.Textbox(
-                    label="Filter out following properties (comma seperated). Example "
+                    label="Filter Out These Properties (comma seperated). Example "
                     "film grain, purple, cat"
                     " ", value=custom_obp_values["antistring"]
                 )
