@@ -20,6 +20,16 @@ def create_model_structure():
   os.makedirs(config.paths_loras[0] + '\SD3x', exist_ok=True)
   return
 
+def create_topic_structure():
+  # initialize the One Button Prompt (Random Prompt) structure
+  shutil.copytree('./master_topics', f'{args_manager.args.user_dir}/master_topics', dirs_exist_ok = True)
+  shutil.copytree('./master_topics', './custom/OneButtonPrompt/random_prompt/userfiles', dirs_exist_ok = True)
+  os.makedirs(f'{args_manager.args.user_dir}/user_topics', exist_ok = True)
+  if os.path.exists(f'{args_manager.args.user_dir}/user_topics'):
+    shutil.copytree(f'{args_manager.args.user_dir}/user_topics',\
+      './custom/OneButtonPrompt/random_prompt/userfiles', dirs_exist_ok = True)
+  return
+
 def create_user_structure():
   # initialize the user directory, user_dir
   print(f'Initialized the user folder at {os.path.abspath(args_manager.args.user_dir)}')
