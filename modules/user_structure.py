@@ -56,7 +56,7 @@ def create_user_structure():
   master_presets = f'{args_manager.args.user_dir}/master_presets'
   if os.path.exists(master_presets):
     shutil.rmtree(master_presets, ignore_errors=True)
-  shutil.copytree('./master_presets', master_presets', dirs_exist_ok = True)
+  shutil.copytree('./master_presets', master_presets, dirs_exist_ok = True)
 
   working_presets = './presets'
   if os.path.exists(working_presets):
