@@ -50,8 +50,8 @@ def create_user_structure():
   os.makedirs(user_topics, exist_ok = True)
   if os.path.exists(user_topics):
     shutil.copytree(user_topics, working_topics, dirs_exist_ok = True)
-  print('Updated the working Random Prompt topics folder:'
-  print('   {working_topics}')
+  print('Updated the working Random Prompt topics folder:')
+  print(f'   {working_topics}')
 
   # in a similar way, initialize the Presets structure
   master_presets = f'{args_manager.args.user_dir}/master_presets'
