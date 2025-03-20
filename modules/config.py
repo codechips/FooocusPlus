@@ -1136,6 +1136,36 @@ def downloading_superprompter_model():
         model_dir=path_superprompter,
         file_name='model.safetensors'
     )
+    load_file_from_url(
+    url='https://huggingface.co/roborovski/superprompt-v1/blob/main/config.json',
+    model_dir=path_superprompter,
+    file_name='config.json'
+    )
+    load_file_from_url(
+    url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/generation_config.json',
+    model_dir=path_superprompter,
+    file_name='generation_config.json'
+    )
+    load_file_from_url(
+    url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/README.md',
+    model_dir=path_superprompter,
+    file_name='README.md'
+    )    
+    load_file_from_url(
+    url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/spiece.model',
+    model_dir=path_superprompter,
+    file_name='spiece.model'
+    )
+    load_file_from_url(
+    url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/tokenizer.json',
+    model_dir=path_superprompter,
+    file_name='tokenizer.json'
+    )
+    load_file_from_url(
+    url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/tokenizer_config.json',
+    model_dir=path_superprompter,
+    file_name='tokenizer_config.json'
+    ) 
     return os.path.join(path_superprompter, 'model.safetensors')
 
 def downloading_sd3_medium_model():
