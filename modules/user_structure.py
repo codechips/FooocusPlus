@@ -40,8 +40,8 @@ def create_user_structure():
   # initialize 'userfiles' with the contents of './master_topics'
   working_topics = './custom/OneButtonPrompt/random_prompt/userfiles'
   os.makedirs(working_topics, exist_ok = True)
-#  if os.path.exists(working_topics):
-#    shutil.rmtree(working_topics, ignore_errors=True) #This creates an error when updating FooocusPlus
+#  if os.path.exists(working_topics):                  # Temp disable this check
+#    shutil.rmtree(working_topics, ignore_errors=True) # This creates an error when updating FooocusPlus
   shutil.copytree('./master_topics', working_topics, dirs_exist_ok = True)
 
   # overwrite 'userfiles' with the contents of user_dir './user_topics'
