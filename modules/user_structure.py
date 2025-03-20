@@ -38,7 +38,7 @@ def create_user_structure():
   # ensure that './custom/OneButtonPrompt/random_prompt/userfiles' exists
   # delete the contents of 'usefiles' which is used as a temporary working folder
   # initialize 'userfiles' with the contents of './master_topics'
-  working_topics = './custom/OneButtonPrompt/random_prompt/userfiles'
+  working_topics = os.path.abspath('./custom/OneButtonPrompt/random_prompt/userfiles')
   os.makedirs(working_topics, exist_ok = True)
   if os.path.exists(working_topics):
     shutil.rmtree(working_topics, ignore_errors=True)
@@ -58,7 +58,7 @@ def create_user_structure():
     shutil.rmtree(master_presets, ignore_errors=True)
   shutil.copytree('./master_presets', master_presets, dirs_exist_ok = True)
 
-  working_presets = './presets'
+  working_presets = os.path.abspath('./presets')
   if os.path.exists(working_presets):
     shutil.rmtree(working_presets, ignore_errors=True)
   shutil.copytree('./master_presets', working_presets, dirs_exist_ok = True)
