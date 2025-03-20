@@ -19,12 +19,9 @@ def answer(input_text="", max_new_tokens=256, repetition_penalty=1.2, temperatur
         globals()['tokenizer'] = None
         globals()['model'] = None
     if tokenizer is None or model is None:
-#        if not os.path.exists(modelDir):
-#            org_modelDir = os.path.join(ROOT, "models/llms/superprompt-v1")
-#            shutil.copytree(org_modelDir, modelDir)
         if not os.path.exists(os.path.join(modelDir, "model.safetensors")):
             config.downloading_superprompter_model()
-            print("[SuperPrompt] Downloading the model file for Superprompter. \n")
+            print("[SuperPrompt] Downloading the model files for Superprompter. \n")
 
         tokenizer = T5Tokenizer.from_pretrained(modelDir)
         model = T5ForConditionalGeneration.from_pretrained(modelDir, torch_dtype=torch.float16).to(torch_device)
