@@ -51,16 +51,21 @@ def create_user_structure():
     shutil.copytree(user_presets, working_presets, dirs_exist_ok = True)
   print(f'Updated the working preset folder: {working_presets}')
 
-  # in a similar way, initialize the One Button Prompt (Random Prompt) structure
+  # in a similar way, initialize the Random Prompt (One Button Prompt) structure
   master_topics = f'{args_manager.args.user_dir}/master_topics'
   if os.path.exists(master_topics):
     shutil.rmtree(master_topics, ignore_errors=True)
   shutil.copytree('./master_topics', f'{args_manager.args.user_dir}/master_topics', dirs_exist_ok = True)
   
   working_topics = './custom/OneButtonPrompt/random_prompt/userfiles'
+  os.makedirs(working_topics, exist_ok = True)
+  if os.path.exists(working_topics):
+    shutil.rmtree(working_topics, ignore_errors=True)
   shutil.copytree('./master_topics', working_topics, dirs_exist_ok = True)
-  os.makedirs(f'{args_manager.args.user_dir}/user_topics', exist_ok = True)
-  if os.path.exists(f'{args_manager.args.user_dir}/user_topics'):
-    shutil.copytree(f'{args_manager.args.user_dir}/user_topics', working_topics, dirs_exist_ok = True)    
+
+  user_topics = f'{args_manager.args.user_dir}/user_topics'
+  os.makedirs(user_topics, exist_ok = True)
+  if os.path.exists(user_topics):
+    shutil.copytree(user_topics, working_topics, dirs_exist_ok = True)
   print(f'Updated the working Random Prompt topics folder: {os.path.abspath(working_presets)}')
   return
