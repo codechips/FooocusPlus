@@ -1140,7 +1140,7 @@ def downloading_superprompter_model():
 
 def downloading_sd3_medium_model():
     load_file_from_url(
-        url='https://huggingface.co/metercai/SimpleSDXL2/resolve/main/sd3m/sd3_medium_incl_clips_t5xxlfp8.safetensors',
+        url='https://huggingface.co/lone682/sd3/resolve/2d024507b65a18772e10825f4dd383cdc3800a9f/sd3_medium_incl_clips_t5xxlfp8.safetensors?download=true',
         model_dir=paths_checkpoints[0] + '\SD3x',
         file_name='sd3_medium_incl_clips_t5xxlfp8.safetensors'
     )
