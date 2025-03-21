@@ -38,7 +38,7 @@ class OneButtonPresets:
 
     def save_obp_preset(self, perf_options):
         print()
-        print('Saving the new topic to:')
+        print('Saved the new topic to:')
         print(self.OBP_FULLPATH)
         print(f'and {self.USER_FILE}')
         print()
