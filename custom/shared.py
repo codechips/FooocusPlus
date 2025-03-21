@@ -1,8 +1,8 @@
 import os
 import sys
+from common import ROOT
 '''
 import modules.config as config
-from common import ROOT
 
 paths_checkpoints = config.paths_checkpoints
 paths_loras = config.paths_loras
@@ -15,8 +15,9 @@ path_clip_vision = config.path_clip_vision
 path_fooocus_expansion = config.path_fooocus_expansion
 paths_llms = config.paths_llms
 path_outputs = config.path_outputs
-path_root = ROOT
 '''
+path_root = ROOT
+
 def init_module(file_path):
     module_root = os.path.dirname(file_path)
     sys.path.append(module_root)
