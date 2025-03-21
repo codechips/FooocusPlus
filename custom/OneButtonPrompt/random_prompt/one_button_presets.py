@@ -43,9 +43,8 @@ class OneButtonPresets:
         print(f'and {self.USER_FILE}')
         print()
         with open(self.OBP_FILE, "w") as f:
-            json.dump(perf_options, f, indent=2)            # temp. save to working topics
-            self.opb_presets = self.load_obp_presets()
-            shutil.copy(self.OBP_FULLPATH, self.USER_FILE)  # perm. save to user presets
+            json.dump(perf_options, f, indent=2)        # temp. save to working topics           
+        shutil.copy(self.OBP_FULLPATH, self.USER_FILE)  # perm. save to user presets
         self.opb_presets = self.load_obp_presets()
 
     def get_obp_preset(self, name):
