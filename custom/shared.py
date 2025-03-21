@@ -1,4 +1,5 @@
 import os
+'''
 import sys
 import modules.config as config
 from common import ROOT
@@ -15,7 +16,7 @@ path_fooocus_expansion = config.path_fooocus_expansion
 paths_llms = config.paths_llms
 path_outputs = config.path_outputs
 path_root = ROOT
-
+'''
 def init_module(file_path):
     module_root = os.path.dirname(file_path)
     sys.path.append(module_root)
