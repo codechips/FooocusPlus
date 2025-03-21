@@ -20,8 +20,8 @@ def answer(input_text="", max_new_tokens=256, repetition_penalty=1.2, temperatur
         globals()['model'] = None
     if tokenizer is None or model is None:
         if not os.path.exists(os.path.join(modelDir, "model.safetensors")):
-            config.downloading_superprompter_model()
             print("[SuperPrompt] Downloading the model files for Superprompter. \n")
+            config.downloading_superprompter_model()
 
         tokenizer = T5Tokenizer.from_pretrained(modelDir)
         model = T5ForConditionalGeneration.from_pretrained(modelDir, torch_dtype=torch.float16).to(torch_device)
