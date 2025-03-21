@@ -35,6 +35,11 @@ class OneButtonPresets:
             json.dump(data, f, indent=2)
 
     def save_obp_preset(self, perf_options):
+        print()
+        print('Saving the new topic to:')
+        print(f'  {OBP_FILE} and')
+        print(f'  {USER_FILE}')
+        print()
         with open(self.OBP_FILE, "w") as f:
             json.dump(perf_options, f, indent=2)
         with open(self.USER_FILE, "w") as f:
