@@ -11,7 +11,7 @@
   from master_presets and then overwritten with the contents of user_presets
 * this system enables any master preset to be superceded by a user preset, reducing potential preset bloat
 * accessed from the Extras tab, the Make New Preset button enables creation of a preset based on the current parameters
-* * removed "auto" model support in presets, a confusing & unnecessary "feature"
+* removed "auto" model support in presets, a confusing & unnecessary "feature"
 * "Read Wildcards in Order" is now grouped with the wildcard dropdowns and called "Generate Wildcards in Order"
 * renamed "Random" to "Random Seed" and "Fixed Seed" to "Specific Seed" (it is not really fixed because it still increments)
 * moved "Disable Seed Increment" to just above "Specific Seed" and renamed it "Freeze Seed"
