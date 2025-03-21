@@ -2,6 +2,8 @@
 
 * initialized the UserDir folder: its location defaults to the repo's parent
 * UserDir contains the models, master & user presets, startup batch, startup & control images, and wildcards folders
+* the UserDir also contains config.txt and config_modification_tutorial.txt, and Random Prompt master and user topic folders
+* config.txt now contains all the settings listed in config_modification_tutorial.txt, making changes much easier
 * startup_batch now holds all the optional batch files, besides the default run_FooocusPlus.bat
 * master_presets is a copy of the same folder in the repo, for user reference only
 * user_presets is designed for custom modifications of the master presets and presets saved within the UI
@@ -9,16 +11,21 @@
   from master_presets and then overwritten with the contents of user_presets
 * this system enables any master preset to be superceded by a user preset, reducing potential preset bloat
 * accessed from the Extras tab, the Make New Preset button enables creation of a preset based on the current parameters
-* the UserDir also contains config.txt and config_modification_tutorial.txt
-* config.txt now contains all the settings listed in config_modification_tutorial.txt, making changes much easier
+* * removed "auto" model support in presets, a confusing & unnecessary "feature"
 * "Read Wildcards in Order" is now grouped with the wildcard dropdowns and called "Generate Wildcards in Order"
 * renamed "Random" to "Random Seed" and "Fixed Seed" to "Specific Seed" (it is not really fixed because it still increments)
 * moved "Disable Seed Increment" to just above "Specific Seed" and renamed it "Freeze Seed"
 * introduced "Seed Increment Skip" for large random increments, called "Extra Variation", placed directly below "Random Seed"
 * all four seed options now have descriptive help messages
-* removed further offensive text from the One Button Prompt, resolving some problems with Waifu's and Husbando's
-* cleaned up the file structure surrounding One Button Prompt which was causing the creation of ghost directories in the repo.
-* removed "auto" model support in presets, a confusing & unnecessary "feature"
+* all UI references to OneButtonPrompt are now called "Random Prompt" and its "Presets" are called "Topics"
+* removed more offensive text from Random Prompt, resolving some problems with Waifu's and Husbando's operation
+* cleaned up the files and coding related to Random Prompt that caused the creation of ghost directories in the repo.
+* removed superfluous Random Prompt and SuperPrompt controls in the Extras section
+* the Random Prompt Topics dropdown menu is now alpha-sorted
+* the newly labeled "Create a New Topic" option now operates a dropdown Save Topic group with improved formatting and help
+* the same system used for user preset control also applies to user topics, allowing for easy addition and removal of topics
+* the Superprompter folder is now correctly rebuilt if it is deleted
+* corrected the path for the full SD3.0 medium base model, with accessories
 * added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
 * added the Flux AntiBlur.safetensors & Hyper-FLUX.1-dev-8steps-lora.safetensors to the Starter Pack LoRAs
 
