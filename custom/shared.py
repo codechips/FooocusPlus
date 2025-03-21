@@ -1,6 +1,6 @@
 import os
-'''
 import sys
+'''
 import modules.config as config
 from common import ROOT
 
