@@ -8,6 +8,7 @@ from custom.OneButtonPrompt.utils import path_fixed
 class OneButtonPresets:
     DEFAULT_OBP_FILE = Path(path_fixed("random_prompt/presets/obp_presets.default"))
     OBP_FILE = Path(path_fixed("random_prompt/userfiles/obp_presets.json"))
+    OBP_FULLPATH = os.path.abspath(OBP_FILE)
     USER_FILE = os.path.abspath(f'{args_manager.args.user_dir}/user_topics')
     CUSTOM_OBP = "Create a New Topic..."
     RANDOM_PRESET_OBP = "All Topics at Random..."
@@ -38,13 +39,12 @@ class OneButtonPresets:
     def save_obp_preset(self, perf_options):
         print()
         print('Saving the new topic to:')
-        print(f'  {self.OBP_FILE} and')
-        print(f'  {self.USER_FILE}')
+        print(self.OBP_FULLPATH)
+        print(f'and {self.USER_FILE}')
         print()
         with open(self.OBP_FILE, "w") as f:
-            json.dump(perf_options, f, indent=2)
-        with open(self.USER_FILE, "w") as f:
-            json.dump(perf_options, f, indent=2)     
+            json.dump(perf_options, f, indent=2)            # temp. save to working topics            
+            shutil.copy(self.OBP_FULLPATH, self.USER_FILE)  # perm. save to user presets
         self.opb_presets = self.load_obp_presets()
 
     def get_obp_preset(self, name):
