@@ -1137,6 +1137,11 @@ def downloading_superprompter_model():
         file_name='model.safetensors'
     )
     load_file_from_url(
+    url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/config.json',
+    model_dir=path_superprompter,
+    file_name='config.json'
+    )
+    load_file_from_url(
     url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/generation_config.json',
     model_dir=path_superprompter,
     file_name='generation_config.json'
