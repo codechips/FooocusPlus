@@ -1,5 +1,4 @@
-facexlib
+# requirements_patch.txt (FooocusPlus)
 insightface
-nvidia-pyindex==1.0.9
-#flash-attn==2.5.8
-#apex
+pixeloe
+nvidia-pyindex
