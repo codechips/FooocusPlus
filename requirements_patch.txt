@@ -8,4 +8,4 @@ pixeloe
 nvidia-pyindex
 wget
 pygit2 # needed until dulwich
-triton-windows #; platform_system == "Windows"
+triton-windows; platform_system == "Windows"
