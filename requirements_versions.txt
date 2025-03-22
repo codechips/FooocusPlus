@@ -1,5 +1,4 @@
 # requirements_versions.txt (FooocusPlus)
-nvidia-pyindex==1.0.9
 diffusers>=0.29.0
 torchsde==0.2.6 #
 transformers==4.42.4 #
@@ -54,7 +53,6 @@ groundingdino-py==0.4.0
 lark-parser
 gguf
 blend_modes
-#mediapipe
 svglib
 fvcore
 yacs
@@ -63,7 +61,6 @@ albumentations
 wget
 typer_config
 rich
-#google-generativeai
 ultralytics>=8.2.0
 blind-watermark
 qrcode
