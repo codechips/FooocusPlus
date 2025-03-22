@@ -40,10 +40,16 @@ if not version.get_required_library() and (sys.platform == "win32"):
 
 
 def prepare_environment():
-
+    torch_ver = '2.5.1'
+    torchvisio_ver = '0.20.1'
+    torchaudio=={torch_ver}
+    'xformers==0.0.26'
+    
     torch_index_url = os.environ.get('TORCH_INDEX_URL', "https://download.pytorch.org/whl/cu121")
-    torch_command = os.environ.get('TORCH_COMMAND',
+#    torch_command = os.environ.get('TORCH_COMMAND',
                                    f"pip install torch==2.1.0 torchvision==0.16.0 --extra-index-url {torch_index_url}")
+    torch_command = os.environ.get('TORCH_COMMAND',
+        f"torchruntime install torch=={torch_ver} torchvision=={torchvisio_ver} torchaudio=={torch_ver}"
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     print(f"Python {sys.version}")
