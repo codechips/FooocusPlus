@@ -46,7 +46,7 @@ def prepare_environment():
     xformers_ver = '0.0.28.post3'
     
     torch_command = os.environ.get('TORCH_COMMAND',
-        f"torchruntime install torch=={torch_ver} torchvision=={torchvisio_ver} torchaudio=={torchaudio_ver}"
+        f"torchruntime install torch=={torch_ver} torchvision=={torchvisio_ver} torchaudio=={torchaudio_ver}")
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     print(f"Python {sys.version}")
