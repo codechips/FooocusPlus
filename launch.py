@@ -82,6 +82,7 @@ def prepare_environment():
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
+            print('Library updates will take some time...')
             for p in met_diff.keys():
                 print(f'Uninstall {p}.{met_diff[p]} ...')
                 run(f'"{python}" -m pip uninstall -y {p}=={met_diff[p]}')
@@ -89,7 +90,6 @@ def prepare_environment():
             run_pip(f"install -r \"{requirements_file}\" -t {target_path_win}", "requirements")
         else:
             run_pip(f"install -r \"{requirements_file}\"", "requirements")
-        print('Library updates will take some time...')
 
     patch_requirements = "requirements_patch.txt"
     if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not is_win32_standalone_build:
