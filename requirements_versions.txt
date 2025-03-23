@@ -27,7 +27,6 @@ lxml==4.9.3
 mistune
 numba
 numpy==1.26.4 #
-nvidia-pyindex
 opencv-contrib-python==4.8.0.74
 opencv-contrib-python-headless==4.10.0.84 #
 opencv-python==4.7.0.72
@@ -40,14 +39,12 @@ onnxruntime-gpu==1.20.1
 onnx-graphsurgeon==0.3.27
 packaging==24.1 #
 peft==0.10.0
-pixeloe
 Pillow #==10.4.0 #
 polygraphy==0.47.1
 protobuf==3.19.0
 psutil==6.0.0 #
 pytorch-lightning==2.5.1 #
 pyyaml==6.0.1 #
-pygit2 # needed until dulwich
 pyzbar
 qrcode
 rembg==2.0.58
@@ -62,12 +59,10 @@ svglib
 tqdm==4.66.4 #
 timm==1.0.7 #
 tokenizers==0.19.1 #
-triton-windows; platform_system == "Windows"
 translators==5.8.9
 transparent-background
 trimesh[easy]
 typer_config
 ultralytics>=8.2.0
 websocket-client
-wget
 yacs
