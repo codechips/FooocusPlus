@@ -1,5 +1,5 @@
 # requirements_versions.txt (FooocusPlus)
-huggingface-hub
+huggingface-hub>=0.29.3
 diffusers>=0.29.0
 torchsde==0.2.6 #
 transformers==4.42.4 #
