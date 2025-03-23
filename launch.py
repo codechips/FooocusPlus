@@ -44,10 +44,10 @@ def prepare_environment():
 
     target_path_win = os.path.join(python_embedded_path, 'Lib/site-packages')
     
-    torch_ver = '2.5.1'
+    torch_ver = '2.4.1'
     torchvisio_ver = '0.20.1'
     torchaudio_ver = '2.4.1+cu124'
-    xformers_ver = '0.0.28.post3'
+    xformers_ver = '0.0.28.post1'
     
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvisio_ver} torchaudio=={torchaudio_ver}")
