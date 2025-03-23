@@ -1,1 +1,2 @@
 cmake; platform_system != "Windows"
+insightface==0.7.3; platform_system != "Windows"
