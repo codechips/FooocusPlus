@@ -1,4 +1,4 @@
-import os
+ckimport os
 import ssl
 import sys
 import ldm_patched
@@ -56,7 +56,7 @@ def prepare_environment():
     print(f"SimpleSDXL2 version: {version.get_simplesdxl_ver()}")
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
-    print('Loading Xformers...')
+    print('Checking for required library files and loading Xformers...')
 
     if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
@@ -85,9 +85,11 @@ def prepare_environment():
             run_pip(f"install -r \"{requirements_file}\" -t {target_path_win}", "requirements")
         else:
             run_pip(f"install -r \"{requirements_file}\"", "requirements")
+        print('Library updates will take some time...')
 
     patch_requirements = "requirements_patch.txt"
     if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not is_win32_standalone_build:
+        print('Updating with required patch files...')
         run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
     return
 
