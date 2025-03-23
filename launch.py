@@ -82,7 +82,6 @@ def prepare_environment():
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
-            print('Library updates will take some time...')
             for p in met_diff.keys():
                 print(f'Uninstall {p}.{met_diff[p]} ...')
                 run(f'"{python}" -m pip uninstall -y {p}=={met_diff[p]}')
