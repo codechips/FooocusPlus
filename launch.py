@@ -46,7 +46,7 @@ def prepare_environment():
     
     torch_ver = '2.5.1'
     torchvisio_ver = '0.20.1'
-    torchaudio_ver = '2.5.1+cu124'
+    torchaudio_ver = '2.4.1+cu124'
     xformers_ver = '0.0.28.post3'
     
     torch_command = os.environ.get('TORCH_COMMAND',
