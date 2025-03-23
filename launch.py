@@ -41,6 +41,11 @@ if not version.get_required_library() and (sys.platform == "win32"):
 
 
 def prepare_environment():
+    REINSTALL_ALL = False
+    TRY_INSTALL_XFORMERS = False
+
+    target_path_win = os.path.join(python_embedded_path, 'Lib/site-packages')
+    
     torch_ver = '2.5.1'
     torchvisio_ver = '0.20.1'
     torchaudio_ver = '2.5.1+cu124'
