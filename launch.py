@@ -23,7 +23,8 @@ import enhanced.version as version
 import fooocus_version
 
 from build_launcher import build_launcher
-from modules.launch_util import is_installed, run, python, run_pip, requirements_met, delete_folder_content
+from modules.launch_util import is_installed, run, python, run_pip, requirements_met, delete_folder_content,\
+    git_clone, index_url, target_path_install, met_diff
 from modules.model_loader import load_file_from_url
 
 REINSTALL_ALL = False
@@ -42,7 +43,7 @@ if not version.get_required_library() and (sys.platform == "win32"):
 def prepare_environment():
     torch_ver = '2.5.1'
     torchvisio_ver = '0.20.1'
-    torchaudio_ver = {torch_ver}
+    torchaudio_ver = '2.5.1+cu124'
     xformers_ver = '0.0.28.post3'
     
     torch_command = os.environ.get('TORCH_COMMAND',
