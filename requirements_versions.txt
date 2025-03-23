@@ -24,7 +24,7 @@ groundingdino-py==0.4.0
 httpx==0.27.0 #
 kornia>=0.7.1
 lark-parser
-lightning-fabric==2.4.1
+lightning-fabric==2.4.0
 loguru==0.7.2
 lxml==4.9.3
 mistune
