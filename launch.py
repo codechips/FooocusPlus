@@ -27,8 +27,6 @@ from modules.launch_util import is_installed, run, python, run_pip, requirements
     git_clone, index_url, target_path_install, met_diff
 from modules.model_loader import load_file_from_url
 
-REINSTALL_ALL = False
-TRY_INSTALL_XFORMERS = False
 
 if not version.get_required_library() and (sys.platform == "win32"):
     print()
