@@ -1,7 +1,6 @@
 # requirements_versions.txt (FooocusPlus)
 huggingface-hub>=0.29.1
 setuptools>=77.0.3
-xformers==0.0.28.post3
 diffusers>=0.29.0
 torchsde==0.2.6 #
 transformers==4.42.4 #
