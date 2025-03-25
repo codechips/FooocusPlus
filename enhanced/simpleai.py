@@ -5,7 +5,7 @@ import common
 from simpleai_base import simpleai_base, utils, comfyd, torch_version, xformers_version, cuda_version, comfyclient_pipeline
 from simpleai_base.params_mapper import ComfyTaskParams
 from simpleai_base.models_info import ModelsInfo, sync_model_info
-from build_launcher import is_win32_standalone_build
+from launch_support import is_win32_standalone_build
 
 args_comfyd = [[]]
 modelsinfo_filename = 'models_info.json'
