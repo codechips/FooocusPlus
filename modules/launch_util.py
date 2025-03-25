@@ -10,7 +10,7 @@ import importlib.metadata
 import packaging.version
 import pygit2
 from pathlib import Path
-from build_launcher import python_embedded_path
+from launch_support import python_embedded_path
 
 pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
 
