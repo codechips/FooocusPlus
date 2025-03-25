@@ -26,6 +26,8 @@
 * the same system used for user preset control also applies to user topics, allowing for easy addition and removal of topics
 * the Superprompter folder is now correctly rebuilt if it is deleted
 * corrected the path for the full SD3.0 medium base model, with accessories
+* python_embedded version control now only applies to Windows platforms because other platforms do not use python_embedded
+* updated many more Python libraries
 * added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
 * added the Flux AntiBlur.safetensors & Hyper-FLUX.1-dev-8steps-lora.safetensors to the Starter Pack LoRAs
 
@@ -64,6 +66,7 @@
 * the control images (skip.jpg and skip.png) are stored in enhanced\control_images
 * "python_embeded" is renamed "python_embedded": changed all internal references
 * updated many Python libraries and fixed the Onnx Graphsurgeon bug
+* python_embedded now includes version control: if the version is incorrect then program loading stops
 * resolved the bug: "SaveImageWebsocket.IS_CHANGED() missing 1 required positional argument: 's'"
 
 
