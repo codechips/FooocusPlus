@@ -28,7 +28,6 @@ lightning-fabric==2.4.0
 loguru==0.7.2
 lxml==4.9.3
 mistune
-nvidia_pyindex==1.0.9 # fails unless version is specified
 numba
 numpy==1.26.4 #
 opencv-contrib-python==4.8.0.74
