@@ -22,7 +22,7 @@ import comfy.comfy_version
 import enhanced.version as version
 import fooocus_version
 
-from build_launcher import build_launcher, is_win32_standalone_build, python_embedded_path
+from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met, delete_folder_content,\
     git_clone, index_url, target_path_install, met_diff
 from modules.model_loader import load_file_from_url
