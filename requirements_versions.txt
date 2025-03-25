@@ -1,4 +1,4 @@
-# requirements_versions.txt (FooocusPlus)
+# requirements_versions.txt, applicable to all platforms (FooocusPlus)
 huggingface-hub>=0.29.1
 setuptools>=77.0.3
 diffusers>=0.29.0
@@ -28,6 +28,7 @@ lightning-fabric==2.4.0
 loguru==0.7.2
 lxml==4.9.3
 mistune
+nvidia-pyindex
 numba
 numpy==1.26.4 #
 opencv-contrib-python==4.8.0.74
@@ -43,9 +44,11 @@ onnx-graphsurgeon==0.3.27
 packaging==24.1 #
 peft==0.10.0
 Pillow #==10.4.0 #
+pixeloe
 polygraphy==0.47.1
 protobuf==3.19.0
 psutil==6.0.0 #
+pygit2 # needed until dulwich
 pytorch-lightning==2.4.0
 pyyaml==6.0.1 #
 pyzbar
@@ -65,7 +68,9 @@ tokenizers==0.19.1 #
 translators==5.8.9
 transparent-background
 trimesh[easy]
+triton-windows; platform_system == "Windows" 
 typer_config
 ultralytics>=8.2.0
 websocket-client
+wget
 yacs
