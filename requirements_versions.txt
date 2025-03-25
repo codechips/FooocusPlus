@@ -67,7 +67,6 @@ tokenizers==0.19.1
 translators==5.8.9
 transparent-background
 trimesh[easy]
-triton-windows; platform_system == "Windows" 
 typer_config
 ultralytics>=8.2.0
 websocket-client
