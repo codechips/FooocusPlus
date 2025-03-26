@@ -45,7 +45,7 @@ def DependencyResolver(torch_ver: str = "2.5.1"):
     lightningfabric_default = "2.5.1"
     
     ### begin assignments ###
-    if torch_ver is "2.4.1":
+    if torch_ver == "2.4.1":
         dependencies = dict(
             torchvision_version = "0.19.1",
             torchaudio_version = "2.4.1",
@@ -54,7 +54,7 @@ def DependencyResolver(torch_ver: str = "2.5.1"):
             lightningfabric_version = "2.5.1",
         )
 
-    elif torch_ver is "2.2.2": # last version supporting Intel Macs
+    elif torch_ver == "2.2.2": # last version supporting Intel Macs
         dependencies = dict(
             torchvision_version = "0.17.2",
             torchaudio_version = "2.2.2",
@@ -63,7 +63,7 @@ def DependencyResolver(torch_ver: str = "2.5.1"):
             lightningfabric_version = "2.4.0",
         )
 
-    elif torch_ver is "1.13.1": # earliest possible supported release: rocm5.2
+    elif torch_ver == "1.13.1": # earliest possible supported release: rocm5.2
         dependencies = dict(
             torchvision_version = "0.14.1",
             torchaudio_version = "0.13.1",
