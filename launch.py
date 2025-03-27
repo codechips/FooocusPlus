@@ -73,8 +73,10 @@ def prepare_environment():
 
     if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
-
-    if TRY_INSTALL_XFORMERS:
+        print()
+        print(is_installed("xformers"))
+        print()
+#    if TRY_INSTALL_XFORMERS:
         if REINSTALL_ALL or not is_installed("xformers"):
             xformers_package = os.environ.get('XFORMERS_PACKAGE', {xformers_ver})
             if platform.system() == "Windows":
