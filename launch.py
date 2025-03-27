@@ -43,20 +43,21 @@ def prepare_environment():
 #    TRY_INSTALL_XFORMERS = False
 
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
-    print(target_path_win)
-    print()
     
     #torch_ver = '2.4.1'
     #torchvision_ver = '0.19.1+cu124'
     #torchaudio_ver = '2.4.1+cu124'
     #xformers_ver = '0.0.28.post1'
+    
     #pytorch-lightning==2.4.0
     #lightning-fabric==2.4.0
     
     torch_ver = '2.5.1'
     torchvision_ver = '0.20.1'
     torchaudio_ver = '2.5.1'
-    xformers_ver = 'xformers==0.0.28.post1'
+    xformers_ver = 'xformers 0.0.29.post1'
+    xformers_whl_url_win = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-win_amd64.whl'
+    xformers_whl_url_linux = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
     #pytorchlightning == '2.5.1'
     #lightning-fabric == '2.5.1'
 
@@ -79,11 +80,11 @@ def prepare_environment():
     print(is_installed("xformers"))
     print()
 #    if TRY_INSTALL_XFORMERS:
-    if REINSTALL_ALL: #or not is_installed("xformers"):
-        xformers_package = os.environ.get('XFORMERS_PACKAGE', xformers_ver)
+    if REINSTALL_ALL or not is_installed("xformers"):
+        # xformers_package = os.environ.get('XFORMERS_PACKAGE', xformers_ver)
         if platform.system() == "Windows":
             if platform.python_version().startswith("3.10"):
-                run_pip(f"install -U -I --no-deps {xformers_package}", "xformers", live=True)
+                run_pip(f"install -U -I --no-deps {xformers_whl_url_win}", xformers_ver, live=True)
             else:
                 print("Installation of xformers is not supported in this version of Python.")
                 print(
@@ -91,7 +92,7 @@ def prepare_environment():
                 if not is_installed("xformers"):
                     exit(0)
         elif platform.system() == "Linux":
-            run_pip(f"install -U -I --no-deps {xformers_package}", "xformers")
+            run_pip(f"install -U -I --no-deps {xformers_whl_url_linux}", xformers_ver)
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
