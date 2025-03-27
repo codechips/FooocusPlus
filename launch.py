@@ -56,7 +56,7 @@ def prepare_environment():
     torchvision_ver = '0.20.1'
     torchaudio_ver = '2.5.1'
     xformers_ver = 'xformers 0.0.29.post1'
-    xformers_whl_url_win = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-win_amd64.whl'
+    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.29.post1-cp310-cp310-win_amd64.whl'
     xformers_whl_url_linux = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
     #pytorchlightning == '2.5.1'
     #lightning-fabric == '2.5.1'
