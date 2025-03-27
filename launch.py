@@ -40,9 +40,10 @@ if not version.get_required_library() and (sys.platform == "win32"):
 
 def prepare_environment():
     REINSTALL_ALL = False
-    TRY_INSTALL_XFORMERS = False
+#    TRY_INSTALL_XFORMERS = False
 
     target_path_win = os.path.join(python_embedded_path, 'Lib/site-packages')
+    print(target_path_win)
     
     #torch_ver = '2.4.1'
     #torchvision_ver = '0.19.1+cu124'
@@ -57,10 +58,6 @@ def prepare_environment():
     xformers_ver = '0.0.29.post1'
     #pytorchlightning == '2.5.1'
     #lightning-fabric == '2.5.1'
-    
-    torch_command = os.environ.get('TORCH_COMMAND',
-        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-    requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}")
@@ -70,26 +67,30 @@ def prepare_environment():
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
     print('Checking for required library files and loading Xformers...')
+    
+    torch_command = os.environ.get('TORCH_COMMAND',
+        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
+    requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
-        print()
-        print(is_installed("xformers"))
-        print()
+    print()
+    print(is_installed("xformers"))
+    print()
 #    if TRY_INSTALL_XFORMERS:
-        if REINSTALL_ALL or not is_installed("xformers"):
-            xformers_package = os.environ.get('XFORMERS_PACKAGE', {xformers_ver})
-            if platform.system() == "Windows":
-                if platform.python_version().startswith("3.10"):
-                    run_pip(f"install -U -I --no-deps {xformers_package}", "xformers", live=True)
-                else:
-                    print("Installation of xformers is not supported in this version of Python.")
-                    print(
-                        "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
-                    if not is_installed("xformers"):
-                        exit(0)
-            elif platform.system() == "Linux":
-                run_pip(f"install -U -I --no-deps {xformers_package}", "xformers")
+    if REINSTALL_ALL or not is_installed("xformers"):
+        xformers_package = os.environ.get('XFORMERS_PACKAGE', {xformers_ver})
+        if platform.system() == "Windows":
+            if platform.python_version().startswith("3.10"):
+                run_pip(f"install -U -I --no-deps {xformers_package}", "xformers", live=True)
+            else:
+                print("Installation of xformers is not supported in this version of Python.")
+                print(
+                    "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
+                if not is_installed("xformers"):
+                    exit(0)
+        elif platform.system() == "Linux":
+            run_pip(f"install -U -I --no-deps {xformers_package}", "xformers")
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
