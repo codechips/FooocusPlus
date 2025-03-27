@@ -79,7 +79,7 @@ def prepare_environment():
     print(is_installed("xformers"))
     print()
 #    if TRY_INSTALL_XFORMERS:
-    if REINSTALL_ALL #or not is_installed("xformers"):
+    if REINSTALL_ALL: #or not is_installed("xformers"):
         xformers_package = os.environ.get('XFORMERS_PACKAGE', xformers_ver)
         if platform.system() == "Windows":
             if platform.python_version().startswith("3.10"):
