@@ -42,6 +42,10 @@ def prepare_environment():
     REINSTALL_ALL = False
 
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
+    if (pip freeze | grep torchruntime) == '1.16.1':
+        print('1.16.1')
+    else:
+        print('Not working')
     
     torch_ver = '2.4.1'
     torchvision_ver = '0.19.1'
