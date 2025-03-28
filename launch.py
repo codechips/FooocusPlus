@@ -70,14 +70,9 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    try:
-        torchruntime.__version__ == '1.16.1'
-    except:
-        if is_win32_standalone_build:
-            run_pip(f"install -r torchruntime -t {target_path_win}", "torchruntime", live=True )
-        else:
-            run_pip(f"install -r torchruntime", "torchruntime")
-    
+    if not is_installed_version(torchruntime, '1.16.1')
+        run_pip(f"install -U -I --no-deps torchruntime", "torchruntime", live=True)
+  
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
