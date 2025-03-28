@@ -70,10 +70,7 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    if torchruntime in sys.modules:
-        if not torchruntime.__version__ == '1.16.1':
-            pip uninstall torchruntime
-    if (not torchruntime in sys.modules) or (not torchruntime.__version__ == '1.16.1'):
+    if (not torchruntime in sys.modules) or (torchruntime in sys.modules and not torchruntime.__version__ == '1.16.1'):
         if is_win32_standalone_build:
             run_pip(f"install -r torchruntime -t {target_path_win}", "torchruntime", live=True )
         else:
