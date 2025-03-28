@@ -70,7 +70,7 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    if not is_installed_version(torchruntime, '1.16.1')
+    if not is_installed_version(torchruntime, '1.16.1'):
         run_pip(f"install -U -I --no-deps torchruntime", "torchruntime", live=True)
   
     torch_command = os.environ.get('TORCH_COMMAND',
