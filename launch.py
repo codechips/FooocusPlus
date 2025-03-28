@@ -87,7 +87,7 @@ def prepare_environment():
         # xformers_package = os.environ.get('XFORMERS_PACKAGE', xformers_ver)
         if platform.system() == "Windows":
             if platform.python_version().startswith("3.10"):
-                run_pip(f"install -U -I {xformers_whl_url_win}", xformers_ver, live=True)
+                run_pip(f"install -U -I --no-deps {xformers_whl_url_win}", xformers_ver, live=True)
             else:
                 print("Installation of xformers is not supported in this version of Python.")
                 print(
