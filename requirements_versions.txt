@@ -16,7 +16,6 @@ cuda-python==11.7.1
 download==0.3.5
 einops==0.8.0
 facexlib
-flash-attn==2.7.4.post1 # cuda only
 ftfy
 fvcore
 gguf
@@ -65,7 +64,6 @@ svglib
 tqdm==4.66.4
 timm==1.0.7
 tokenizers==0.19.1
-transformers==4.46.3
 translators==5.8.9
 transparent-background
 trimesh[easy]
