@@ -27,7 +27,7 @@ default_command_live = (os.environ.get('LAUNCH_LIVE_OUTPUT') == "1")
 # replace with the mainline Fooocus and RuinedFooocus statement:
 index_url = os.environ.get('INDEX_URL', "")
 
-target_path_install = f' -t {os.path.join(python_embedded_path, "Lib/site-packages")}' if sys.platform.startswith("win") else ''
+target_path_install = f' -t {os.path.abspath(os.path.join(python_embedded_path, "Lib/site-packages"))}' if sys.platform.startswith("win") else ''
 
 modules_path = os.path.dirname(os.path.realpath(__file__))
 script_path = os.path.dirname(modules_path)
@@ -183,7 +183,7 @@ def is_installed_version(package, version_required):
     except Exception:
         return False
 
-    #print(f'requirement:{package}, required:{version_required}, installed:{version_installed}')
+    print(f'requirement:{package}, required:{version_required}, installed:{version_installed}')
     if packaging.version.parse(version_required) != packaging.version.parse(version_installed):
         return False
     return True
