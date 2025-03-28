@@ -42,14 +42,6 @@ def prepare_environment():
     REINSTALL_ALL = False
 
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
-    if torchruntime in sys.modules:
-        if not torchruntime.__version__ == 1.16.1:
-            pip uninstall torchruntime
-    if (not torchruntime in sys.modules) or (not torchruntime.__version__ == 1.16.1):
-        if is_win32_standalone_build:
-            run_pip(f"install -r torchruntime -t {target_path_win}", "torchruntime")
-        else:
-            run_pip(f"install -r torchruntime, "torchruntime")
     
     torch_ver = '2.4.1'
     torchvision_ver = '0.19.1'
@@ -77,6 +69,15 @@ def prepare_environment():
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
     print('Checking for required library files and loading Xformers...')
+
+    if torchruntime in sys.modules:
+        if not torchruntime.__version__ == 1.16.1:
+            pip uninstall torchruntime
+    if (not torchruntime in sys.modules) or (not torchruntime.__version__ == 1.16.1):
+        if is_win32_standalone_build:
+            run_pip(f"install -r torchruntime -t {target_path_win}", "torchruntime", live=True )
+        else:
+            run_pip(f"install -r torchruntime", "torchruntime")
     
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
