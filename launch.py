@@ -40,7 +40,6 @@ if not version.get_required_library() and (sys.platform == "win32"):
 
 def prepare_environment():
     REINSTALL_ALL = False
-#    TRY_INSTALL_XFORMERS = False
 
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     
@@ -49,15 +48,13 @@ def prepare_environment():
     torchaudio_ver = '2.4.1'
     xformers_ver = '0.0.28.post1'
     xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-win_amd64.whl'
-    xformers_whl_url_linux = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
+    xformers_whl_url_linux = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
 #    pytorch-lightning==2.4.0
 #    lightning-fabric==2.4.0
-    
+
 #    torch_ver = '2.5.1'
 #    torchvision_ver = '0.20.1'
 #    torchaudio_ver = '2.5.1'
-#    xformers_ver = '0.0.28.post1'
-#    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-win_amd64.whl'
 #    xformers_ver = 'xformers 0.0.29.post1'
 #    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.29.post1-cp310-cp310-win_amd64.whl'
 #    xformers_whl_url_linux = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
@@ -79,12 +76,8 @@ def prepare_environment():
 
     if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
-    print()
-    print(is_installed("xformers"))
-    print()
-#    if TRY_INSTALL_XFORMERS:
+
     if REINSTALL_ALL or not is_installed("xformers"):
-        # xformers_package = os.environ.get('XFORMERS_PACKAGE', xformers_ver)
         if platform.system() == "Windows":
             if platform.python_version().startswith("3.10"):
                 run_pip(f"install -U -I --no-deps {xformers_whl_url_win}", xformers_ver, live=True)
