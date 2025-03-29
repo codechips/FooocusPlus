@@ -184,9 +184,9 @@ def is_installed_version(package, version_required):
     except Exception:
         print()
         return False
-    print()
-    print(f'The current version of {package} is: {version_installed}. Installing the required version: {version_required}')
     if packaging.version.parse(version_required) != packaging.version.parse(version_installed):
+        print()
+        print(f'The current version of {package} is: {version_installed}. Installing the required version: {version_required}')
         return False
     return True
 
