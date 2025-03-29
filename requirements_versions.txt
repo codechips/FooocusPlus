@@ -5,7 +5,7 @@ diffusers>=0.29.0
 torchsde==0.2.6
 transformers==4.42.4
 accelerate==0.32.1
-albumentations==2.0.4
+albumentations==2.0.5
 attrs==24.2.0
 bitsandbytes==0.43.3
 blend_modes
