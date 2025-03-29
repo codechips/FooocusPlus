@@ -9,25 +9,6 @@ print(f'Root {ROOT}')
 sys.path.append(ROOT)
 os.chdir(ROOT)
 
-os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
-os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
-os.environ["translators_default_region"] = "China"
-if "GRADIO_SERVER_PORT" not in os.environ:
-    os.environ["GRADIO_SERVER_PORT"] = "7865"
-
-ssl._create_default_https_context = ssl._create_unverified_context
-
-import platform
-import comfy.comfy_version
-import enhanced.version as version
-import fooocus_version
-
-from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path
-from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
-    requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
-from modules.model_loader import load_file_from_url
-
-
 if not version.get_required_library() and (sys.platform == "win32"):
     print()
     print('Our apologies for the inconvenience, but the installed')
@@ -36,6 +17,24 @@ if not version.get_required_library() and (sys.platform == "win32"):
     print('https://huggingface.co/DavidDragonsage/FooocusPlus/')
     print()
     quit()
+
+os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
+os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
+os.environ["translators_default_region"] = "China"
+if "GRADIO_SERVER_PORT" not in os.environ:
+    os.environ["GRADIO_SERVER_PORT"] = "7865"
+ssl._create_default_https_context = ssl._create_unverified_context
+
+from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
+    requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
+verify_installed_version('torchruntime', torchruntime_ver)
+
+import platform
+import comfy.comfy_version
+import enhanced.version as version
+import fooocus_version
+from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path
+from modules.model_loader import load_file_from_url
 
 
 def prepare_environment():
@@ -48,20 +47,20 @@ def prepare_environment():
     torch_ver = '2.4.1'
     torchvision_ver = '0.19.1'
     torchaudio_ver = '2.4.1'
-    lightning_fabric_ver = '2.4.0'
-    pytorch_lightning_ver = '2.4.0'
     xformers_ver = '0.0.28.post1'
-    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-win_amd64.whl'
-    xformers_whl_url_linux = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
+    pytorch_lightning_ver = '2.4.0'
+    lightning_fabric_ver = '2.4.0'
+#    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-win_amd64.whl'
+#    xformers_whl_url_linux = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
 
 #    torch_ver = '2.5.1'
 #    torchvision_ver = '0.20.1'
 #    torchaudio_ver = '2.5.1'
+#    pytorchlightning == '2.5.1'
+#    lightning-fabric == '2.5.1'
 #    xformers_ver = 'xformers 0.0.29.post1'
 #    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.29.post1-cp310-cp310-win_amd64.whl'
 #    xformers_whl_url_linux = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
-    #pytorchlightning == '2.5.1'
-    #lightning-fabric == '2.5.1'
 
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}")
@@ -72,14 +71,10 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    verify_installed_version('torchruntime', torchruntime_ver) 
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
 #    if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
 #        run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
-
-    verify_installed_version('lightning-fabric', lightning_fabric_ver)
-    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
     
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
@@ -106,6 +101,9 @@ def prepare_environment():
         elif platform.system() == "Linux":
             run_pip(f"install -U -I --no-deps {xformers_whl_url_linux}", xformers_ver)
         '''
+
+    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
+    verify_installed_version('lightning-fabric', lightning_fabric_ver)
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
