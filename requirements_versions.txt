@@ -24,7 +24,6 @@ groundingdino-py==0.4.0
 httpx==0.27.0
 kornia>=0.7.1
 lark-parser
-lightning-fabric==2.4.0
 loguru==0.7.2
 lxml==4.9.3
 mistune
@@ -48,7 +47,6 @@ polygraphy==0.47.1
 protobuf==3.19.0
 psutil==6.0.0
 pygit2 # needed until dulwich
-pytorch-lightning==2.4.0
 pyyaml==6.0.1
 pyzbar
 qrcode
