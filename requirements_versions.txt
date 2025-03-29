@@ -42,6 +42,7 @@ onnx-graphsurgeon==0.3.27
 packaging==24.1
 peft==0.10.0
 pillow #==10.4.0
+pip==25.0.1
 pixeloe
 polygraphy==0.47.1
 protobuf==3.19.0
