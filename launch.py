@@ -42,16 +42,17 @@ def prepare_environment():
     REINSTALL_ALL = False
 
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
+    requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     torchruntime_ver = '1.16.1'
     torch_ver = '2.4.1'
     torchvision_ver = '0.19.1'
     torchaudio_ver = '2.4.1'
+    lightning-fabric_ver = '2.4.0'
+    pytorch-lightning_ver = '2.4.0'
     xformers_ver = '0.0.28.post1'
     xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-win_amd64.whl'
     xformers_whl_url_linux = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
-#    pytorch-lightning==2.4.0
-#    lightning-fabric==2.4.0
 
 #    torch_ver = '2.5.1'
 #    torchvision_ver = '0.20.1'
@@ -74,11 +75,12 @@ def prepare_environment():
     verify_installed_version('torchruntime', torchruntime_ver) 
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-    requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
-
     if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
 
+    verify_installed_version('lightning-fabric', lightning-fabric_ver)
+    verify_installed_version('pytorch-lightning', pytorch-lightning_ver)
+    
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.system() == "Windows":
             if platform.python_version().startswith("3.10"):
