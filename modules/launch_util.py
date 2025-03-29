@@ -185,11 +185,15 @@ def is_installed_version(package, version_required):
         print()
         return False
     print()
-    print(f'Current Version of {package}: {version_installed}, Required Version: {version_required}')
+    print(f'The current version of {package} is: {version_installed}. Installing the required version: {version_required}')
     if packaging.version.parse(version_required) != packaging.version.parse(version_installed):
         return False
     return True
 
+def verify_installed_version(package_name, package_ver)
+    if not is_installed_version(package_name, package_ver):
+        run(f'"{python}" -m pip uninstall -y {package_name}')
+        run_pip(f"install -U -I --no-deps {package_name}", {package_name}, live=True)
 
 def delete_folder_content(folder, prefix=None):
     result = True
