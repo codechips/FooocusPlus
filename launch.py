@@ -2,6 +2,7 @@ import os
 import ssl
 import sys
 import ldm_patched
+import enhanced.version as version
 from common import ROOT
 
 print('[System ARGV] ' + str(sys.argv))
@@ -31,7 +32,6 @@ verify_installed_version('torchruntime', torchruntime_ver)
 
 import platform
 import comfy.comfy_version
-import enhanced.version as version
 import fooocus_version
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path
 from modules.model_loader import load_file_from_url
