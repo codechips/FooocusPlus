@@ -1,4 +1,4 @@
-import os
+ifyimport os
 import ssl
 import sys
 import ldm_patched
@@ -23,7 +23,7 @@ import enhanced.version as version
 import fooocus_version
 
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path
-from modules.launch_util import is_installed, is_installed_version, run, python, run_pip,\
+from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
     requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 from modules.model_loader import load_file_from_url
 
@@ -42,7 +42,8 @@ def prepare_environment():
     REINSTALL_ALL = False
 
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
-    
+
+    torchruntime_ver = '1.16.1'
     torch_ver = '2.4.1'
     torchvision_ver = '0.19.1'
     torchaudio_ver = '2.4.1'
@@ -70,10 +71,7 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    if not is_installed_version('torchruntime', '1.16.1'):
-        run(f'"{python}" -m pip uninstall -y torchruntime')
-        run_pip(f"install -U -I --no-deps torchruntime", "torchruntime", live=True)
-  
+    verify_installed_version('torchruntime', torchruntime_ver) 
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
