@@ -82,6 +82,18 @@ def prepare_environment():
     verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
     
     if REINSTALL_ALL or not is_installed("xformers"):
+        if platform.python_version().startswith("3.10"):
+            import torchruntime
+            xformers_statement = ("xformers==" + xformers_ver)
+            torchruntime.install([xformers_statement])
+        else:
+            print("Installation of xformers is not supported in this version of Python.")
+            print(
+                "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
+            if not is_installed("xformers"):
+                exit(0)   
+        
+        '''
         if platform.system() == "Windows":
             if platform.python_version().startswith("3.10"):
                 run_pip(f"install -U -I --no-deps {xformers_whl_url_win}", xformers_ver, live=True)
@@ -93,6 +105,7 @@ def prepare_environment():
                     exit(0)
         elif platform.system() == "Linux":
             run_pip(f"install -U -I --no-deps {xformers_whl_url_linux}", xformers_ver)
+        '''
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
