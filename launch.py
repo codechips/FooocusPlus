@@ -28,6 +28,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
     requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
+
+torchruntime_ver = '1.16.1'
 verify_installed_version('torchruntime', torchruntime_ver)
 
 import platform
@@ -43,7 +45,7 @@ def prepare_environment():
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
-    torchruntime_ver = '1.16.1'
+
     torch_ver = '2.4.1'
     torchvision_ver = '0.19.1'
     torchaudio_ver = '2.4.1'
