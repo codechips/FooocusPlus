@@ -190,7 +190,7 @@ def is_installed_version(package, version_required):
         return False
     return True
 
-def verify_installed_version(package_name, package_ver)
+def verify_installed_version(package_name, package_ver):
     if not is_installed_version(package_name, package_ver):
         run(f'"{python}" -m pip uninstall -y {package_name}')
         run_pip(f"install -U -I --no-deps {package_name}", {package_name}, live=True)
