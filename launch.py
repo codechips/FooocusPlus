@@ -48,8 +48,8 @@ def prepare_environment():
     torch_ver = '2.4.1'
     torchvision_ver = '0.19.1'
     torchaudio_ver = '2.4.1'
-    lightning-fabric_ver = '2.4.0'
-    pytorch-lightning_ver = '2.4.0'
+    lightning_fabric_ver = '2.4.0'
+    pytorch_lightning_ver = '2.4.0'
     xformers_ver = '0.0.28.post1'
     xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-win_amd64.whl'
     xformers_whl_url_linux = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
@@ -78,8 +78,8 @@ def prepare_environment():
     if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
 
-    verify_installed_version('lightning-fabric', lightning-fabric_ver)
-    verify_installed_version('pytorch-lightning', pytorch-lightning_ver)
+    verify_installed_version('lightning-fabric', lightning_fabric_ver)
+    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
     
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.system() == "Windows":
