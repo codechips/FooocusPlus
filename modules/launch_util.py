@@ -183,6 +183,7 @@ def is_installed_version(package, version_required):
     try:
         version_installed = importlib.metadata.version(package)
     except Exception:
+        print()
         return False
     print()
     print(f'Current Version of {package}: {version_installed}, Required Version: {version_required}')
