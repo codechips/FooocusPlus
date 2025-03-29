@@ -75,8 +75,8 @@ def prepare_environment():
     verify_installed_version('torchruntime', torchruntime_ver) 
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-    if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
-        run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
+#    if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
+#        run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
 
     verify_installed_version('lightning-fabric', lightning_fabric_ver)
     verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
