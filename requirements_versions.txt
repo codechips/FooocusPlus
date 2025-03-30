@@ -1,6 +1,6 @@
 # requirements_versions.txt, applicable to all platforms (FooocusPlus)
-huggingface-hub==0.29.3
-setuptools==78.1.0
+huggingface-hub==0.29.1
+setuptools==75.8.1
 diffusers>=0.29.0
 torchsde==0.2.6
 transformers==4.42.4
@@ -52,7 +52,7 @@ protobuf==3.19.0
 psutil==6.0.0
 pydantic==2.11.1
 pydantic-core==2.33.0
-pygit2==1.17.0 # needed until dulwich
+pygit2==1.15.1 # needed until dulwich
 pyparsing==3.2.3
 pyyaml==6.0.1
 pytz==2025.2
