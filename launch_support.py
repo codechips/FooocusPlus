@@ -65,7 +65,7 @@ def dependency_resolver():
         if platform.machine == "amd64":
             torch_ver = "2.2.2"
             directml = True # switch on AMD support
-        else
+        else:
             torch_ver = "2.5.1" # Apple Silicon
 
     ### begin assignments ###
