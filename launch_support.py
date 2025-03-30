@@ -43,7 +43,7 @@ def DependencyResolver(torch_base_ver):
     """
     # Logic: Windows (win32)
     if (sys.platform == "win32") and (torchruntime.platform == "nightly/cu128"):
-        torch_ver = ""
+        torch_ver = "special"
 
     elif sys.platform == "linux":
         if torchruntime.platform == "nightly/cu128":
@@ -104,7 +104,7 @@ def DependencyResolver(torch_base_ver):
             lightningfabric_version = "2.2.5",
         )
 
-    elif: torch_ver = "": # version not specified (special setup)
+    elif: torch_ver = "special": # version not specified (launch will clear the string)
         dependencies = dict(
             torchvision_version = "",
             torchaudio_version = "",
