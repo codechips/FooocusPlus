@@ -1,8 +1,8 @@
 import os
 import platform
 import sys
+import args_manager
 import torchruntime
-from args_manager import user_dir, directml
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
 python_embedded_path = os.path.join(win32_root, 'python_embedded')
@@ -64,7 +64,7 @@ def dependency_resolver():
     elif sys.platform == "darwin": # OSX
         if platform.machine == "amd64":
             torch_ver = "2.2.2"
-            directml = True # switch on AMD support
+            args_manager.directml = True # switch on AMD support
         else:
             torch_ver = "2.5.1" # Apple Silicon
 
@@ -135,7 +135,7 @@ def dependency_resolver():
 
 def read_torch_base():    
     try:
-        torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
+        torch_base_path = os.path.abspath(f'{args_manager.user_dir}/torch_base.txt')
         torch_base = open(torch_base_path, 'r')
         torch_base_ver = torch_base_ver.readline().strip()
         divider = '= '
@@ -147,7 +147,7 @@ def read_torch_base():
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
-    torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
+    torch_base_path = os.path.abspath(f'{args_manager.user_dir}/torch_base.txt')
     torch_base = open(torch_base_path, "w")
     torch_base.write(f"Torch base version = '{torch_base_ver}'")
     torch_base.close()
