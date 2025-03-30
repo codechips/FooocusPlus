@@ -49,8 +49,8 @@ def dependency_resolver():
     xformers_default = "0.0.29.post1"
     pytorchlightning_default = "2.5.1"
     lightningfabric_default = "2.5.1"
-    torchruntime_platform = get_torch_platform()
-
+    torchruntime_platform = get_torch_platform(gpu_infos)
+    print(torchruntime_platform)
     # Logic: Windows (win32)
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
         torch_ver = "special"
