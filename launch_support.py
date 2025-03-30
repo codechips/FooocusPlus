@@ -109,7 +109,7 @@ def dependency_resolver():
             lightningfabric_version = "2.2.5",
         )
 
-    elif: torch_ver == "special": # version not specified (launch will clear the string)
+    elif torch_ver == "special": # version not specified (launch will clear the string)
         dependencies = dict(
             torch_ver,
             torchvision_ver = "",
