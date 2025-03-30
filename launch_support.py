@@ -3,6 +3,7 @@ import platform
 import sys
 import args_manager
 import torchruntime
+from torchruntime.platform_detection import get_torch_platform
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
 python_embedded_path = os.path.join(win32_root, 'python_embedded')
@@ -48,17 +49,18 @@ def dependency_resolver():
     xformers_default = "0.0.29.post1"
     pytorchlightning_default = "2.5.1"
     lightningfabric_default = "2.5.1"
+    torchruntime_platform = get_torch_platform()
 
     # Logic: Windows (win32)
-    if (sys.platform == "win32") and (torchruntime.platform == "nightly/cu128"):
+    if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
         torch_ver = "special"
 
     elif sys.platform == "linux":
-        if torchruntime.platform == "nightly/cu128":
+        if torchruntime_platform == "nightly/cu128":
             torch_ver = "special"
-        elif torchruntime.platform == "rocm5.7":
+        elif torchruntime_platform == "rocm5.7":
             torch_ver = "2.3.1"
-        elif torchruntime.platform == "rocm5.2":
+        elif torchruntime_platform == "rocm5.2":
             torch_ver = "1.13.1"
 
     elif sys.platform == "darwin": # OSX
