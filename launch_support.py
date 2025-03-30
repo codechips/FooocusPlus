@@ -133,7 +133,7 @@ def dependency_resolver():
     # return the result
     return dependencies
 
-def delete_packages()
+def delete_packages():
     return
 
 def read_torch_base():    
