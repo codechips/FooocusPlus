@@ -1,4 +1,8 @@
 import os
+import platform
+import sys
+import torchruntime
+from args_manager import user_dir
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
 python_embedded_path = os.path.join(win32_root, 'python_embedded')
@@ -27,7 +31,7 @@ def build_launcher():
     return
 
 
-def DependencyResolver(torch_ver: str = "2.5.1"):
+def DependencyResolver(torch_base_ver):
     """
     Provides the dependent versions of a Torch build.
     Returns a dictionary with:
@@ -37,6 +41,17 @@ def DependencyResolver(torch_ver: str = "2.5.1"):
     - pytorchlightning_version: str
     - lightningfabric_version: str
     """
+    # Logic: Windows (win32)
+    if (sys.platform == "win32") and (torchruntime.platform == "nightly/cu128"):
+        torch_ver = ""
+    elif sys.platform == "linux":
+        if torchruntime.platform == "nightly/cu128":
+            torch_ver = ""
+        elif torchruntime.platform == "cu124"\
+            or torchruntime.platform == "rocm6.2"\
+            or torchruntime.platform == "rocm6.1":
+            torch_ver = "2.5.1"
+            
     # set our defaults for 2.5.1
     torchvision_default = "0.20.1"
     torchaudio_default = "2.5.1"
@@ -53,7 +68,16 @@ def DependencyResolver(torch_ver: str = "2.5.1"):
             pytorchlightning_version = "2.5.1", # will be compatible with slightly older versions
             lightningfabric_version = "2.5.1",
         )
-
+    
+    elif torch_ver == "2.3.1": # for Linux rocm5.7
+        dependencies = dict(
+            torchvision_version = "0.18.1",
+            torchaudio_version = "2.3.1",
+            xformers_version = "0.0.27",
+            pytorchlightning_version = "2.4.0",
+            lightningfabric_version = "2.4.0",
+        )        
+    
     elif torch_ver == "2.2.2": # last version supporting Intel Macs
         dependencies = dict(
             torchvision_version = "0.17.2",
@@ -72,6 +96,15 @@ def DependencyResolver(torch_ver: str = "2.5.1"):
             lightningfabric_version = "2.2.5",
         )
 
+    elif: torch_ver = "": # version not specified (special setup)
+        dependencies = dict(
+            torchvision_version = "",
+            torchaudio_version = "",
+            xformers_version = "",
+            pytorchlightning_version = "",
+            lightningfabric_version = "",
+        )
+    
     else:
         # use the defaults
         dependencies = dict(
@@ -84,3 +117,24 @@ def DependencyResolver(torch_ver: str = "2.5.1"):
     
     # return the result
     return dependencies
+
+def read_torch_base():    
+    try:
+        torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
+        torch_base = open(torch_base_path, 'r')
+        torch_base_ver = torch_base_ver.readline().strip()
+        divider = '= '
+        scratch = torch_base_ver.split(divider, 1)
+        torch_base_ver = scratch[1] if len(scratch) > 1 else ''
+        torch_base.close()
+    except:
+        torch_base_ver = ''
+    return torch_base_ver
+
+def write_torch_base(torch_base_ver):
+    torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
+    torch_base = open(torch_base_path, "w")
+    torch_base.write(f"Torch base version = '{torch_base_ver}'")
+    torch_base.close()
+    return
+
