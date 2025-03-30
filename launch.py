@@ -37,7 +37,7 @@ import platform
 import comfy.comfy_version
 import fooocus_version
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
-    delete_packages, dependendency_resolver, read_torch_base, write_torch_base
+    delete_packages, dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
 
@@ -64,7 +64,7 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    dependendency_resolver()
+    dependency_resolver()
     print(f'torch_ver: {torch_ver}')
     torch_base_ver()
     print(f'torch_base_ver: {torch_base_ver}')
