@@ -2,7 +2,7 @@ import os
 import platform
 import sys
 import torchruntime
-from args_manager import user_dir
+from args_manager import user_dir, directml
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
 python_embedded_path = os.path.join(win32_root, 'python_embedded')
@@ -44,14 +44,22 @@ def DependencyResolver(torch_base_ver):
     # Logic: Windows (win32)
     if (sys.platform == "win32") and (torchruntime.platform == "nightly/cu128"):
         torch_ver = ""
+
     elif sys.platform == "linux":
         if torchruntime.platform == "nightly/cu128":
             torch_ver = ""
-        elif torchruntime.platform == "cu124"\
-            or torchruntime.platform == "rocm6.2"\
-            or torchruntime.platform == "rocm6.1":
-            torch_ver = "2.5.1"
-            
+        elif torchruntime.platform == "rocm5.7":
+            torch_ver = "2.3.1"
+        elif torchruntime.platform == "rocm5.2":
+            torch_ver = "1.13.1"
+
+    elif sys.platform == "darwin": # OSX
+        if platform.machine = "amd64":
+            torch_ver = "2.2.2"
+            directml = True # switch on AMD support
+        else
+            torch_ver = "2.5.1" # Apple Silicon  
+    
     # set our defaults for 2.5.1
     torchvision_default = "0.20.1"
     torchaudio_default = "2.5.1"
