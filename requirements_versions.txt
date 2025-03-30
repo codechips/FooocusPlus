@@ -28,7 +28,7 @@ kornia>=0.7.1
 lark-parser
 loguru==0.7.2
 lxml==4.9.3
-MarksupSafe==3.0.2
+MarksupSafe
 mistune
 narwhals==1.32.0
 numba
