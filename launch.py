@@ -69,10 +69,8 @@ def prepare_environment():
 #    torch_base_ver()
 #    print(f'torch_base_ver: {torch_base_ver}')
 
-    torch_command = os.environ.get('TORCH_COMMAND',
-        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-#    if REINSTALL_ALL or not is_installed("torch") or not is_installed("torchvision"):
-#        run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch", live=True)
+#    torch_command = os.environ.get('TORCH_COMMAND',
+#        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
     
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
@@ -83,22 +81,8 @@ def prepare_environment():
             print(
                 "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
             if not is_installed("xformers"):
-                exit(0)   
-        
-        '''
-        if platform.system() == "Windows":
-            if platform.python_version().startswith("3.10"):
-                run_pip(f"install -U -I --no-deps {xformers_whl_url_win}", xformers_ver, live=True)
-            else:
-                print("Installation of xformers is not supported in this version of Python.")
-                print(
-                    "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
-                if not is_installed("xformers"):
-                    exit(0)
-        elif platform.system() == "Linux":
-            run_pip(f"install -U -I --no-deps {xformers_whl_url_linux}", xformers_ver)
-        '''
-
+                exit(0)
+                
     verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
     verify_installed_version('lightning-fabric', lightning_fabric_ver)
 
