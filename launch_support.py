@@ -133,6 +133,9 @@ def dependency_resolver():
     # return the result
     return dependencies
 
+def delete_packages()
+    return
+
 def read_torch_base():    
     try:
         torch_base_path = os.path.abspath(f'{args_manager.user_dir}/torch_base.txt')
