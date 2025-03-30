@@ -83,8 +83,8 @@ def prepare_environment():
             if not is_installed("xformers"):
                 exit(0)
                 
-    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
-    verify_installed_version('lightning-fabric', lightning_fabric_ver)
+#    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
+#    verify_installed_version('lightning-fabric', lightning_fabric_ver)
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
