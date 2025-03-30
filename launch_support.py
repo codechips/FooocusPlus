@@ -49,7 +49,7 @@ def dependency_resolver():
     xformers_default = "0.0.29.post1"
     pytorchlightning_default = "2.5.1"
     lightningfabric_default = "2.5.1"
-    if get_torch_platform("rocm5.7"):
+    if get_torch_platform("rocm6.1"):
         print('True')
     else:
         print('False')
