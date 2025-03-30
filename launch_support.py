@@ -31,7 +31,7 @@ def build_launcher():
     return
 
 
-def DependencyResolver():
+def dependency_resolver():
     """
     Provides the dependent versions of a Torch build.
     Returns a dictionary with:
