@@ -64,10 +64,10 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    dependency_resolver()
-    print(f'torch_ver: {torch_ver}')
-    torch_base_ver()
-    print(f'torch_base_ver: {torch_base_ver}')
+#    dependency_resolver()
+#    print(f'torch_ver: {torch_ver}')
+#    torch_base_ver()
+#    print(f'torch_base_ver: {torch_base_ver}')
 
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
