@@ -15,7 +15,7 @@ FooocusPlus is a community-developed AI image generation application that makes 
 - Multilingual – full support for English, French, and Chinese out of the box
 - Private – runs on your computer and does not send information about your identity or AI art generation to third parties without your consent
 
-**Supported Models**
+## Supported Models
 
 FooocusPlus gives you access to a diversity of AI image generation base models, including:
 
@@ -31,7 +31,7 @@ FooocusPlus gives you access to a diversity of AI image generation base models, 
 
 If you’re new to AI art, don’t worry! Our simple preset selectors, located in a bar at the top of the FooocusPlus main canvas, will give you one-click access to all of these exciting AI image generation models without any prior knowledge required. You'll be able to choose your own favorite model in no time.
 
-**System Requirements**
+## System Requirements
 
 To run FooocusPlus, you will need a computer with a graphics card capable of running advanced AI software, including at least:
 
@@ -45,7 +45,7 @@ For those systems that are capable of generating FooocusPlus images with only 4G
 
 FooocusPlus supports NVIDIA graphics cards on Windows and Linux, macOS on Silicon, and many AMD graphics cards on Linux. We also support using AMD graphics cards on Windows at a reduced speed, and provide limited support for macOS on Intel.
 
-**Installing FooocusPlus Preview**
+## Installing FooocusPlus Preview
 
 FooocusPlus is currently in preview, which means we are still working on ways to make the installation process even easier. However, you can get a sneak peak of FooocusPlus right now by downloading:
 
@@ -55,11 +55,11 @@ FooocusPlus is currently in preview, which means we are still working on ways to
 
 After your downloads have completed, first install 7-Zip. Next, install the Windows program archive to create a FooocusPlus folder, and then install the Model Starter Pack to the models folder. Double-click on the run_FooocusPlus.bat file (or the Chinese version, 常规启动.bat) to load FooocusPlus for the first time. We’ll download some additional components automatically on the first run.
 
-**Getting Help**
+## Getting Help
 
 Have a question or concern? Visit the Discussions page here at GitHub or join our friendly community at the Facebook [Pure Fooocus](https://www.facebook.com/groups/fooocus) group. If you think you have found a bug or want to suggest a missing feature, visit the GitHub Issues page to file a report so that we can investigate.
 
-**Licensing**
+## Licensing
 
 FooocusPlus is free to download and use, and the FooocusPlus developers will never request money or identifiable information from you in order to access or run the software. We do not accept donations or sponsorships, but instead welcome positive feedback, encouragement, and GitHub stars.
 
@@ -73,7 +73,7 @@ You also agree that you will not use FooocusPlus to:
 - Create material that may be used to harm or harass others
 - Violate the license agreements of included software packages or AI models
 
-**Credits**
+## Credits
 
 FooocusPlus is Copyright &copy; 2024-2025 David Sage and contributors.
 
