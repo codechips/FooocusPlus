@@ -53,6 +53,7 @@ def dependency_resolver():
     pytorchlightning_default = "2.5.1"
     lightningfabric_default = "2.5.1"
 
+    torch_ver = torch_default # initialize torch to the default
     gpus = get_gpus()
     torchruntime_platform = get_torch_platform(gpus)
 
