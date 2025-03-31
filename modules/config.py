@@ -119,6 +119,7 @@ except Exception as e:
     print(e)
 available_presets = get_presets()
 preset = args_manager.args.preset
+print(f'preset {preset}')
 if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
 and (os.path.exists('./presets/4GB_Default.json')):
     preset='4GB_Default'
