@@ -5,7 +5,7 @@
 
 FooocusPlus is a community-developed AI image generation application that makes creating stunning works of art easier than ever. FooocusPlus runs offline on your computer and is completely free! Now you can have your very own Stable Diffusion or Midjourney that helps turn your creative ideas into beautiful images without any technical skills.
 
-##Features
+## Features
 
 - Generate stunning images with meticulously prepared presets – just describe your new masterpiece and watch it come to life
 - Get inspiration for your art – choose from an extensive list of styles, or use our integrated AI assistant to help you write the perfect prompt
