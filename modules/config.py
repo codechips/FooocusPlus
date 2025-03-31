@@ -173,6 +173,7 @@ elif args_manager.args.user_dir:
     path_models_root = get_dir_or_set_default('path_models_root', f'{args_manager.args.user_dir}/models')
 else:
     path_models_root = get_dir_or_set_default('path_models_root', '..UserDir/models')
+path_models_root = os.path.abspath(path_models_root)
 print(f'Generative models are stored in {path_models_root}')
 
 paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
