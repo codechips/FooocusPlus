@@ -81,9 +81,10 @@ def get_config_path(config_file):
 
 def get_presets():
     preset_folder = '.\presets'
-    presets = ['initial']
+    presets = ['default']
     if not os.path.exists(preset_folder):
         print('No presets found')
+        presets = ['initial']
         return presets
     return presets + [f[:f.index(".json")] for f in os.listdir(preset_folder) if f.endswith('.json')]
 
@@ -119,7 +120,6 @@ except Exception as e:
     print(e)
 available_presets = get_presets()
 preset = args_manager.args.preset
-print(f'preset {preset}')
 if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
 and (os.path.exists('./presets/4GB_Default.json')):
     preset='4GB_Default'
