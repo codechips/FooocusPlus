@@ -167,7 +167,7 @@ def read_torch_base():
         torch_base_ver = scratch[1] if len(scratch) > 1 else ''
         torch_base.close()
     except:
-        torch_base_ver = ''
+        torch_base_ver = 'undefined'
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
