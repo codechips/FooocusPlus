@@ -1,8 +1,10 @@
 import os
 import platform
+import shutil
 import sys
 import args_manager
 import torchruntime
+from torchruntime.device_db import get_gpus
 from torchruntime.platform_detection import get_torch_platform
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
@@ -36,6 +38,7 @@ def dependency_resolver():
     """
     Provides the dependent versions of a Torch build.
     Returns a dictionary with:
+    - torch_ver: str
     - torchvision_ver: str
     - torchaudio_ver: str
     - xformers_ver: str
@@ -49,16 +52,23 @@ def dependency_resolver():
     xformers_default = "0.0.29.post1"
     pytorchlightning_default = "2.5.1"
     lightningfabric_default = "2.5.1"
-    if get_torch_platform("rocm6.1"):
-        print('True')
-    else:
-        print('False')
 
-    # Logic: Windows (win32)
+    gpus = get_gpus()
+    torch_platform = get_torch_platform(gpus)
+
+    # First, take care of special cases
+    # Note, torchruntime/torchruntime/platform_detection.py
+    # suggests "directml" should be used for Intel
+    #
+    if platform.machine == "amd64" or torchruntime_platform == "xpu":
+        args_manager.directml = True # switch on AMD/Intel support
+
+    
+    # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
         torch_ver = "special"
 
-    elif sys.platform == "linux":
+    elif sys.platform == "linux": # Linux also defaults to "2.5.1" 
         if torchruntime_platform == "nightly/cu128":
             torch_ver = "special"
         elif torchruntime_platform == "rocm5.7":
@@ -66,14 +76,11 @@ def dependency_resolver():
         elif torchruntime_platform == "rocm5.2":
             torch_ver = "1.13.1"
 
-    elif sys.platform == "darwin": # OSX
+    elif sys.platform == "darwin": # (OSX) Apple Silicon defaults to "2.5.1"
         if platform.machine == "amd64":
             torch_ver = "2.2.2"
-            args_manager.directml = True # switch on AMD support
-        else:
-            torch_ver = "2.5.1" # Apple Silicon
-
-    ### begin assignments ###
+    
+    # Begin the assignment of dependencies:
     if torch_ver == "2.4.1":
         dependencies = dict(
             torch_ver,
@@ -138,9 +145,17 @@ def dependency_resolver():
     # return the result
     return dependencies
 
-def delete_packages():
+def delete_torch_dependencies():
+    library_path = os.path.abspath(f'../python_embedded/Lib/site-packages')
+    file_paths = ['torch', 'torch-*', 'torchaudio', 'torchaudio-*',\
+        'torchvision', 'torchvision-*', 'xformers', 'xformers-*',\
+        'pytorch_lightning', 'pytorch_lightning-*',\
+        'lightning-fabric', 'lightning-fabric-*']
+    for file_path in file_paths:
+      if os.path.exists(f'{library_path}/{file_path}'):
+        shutil.rmtree(f'{library_path}/{file_path}', ignore_errors=True)
     return
-
+      
 def read_torch_base():    
     try:
         torch_base_path = os.path.abspath(f'{args_manager.user_dir}/torch_base.txt')
