@@ -167,7 +167,8 @@ def init_temp_path(path: str | None, default_path: str) -> str:
     return default_path
 
 if args_manager.args.models_root:
-    path_models_root = get_dir_or_set_default('path_models_root', args_manager.args.models_root)
+    get_dir_or_set_default('path_models_root', args_manager.args.models_root)
+    path_models_root = args_manager.args.models_root
 elif args_manager.args.user_dir:
     path_models_root = get_dir_or_set_default('path_models_root', f'{args_manager.args.user_dir}/models')
 else:
@@ -194,14 +195,12 @@ path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_roo
 paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
 
 if args_manager.args.output_path:
-    path_outputs = get_dir_or_set_default('path_outputs', args_manager.args.output_path)
-    print(f'args_manager.args.output_path {args_manager.args.output_path}')
+    get_dir_or_set_default('path_outputs', args_manager.args.output_path)
+    path_outputs = args_manager.args.output_path
 elif args_manager.args.user_dir:
     path_outputs = get_dir_or_set_default('path_outputs', f'{args_manager.args.user_dir}/Outputs')
-    print(f'args_manager.args.user_dir {args_manager.args.user_dir}')
 else:
     path_outputs = get_dir_or_set_default('path_outputs', '..UserDir/Outputs')
-    print(f'path_outputs {path_outputs}')
 
 path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
 print(f'Generated images will be stored in {path_outputs}')
