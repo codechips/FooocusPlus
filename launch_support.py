@@ -54,7 +54,7 @@ def dependency_resolver():
     lightningfabric_default = "2.5.1"
 
     gpus = get_gpus()
-    torch_platform = get_torch_platform(gpus)
+    torchruntime_platform = get_torch_platform(gpus)
 
     # First, take care of special cases
     # Note, torchruntime/torchruntime/platform_detection.py
