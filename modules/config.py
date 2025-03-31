@@ -202,6 +202,7 @@ elif args_manager.args.user_dir:
     path_outputs = get_dir_or_set_default('path_outputs', f'{args_manager.args.user_dir}/Outputs')
 else:
     path_outputs = get_dir_or_set_default('path_outputs', '..UserDir/Outputs')
+path_outputs = os.path.abspath(path_outputs)
 
 path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
 print(f'Generated images will be stored in {path_outputs}')
