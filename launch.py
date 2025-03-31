@@ -59,7 +59,7 @@ def prepare_environment():
     torch_list = dependency_resolver()
     torch_ver, torchvision_ver, torchaudio_ver, xformers_ver,\
         pytorch_lightning_ver, lightning_fabric_ver = torch_list
-    print(f'torch_ver: {torch_ver}')
+    print(torch_ver)
     torch_base_ver = read_torch_base()
     print(f'torch_base_ver: {torch_base_ver}')
     if torch_ver != torch_base_ver:
