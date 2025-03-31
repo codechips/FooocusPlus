@@ -76,8 +76,8 @@ def get_config_path(config_file):
         config_path = args_manager.args.user_dir
     else:
         config_path = '../user_dir'
-    config_path = f'{config_path}/{config_file}'
-    return os.path.abspath(config_path)
+    config_path = os.path.abspath(f'{config_path}/{config_file}')
+    return config_path
 
 def get_presets():
     preset_folder = '.\presets'
