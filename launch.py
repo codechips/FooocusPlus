@@ -62,7 +62,13 @@ def prepare_environment():
     print(f'torch_ver: {torch_ver}')
     torch_base_ver = read_torch_base()
     print(f'torch_base_ver: {torch_base_ver}')
-    return
+    if torch_ver != torch_base_ver:
+        write_torch_base(torch_ver)
+        if is_win32_standalone_build:
+            delete_torch_dependencies()
+    if torch_ver == "special":
+        torch_ver = ""
+    
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
     
