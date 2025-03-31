@@ -37,7 +37,7 @@ import platform
 import comfy.comfy_version
 import fooocus_version
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
-    delete_packages, dependency_resolver, read_torch_base, write_torch_base
+    delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
 
@@ -46,14 +46,6 @@ def prepare_environment():
 
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
-
-#    torch_ver = '2.4.1'
-#    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-win_amd64.whl'
-#    xformers_whl_url_linux = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.28.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
-
-#    torch_ver = '2.5.1'
-#    xformers_whl_url_win = 'https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/xformers-0.0.29.post1-cp310-cp310-win_amd64.whl'
-#    xformers_whl_url_linux = 'https://download.pytorch.org/whl/cu121/xformers-0.0.29.post1-cp310-cp310-manylinux_2_28_x86_64.whl'
 
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}")
@@ -64,13 +56,13 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-#    dependency_resolver()
-#    print(f'torch_ver: {torch_ver}')
-#    torch_base_ver()
-#    print(f'torch_base_ver: {torch_base_ver}')
-
-#    torch_command = os.environ.get('TORCH_COMMAND',
-#        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
+    dependency_resolver()
+    print(f'torch_ver: {torch_ver}')
+    torch_base_ver()
+    print(f'torch_base_ver: {torch_base_ver}')
+    return
+    torch_command = os.environ.get('TORCH_COMMAND',
+        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
     
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
@@ -83,8 +75,8 @@ def prepare_environment():
             if not is_installed("xformers"):
                 exit(0)
                 
-#    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
-#    verify_installed_version('lightning-fabric', lightning_fabric_ver)
+    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
+    verify_installed_version('lightning-fabric', lightning_fabric_ver)
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
