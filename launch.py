@@ -65,8 +65,8 @@ def prepare_environment():
     torchvision_ver = torch_dict['torchvision_ver']
     torchaudio_ver = torch_dict['torchaudio_ver']
     xformers_ver = torch_dict['xformers_ver']
-    pytorch_lightning_ver = torch_dict['pytorch_lightning_ver']
-    lightning_fabric_ver = torch_dict['lightning_fabric_ver']
+    pytorchlightning_ver = torch_dict['pytorchlightning_ver']
+    lightningfabric_ver = torch_dict['lightningfabric_ver']
     print(f'torch_ver: {torch_ver}')
 #    torch_ver = get_dependency_value(torch_ver)
     print(f'torch_ver: {torch_ver}')
