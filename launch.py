@@ -56,6 +56,7 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
+    torch_dict = dependency_resolver()
     torch_ver = torch_dict['torch_ver']
     torchvision_ver = torch_dict['torchvision_ver']
     torchaudio_ver = torch_dict['torchaudio_ver']
