@@ -37,7 +37,8 @@ import platform
 import comfy.comfy_version
 import fooocus_version
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
-    delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
+    delete_torch_dependencies, dependency_resolver, get_dependency_value, read_torch_base,\
+    write_torch_base
 from modules.model_loader import load_file_from_url
 
 
@@ -60,6 +61,7 @@ def prepare_environment():
     print(torch_list)
     torch_ver, torchvision_ver, torchaudio_ver, xformers_ver,\
         pytorch_lightning_ver, lightning_fabric_ver = torch_list
+    torch_ver = get_dependency_value(torch_ver)
     print(f'torch_ver: {torch_ver}')
     torch_base_ver = read_torch_base()
     print(f'torch_base_ver: {torch_base_ver}')
