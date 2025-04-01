@@ -158,17 +158,17 @@ def delete_torch_dependencies():
     return
       
 def read_torch_base():    
-    try:
-        torch_base_path = os.path.abspath(f'{args_manager.user_dir}/torch_base.txt')
-        torch_base = open(torch_base_path, 'r')
-        torch_base_ver = torch_base_ver.readline().strip()
-        divider = '= '
-        scratch = torch_base_ver.split(divider, 1)
-        torch_base_ver = scratch[1] if len(scratch) > 1 else ''
-        torch_base.close()
-    except:
-        torch_base_ver = 'undefined'
-    return torch_base_ver
+#    try:
+    torch_base_path = os.path.abspath(f'{args_manager.user_dir}/torch_base.txt')
+    torch_base = open(torch_base_path, 'r')
+    torch_base_ver = torch_base_ver.readline().strip()
+    divider = '= '
+    scratch = torch_base_ver.split(divider, 1)
+    torch_base_ver = scratch[1] if len(scratch) > 1 else ''
+    torch_base.close()
+#    except:
+#        torch_base_ver = 'undefined'
+return torch_base_ver
 
 def write_torch_base(torch_base_ver):
     torch_base_path = os.path.abspath(f'{args_manager.args.user_dir}/torch_base.txt')
