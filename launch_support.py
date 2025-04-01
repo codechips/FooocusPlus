@@ -168,7 +168,7 @@ def read_torch_base():
     torch_base.close()
 #    except:
 #        torch_base_ver = 'undefined'
-return torch_base_ver
+    return torch_base_ver
 
 def write_torch_base(torch_base_ver):
     torch_base_path = os.path.abspath(f'{args_manager.args.user_dir}/torch_base.txt')
@@ -176,4 +176,3 @@ def write_torch_base(torch_base_ver):
     torch_base.write(f"Torch base version = '{torch_base_ver}'")
     torch_base.close()
     return
-
