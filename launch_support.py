@@ -154,15 +154,19 @@ def delete_torch_dependencies():
       if os.path.exists(f'{library_path}/{file_path}'):
         shutil.rmtree(f'{library_path}/{file_path}', ignore_errors=True)
     return
+
+def get_dependency_value(dependency):
+    divider = '= '
+    scratch = dependency.split(divider, 1)
+    dependency_value = scratch[1] if len(scratch) > 1 else ''
+    return dependency_value
       
 def read_torch_base():    
     try:
         torch_base_path = os.path.abspath(f'{args_manager.args.user_dir}/torch_base.txt')
         torch_base = open(torch_base_path, 'r')
         torch_base_ver = torch_base.readline().strip()
-        divider = '= '
-        scratch = torch_base_ver.split(divider, 1)
-        torch_base_ver = scratch[1] if len(scratch) > 1 else ''
+        torch_base_ver = get_dependency_value(torch_base_ver)
         torch_base.close()
     except:
         torch_base_ver = 'undefined'
