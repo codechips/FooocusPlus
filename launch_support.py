@@ -151,12 +151,13 @@ def delete_torch_dependencies():
     file_paths = ['torch', 'torchaudio', 'torchvision', 'xformers',\
         'pytorch_lightning', 'lightning-fabric']
     for file_path in file_paths:
+        scratch_path = file_path
         if os.path.exists(f'{library_path}/{file_path}'):
             print(file_path)
             shutil.rmtree(f'{library_path}/{file_path}', ignore_errors=True)
-        for file_path in glob.glob(f'{file_path}-*-info'):
-            print(file_path)
-            shutil.rmtree(f'{library_path}/{file_path}', ignore_errors=True)
+        for scratch_path in glob.glob(f'{library_path}/{file_path}-*-info'):
+            print(scratch_path)
+            shutil.rmtree(scratch_path, ignore_errors=True)
     return
 
 def get_split_value(full_string):
