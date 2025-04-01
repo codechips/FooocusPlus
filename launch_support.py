@@ -42,8 +42,8 @@ def dependency_resolver():
     - torchvision_ver: str
     - torchaudio_ver: str
     - xformers_ver: str
-    - pytorchlightning_version: str
-    - lightningfabric_version: str
+    - pytorchlightning_ver: str
+    - lightningfabric_ver: str
     """
     # set our defaults for 2.5.1
     torch_default = "2.5.1"
@@ -88,8 +88,8 @@ def dependency_resolver():
             torchvision_ver = "0.19.1",
             torchaudio_ver = "2.4.1",
             xformers_ver = "0.0.28.post1",
-            pytorchlightning_version = "2.5.1", # will be compatible with slightly older versions
-            lightningfabric_version = "2.5.1",
+            pytorchlightning_ver = "2.5.1", # will be compatible with slightly older versions
+            lightningfabric_ver = "2.5.1",
         )
     
     elif torch_ver == "2.3.1": # for Linux rocm5.7
@@ -98,8 +98,8 @@ def dependency_resolver():
             torchvision_ver = "0.18.1",
             torchaudio_ver = "2.3.1",
             xformers_ver = "0.0.27",
-            pytorchlightning_version = "2.4.0",
-            lightningfabric_version = "2.4.0",
+            pytorchlightning_ver = "2.4.0",
+            lightningfabric_ver = "2.4.0",
         )        
     
     elif torch_ver == "2.2.2": # last version supporting Intel Macs
@@ -108,8 +108,8 @@ def dependency_resolver():
             torchvision_ver = "0.17.2",
             torchaudio_ver = "2.2.2",
             xformers_ver = "0.0.27.post2", # but not MPS compatible
-            pytorchlightning_version = "2.4.0", # confirm 2.5.1 compatibility when versioning policy updated
-            lightningfabric_version = "2.4.0",
+            pytorchlightning_ver = "2.4.0", # confirm 2.5.1 compatibility when versioning policy updated
+            lightningfabric_ver = "2.4.0",
         )
 
     elif torch_ver == "1.13.1": # earliest possible supported release: rocm5.2
@@ -118,8 +118,8 @@ def dependency_resolver():
             torchvision_ver = "0.14.1",
             torchaudio_ver = "0.13.1",
             xformers_ver = "0.0.20", # but not compatible with ROCm, rocm6.2.4 only
-            pytorchlightning_version = "2.2.5",
-            lightningfabric_version = "2.2.5",
+            pytorchlightning_ver = "2.2.5",
+            lightningfabric_ver = "2.2.5",
         )
 
     elif torch_ver == "special": # version not specified (launch will clear the string)
@@ -128,8 +128,8 @@ def dependency_resolver():
             torchvision_ver = "",
             torchaudio_ver = "",
             xformers_ver = "",
-            pytorchlightning_version = "",
-            lightningfabric_version = "",
+            pytorchlightning_ver = "",
+            lightningfabric_ver = "",
         )
     
     else:
@@ -139,8 +139,8 @@ def dependency_resolver():
             torchvision_ver = torchvision_default,
             torchaudio_ver = torchaudio_default,
             xformers_ver = xformers_default,
-            pytorchlightning_version = pytorchlightning_default,
-            lightningfabric_version = lightningfabric_default,
+            pytorchlightning_ver = pytorchlightning_default,
+            lightningfabric_ver = lightningfabric_default,
         )
 
     # return the result
