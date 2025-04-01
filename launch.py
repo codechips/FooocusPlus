@@ -64,7 +64,7 @@ def prepare_environment():
     print(f'torch_ver: {torch_ver}')
     torch_ver = get_dependency_value(torch_ver)
     print(f'torch_ver: {torch_ver}')
-#    torch_base_ver = read_torch_base()
+    torch_base_ver = read_torch_base()
     print(f'torch_base_ver: {torch_base_ver}')
     if torch_ver != torch_base_ver:
         write_torch_base(torch_ver)
