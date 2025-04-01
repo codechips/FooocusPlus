@@ -159,7 +159,7 @@ def delete_torch_dependencies():
       
 def read_torch_base():    
 #    try:
-    torch_base_path = os.path.abspath(f'{args_manager.user_dir}/torch_base.txt')
+    torch_base_path = os.path.abspath(f'{args_manager.args.user_dir}/torch_base.txt')
     torch_base = open(torch_base_path, 'r')
     torch_base_ver = torch_base_ver.readline().strip()
     divider = '= '
