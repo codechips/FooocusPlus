@@ -10,7 +10,7 @@ import importlib.metadata
 import packaging.version
 import pygit2
 from pathlib import Path
-from launch_support import python_embedded_path
+from launch_support import python_embedded_path, is_win32_standalone_build
 
 pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
 
@@ -27,7 +27,8 @@ default_command_live = (os.environ.get('LAUNCH_LIVE_OUTPUT') == "1")
 # replace with the mainline Fooocus and RuinedFooocus statement:
 index_url = os.environ.get('INDEX_URL', "")
 
-target_path_install = f' -t {os.path.abspath(os.path.join(python_embedded_path, "Lib/site-packages"))}' if sys.platform.startswith("win") else ''
+target_path_install = f' -t {os.path.abspath(os.path.join(python_embedded_path, "Lib/site-packages"))}'\
+    if sys.platform.startswith("win") else ''
 
 modules_path = os.path.dirname(os.path.realpath(__file__))
 script_path = os.path.dirname(modules_path)
@@ -81,9 +82,10 @@ def repo_dir(name):
 
 
 def is_installed(package):
-    library_path = os.path.abspath(f'../python_embedded/Lib/site-packages/{package}')
-    if not os.path.exists(library_path):
-        return False
+    is_win32_standalone_build:
+        library_path = os.path.abspath(f'../python_embedded/Lib/site-packages/{package}')
+        if not os.path.exists(library_path):
+            return False
     try:
         spec = importlib.util.find_spec(package)
     except ModuleNotFoundError:
