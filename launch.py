@@ -57,14 +57,18 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    torch_list = dependency_resolver()
+    torch_dict = dependency_resolver()
     print()
-    print(f'Returned values from the dependency_resolver: {torch_list}')
+    print(f'Returned values from the dependency_resolver: {torch_dict}')
     print()
-    torch_ver, torchvision_ver, torchaudio_ver, xformers_ver,\
-        pytorch_lightning_ver, lightning_fabric_ver = torch_list
+    torch_ver = torch_dict['torch_ver']
+    torchvision_ver = torch_dict['torchvision_ver']
+    torchaudio_ver = torch_dict['torchaudio_ver']
+    xformers_ver = torch_dict['xformers_ver']
+    pytorch_lightning_ver = torch_dict['pytorch_lightning_ver']
+    lightning_fabric_ver = torch_dict['lightning_fabric_ver']
     print(f'torch_ver: {torch_ver}')
-    torch_ver = get_dependency_value(torch_ver)
+#    torch_ver = get_dependency_value(torch_ver)
     print(f'torch_ver: {torch_ver}')
     torch_base_ver = read_torch_base()
     print(f'torch_base_ver: {torch_base_ver}')
