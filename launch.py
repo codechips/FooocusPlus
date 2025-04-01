@@ -57,6 +57,7 @@ def prepare_environment():
     print('Checking for required library files and loading Xformers...')
 
     torch_list = dependency_resolver()
+    print(torch_list)
     torch_ver, torchvision_ver, torchaudio_ver, xformers_ver,\
         pytorch_lightning_ver, lightning_fabric_ver = torch_list
     print(f'torch_ver: {torch_ver}')
