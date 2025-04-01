@@ -37,8 +37,7 @@ import platform
 import comfy.comfy_version
 import fooocus_version
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
-    delete_torch_dependencies, dependency_resolver, get_dependency_value, read_torch_base,\
-    write_torch_base
+    delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
 
@@ -57,31 +56,23 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
-    torch_dict = dependency_resolver()
-    print()
-    print(f'Returned values from the dependency_resolver: {torch_dict}')
-    print()
     torch_ver = torch_dict['torch_ver']
     torchvision_ver = torch_dict['torchvision_ver']
     torchaudio_ver = torch_dict['torchaudio_ver']
     xformers_ver = torch_dict['xformers_ver']
     pytorchlightning_ver = torch_dict['pytorchlightning_ver']
     lightningfabric_ver = torch_dict['lightningfabric_ver']
-    print(f'torch_ver: {torch_ver}')
-#    torch_ver = get_dependency_value(torch_ver)
-    print(f'torch_ver: {torch_ver}')
+
     torch_base_ver = read_torch_base()
-    print(f'torch_base_ver: {torch_base_ver}')
+
     if torch_ver != torch_base_ver:
+        print(f'Updating to Torch {torch_ver} and its dependencies...')
         write_torch_base(torch_ver)
         if is_win32_standalone_build:
             delete_torch_dependencies()
     if torch_ver == "special":
-        torch_ver = ""
-    
-    torch_command = os.environ.get('TORCH_COMMAND',
-        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-    
+        torch_ver = ""  
+   
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
             xformers_statement = ("xformers==" + xformers_ver)
@@ -93,8 +84,11 @@ def prepare_environment():
             if not is_installed("xformers"):
                 exit(0)
                 
-    verify_installed_version('pytorch-lightning', pytorch_lightning_ver)
-    verify_installed_version('lightning-fabric', lightning_fabric_ver)
+    torch_command = os.environ.get('TORCH_COMMAND',
+        f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
+    
+    verify_installed_version('pytorch-lightning', pytorchlightning_ver)
+    verify_installed_version('lightning-fabric', lightningfabric_ver)
 
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
