@@ -142,7 +142,7 @@ def dependency_resolver():
             pytorchlightning_version = pytorchlightning_default,
             lightningfabric_version = lightningfabric_default,
         )
-    print(torch_ver)
+
     # return the result
     return dependencies
 
