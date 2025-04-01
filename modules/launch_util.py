@@ -82,7 +82,7 @@ def repo_dir(name):
 
 
 def is_installed(package):
-    is_win32_standalone_build:
+    if is_win32_standalone_build:
         library_path = os.path.abspath(f'../python_embedded/Lib/site-packages/{package}')
         if not os.path.exists(library_path):
             return False
