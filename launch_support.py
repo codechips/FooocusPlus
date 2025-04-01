@@ -63,7 +63,6 @@ def dependency_resolver():
     #
     if platform.machine == "amd64" or torchruntime_platform == "xpu":
         args_manager.directml = True # switch on AMD/Intel support
-
     
     # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
@@ -155,18 +154,18 @@ def delete_torch_dependencies():
         shutil.rmtree(f'{library_path}/{file_path}', ignore_errors=True)
     return
 
-def get_dependency_value(dependency):
+def get_split_value(full_string):
     divider = '= '
-    scratch = dependency.split(divider, 1)
-    dependency_value = scratch[1] if len(scratch) > 1 else ''
-    return dependency_value
+    scratch = full_string.split(divider, 1)
+    split_value = scratch[1] if len(scratch) > 1 else ''
+    return split_value
       
 def read_torch_base():    
     try:
         torch_base_path = os.path.abspath(f'{args_manager.args.user_dir}/torch_base.txt')
         torch_base = open(torch_base_path, 'r')
         torch_base_ver = torch_base.readline().strip()
-        torch_base_ver = get_dependency_value(torch_base_ver)
+        torch_base_ver = get_split_value(torch_base_ver)
         torch_base.close()
     except:
         torch_base_ver = 'undefined'
