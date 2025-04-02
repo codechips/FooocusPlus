@@ -67,7 +67,7 @@ def prepare_environment():
     torch_base_ver = read_torch_base()
 
     if torch_ver != torch_base_ver:
-        print(f'Torch is recorded as being {torch_base_ver}'
+        print(f'Torch is recorded as being {torch_base_ver}')
         print(f'Updating to Torch {torch_ver} and its dependencies...')
         write_torch_base(torch_ver)
         delete_torch_dependencies()
