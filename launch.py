@@ -69,11 +69,10 @@ def prepare_environment():
     if torch_ver != torch_base_ver:
         print(f'Updating to Torch {torch_ver} and its dependencies...')
         write_torch_base(torch_ver)
-        if is_win32_standalone_build:
-            delete_torch_dependencies()
+        delete_torch_dependencies()
     if torch_ver == "special":
-        torch_ver = ""  
-   
+        torch_ver = ""
+
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
             xformers_statement = ("xformers==" + xformers_ver)
@@ -84,10 +83,11 @@ def prepare_environment():
                 "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
             if not is_installed("xformers"):
                 exit(0)
-                
+
     torch_command = os.environ.get('TORCH_COMMAND',
         f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-    
+
+    verify_installed_version('torchvision', torchvision_ver)
     verify_installed_version('pytorch-lightning', pytorchlightning_ver)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
 
