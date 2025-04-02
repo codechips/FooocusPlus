@@ -75,9 +75,11 @@ def prepare_environment():
     if torch_ver == "special":
         torch_ver = ""
 
+    torch_command = os.environ.get('TORCH_COMMAND',
+    f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
+    
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
-#            xformers_statement = ("xformers==" + xformers_ver)
             xformers_statement = "xformers==" + xformers_ver
             torchruntime.install([xformers_statement, "--no-deps"])
         else:
@@ -90,8 +92,6 @@ def prepare_environment():
     verify_installed_version('torchaudio', torchaudio_ver)
     verify_installed_version('pytorch-lightning', pytorchlightning_ver)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
-    torch_command = os.environ.get('TORCH_COMMAND',
-    f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
     verify_installed_version('torchvision', torchvision_ver)
     
     if REINSTALL_ALL or not requirements_met(requirements_file):
