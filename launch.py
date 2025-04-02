@@ -69,6 +69,7 @@ def prepare_environment():
     if torch_ver != torch_base_ver:
         print(f'Torch is recorded as being {torch_base_ver}')
         print(f'Updating to Torch {torch_ver} and its dependencies...')
+        quit()
         write_torch_base(torch_ver)
         delete_torch_dependencies()
     if torch_ver == "special":
@@ -86,12 +87,12 @@ def prepare_environment():
                 exit(0)
 
     verify_installed_version('torchaudio', torchaudio_ver)
-    verify_installed_version('torchvision', torchvision_ver)
     verify_installed_version('pytorch-lightning', pytorchlightning_ver)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
     torch_command = os.environ.get('TORCH_COMMAND',
     f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-
+    verify_installed_version('torchvision', torchvision_ver)
+    
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
             for p in met_diff.keys():
