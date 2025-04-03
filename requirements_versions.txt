@@ -3,7 +3,8 @@ huggingface-hub==0.29.1
 setuptools==75.8.1
 diffusers>=0.29.0
 torchsde==0.2.6
-transformers==4.42.4
+#transformers==4.42.4
+transformers
 accelerate==0.32.1
 albumentations==2.0.4
 attrs==24.2.0
