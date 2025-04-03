@@ -77,9 +77,11 @@ def prepare_environment():
 
 
 #    verify_installed_version('torch', torch_ver) # for testing only
-    torch_command = os.environ.get('TORCH_COMMAND',
-    f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
- 
+#    torch_command = os.environ.get('TORCH_COMMAND',
+#    f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
+    torch_statement = "torch==" + xformers_ver, "torchvision==" + torchvision_ver, "torchaudio==" + torchaudio_ver
+    torchruntime.install([torch_statement])
+    
     verify_installed_version('torchaudio', torchaudio_ver)
     verify_installed_version('pytorch-lightning', pytorchlightning_ver)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
