@@ -78,7 +78,12 @@ def prepare_environment():
 #    verify_installed_version('torch', torch_ver) # for testing only
     torch_command = os.environ.get('TORCH_COMMAND',
     f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-    
+ 
+    verify_installed_version('torchaudio', torchaudio_ver)
+    verify_installed_version('pytorch-lightning', pytorchlightning_ver)
+    verify_installed_version('lightning-fabric', lightningfabric_ver)
+    verify_installed_version('torchvision', torchvision_ver)
+
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
             xformers_statement = "xformers==" + xformers_ver
@@ -89,11 +94,6 @@ def prepare_environment():
                 "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
             if not is_installed("xformers"):
                 exit(0)
-
-    verify_installed_version('torchaudio', torchaudio_ver)
-    verify_installed_version('pytorch-lightning', pytorchlightning_ver)
-    verify_installed_version('lightning-fabric', lightningfabric_ver)
-    verify_installed_version('torchvision', torchvision_ver)
     
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
