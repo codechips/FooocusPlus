@@ -93,8 +93,8 @@ def prepare_environment():
 
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
-            xformers_statement = "xformers==" + xformers_ver
-            torchruntime.install([xformers_statement + " --no-deps"])
+            xformers_statement = f"xformers=={xformers_ver} --no-deps"
+            torchruntime.install([xformers_statement])
         else:
             print("Installation of xformers is not supported in this version of Python.")
             print(
