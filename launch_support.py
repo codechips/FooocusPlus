@@ -68,8 +68,8 @@ def dependency_resolver():
     # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
         torch_ver = "special"
-        else:    # for testing only
-            torch_ver = "2.4.1"
+    elif (sys.platform == "win32"):    # for testing only
+        torch_ver = "2.4.1"
 
     elif sys.platform == "linux": # Linux also defaults to "2.5.1" 
         if torchruntime_platform == "nightly/cu128":
