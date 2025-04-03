@@ -86,7 +86,7 @@ def dependency_resolver():
     # Begin the assignment of dependencies:
     if torch_ver == "2.4.1":
         dependencies = dict(
-            torch_ver,
+            torch_ver = "2.4.1",
             torchvision_ver = "0.19.1",
             torchaudio_ver = "2.4.1",
             xformers_ver = "0.0.28.post1",
@@ -96,7 +96,7 @@ def dependency_resolver():
     
     elif torch_ver == "2.3.1": # for Linux rocm5.7
         dependencies = dict(
-            torch_ver,
+            torch_ver = "2.3.1",
             torchvision_ver = "0.18.1",
             torchaudio_ver = "2.3.1",
             xformers_ver = "0.0.27",
@@ -106,7 +106,7 @@ def dependency_resolver():
     
     elif torch_ver == "2.2.2": # last version supporting Intel Macs
         dependencies = dict(
-            torch_ver,
+            torch_ver = "2.2.2",
             torchvision_ver = "0.17.2",
             torchaudio_ver = "2.2.2",
             xformers_ver = "0.0.27.post2", # but not MPS compatible
@@ -116,7 +116,7 @@ def dependency_resolver():
 
     elif torch_ver == "1.13.1": # earliest possible supported release: rocm5.2
         dependencies = dict(
-            torch_ver,
+            torch_ver = "1.13.1",
             torchvision_ver = "0.14.1",
             torchaudio_ver = "0.13.1",
             xformers_ver = "0.0.20", # but not compatible with ROCm, rocm6.2.4 only
@@ -126,7 +126,7 @@ def dependency_resolver():
 
     elif torch_ver == "special": # version not specified (launch will clear the string)
         dependencies = dict(
-            torch_ver,
+            torch_ver = "special",
             torchvision_ver = "",
             torchaudio_ver = "",
             xformers_ver = "",
