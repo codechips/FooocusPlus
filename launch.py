@@ -69,7 +69,6 @@ def prepare_environment():
     if torch_ver != torch_base_ver:
         print(f'Torch is recorded as being {torch_base_ver}')
         print(f'Updating to Torch {torch_ver} and its dependencies...')
-        quit()
         write_torch_base(torch_ver)
         delete_torch_dependencies()
     if torch_ver == "special":
