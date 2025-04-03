@@ -69,6 +69,9 @@ def dependency_resolver():
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
         torch_ver = "special"
 
+    elif sys.platform == "win32":
+        torch_ver = "2.4.1"
+
     elif sys.platform == "linux": # Linux also defaults to "2.5.1" 
         if torchruntime_platform == "nightly/cu128":
             torch_ver = "special"
