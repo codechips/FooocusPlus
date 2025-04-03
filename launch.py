@@ -74,7 +74,8 @@ def prepare_environment():
     if torch_ver == "special":
         torch_ver = ""
 
-    verify_installed_version('torch', torch_ver)
+
+#    verify_installed_version('torch', torch_ver) # for testing only
     torch_command = os.environ.get('TORCH_COMMAND',
     f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
     
