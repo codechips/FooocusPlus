@@ -2,7 +2,7 @@
 
 * initialized the UserDir folder: its location defaults to the repo's parent
 * UserDir contains the models, master & user presets, startup batch, startup & control images, and wildcards folders
-* the UserDir also contains config.txt and config_modification_tutorial.txt, and Random Prompt master and user topic folders
+* the UserDir also contains config.txt and config_modification_tutorial.txt, torch_base.txt, and the Random Prompt master and user topic folders
 * config.txt now contains all the settings listed in config_modification_tutorial.txt, making changes much easier
 * startup_batch now holds all the optional batch files, besides the default run_FooocusPlus.bat
 * master_presets is a copy of the same folder in the repo, for user reference only
@@ -27,7 +27,9 @@
 * the Superprompter folder is now correctly rebuilt if it is deleted
 * corrected the path for the full SD3.0 medium base model, with accessories
 * python_embedded version control now only applies to Windows platforms because other platforms do not use python_embedded
-* updated many more Python libraries
+* updated many more Python libraries and removed Torch and its five related dependencies from the library
+* Torch and its dependencies are now dynamically installed according to the user's operating system and hardware
+* this dynamic system uses Torchruntime and the Torch version is recorded in torch_base.txt in UserDir
 * added the Flux_BlackColor_SaMay.safetensors & FluxDFaeTasticDetails.safetensors to the built-in LoRAs
 * added the Flux AntiBlur.safetensors & Hyper-FLUX.1-dev-8steps-lora.safetensors to the Starter Pack LoRAs
 
