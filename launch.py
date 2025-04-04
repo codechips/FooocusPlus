@@ -57,7 +57,6 @@ def prepare_environment():
     print('Checking for required library files and loading Xformers...')
 
     torch_dict = dependency_resolver()
-    print(torch_dict)
     torch_ver = torch_dict['torch_ver']
     torchvision_ver = torch_dict['torchvision_ver']
     torchaudio_ver = torch_dict['torchaudio_ver']
@@ -67,36 +66,29 @@ def prepare_environment():
 
     torch_base_ver = read_torch_base()
 
-    if torch_ver != torch_base_ver:
+    if REINSTALL_ALL or torch_ver != torch_base_ver:
         print(f'Torch is recorded as being {torch_base_ver}')
-        print(f'Updating to Torch {torch_ver} and its dependencies...')
+        print(f'Updating to Torch {torch_ver} and its dependencies:')
+        print(torch_dict)
+        print()
         write_torch_base(torch_ver)
         delete_torch_dependencies()
-    if torch_ver == "special":
-        torch_ver = ""
+        if torch_ver == "special":
+            torch_ver = ""
+        torch_statement = "torch==" + torch_ver
+        torchruntime.install([torch_statement])
+        torch_statement = " torchvision==" + torchvision_ver
+        torchruntime.install([torch_statement])
+        torch_statement = " torchaudio==" + torchaudio_ver
+        torchruntime.install([torch_statement])
 
-
-#    verify_installed_version('torch', torch_ver) # for testing only
-#    torch_command = os.environ.get('TORCH_COMMAND',
-#    f"torchruntime install torch=={torch_ver} torchvision=={torchvision_ver} torchaudio=={torchaudio_ver}")
-    torch_statement = "torch==" + torch_ver
-    torchruntime.install([torch_statement])
-    torch_statement = " torchvision==" + torchvision_ver
-    torchruntime.install([torch_statement])
-    torch_statement = " torchaudio==" + torchaudio_ver
-    torchruntime.install([torch_statement])
-
-    #verify_installed_version('torchaudio', torchaudio_ver)
     verify_installed_version('pytorch-lightning', pytorchlightning_ver)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
-    #verify_installed_version('torchvision', torchvision_ver)
 
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
             xformers_statement = "xformers==" + xformers_ver
             torchruntime.install(["--no-deps", xformers_statement])
-#            xformers_statement = f"'xformers=={xformers_ver}', ' --no-deps'"
-#            torchruntime.install([xformers_statement])
         else:
             print("Installation of xformers is not supported in this version of Python.")
             print(
