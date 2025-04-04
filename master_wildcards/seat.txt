@@ -21,6 +21,7 @@ footstool
 garden chair
 ground
 hammock
+high-backed chair
 inflatable chair
 kitchen chair
 log
@@ -37,7 +38,9 @@ porch swing
 recliner
 rocking chair
 rug
+sand
 seat
+sectional
 sofa
 stairs
 stool
