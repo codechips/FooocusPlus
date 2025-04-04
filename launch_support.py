@@ -68,9 +68,8 @@ def dependency_resolver():
     # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
         torch_ver = "special"
-
-    # elif sys.platform == "win32": # fallback code, if torch = "2.5.1" fails
-        #torch_ver = "2.4.1"
+    elif sys.platform == "win32": # fallback code: torch = "2.5.1" fails
+        torch_ver = "2.4.1"
 
     elif sys.platform == "linux": # Linux also defaults to "2.5.1" 
         if torchruntime_platform == "nightly/cu128":
@@ -79,11 +78,15 @@ def dependency_resolver():
             torch_ver = "2.3.1"
         elif torchruntime_platform == "rocm5.2":
             torch_ver = "1.13.1"
+        else:                  # fallback code: torch = "2.5.1" fails
+            torch_ver = "2.4.1"
 
     elif sys.platform == "darwin": # (OSX) Apple Silicon defaults to "2.5.1"
         if platform.machine == "amd64":
             torch_ver = "2.2.2"
-    
+        else:                  # fallback code: torch = "2.5.1" fails
+            torch_ver = "2.4.1"
+            
     # Begin the assignment of dependencies:
     if torch_ver == "2.4.1":
         dependencies = dict(
