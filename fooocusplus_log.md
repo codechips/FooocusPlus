@@ -1,3 +1,7 @@
+# 1.0.0
+
+
+
 # 0.9.8 Dev
 
 * initialized the UserDir folder: its location defaults to the repo's parent
