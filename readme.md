@@ -45,15 +45,20 @@ For those systems that are capable of generating FooocusPlus images with only 4G
 
 FooocusPlus supports NVIDIA graphics cards on Windows and Linux, macOS on Silicon, and many AMD graphics cards on Linux. We also support using AMD graphics cards on Windows at a reduced speed, and provide limited support for macOS on Intel.
 
-## Installing FooocusPlus Preview
+## Installing FooocusPlus
 
-FooocusPlus is currently in preview, which means we are still working on ways to make the installation process even easier. However, you can get a sneak peak of FooocusPlus right now by downloading:
+For Linux users, please use the [Installation Script for Linux](https://github.com/DavidDragonsage/FooocusPlus/wiki/Installation-Script-for-Linux) in the FooocusPlus Wiki.
+
+If you were using a pre-release or Beta version of FooocusPlus, please be sure to delete or at least rename it first, it is not compatible with the release version. Ideally FooocusPlus should be installed on a high speed internal drive such an NVMe solid state drive (SSD). However it will work fine on standard SATA hard drive, just a bit slower. First, download the following archives:
 
 - The _latest_ version of [7-Zip](https://7-zip.org/) (the installation may fail if the version is not current)
-- The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus.zip) Windows program archive
+- The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus.7z) Windows program archive
+- If you are using Windows, the [Python library](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/python_embedded.7z) files
 - The FooocusPlus [Model Starter Pack](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/StarterPack.7z) (the Starter Pack is optional but will save you a lot of time later)
 
-After your downloads have completed, first install 7-Zip. Next, install the Windows program archive to create a FooocusPlus folder, and then install the Model Starter Pack to the models folder. Double-click on the run_FooocusPlus.bat file (or the Chinese version, 常规启动.bat) to load FooocusPlus for the first time. We’ll download some additional components automatically on the first run.
+After your downloads are complete, first install 7-Zip. Next, install the program archive to create a FooocusPlus folder and then the python_embedded library archive. Lastly, install the Model Starter Pack to the models folder. Double-click on the run_FooocusPlus.bat file to load FooocusPlus for the first time. We’ll download some additional components automatically on the first run.
+
+Optional language and preset startup batch files are available in the FooocusPlus\UserDir\batch_startups folder. Please copy them to the FooocusPlus folder if you wish to use them.
 
 ## Getting Help
 
