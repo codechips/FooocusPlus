@@ -20,7 +20,7 @@ import enhanced.gallery as gallery_util
 import enhanced.superprompter as superprompter
 import enhanced.comfy_task as comfy_task
 from args_manager import args
-from enhanced.simpleai import comfyd
+from enhanced.backend import comfyd
 from enhanced.welcome import get_welcome_image
 from modules.model_loader import load_file_from_url
 
