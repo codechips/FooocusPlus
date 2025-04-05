@@ -15,7 +15,7 @@ class AsyncTask:
         import args_manager
         import re
 
-        from enhanced.simpleai import comfyd
+        from enhanced.backend import comfyd
 
         normalize_lines = lambda text: re.sub(r'[\r\n]+', ' ', text)
 
@@ -250,7 +250,7 @@ def worker():
     from modules.upscaler import perform_upscale
     from modules.flags import Performance
     from modules.meta_parser import get_metadata_parser
-    from enhanced.simpleai import comfyd, comfyclient_pipeline as comfypipeline
+    from enhanced.backend import comfyclient_pipeline as comfypipeline
     from enhanced.comfy_task import get_comfy_task, default_kolors_base_model_name
     import enhanced.translator as translator
 
