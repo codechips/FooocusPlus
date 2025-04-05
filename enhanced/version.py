@@ -5,7 +5,6 @@ from pathlib import Path
 branch = ''
 commit_id = ''
 fooocusplus_ver = ''
-simplesdxl_ver = ''
 
 def get_library_ver():
     current_library = Path('../python_embedded/embedded_version/library_version.py')
@@ -44,24 +43,6 @@ def get_fooocusplus_ver():
             fooocusplus_ver += f'.{commit_id}'
     return fooocusplus_ver
 
-def get_simplesdxl_ver():
-    global simplesdxl_ver, commit_id
-    if not simplesdxl_ver:
-        simplesdxl_log = os.path.abspath(f'./simplesdxl_log.md')
-        line = ''
-        if os.path.exists(simplesdxl_log):
-            with open(simplesdxl_log, "r", encoding="utf-8") as log_file:
-                line = log_file.readline().strip()
-                while line:
-                    if line.startswith("# "):
-                        break
-                    line = log_file.readline().strip()
-        else:
-            line = '# 2024-09-16'
-        date = line.split(' ')[1].split('-')
-        simplesdxl_ver = f'{date[0]}{date[1]}{date[2]}'
-    return simplesdxl_ver
-
 def get_branch():
     global branch, commit_id
     if not branch:
@@ -73,4 +54,3 @@ def get_branch():
             branch = "FooocusPlus"
         commit_id = f'{repo.head.target}'[:7]
     return branch
-
