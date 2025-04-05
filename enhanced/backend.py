@@ -3,8 +3,8 @@ import sys
 import gradio as gr
 import common
 from backend_base import backend_base, utils, comfyd, torch_version, xformers_version, cuda_version, comfyclient_pipeline
-from simpleai_base.params_mapper import ComfyTaskParams
-from simpleai_base.models_info import ModelsInfo, sync_model_info
+from backend_base.params_mapper import ComfyTaskParams
+from backend_base.models_info import ModelsInfo, sync_model_info
 from launch_support import is_win32_standalone_build
 
 args_comfyd = [[]]
