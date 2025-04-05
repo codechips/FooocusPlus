@@ -1,6 +1,6 @@
 # 1.0.0
 
-
+* initialized the last pre-release version
 
 # 0.9.8 Dev
 
