@@ -210,7 +210,7 @@ print(f'Generated images will be stored in {path_outputs}')
 print()
 print('Loading support files...')
 
-from enhanced.simpleai import init_modelsinfo
+from enhanced.backend import init_modelsinfo
 modelsinfo = init_modelsinfo(path_models_root, dict(
     checkpoints=paths_checkpoints,
     loras=paths_loras,
