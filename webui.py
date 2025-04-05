@@ -7,7 +7,6 @@ import json
 import time
 import common
 import modules.config
-import fooocus_version
 import comfy.comfy_version
 import modules.html
 import modules.async_worker as worker
@@ -36,9 +35,9 @@ import enhanced.translator as translator
 import enhanced.enhanced_parameters as enhanced_parameters
 import enhanced.version as version
 import enhanced.wildcards as wildcards
-import enhanced.simpleai as simpleai
+#import enhanced.backend as backend
 import enhanced.comfy_task as comfy_task
-from enhanced.simpleai import comfyd
+from enhanced.backend import comfyd
 
 print()
 print('Initializing the user interface...')
