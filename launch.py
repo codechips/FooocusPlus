@@ -35,7 +35,6 @@ import torchruntime
 
 import platform
 import comfy.comfy_version
-import fooocus_version
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
     delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
@@ -47,15 +46,6 @@ def prepare_environment():
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
-    print(f"Python {sys.version}")
-    print(f"Python Library {version.get_library_ver()}")
-    print(f"Comfy version: {comfy.comfy_version.version}")    
-    print(f"Fooocus version: {fooocus_version.version}")
-    print(f"SimpleSDXL2 version: {version.get_simplesdxl_ver()}")
-    print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
-    print()
-    print('Checking for required library files and loading Xformers...')
-
     torch_dict = dependency_resolver()
     torch_ver = torch_dict['torch_ver']
     torchvision_ver = torch_dict['torchvision_ver']
@@ -66,8 +56,15 @@ def prepare_environment():
 
     torch_base_ver = read_torch_base()
 
+    print(f"Python {sys.version}")
+    print(f"Python Library {version.get_library_ver()}")
+    print(f"Comfy version: {comfy.comfy_version.version}")    
+    print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
+    print(f"Torch base version: {torch_base_ver}")
+    print()
+    print('Checking for required library files and loading Xformers...')
+    
     if REINSTALL_ALL or torch_ver != torch_base_ver:
-        print(f'Torch is recorded as being {torch_base_ver}')
         print(f'Updating to Torch {torch_ver} and its dependencies:')
         print(torch_dict)
         print()
