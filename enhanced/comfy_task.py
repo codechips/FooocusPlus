@@ -4,7 +4,7 @@ import shutil
 import common
 import ldm_patched
 import modules.config as config
-from enhanced.simpleai import ComfyTaskParams
+from enhanced.backend import ComfyTaskParams
 from modules.model_loader import load_file_from_url
 
 default_method_names = ['Blending given FG and IC-light', 'Generate foreground with Conv Injection']
