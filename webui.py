@@ -1085,8 +1085,7 @@ with common.GRADIO_ROOT:
                     Smart Memory: {smart_memory}<br>\
                     Video System: {video_system}<br>\
                     Python {platform.python_version()}, Library {version.get_library_ver()}<br>\
-                    Comfy {comfy.comfy_version.version}<br>\
-                    FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
+                    Comfy {comfy.comfy_version.version}, FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
             iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=flags.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
             layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
