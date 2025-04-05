@@ -1,6 +1,6 @@
 # 1.0.0
 
-* initialized the last pre-release version
+* removed the irrelevant Fooocus and Simple version information. FooocusPlus does not synchronize to either of them
 
 # 0.9.8 Dev
 
