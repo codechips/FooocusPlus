@@ -1,6 +1,7 @@
 # 1.0.0
 
 * removed the irrelevant Fooocus and Simple version information. FooocusPlus does not synchronize to either of them
+* added Torch, CUDA and xformers data to System Information, under the Extras tab
 
 # 0.9.8 Dev
 
