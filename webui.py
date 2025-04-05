@@ -35,9 +35,9 @@ import enhanced.translator as translator
 import enhanced.enhanced_parameters as enhanced_parameters
 import enhanced.version as version
 import enhanced.wildcards as wildcards
-#import enhanced.backend as backend
 import enhanced.comfy_task as comfy_task
 from enhanced.backend import comfyd
+from backend_base.__init__ import get_torch_xformers_cuda_version as torch_info
 
 print()
 print('Initializing the user interface...')
@@ -1079,13 +1079,16 @@ with common.GRADIO_ROOT:
                         smart_memory = "Enabled (VRAM unloaded only when necessary)"
                     video_system = ldm_patched.modules.model_management.get_torch_device_name\
                         (ldm_patched.modules.model_management.get_torch_device())
+                    torch_ver, xformers_ver, cuda_ver = torch_info()
                     gr.Markdown(value=f'<h3>System Information</h3>\
                     System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
                     Video RAM: {int(ldm_patched.modules.model_management.get_vram())} MB<br>\
                     Smart Memory: {smart_memory}<br>\
                     Video System: {video_system}<br>\
-                    Python {platform.python_version()}, Library {version.get_library_ver()}<br>\
-                    Comfy {comfy.comfy_version.version}, FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
+                    Comfy {comfy.comfy_version.version}, Python {platform.python_version()},\
+                    Library {version.get_library_ver()}<br>\
+                    Torch {torch_ver}{cuda_ver}, Xformers {xformers_ver}<br>\
+                    FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
             iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=flags.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
             layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
