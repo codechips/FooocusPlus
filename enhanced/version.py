@@ -1,23 +1,31 @@
 import os
 import sys
 from pathlib import Path
+from launch_support import is_win32_standalone_build
 
 branch = ''
 commit_id = ''
 fooocusplus_ver = ''
 
 def get_library_ver():
-    current_library = Path('../python_embedded/embedded_version/library_version.py')
-    if os.path.exists(current_library):
-        embedded_version = os.path.abspath('../python_embedded/embedded_version')
-        sys.path.append(embedded_version)
-        from embedded_version import library_version
-        return (library_version.version)
+    if is_win32_standalone_build:
+        current_library = Path('../python_embedded/embedded_version/library_version.py')
+        if os.path.exists(current_library):
+            embedded_version = os.path.abspath('../python_embedded/embedded_version')
+            sys.path.append(embedded_version)
+            from embedded_version import library_version
+            return (library_version.version)
+        else:
+             return 0.96
     else:
-        return 0.96
+        if os.path.exists('required_library.py'):
+            import required_library
+            return required_library.version
+        else:
+            return 1.00
 
 def get_required_library():
-    if not os.path.exists('required_library.py'):
+    if (not os.path.exists('required_library.py')) or (not is_win32_standalone_build):
         return True
     import required_library
     if get_library_ver() >= (required_library.version):
@@ -42,15 +50,3 @@ def get_fooocusplus_ver():
         if commit_id:
             fooocusplus_ver += f'.{commit_id}'
     return fooocusplus_ver
-
-def get_branch():
-    global branch, commit_id
-    if not branch:
-        import pygit2
-        pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
-        repo = pygit2.Repository(os.path.abspath(os.path.dirname(__file__)))
-        branch = repo.head.shorthand
-        if branch=="main":
-            branch = "FooocusPlus"
-        commit_id = f'{repo.head.target}'[:7]
-    return branch
