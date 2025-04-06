@@ -1,6 +1,6 @@
 all_args = {}
 max_lora_number = 5
-flag_disable_metadata = True
+flag_disable_metadata = False
 
 def get_diff_from_default(mode, *ctrls):
     global all_args, default, max_lora_number
@@ -88,8 +88,8 @@ default = {
     'max_image_number': 50,
     'image_number': 4,
     'output_format': 'png',
-    'save_metadata_to_images': False,
-    'metadata_scheme': 'simple',
+    'save_metadata_to_images': True,
+    'metadata_scheme': 'Fooocus',
     'input_image_checkbox': False,
     'advanced_checkbox': False,
     'backfill_prompt': False,
