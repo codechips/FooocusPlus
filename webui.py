@@ -1086,7 +1086,7 @@ with common.GRADIO_ROOT:
                     Smart Memory: {smart_memory}<br>\
                     Video System: {video_system}<br>\
                     Python {platform.python_version()}, Library {version.get_library_ver()}, \
-                    Comfy {comfy.comfy_version.version},<br>\
+                    Comfy {comfy.comfy_version.version}<br>\
                     Torch {torch_ver}{cuda_ver}, Xformers {xformers_ver}<br>\
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
