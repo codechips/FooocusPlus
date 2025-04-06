@@ -45,8 +45,7 @@ For those systems that are capable of generating FooocusPlus images with only 4G
 
 FooocusPlus supports NVIDIA graphics cards on Windows and Linux, macOS on Silicon, and many AMD graphics cards on Linux. We also support using AMD graphics cards on Windows at a reduced speed, and provide limited support for macOS on Intel.
 
-Torchruntime is integrated into FooocusPlus. For more details, please check their hardware and software [compatibility table](https://github.com/easydiffusion/torchruntime/blob/main/README.md#compatibility-table).
-
+Torchruntime is integrated into FooocusPlus. Please check their [compatibility table](https://github.com/easydiffusion/torchruntime/blob/main/README.md#compatibility-table) for more details on hardware and software support.
 
 ## Installing FooocusPlus
 
