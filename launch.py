@@ -59,8 +59,7 @@ def prepare_environment():
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}")
     print(f"Torch base version: {torch_base_ver}")
-    print(f"FooocusPlus version: {version.get_fooocusplus_ver()}, \
-        Comfy version: {comfy.comfy_version.version}")
+    print(f"FooocusPlus version: {version.get_fooocusplus_ver()}, Comfy version: {comfy.comfy_version.version}")
     print()
     print('Checking for required library files and loading Xformers...')
     
