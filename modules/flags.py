@@ -286,11 +286,12 @@ class MetadataScheme(Enum):
 #    FOOOCUS = 'fooocus'
     A1111 = 'A1111'
     SIMPLE = 'Fooocus'
-
+    if metadata_scheme == 'FOOOCUS':
+        metadata_scheme = 'SIMPLE'
 
 metadata_scheme = [
     (f'{MetadataScheme.SIMPLE.value} (json)', MetadataScheme.SIMPLE.value),
-    (f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.FOOOCUS.value),
+#    (f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.FOOOCUS.value),
     (f'{MetadataScheme.A1111.value} (plain text)', MetadataScheme.A1111.value),
 ]
 
