@@ -10,7 +10,7 @@ print(f'Root {ROOT}')
 sys.path.append(ROOT)
 os.chdir(ROOT)
 
-if not version.get_required_library() and (sys.platform == "win32"):
+if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
     print(f'Python library does not support FooocusPlus {version.get_fooocusplus_ver()}')
