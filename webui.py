@@ -682,7 +682,7 @@ with common.GRADIO_ROOT:
                         for template in flags.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=flags.available_aspect_ratios_list[template],\
                                 value=flags.default_aspect_ratios[template], visible= template=='SDXL',\
-                                info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5)',\
+                                info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). "1280*1280" is experimental',\
                                 elem_classes='aspect_ratios'))
                         
                         for aspect_ratios_select in aspect_ratios_selections:
@@ -946,7 +946,7 @@ with common.GRADIO_ROOT:
                             save_metadata_to_images = gr.Checkbox(label='Save Metadata to Images', value=modules.config.default_save_metadata_to_images,
                                             info='Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.')
                             metadata_scheme = gr.Radio(label='Metadata Scheme', choices=flags.metadata_scheme, value=modules.config.default_metadata_scheme,
-                                            info='Use "Fooocus" to regenerate images and "A1111" for Civitai compatibility',
+                                            info='Use "Fooocus" to regenerate images and "A1111" for Civitai',
                                             visible=True)
     
                             save_metadata_to_images.change(lambda x: [gr.update(visible=x)], inputs=[save_metadata_to_images], outputs=[metadata_scheme], queue=False, show_progress=False)
