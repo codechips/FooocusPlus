@@ -89,7 +89,7 @@ default = {
     'image_number': 4,
     'output_format': 'png',
     'save_metadata_to_images': True,
-    'metadata_scheme': 'Fooocus',
+    'metadata_scheme': 'fooocus',
     'input_image_checkbox': False,
     'advanced_checkbox': False,
     'backfill_prompt': False,
