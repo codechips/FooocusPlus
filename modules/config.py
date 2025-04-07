@@ -176,7 +176,7 @@ else:
     path_models_root = get_dir_or_set_default('path_models_root', '..UserDir/models')
 path_models_root = os.path.abspath(path_models_root)
 print(f'Generative models are stored in {path_models_root}')
-print('Some models may also be stored in other locations, as defined in config.txt')
+print('Models may also be stored in other locations, as defined in config.txt')
 
 paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
 paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True, False)
