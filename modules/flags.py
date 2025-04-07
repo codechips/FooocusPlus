@@ -283,7 +283,7 @@ get_engine_default_params = lambda x: default_class_params['Fooocus'] if x not i
 get_engine_default_backend_params = lambda x: get_engine_default_params(x).get('backend_params', default_class_params['Fooocus']['backend_params'])
 
 class MetadataScheme(Enum):
-#    FOOOCUS = 'fooocus'
+    FOOOCUS = 'fooocus'
     A1111 = 'A1111'
     SIMPLE = 'Fooocus'
     if metadata_scheme == 'FOOOCUS':
