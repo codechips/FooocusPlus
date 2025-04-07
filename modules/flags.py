@@ -283,7 +283,7 @@ get_engine_default_params = lambda x: default_class_params['Fooocus'] if x not i
 get_engine_default_backend_params = lambda x: get_engine_default_params(x).get('backend_params', default_class_params['Fooocus']['backend_params'])
 
 class MetadataScheme(Enum):
-    FOOOCUS = 'fooocus'
+    FOOOCUS = 'Fooocus'
     A1111 = 'A1111'
     SIMPLE = 'Fooocus'
     if metadata_scheme == 'FOOOCUS':
@@ -291,7 +291,7 @@ class MetadataScheme(Enum):
 
 metadata_scheme = [
     (f'{MetadataScheme.SIMPLE.value} (json)', MetadataScheme.SIMPLE.value),
-#    (f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.FOOOCUS.value),
+    (f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.SIMPLE.value),
     (f'{MetadataScheme.A1111.value} (plain text)', MetadataScheme.A1111.value),
 ]
 
