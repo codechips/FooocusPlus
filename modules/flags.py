@@ -288,9 +288,9 @@ class MetadataScheme(Enum):
     SIMPLE = 'Fooocus'
 
 metadata_scheme = [
-    (f'{MetadataScheme.SIMPLE.value} (json)', MetadataScheme.SIMPLE.value),
+    (f'{MetadataScheme.SIMPLE.value}', MetadataScheme.SIMPLE.value),
     (f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.FOOOCUS.value),
-    (f'{MetadataScheme.A1111.value} (plain text)', MetadataScheme.A1111.value),
+    (f'{MetadataScheme.A1111.value}', MetadataScheme.A1111.value),
 ]
 
 
