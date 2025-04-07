@@ -789,9 +789,9 @@ def get_metadata_parser(metadata_scheme: MetadataScheme) -> MetadataParser:
         case MetadataScheme.A1111:
             return A1111MetadataParser()
         case MetadataScheme.SIMPLE:
-           return SIMPLEMetadataParser() 
+            return SIMPLEMetadataParser() 
         case _:
-           return SIMPLEMetadataParser() 
+            raise NotImplementedError
 
 
 def read_info_from_image(file) -> tuple[str | None, MetadataScheme | None]:
