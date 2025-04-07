@@ -948,7 +948,7 @@ with common.GRADIO_ROOT:
                             metadata_scheme = gr.Radio(label='Metadata Scheme', choices=['Fooocus', 'A1111'], value=modules.config.default_metadata_scheme,
                                             info='Use "Fooocus" to regenerate images and "A1111" for Civitai',
                                             visible=True)
-    
+                            print(f'metadata_scheme {metadata_scheme}')
                             save_metadata_to_images.change(lambda x: [gr.update(visible=x)], inputs=[save_metadata_to_images], outputs=[metadata_scheme], queue=False, show_progress=False)
 
                     with gr.Tab(label='Control'):
