@@ -284,17 +284,13 @@ get_engine_default_backend_params = lambda x: get_engine_default_params(x).get('
 
 class MetadataScheme(Enum):
     FOOOCUS = 'fooocus'
-    SIMPLE = 'Fooocus'
-    simple = 'simple'
-    A1111 = 'A1111'
-    a1111 = 'a1111'
+    SIMPLE = 'simple'
+    A1111 = 'a1111'
 
 metadata_scheme = [
-    (f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.FOOOCUS.value),
-    (f'{MetadataScheme.SIMPLE.value}', MetadataScheme.SIMPLE.value),
-    (f'{MetadataScheme.simple.value}', MetadataScheme.simple.value),
-    (f'{MetadataScheme.A1111.value}', MetadataScheme.A1111.value),
-    (f'{MetadataScheme.a1111.value}', MetadataScheme.a1111.value),
+    ('Fooocus', MetadataScheme.FOOOCUS.value),
+    ('simple', MetadataScheme.SIMPLE.value),
+    ('A1111', MetadataScheme.A1111.value),
 ]
 
 
