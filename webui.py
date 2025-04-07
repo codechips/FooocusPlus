@@ -682,7 +682,7 @@ with common.GRADIO_ROOT:
                         for template in flags.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=flags.available_aspect_ratios_list[template],\
                                 value=flags.default_aspect_ratios[template], visible= template=='SDXL',\
-                                info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental',\
+                                info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.',\
                                 elem_classes='aspect_ratios'))
                         
                         for aspect_ratios_select in aspect_ratios_selections:
