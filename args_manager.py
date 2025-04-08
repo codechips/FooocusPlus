@@ -76,7 +76,7 @@ args_parser.args = args_parser.parser.parse_args()
 if args_parser.args.disable_in_browser:
   args_parser.args.in_browser = False
 
-if args_manager.args.language=='':
-  args_manager.args.language='en'
+if args_parser.args.language=='':
+  args_parser.args.language='en'
 
 args = args_parser.args
