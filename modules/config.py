@@ -52,9 +52,7 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
 
     if v is not None:
         if not 'Outputs' in v:
-            if config_dict[key].lower == 'fooocus':
-               print('Metadata_scheme error')
-            print(f'Failed to load config key: {json.dumps({key:v})} is invalid or does not exist; will use {json.dumps({key:default_value})} instead.')
+            print(f'Failed to load the directory config key: {json.dumps({key:v})} is invalid or does not exist; will use {json.dumps({key:default_value})} instead.')
     if isinstance(default_value, list):
         dp = []
         for path in default_value:
@@ -256,6 +254,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
             if v.lower == 'fooocus':
                 default_value = MetadataScheme.SIMPLE.value
             else:
+                print(v.lower)
                 print(f'Failed to load config key: {json.dumps({key:v})} is invalid; will use {json.dumps({key:default_value})} instead.')
         config_dict[key] = default_value
         return default_value
