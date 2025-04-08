@@ -252,8 +252,9 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
     else:
         if v is not None:
             if config_dict[key].lower == 'fooocus':
-                return MetadataScheme.SIMPLE.value
-            print(f'Failed to load config key: {json.dumps({key:v})} is invalid; will use {json.dumps({key:default_value})} instead.')
+                default_value = MetadataScheme.SIMPLE.value
+            else:
+                print(f'Failed to load config key: {json.dumps({key:v})} is invalid; will use {json.dumps({key:default_value})} instead.')
         config_dict[key] = default_value
         return default_value
 
