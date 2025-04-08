@@ -288,9 +288,9 @@ class MetadataScheme(Enum):
     A1111 = 'a1111'
 
 metadata_scheme = [
-    ('Fooocus', MetadataScheme.FOOOCUS.value),
-    ('simple', MetadataScheme.SIMPLE.value),
-    ('A1111', MetadataScheme.A1111.value),
+    #(f'{MetadataScheme.SIMPLE.value}', MetadataScheme.SIMPLE.value),
+    (f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.FOOOCUS.value),
+    (f'{MetadataScheme.A1111.value}', MetadataScheme.A1111.value),
 ]
 
 
