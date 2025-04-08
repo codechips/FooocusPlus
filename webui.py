@@ -797,9 +797,10 @@ with common.GRADIO_ROOT:
 
                             if isinstance(metadata_scheme, flags.MetadataScheme):
                                 results['metadata_scheme'] = metadata_scheme.value
+                                if metadata_scheme.value.lower() == 'simple':
+                                    results['metadata_scheme'] = 'Fooocus'
                                 if metadata_scheme.value.lower() == 'a1111':
-                                    # results = {}
-                                    parameters = None
+                                    parameters = None                                
 
                             return [results, gr.update(interactive=parameters is not None)]
 
