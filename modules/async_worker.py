@@ -480,6 +480,10 @@ def worker():
                                          loras, async_task.vae_name, '')
             
             d.append(('Backend Engine', 'backend_engine', async_task.task_class_full))
+            if metadata_scheme.lower() == 'simple':
+                metadata_scheme = 'Fooocus'
+            elif metadata_scheme.lower() == 'a1111':
+                metadata_scheme = 'A1111'
             d.append(('Metadata Scheme', 'metadata_scheme',
                       async_task.metadata_scheme.value if async_task.save_metadata_to_images else async_task.save_metadata_to_images))
             d.append(('Version', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}'))
