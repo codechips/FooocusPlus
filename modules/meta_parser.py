@@ -693,6 +693,9 @@ class FooocusMetadataParser(MetadataParser):
         res['vae'] = self.vae_name
         res['loras'] = self.loras
 
+        if res['Metadata Scheme'].lower() == 'simple':
+            res['Metadata Scheme'] = 'Fooocus'
+        
         if modules.config.metadata_created_by != '':
             res['created_by'] = modules.config.metadata_created_by
 
