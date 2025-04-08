@@ -251,7 +251,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         return v
     else:
         if v is not None:
-            if not 'fooocus' in v.lower:
+            if not 'fooocus' in v.lower():
                 default_value = MetadataScheme.SIMPLE.value
             else:
                 print(v)
