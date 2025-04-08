@@ -754,6 +754,9 @@ class SIMPLEMetadataParser(MetadataParser):
         res['Base Model'] = self.base_model_name
         res['Base Model Hash'] = self.base_model_hash
 
+        if res['meta_scheme'] == MetadataScheme.SIMPLE.value:
+            res['meta_scheme'] = MetadataScheme.FOOOCUS.value
+        
         if self.refiner_model_name not in ['', 'None']:
             res['Refiner Model'] = self.refiner_model_name
             res['Refiner Model Hash'] = self.refiner_model_hash
