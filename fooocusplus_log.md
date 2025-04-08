@@ -4,6 +4,7 @@
 * added Torch, CUDA and xformers data to System Information, under the Extras tab
 * the master folders are now subfolders of the new "masters" folder
 * introduced and tested the "experimental" 1280*1280 aspect ratio
+* if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
 
 # 0.9.8 Dev
 
