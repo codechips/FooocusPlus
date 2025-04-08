@@ -945,10 +945,10 @@ with common.GRADIO_ROOT:
                         if not args_manager.args.disable_metadata:
                             save_metadata_to_images = gr.Checkbox(label='Save Metadata to Images', value=modules.config.default_save_metadata_to_images,
                                             info='Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.')
-                            metadata_scheme = gr.Radio(label='Metadata Scheme', choices=['Fooocus', 'A1111'], value=modules.config.default_metadata_scheme,
+                            metadata_scheme = gr.Radio(label='Metadata Scheme', choices=flags.metadata_scheme value=modules.config.default_metadata_scheme,
                                             info='Use "Fooocus" to regenerate images and "A1111" for Civitai',
                                             visible=True)
-                            print(f'metadata_scheme {metadata_scheme}')
+
                             save_metadata_to_images.change(lambda x: [gr.update(visible=x)], inputs=[save_metadata_to_images], outputs=[metadata_scheme], queue=False, show_progress=False)
 
                     with gr.Tab(label='Control'):
