@@ -291,8 +291,8 @@ metadata_scheme = [
     #(f'{MetadataScheme.SIMPLE.value}', MetadataScheme.SIMPLE.value),
     #(f'{MetadataScheme.FOOOCUS.value}', MetadataScheme.FOOOCUS.value),
     #(f'{MetadataScheme.A1111.value}', MetadataScheme.A1111.value),
-    (Fooocus', MetadataScheme.FOOOCUS.value),
-    (A1111', MetadataScheme.A1111.value),
+    ('Fooocus', MetadataScheme.FOOOCUS.value),
+    ('A1111', MetadataScheme.A1111.value),
 ]
 
 
