@@ -786,7 +786,7 @@ with common.GRADIO_ROOT:
                             metadata_input_image = grh.Image(label='Drop a FooocusPlus image here', source='upload', type='pil')
                             with gr.Accordion("Preview Metadata", open=True, visible=True) as metadata_preview:
                                 metadata_json = gr.JSON(label='Metadata')
-                            metadata_import_button = gr.Button(value='Apply Metadata', visible=False)
+                            metadata_import_button = gr.Button(value='Apply Metadata', interactive=False)
 
                         def trigger_metadata_preview(file):
                             parameters, metadata_scheme = modules.meta_parser.read_info_from_image(file)
@@ -797,6 +797,9 @@ with common.GRADIO_ROOT:
 
                             if isinstance(metadata_scheme, flags.MetadataScheme):
                                 results['metadata_scheme'] = metadata_scheme.value
+                                if metadata_scheme.value.lower() == 'a1111':
+                                    results = {}
+                                    parameters = None
 
                             return [results, gr.update(interactive=parameters is not None)]
 
