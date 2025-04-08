@@ -719,7 +719,7 @@ default_save_metadata_to_images = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
-if 'fooocus' in v.lower() = get_config_item_or_set_default(
+default_metadata_scheme = get_config_item_or_set_default(
     key='default_metadata_scheme',
     default_value='Fooocus',
     validator=lambda x: x in [y[1] for y in modules.flags.metadata_scheme if y[1] == x],
