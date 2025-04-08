@@ -783,7 +783,7 @@ with common.GRADIO_ROOT:
 
                     with gr.Tab(label='Metadata', id='metadata_tab', visible=True) as metadata_tab:
                         with gr.Column():
-                            metadata_input_image = grh.Image(label='Drop a FooocusPlus image here', source='upload', type='pil')
+                            metadata_input_image = grh.Image(label='Drop a Fooocus image here', source='upload', type='pil')
                             with gr.Accordion("Preview Metadata", open=True, visible=True) as metadata_preview:
                                 metadata_json = gr.JSON(label='Metadata')
                             metadata_import_button = gr.Button(value='Apply Metadata', interactive=False)
@@ -798,7 +798,7 @@ with common.GRADIO_ROOT:
                             if isinstance(metadata_scheme, flags.MetadataScheme):
                                 results['metadata_scheme'] = metadata_scheme.value
                                 if metadata_scheme.value.lower() == 'a1111':
-                                    results = {}
+                                    # results = {}
                                     parameters = None
 
                             return [results, gr.update(interactive=parameters is not None)]
