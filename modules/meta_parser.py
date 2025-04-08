@@ -801,7 +801,7 @@ def read_info_from_image(file) -> tuple[str | None, MetadataScheme | None]:
     metadata_scheme = items.pop('fooocus_scheme', None)
     exif = items.pop('exif', None)
     if not parameters and 'Comment' in items:
-        metadata_scheme = 'fooocus'
+        metadata_scheme = 'simple'
         parameters = items.pop('Comment', None)
 
     if parameters is not None and is_json(parameters):
@@ -819,9 +819,9 @@ def read_info_from_image(file) -> tuple[str | None, MetadataScheme | None]:
             parameters = params_lora_fixed(parameters)
 
     try:
-        if metadata_scheme == 'simple':
-            metadata_scheme = 'fooocus'
-            parameters.update({'metadata_scheme': 'fooocus'})
+        if metadata_scheme == 'fooocus':
+            metadata_scheme = 'simple'
+            parameters.update({'metadata_scheme': 'simple'})
         metadata_scheme = MetadataScheme(metadata_scheme)
     except ValueError:
         metadata_scheme = None
