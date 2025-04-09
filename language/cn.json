@@ -33,7 +33,8 @@
   "Upscale (2x)": "2倍加细节放大",
   "Upscale (Fast 2x)": "2倍快速放大",
   "Processing Order": "增强处理的顺序",
-  "Use before to enhance small details and after to enhance large areas.": "前置整图增强(先整图再区域)可以增强更多细节，后置整图增强(先区域再整图)影响更大幅面",
+  "Use before to enhance small details and after to enhance large areas.":
+    "前置整图增强(先整图再区域)可以增强更多细节，后置整图增强(先区域再整图)影响更大幅面",
   "Before First Enhancement": "前置整图增强",
   "After Last Enhancement": "后置整图增强",
   "Prompt": "整图增强提示词",
@@ -60,7 +61,7 @@
   "Quality": "质量",
   "Aspect Ratios": "图片尺寸",
   "Exquisite": "精细",
-  "Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.":\
+  "Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.":
       "Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.",
   "Image Quantity": "出图数量",
   "Negative Prompt": "反向提示词",
@@ -95,7 +96,8 @@
   "Guidance Scale (CFG)": "引导系数CFG",
   "Higher value means style is cleaner, vivider, and more artistic.": "数值越高，表示风格越简洁、生动、更具艺术性。",
   "Refiner Switch At": "精炼开启位置",
-  "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.": "0.4用于SD1.5写实模型或0.667用于SD1.5动画模型；或0.8用于XL-精炼模型；或任意值用于切换两个SDXL模型.",
+  "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.":
+    "0.4用于SD1.5写实模型或0.667用于SD1.5动画模型；或0.8用于XL-精炼模型；或任意值用于切换两个SDXL模型.",
   "Expert Mode": "开发者模式",
   "Expert Tools": "参数设置",
   "Positive ADM Guidance Scaler": "正向ADM引导系数",
@@ -106,28 +108,32 @@
   "When to end the guidance from positive/negative ADM. ": "何时结束来自正/反ADM的导向.",
   "Refiner Swap Method": "精炼交换方法",
   "CFG Mimicking from TSNR": "TSNR模拟CFG",
-  "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).": "启用Fooocus为TSNR模拟CFG的功能（当真实CFG > 模拟CFG时有效）.",
+  "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).":
+    "启用Fooocus为TSNR模拟CFG的功能（当真实CFG > 模拟CFG时有效）.",
   "Sampler": "采样器",
   "Only effective in non-inpaint mode.": "仅在非重绘模式下有效.",
   "Scheduler": "调度器",
   "karras": "karras",
   "Scheduler of Sampler.": "采样器调度程序",
   "Generate Image Grid for Each Batch": "每批次生成图片网格",
-  "(Experimental) This may cause performance problems on some computers and certain internet conditions.": "试验性，可能在某些电脑或网络条件下导致性能问题。",
+  "(Experimental) This may cause performance problems on some computers and certain internet conditions.":
+    "试验性，可能在某些电脑或网络条件下导致性能问题。",
   "Disable Preview": "取消预览",
   "Disable preview during generation.": "在图片生成过程中不进行预览。",
   "Forced Overwrite of Sampling Step": "采样步数STEPS",
   "Set as -1 to disable.": "更多步数会有更好的细节和质量，也要更多的算力和时间。-1为由性能模式设置步数，无性能模式则默认30。",
   "Forced Overwrite of Refiner Switch Step": "强制重写精炼器切换步数",
   "Forced Overwrite of Generating Width": "自定义宽度",
-  "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.": "-1为禁用自定义。注意，对于没有训练过的非标准宽度或高度，生图结果不可预期。",
+  "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.":
+    "-1为禁用自定义。注意，对于没有训练过的非标准宽度或高度，生图结果不可预期。",
   "Forced Overwrite of Generating Height": "自定义高度",
   "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
   "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
   "Adjust the Strength of Upscale Variation": "Adjust the Strength of Upscale Variation",
   "Variation Strength is also called \" strength\"": "Variation Strength is also called \" strength\"",
   "Inpaint Engine": "重绘引擎",
-  "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.": "Fooocus重绘模型版本设置。'性能模式'要选择质量或速度,不要用含LoRAs的选项。",
+  "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.":
+    "Fooocus重绘模型版本设置。'性能模式'要选择质量或速度,不要用含LoRAs的选项。",
   "Debug Enhance Masks": "调试增强蒙版",
   "Show enhance masks in preview and final results": "在预览和最终结果中显示增强蒙版",
   "Debug GroundingDINO": "调试智能识别框架",
@@ -136,7 +142,8 @@
   "Debug Preprocessors": "预处理器调试",
   "See the results from preprocessors.": "查看预处理的结果",
   "Skip Preprocessors": "跳过预处理器",
-  "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)": "不做图像预处理。（比如在canny/depth/cropped-face等情况下输入图片是可用的。）",
+  "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)":
+    "不做图像预处理。（比如在canny/depth/cropped-face等情况下输入图片是可用的。）",
   "Mix Image Prompt & Vary/Upscale": "混合图片提示",
   "Mix Image Prompt & Inpaint": "混合图片提示",
   "Softness of ControlNet": "ControlNet柔和度",
@@ -152,9 +159,11 @@
   "Debug Inpaint Preprocessing": "重绘预处理调试",
   "Disable Initial Latent in Inpaint": "重绘中不用初始化潜空间",
   "Inpainting Strength": "重绘强度",
-  "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0": "仅在内部重绘有效，外部重绘保持为1。",
+  "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0":
+    "仅在内部重绘有效，外部重绘保持为1。",
   "Inpainting Area": "重绘羽化系数",
-  "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "重绘边缘的羽化值，内部重绘有效，外部重绘保持为1。",
+  "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0":
+    "重绘边缘的羽化值，内部重绘有效，外部重绘保持为1。",
   "FreeU": "FreeU增强",
   "Enabled": "启用",
   "Extreme Speed": "极速",
@@ -186,13 +195,18 @@
   "light": "明亮",
   "dark": "夜黑",
   "Enable ParamsTools": "启用工具箱",
-  "Management of published image sets, located in the middle toolbox on the right side of the image set.": "跟随出图历史索引，位于图片集右侧中部，对已出图片作管理",
+  "Management of published image sets, located in the middle toolbox on the right side of the image set.":
+    "跟随出图历史索引，位于图片集右侧中部，对已出图片作管理",
   "Preset Name": "预置包名",
   "Type preset name here.": "输入预置包名",
-  "Extract parameters to backfill for regeneration. Please note that some parameters will be modified!": "提取当前图片的生成参数回填操作界面，准备重新生成。请注意点击'确认'后，将改变当前出图的参数环境！重新点击'工具箱'对应菜单项可以取消本次操作。",
-  "Save a new preset for the current params and configuration.": "保存当前环境配置和生成参数为新的预置包。输入预置包名称，点击'确认'后，在系统的'presets'目录下会生成相应的预置包配置文件，且顶部导航自动切换到新的预置包。重新点击'工具箱'对应菜单项可以取消本次操作。",
-  "Embed parameters into images for easy identification of image sources and communication and learning.": "将参数嵌入到图片中，便于识别图片来源，方便交流和学习。生成的嵌参图片会保存在'outputs/embed'目录下，且在'输入图片'的'图片提参'界面下可以上传识别嵌参图片，重置出图参数。重新点击'工具箱'对应菜单项可以取消本次操作。",
-  "The model in the params and configuration is missing MUID. And the system will spend some time calculating the hash of model files and synchronizing information to obtain the muid for usability and transferability.": "经检测，当前配置的模型缺少统一的模型标识MUID。为了确保预置包及嵌参图片的可用性，系统会花费些时间计算模型文件的哈希值，并获取相对应的模型标识MUID，请耐心等待。",
+  "Extract parameters to backfill for regeneration. Please note that some parameters will be modified!":
+    "提取当前图片的生成参数回填操作界面，准备重新生成。请注意点击'确认'后，将改变当前出图的参数环境！重新点击'工具箱'对应菜单项可以取消本次操作。",
+  "Save a new preset for the current params and configuration.":
+    "保存当前环境配置和生成参数为新的预置包。输入预置包名称，点击'确认'后，在系统的'presets'目录下会生成相应的预置包配置文件，且顶部导航自动切换到新的预置包。重新点击'工具箱'对应菜单项可以取消本次操作。",
+  "Embed parameters into images for easy identification of image sources and communication and learning.":
+    "将参数嵌入到图片中，便于识别图片来源，方便交流和学习。生成的嵌参图片会保存在'outputs/embed'目录下，且在'输入图片'的'图片提参'界面下可以上传识别嵌参图片，重置出图参数。重新点击'工具箱'对应菜单项可以取消本次操作。",
+  "The model in the params and configuration is missing MUID. And the system will spend some time calculating the hash of model files and synchronizing information to obtain the muid for usability and transferability.":
+    "经检测，当前配置的模型缺少统一的模型标识MUID。为了确保预置包及嵌参图片的可用性，系统会花费些时间计算模型文件的哈希值，并获取相对应的模型标识MUID，请耐心等待。",
   "Enter": "确认",
   "Sync model info": "同步模型信息",
   "Improve usability and transferability for preset and embedinfo.": "为了确保预置包和嵌入参数图片在不同环境下的可用性。",
@@ -207,10 +221,12 @@
   "Art/Anime": "艺术/动漫",
   "Apply Styles": "设置对应风格",
   "Describe this Image into Prompt": "反推图片内容填入提示词框",
-  "Extract the parameters of the embedded parameter image and then reset the working environment.": "从左侧图片提取嵌参图片的参数，然后重置出图环境。",
+  "Extract the parameters of the embedded parameter image and then reset the working environment.":
+    "从左侧图片提取嵌参图片的参数，然后重置出图环境。",
   "Extract params from Image and Reset": "提取图片参数重置环境",
   "Type Download URL here.": "输入下载链接",
-  "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.": "注意：如果同步后仍有MUID缺失，说明该模型文件是新文件，需要添加可用下载链接后再同步。",
+  "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.":
+    "注意：如果同步后仍有MUID缺失，说明该模型文件是新文件，需要添加可用下载链接后再同步。",
   "Extras": "增强",
   "Choose Preset Selector": "Choose Preset Selector",
   "Background Theme": "背景主题",
@@ -252,9 +268,11 @@
   "Improve Detail (face, hand, eyes, etc.)": "细节提升重绘(脸、手、眼睛等)",
   "Modify Content (add objects, change background, etc.)": "内容修改重绘(增加物体或改变背景等)",
   "Mask Erode or Dilate": "蒙版的缩放",
-  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)": "正值使蒙版白色区域扩大，负值使之缩小。默认值0，总是在蒙版反转前处理。",
+  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)":
+    "正值使蒙版白色区域扩大，负值使之缩小。默认值0，总是在蒙版反转前处理。",
   "GroundingDINO Box Erode or Dilate": "智能识别蒙版的缩放",
-  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, processed before SAM)": "正值使蒙版白色区域扩大，负值使之缩小。默认值为0，在SAM之前处理。",
+  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, processed before SAM)":
+    "正值使蒙版白色区域扩大，负值使之缩小。默认值为0，在SAM之前处理。",
   "Enable Advanced Masking Features": "激活重绘蒙版",
   "Invert Mask When Generating": "反转蒙版",
 
@@ -294,7 +312,7 @@
   "Adds parameters to generated images allowing manual regeneration.": "为生成的图像嵌入生成参数，允许后续读取并手动重新生成。",
   "Save Metadata to Images": "参数嵌入图片",
   "Metadata Scheme": "参数嵌入模版",
-  "Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.":\
+  "Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.":
       "Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.",
   "fooocus": "Fooocus",
   "a1111": "A1111",
@@ -302,7 +320,8 @@
   "Drag any image generated by Fooocus here": "嵌参图片拖拽到这",
   "Lightning": "闪速",
   "Preview Metadata": "参数预览",
-  "The preset package being loaded has model files that need to be downloaded, and it will take some time to wait...": "正在加载的预置包中有需要下载的模型文件，需要耐心等待一段时间。",
+  "The preset package being loaded has model files that need to be downloaded, and it will take some time to wait...":
+    "正在加载的预置包中有需要下载的模型文件，需要耐心等待一段时间。",
   "Generate Engine": "生图引擎",
   "SDXL": "SDXL",
   "HyDiT": "混元",
@@ -547,7 +566,8 @@
     "Place this at back of generated prompt (suffix)": "将该文本放置在生成的提示后面（后缀）",
     "Additional options": "附加选项",
     "Overwrite type of image:": "覆盖图像类型：",
-    "Filter out following properties (comma seperated). Example film grain, purple, cat": "过滤掉以下属性（用逗号分隔）。例如：film grain, purple, cat（胶片颗粒感、紫色、猫）",
+    "Filter out following properties (comma seperated). Example film grain, purple, cat":
+      "过滤掉以下属性（用逗号分隔）。例如：film grain, purple, cat（胶片颗粒感、紫色、猫）",
 
     "Leo Dragonyear": "LEO-龙年贺春",
 
