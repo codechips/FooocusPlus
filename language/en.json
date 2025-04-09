@@ -54,7 +54,8 @@
     "CPDS": "CPDS",
     "FaceSwap": "FaceSwap",
     "Advanced Control": "Advanced Control",
-    "* \"Image Prompt\" is powered by Fooocus Image Mixture Engine (v1.0.1). <a href=\"https://github.com/lllyasviel/Fooocus/discussions/557\" target=\"_blank\">\ud83d\udcd4 Document</a>": "* \"Image Prompt\" is powered by Fooocus Image Mixture Engine (v1.0.1). <a href=\"https://github.com/lllyasviel/Fooocus/discussions/557\" target=\"_blank\">\ud83d\udcd4 Document</a>",
+    "* \"Image Prompt\" is powered by Fooocus Image Mixture Engine (v1.0.1). <a href=\"https://github.com/lllyasviel/Fooocus/discussions/557\" target=\"_blank\">\ud83d\udcd4 Document</a>":
+        "* \"Image Prompt\" is powered by Fooocus Image Mixture Engine (v1.0.1). <a href=\"https://github.com/lllyasviel/Fooocus/discussions/557\" target=\"_blank\">\ud83d\udcd4 Document</a>",
     "Inpaint or Outpaint": "Inpaint or Outpaint",
     "Drag inpaint or outpaint image to here": "Drag inpaint or outpaint image to here",
     "Mask Upload": "Mask Upload",
@@ -64,7 +65,8 @@
     "Right": "Right",
     "Top": "Top",
     "Bottom": "Bottom",
-    "* \"Inpaint or Outpaint\" is powered by the sampler \"DPMPP Fooocus Seamless 2M SDE Karras Inpaint Sampler\" (beta)": "* \"Inpaint or Outpaint\" is powered by the sampler \"DPMPP Fooocus Seamless 2M SDE Karras Inpaint Sampler\" (beta)",
+    "* \"Inpaint or Outpaint\" is powered by the sampler \"DPMPP Fooocus Seamless 2M SDE Karras Inpaint Sampler\" (beta)":
+        "* \"Inpaint or Outpaint\" is powered by the sampler \"DPMPP Fooocus Seamless 2M SDE Karras Inpaint Sampler\" (beta)",
     "Advanced Options": "Advanced Options",
     "Generate Mask from Image": "Generate Mask from Image",
     "Settings": "Settings",
@@ -318,20 +320,23 @@
     "Base Model (SDXL only)": "Base Model (SDXL only)",
     "Refiner (SDXL or SD 1.5)": "Refiner (SDXL or SD 1.5)",
     "Refiner Switch At": "Refiner Switch At",
-    "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.": "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.",
+    "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.":
+        "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.",
     "Refresh": "Refresh",
     "\ud83d\udd04 Refresh All Files": "\ud83d\udd04 Refresh All Files",
     "Sync model info": "Sync Model Info",
     "Improve usability and transferability for preset and embedinfo.": "Improve usability and transferability for preset and embedinfo.",
     "Sync": "Sync",
     "\ud83d\udd04 Sync Remote Info": "\ud83d\udd04 Sync Remote Info",
-    "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.": "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.",
+    "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.":
+        "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.",
     "Advanced": "Advanced",
     "Guidance Scale (CFG)": "Guidance Scale (CFG)",
     "Higher value means style is cleaner, vivider, and more artistic.": "Higher value means style is cleaner, vivider, and more artistic.",
     "Image Sharpness": "Image Sharpness",
     "Higher value means image and texture are sharper.": "Higher value means image and texture are sharper.",
-    "<a href=\"https://github.com/lllyasviel/Fooocus/discussions/117\" target=\"_blank\">\ud83d\udcd4 Document</a>": "<a href=\"https://github.com/lllyasviel/Fooocus/discussions/117\" target=\"_blank\">\ud83d\udcd4 Document</a>",
+    "<a href=\"https://github.com/lllyasviel/Fooocus/discussions/117\" target=\"_blank\">\ud83d\udcd4 Document</a>":
+        "<a href=\"https://github.com/lllyasviel/Fooocus/discussions/117\" target=\"_blank\">\ud83d\udcd4 Document</a>",
     "Expert Mode": "Expert Mode",
     "Expert Tools": "Expert Tools",
     "Positive ADM Guidance Scaler": "Positive ADM Guidance Scaler",
@@ -342,13 +347,16 @@
     "When to end the guidance from positive/negative ADM. ": "When to end the guidance from positive/negative ADM. ",
     "Refiner Swap Method": "Refiner Swap Method",
     "CFG Mimicking from TSNR": "CFG Mimicking from TSNR",
-    "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).": "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).",
+    "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).":
+        "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).",
     "CLIP Skip": "CLIP Skip",
-    "Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).": "Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).",
+    "Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).":
+        "Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).",
     "Sampler": "Sampler",
     "Scheduler": "Scheduler",
     "Generate Image Grid for Each Batch": "Generate Image Grid for Each Batch",
-    "(Experimental) This may cause performance problems on some computers and certain internet conditions.": "(Experimental) This may cause performance problems on some computers and certain internet conditions.",
+    "(Experimental) This may cause performance problems on some computers and certain internet conditions.":
+        "(Experimental) This may cause performance problems on some computers and certain internet conditions.",
     "karras": "karras",
     "Scheduler of Sampler.": "Scheduler of Sampler.",
     "normal": "normal",
@@ -362,7 +370,8 @@
     "Set to -1 to disable.": "Set to -1 to disable.",
     "Forced Overwrite of Refiner Switch Step": "Forced Overwrite of Refiner Switch Step",
     "Forced Overwrite of Generating Width": "Forced Overwrite of Generating Width",
-    "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.": "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.",
+    "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.":
+        "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.",
     "Forced Overwrite of Generating Height": "Forced Overwrite of Generating Height",
     "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
     "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
@@ -371,7 +380,8 @@
     "Disable Preview": "Disable Preview",
     "Disable preview during generation.": "Disable preview during generation.",
     "Disable Intermediate Results": "Disable Intermediate Results",
-    "Disable intermediate results during generation, only show final gallery.": "Disable intermediate results during generation, only show final image.",
+    "Disable intermediate results during generation, only show final gallery.":
+        "Disable intermediate results during generation, only show final image.",
     "Debug Inpaint Preprocessing": "Debug Inpaint Preprocessing",
     "Debug GroundingDINO": "Debug GroundingDINO",
     "Used for SAM object detection and box generation": "Used for SAM object detection and box generation",
@@ -384,11 +394,13 @@
     "Debug Preprocessors": "Debug Preprocessors",
     "See the results from preprocessors.": "See the results from preprocessors.",
     "Skip Preprocessors": "Skip Preprocessors",
-    "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)": "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)",
+    "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)":
+        "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)",
     "Mix Image Prompt & Vary/Upscale": "Mix Image Prompt & Vary/Upscale",
     "Mix Image Prompt & Inpaint": "Mix Image Prompt & Inpaint",
     "Softness of ControlNet": "Softness of ControlNet",
-    "Similar to the Control Mode in A1111 (use 0.0 to disable). ": "Similar to the Control Mode in A1111 (use 0.0 to disable). ",
+    "Similar to the Control Mode in A1111 (use 0.0 to disable). ":
+        "Similar to the Control Mode in A1111 (use 0.0 to disable). ",
     "Canny": "Canny",
     "Canny Low Threshold": "Canny Low Threshold",
     "Canny High Threshold": "Canny High Threshold",
@@ -398,11 +410,14 @@
     "Inpaint Engine": "Inpaint Engine",
     "Version of Fooocus inpaint model": "Version of Fooocus inpaint model",
     "Inpainting Strength": "Inpainting Strength",
-    "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0": "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0",
+    "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength:
+        1.0": "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0",
     "Inpainting Area": "Inpainting Area",
-    "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0",
+    "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0":
+        "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0",
     "Mask Erode or Dilate": "Mask Erode or Dilate",
-    "Positive value will make white area in the mask larger, negative value will make white area smaller.(default is 0, always process before any mask invert)": "Positive value will make white area in the mask larger, negative value will make white area smaller.(default is 0, always process before any mask invert)",
+    "Positive value will make white area in the mask larger, negative value will make white area smaller.(default is 0, always process before any mask invert)":
+        "Positive value will make white area in the mask larger, negative value will make white area smaller.(default is 0, always process before any mask invert)",
     "Enable Mask Upload": "Enable Mask Upload",
     "Invert Mask": "Invert Mask",
     "FreeU": "FreeU",
@@ -411,7 +426,8 @@
     "Choose Preset Selector": "Choose Preset Selector",
     "Background Theme": "Background Theme",
     "Backfill Prompt While Switching Images": "Backfill Prompt While Switching Images",
-    "Extract and backfill prompt and negative prompt while switching historical gallery images.": "Extract and backfill prompt and negative prompt while switching historical gallery images.",
+    "Extract and backfill prompt and negative prompt while switching historical gallery images.":
+        "Extract and backfill prompt and negative prompt while switching historical gallery images.",
     "Timing of translation": "Timing of Translation",
     "Translate then generate": "Translate then Generate",
     "The selection of timing for prompt translation.": "The selection of timing for prompt translation.",
@@ -419,12 +435,14 @@
     "Modify after translation": "Modify after Translation",
     "Translation Methods": "Translation Methods",
     "APIs on third": "3rd Party",
-    "'Model' requires more GPU/CPU and 'APIs' rely on third parties parties.": "'Model' requires more GPU/CPU and 'APIs' rely on third parties.",
+    "'Model' requires more GPU/CPU and 'APIs' rely on third parties parties.":
+        "'Model' requires more GPU/CPU and 'APIs' rely on third parties.",
     "Model in local": "Model in Local",
     "http://192.168.9.248:8889/sdxl/": "http://192.168.9.248:8889/sdxl/",
 
   "Enable Comfyd Always Active": "Enable Comfyd Always Active",
-  "Enabling will improve execution speed but occupy some memory.": "Enabling will improve execution speed but occupy some memory.",
+  "Enabling will improve execution speed but occupy some memory.":
+      "Enabling will improve execution speed but occupy some memory.",
 
   "SuperPrompter": "SuperPrompter",
   "SuperPrompt": "SuperPrompt",
@@ -453,7 +471,8 @@
     "Metadata": "Metadata",
     "Apply Metadata": "Apply Metadata",
     "Metadata Scheme": "Metadata Scheme",
-    "Use "Fooocus" to regenerate images and "A1111" for Civitai": "Use "Fooocus" to regenerate images and "A1111" for Civitai",
+    "Use "Fooocus" to regenerate images and "A1111" for Civitai":
+        "Use "Fooocus" to regenerate images and "A1111" for Civitai",
     "fooocus": "Fooocus",
     "a1111": "A1111",
     "Unsupported image type in input": "Unsupported image type in input",
@@ -463,11 +482,13 @@
     "Maximum Number of Detections": "Maximum Number of Detections",
     "Use with Enhance, skips image generation": "Use with Enhance, skips image generation",
     "Order of Processing": "Processing Order",
-    "Use before to enhance small details and after to enhance large areas.": "Use before to enhance small details and after to enhance large areas.",
+    "Use before to enhance small details and after to enhance large areas.":
+        "Use before to enhance small details and after to enhance large areas.",
     "Before First Enhancement": "Before First Enhancement",
     "After Last Enhancement": "After Last Enhancement",
     "Prompt Type": "Prompt Type",
-    "Choose which prompt to use for Upscale or Variation.": "Choose which prompt to use for Upscale or Variation.",
+    "Choose which prompt to use for Upscale or Variation.":
+        "Choose which prompt to use for Upscale or Variation.",
     "Original Prompts": "Original Prompts",
     "Last Filled Enhancement Prompts": "Last Filled Enhancement Prompts",
     "Enable": "Enable",
@@ -475,7 +496,8 @@
     "Enhancement Positive Prompt": "Enhancement Positive Prompt",
     "Uses original prompt instead if empty.": "Uses original prompt instead if empty.",
     "Enhancement Negative Prompt": "Enhancement Negative Prompt",
-    "Uses original negative prompt instead if empty.": "Uses original negative prompt instead if empty.",
+    "Uses original negative prompt instead if empty.":
+        "Uses original negative prompt instead if empty.",
     "Detection": "Detection",
     "u2net": "u2net",
     "u2netp": "u2netp",
@@ -508,9 +530,11 @@
     "Improve Detail (face, hand, eyes, etc.)": "Improve Detail (face, hand, eyes, etc.)",
     "Modify Content (add objects, change background, etc.)": "Modify Content (add objects, change background, etc.)",
     "Disable Initial Latent in Inpaint": "Disable Initial Latent in Inpaint",
-    "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.": "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.",
+    "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.":
+        "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.",
     "Mask Erode or Dilate": "Mask Erode or Dilate",
-    "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)": "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)",
+    "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)":
+        "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)",
     "Invert Mask When Generating": "Invert Mask When Generating",
     "Debug Enhance Masks": "Debug Enhance Masks",
     "Show enhance masks in preview and final results": "Show enhance masks in preview and final results",
