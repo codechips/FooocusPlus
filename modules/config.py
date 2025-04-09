@@ -79,7 +79,7 @@ def get_path_output() -> str:
     else:
         path_output = '..UserDir/Outputs'
     get_dir_or_set_default('path_outputs', {os.path.abspath(path_output)}, make_directory=True)
-    path_output = os.path.abspath(path_outputs)  
+    path_output = os.path.abspath(path_output)
     print(f'Generated images will be stored in {path_output}')
     return path_output
 
