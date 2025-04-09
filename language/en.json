@@ -93,7 +93,7 @@
     "Use black image if NSFW is detected.": "Use black image if NSFW is detected.",
     "Save Only the Final Enhanced Image": "Save Only the Final Enhanced Image",
     "Save Metadata to Images": "Save Metadata to Images",
-    "Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.":\
+    "Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.":
         "Add parameters to an image for regeneration or upload to Civitai. A Metadata Scheme is not in effect unless this box is checked.",
     "\ud83d\udcda History Log": "\uD83D\uDCDA History Log",
     "Image Style": "Image Style",
