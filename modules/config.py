@@ -198,17 +198,17 @@ path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_roo
 paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
 
 if args_manager.args.output_path:
-    get_dir_or_set_default('path_outputs', args_manager.args.output_path, False, True)
     path_outputs = args_manager.args.output_path
 elif args_manager.args.user_dir:
-    path_outputs = get_dir_or_set_default('path_outputs', f'{args_manager.args.user_dir}/Outputs', False, True)
+    path_outputs = f'{args_manager.args.user_dir}/Outputs'
 else:
-    path_outputs = get_dir_or_set_default('path_outputs', '..UserDir/Outputs', False, True)
+    path_outputs = '..UserDir/Outputs'
 path_outputs = os.path.abspath(path_outputs)
+get_dir_or_set_default('path_outputs', {path_outputs}, False, True)
 
-path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
 print(f'Generated images will be stored in {path_outputs}')
 print()
+path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
 print('Loading support files...')
 
 from enhanced.backend import init_modelsinfo
