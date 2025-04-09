@@ -76,9 +76,8 @@ def get_path_output() -> str:
     global config_dict
     path_output = 'outputs'
     if args_manager.args.output_path:
-        path_output = args_manager.args.output_path
-        path_output_abs = os.path.abspath(path_output)
-        config_dict['path_outputs'] = path_output_abs
+        path_output = os.path.abspath(args_manager.args.output_path)
+        config_dict['path_outputs'] = path_output
     path_output = get_dir_or_set_default('path_outputs', f'..UserDir/{path_output}')
     path_output = os.path.abspath(path_output)
     print(f'Generated images will be stored in {path_output}')
