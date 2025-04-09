@@ -198,12 +198,12 @@ path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_roo
 paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
 
 if args_manager.args.output_path:
-    get_dir_or_set_default('path_outputs', args_manager.args.output_path)
+    get_dir_or_set_default('path_outputs', args_manager.args.output_path, False, True)
     path_outputs = args_manager.args.output_path
 elif args_manager.args.user_dir:
-    path_outputs = get_dir_or_set_default('path_outputs', f'{args_manager.args.user_dir}/Outputs')
+    path_outputs = get_dir_or_set_default('path_outputs', f'{args_manager.args.user_dir}/Outputs', False, True)
 else:
-    path_outputs = get_dir_or_set_default('path_outputs', '..UserDir/Outputs')
+    path_outputs = get_dir_or_set_default('path_outputs', '..UserDir/Outputs', False, True)
 path_outputs = os.path.abspath(path_outputs)
 
 path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
