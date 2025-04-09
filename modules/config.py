@@ -69,6 +69,20 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
     config_dict[key] = dp
     return dp
 
+def get_path_output() -> str:
+    global config_dict
+    if args_manager.args.output_path:
+        path_output = os.path.abspath(args_manager.args.output_path)
+        config_dict['path_outputs'] = path_output
+    elif args_manager.args.user_dir:
+        path_output = f'{args_manager.args.user_dir}/Outputs'
+    else:
+        path_output = '..UserDir/Outputs'
+    get_dir_or_set_default('path_outputs', {os.path.abspath(path_output)}, make_directory=True)
+    path_output = os.path.abspath(path_outputs)  
+    print(f'Generated images will be stored in {path_output}')
+    return path_output
+
 def get_config_path(config_file):
     if args_manager.args.config:
         config_path = args_manager.args.config
@@ -196,19 +210,9 @@ path_unet = get_dir_or_set_default('path_unet', f'{path_models_root}/unet')
 path_rembg = get_dir_or_set_default('path_rembg', f'{path_models_root}/rembg')
 path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_root}/layer_model')
 paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
-
-if args_manager.args.output_path:
-    path_outputs = args_manager.args.output_path
-elif args_manager.args.user_dir:
-    path_outputs = f'{args_manager.args.user_dir}/Outputs'
-else:
-    path_outputs = '..UserDir/Outputs'
-get_dir_or_set_default('path_outputs', {os.path.abspath(path_outputs)}, make_directory=True)
-path_outputs = os.path.abspath(path_outputs)
-
-print(f'Generated images will be stored in {path_outputs}')
-print()
+path_outputs = get_path_output()
 path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
+print()
 print('Loading support files...')
 
 from enhanced.backend import init_modelsinfo
