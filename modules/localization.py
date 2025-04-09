@@ -21,7 +21,7 @@ def localization_js(filename):
                         assert isinstance(v, str)
             except Exception as e:
                 print(str(e))
-                print(f'Failed to load localization file {full_name}')
+                print(f'Failed to load language file {full_name}')
 
     # current_translation = {k: 'XXX' for k in current_translation.keys()}  # use this to see if all texts are covered
     
