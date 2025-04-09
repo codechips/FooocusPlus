@@ -7,7 +7,7 @@
   "Stop": "Arrêter",
   "Load Parameters": "Charger les paramètres",
   "Translator": "Traducteur Chinois-Anglais",
-  "Type prompt here or paste parameters.": "Entrez une invite texte ici ou collez les paramètres. Prend en charge la saisie mixte chinois-anglais avec traduction automatique. Le compteur de jetons est en bas à droite.",
+  "Type prompt here or paste parameters.": "Entrez une invite texte ici ou collez les paramètres.",
   "Finished Images Index:": "Historique des images générées :",
   "Gallery Index": "Gallery Index",
   "Input Image": "Image d'entrée",
@@ -30,7 +30,8 @@
   "Upscale (2x)": "Agrandir (2x) avec détails",
   "Upscale (Fast 2x)": "Agrandir (Rapide 2x)",
   "Processing Order": "Ordre de traitement",
-  "Use before to enhance small details and after to enhance large areas.": "Utilisez avant pour améliorer les petits détails et après pour améliorer les grandes zones.",
+  "Use before to enhance small details and after to enhance large areas.":
+    "Utilisez avant pour améliorer les petits détails et après pour améliorer les grandes zones.",
   "Before First Enhancement": "Agrandissement global avant",
   "After Last Enhancement": "Agrandissement global après",
   "Prompt": "Invite pour l'agrandissement global",
@@ -57,7 +58,7 @@
   "Quality": "Qualité",
   "Aspect Ratios": "Dimensions | Ratio",
   "Exquisite": "Exquis",
-  "Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.":\
+  "Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.":
     "Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.",
   "Image Quantity": "Nombre d'images",
   "Negative Prompt": "Invite négative",
@@ -93,7 +94,8 @@
   "Guidance Scale (CFG)": "Échelle de guidance CFG",
   "Higher value means style is cleaner, vivider, and more artistic.": "Une valeur plus élevée signifie un style plus épuré, plus vif et plus artistique.",
   "Refiner Switch At": "Activation de l'affinage à",
-  "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.": "Utilisez 0,4 pour les modèles réalistes SD1.5 ; ou 0,667 pour les modèles anime SD1.5 ; ou 0,8 pour les affineurs XL ; ou toute valeur pour basculer entre deux modèles SDXL.",
+  "Use 0.4 for SD1.5 realistic models; or 0.667 for SD1.5 anime models; or 0.8 for XL-refiners; or any value for switching two SDXL models.":
+    "Utilisez 0,4 pour les modèles réalistes SD1.5 ; ou 0,667 pour les modèles anime SD1.5 ; ou 0,8 pour les affineurs XL ; ou toute valeur pour basculer entre deux modèles SDXL.",
   "Expert Mode": "Mode développeur",
   "Expert Tools": "Outils de débogage",
   "Positive ADM Guidance Scaler": "Multiplicateur de guidance ADM positif",
@@ -104,28 +106,32 @@
   "When to end the guidance from positive/negative ADM. ": "Quand arrêter la guidance de l'ADM positif/négatif.",
   "Refiner Swap Method": "Méthode de changement d'affinage",
   "CFG Mimicking from TSNR": "Mimétisme CFG depuis TSNR",
-  "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).": "Active l'implémentation de Fooocus du mimétisme CFG pour TSNR (efficace lorsque le CFG réel > CFG mimé).",
+  "Enabling Fooocus's implementation of CFG mimicking for TSNR (effective when real CFG > mimicked CFG).":
+    "Active l'implémentation de Fooocus du mimétisme CFG pour TSNR (efficace lorsque le CFG réel > CFG mimé).",
   "Sampler": "Échantillonneur",
   "Only effective in non-inpaint mode.": "Efficace uniquement en mode non-peinture.",
   "Scheduler": "Planificateur",
   "karras": "karras",
   "Scheduler of Sampler.": "Planificateur de l'échantillonneur.",
   "Generate Image Grid for Each Batch": "Générer une grille d'images pour chaque lot",
-  "(Experimental) This may cause performance problems on some computers and certain internet conditions.": "(Expérimental) Cela peut causer des problèmes de performance sur certains ordinateurs et certaines connexions internet.",
+  "(Experimental) This may cause performance problems on some computers and certain internet conditions.":
+    "(Expérimental) Cela peut causer des problèmes de performance sur certains ordinateurs et certaines connexions internet.",
   "Disable Preview": "Désactiver l'aperçu",
   "Disable preview during generation.": "Désactiver l'aperçu pendant la génération.",
   "Forced Overwrite of Sampling Step": "Réécriture forcée du nombre d'étapes",
   "Set as -1 to disable.": "Définir à -1 pour désactiver.",
   "Forced Overwrite of Refiner Switch Step": "Réécriture forcée de l'étape de changement d'affinage",
   "Forced Overwrite of Generating Width": "Réécriture forcée de la largeur générée",
-  "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.": "Définir à -1 pour désactiver. Les résultats seront moins bons pour des valeurs non standard sur lesquelles SDXL n'est pas entraîné.",
+  "Set to -1 to disable. Results will be worse for non-standard numbers that the model is not trained on.":
+    "Définir à -1 pour désactiver. Les résultats seront moins bons pour des valeurs non standard sur lesquelles SDXL n'est pas entraîné.",
   "Forced Overwrite of Generating Height": "Réécriture forcée de la hauteur générée",
   "Adjust the Strength of Image Variation": "Adjust the Strength of Image Variation",
   "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"": "0.0=\"None\", 0.50=\"Subtle\", 0.85=\"Strong\", 1.0=\"Max\"",
   "Adjust the Strength of Upscale Variation": "Adjust the Strength of Upscale Variation",
   "Variation Strength is also called \"denoising strength\"": "Variation Strength is also called \"denoising strength\"",
   "Inpaint Engine": "Moteur de peinture",
-  "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.": "Version du modèle de peinture Fooocus. Si défini, utilisez les modes Qualité ou Vitesse pour de meilleures performances (pas de LoRAs de performance).",
+  "Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.":
+    "Version du modèle de peinture Fooocus. Si défini, utilisez les modes Qualité ou Vitesse pour de meilleures performances (pas de LoRAs de performance).",
   "Debug Enhance Masks": "Déboguer les masques d'amélioration",
   "Show enhance masks in preview and final results": "Afficher les masques d'amélioration dans l'aperçu et les résultats finaux",
   "Debug GroundingDINO": "Déboguer GroundingDINO",
@@ -134,7 +140,8 @@
   "Debug Preprocessors": "Déboguer les préprocesseurs",
   "See the results from preprocessors.": "Voir les résultats des préprocesseurs.",
   "Skip Preprocessors": "Ignorer les préprocesseurs",
-  "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)": "Ne pas prétraiter les images. (Les entrées sont déjà canny/profondeur/visage recadré/etc.)",
+  "Do not preprocess images. (Inputs are already canny/depth/cropped-face/etc.)":
+    "Ne pas prétraiter les images. (Les entrées sont déjà canny/profondeur/visage recadré/etc.)",
   "Mix Image Prompt & Vary/Upscale": "Mélanger l'invite par image avec Varier/Agrandir",
   "Mix Image Prompt & Inpaint": "Mélanger l'invite par image avec Peinture",
   "Softness of ControlNet": "Douceur de ControlNet",
@@ -150,9 +157,11 @@
   "Debug Inpaint Preprocessing": "Déboguer le prétraitement de la peinture",
   "Disable Initial Latent in Inpaint": "Désactiver le latent initial en peinture",
   "Inpainting Strength": "Force de débruitage en peinture",
-  "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0": "Identique à la force de débruitage en peinture dans A1111. Utilisé uniquement en peinture, pas en peinture externe. (Peinture externe utilise toujours 1.0)",
+  "Adjusts the amount that Inpainting changes the image. Inpainting Strength is also called \"denoising strength\". Outpainting is at full strength: 1.0":
+    "Identique à la force de débruitage en peinture dans A1111. Utilisé uniquement en peinture, pas en peinture externe. (Peinture externe utilise toujours 1.0)",
   "Inpainting Area": "Coefficient de fusion du masque",
-  "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0": "Zone à peindre. Valeur 0 équivaut à \"Masqué uniquement\" dans A1111. Valeur 1 équivaut à \"Image entière\" dans A1111. Utilisé uniquement en peinture, pas en peinture externe. (Peinture externe utilise toujours 1.0)",
+  "An area of 0.0 means \"Only the Masked Area\". An area of 1.0 means \"The Whole Image\". Outpainting always affects the whole area and uses a value of 1.0":
+    "Zone à peindre. Valeur 0 équivaut à \"Masqué uniquement\" dans A1111. Valeur 1 équivaut à \"Image entière\" dans A1111. Utilisé uniquement en peinture, pas en peinture externe. (Peinture externe utilise toujours 1.0)",
   "FreeU": "Amélioration FreeU",
   "Enabled": "Activé",
   "Extreme Speed": "Vitesse extrême",
@@ -184,13 +193,17 @@
   "light": "Clair",
   "dark": "Sombre",
   "Enable ParamsTools": "Activer la boîte à outils des paramètres",
-  "Management of published image sets, located in the middle toolbox on the right side of the image set.": "Gestion des ensembles d'images publiés, situés dans la boîte à outils centrale sur le côté droit de l'ensemble d'images.",
+  "Management of published image sets, located in the middle toolbox on the right side of the image set.":
+    "Gestion des ensembles d'images publiés, situés dans la boîte à outils centrale sur le côté droit de l'ensemble d'images.",
   "Preset Name": "Nom du préréglage",
   "Type preset name here.": "Entrez le nom du préréglage ici.",
-  "Extract parameters to backfill for regeneration. Please note that some parameters will be modified!": "Extraire les paramètres pour les réinjecter pour régénération. Veuillez noter que certains paramètres seront modifiés !",
+  "Extract parameters to backfill for regeneration. Please note that some parameters will be modified!":
+    "Extraire les paramètres pour les réinjecter pour régénération. Veuillez noter que certains paramètres seront modifiés !",
   "Save a new preset for the current params and configuration.": "Enregistrer un nouveau préréglage pour les paramètres et la configuration actuels.",
-  "Embed parameters into images for easy identification of image sources and communication and learning.": "Intégrer des paramètres dans les images pour faciliter l'identification des sources et la communication.",
-  "The model in the params and configuration is missing MUID. And the system will spend some time calculating the hash of model files and synchronizing information to obtain the muid for usability and transferability.": "Le modèle dans les paramètres et la configuration manque de MUID. Le système prendra du temps pour calculer le hachage des fichiers modèles et synchroniser les informations pour obtenir le MUID pour l'utilisabilité et la transférabilité.",
+  "Embed parameters into images for easy identification of image sources and communication and learning.":
+    "Intégrer des paramètres dans les images pour faciliter l'identification des sources et la communication.",
+  "The model in the params and configuration is missing MUID. And the system will spend some time calculating the hash of model files and synchronizing information to obtain the muid for usability and transferability.":
+    "Le modèle dans les paramètres et la configuration manque de MUID. Le système prendra du temps pour calculer le hachage des fichiers modèles et synchroniser les informations pour obtenir le MUID pour l'utilisabilité et la transférabilité.",
   "Enter": "Confirmer",
   "Sync model info": "Synchroniser les infos du modèle",
   "Improve usability and transferability for preset and embedinfo.": "Améliorer l'utilisabilité et la transférabilité pour les préréglages et les informations intégrées.",
@@ -204,16 +217,19 @@
   "Art/Anime": "Art/Anime",
   "Apply Styles": "Appliquer les styles",
   "Describe this Image into Prompt": "Décrire cette image dans l'invite",
-  "Extract the parameters of the embedded parameter image and then reset the working environment.": "Extraire les paramètres de l'image avec paramètres intégrés puis réinitialiser l'environnement de travail.",
+  "Extract the parameters of the embedded parameter image and then reset the working environment.":
+    "Extraire les paramètres de l'image avec paramètres intégrés puis réinitialiser l'environnement de travail.",
   "Extract params from Image and Reset": "Extraire les paramètres de l'image et réinitialiser",
   "Type Download URL here.": "Entrez l'URL de téléchargement ici.",
   "🔄 Sync Remote Info": "🔄 Synchroniser les infos distantes",
-  "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.": "Remarque : Si le MUID n'est pas obtenu après synchronisation, cela signifie qu'il s'agit d'un nouveau fichier modèle. Vous devez ajouter une URL de téléchargement disponible avant.",
+  "Note: If MUID is not obtained after synchronizing, it means that it is a new model file. You need to add an available download URL before.":
+    "Remarque : Si le MUID n'est pas obtenu après synchronisation, cela signifie qu'il s'agit d'un nouveau fichier modèle. Vous devez ajouter une URL de téléchargement disponible avant.",
   "Extras": "Amélioré",
   "Choose Preset Selector": "Choose Preset Selector",
   "Background Theme": "Thème de fond",
   "Backfill Prompt While Switching Images": "Remplir l'invite lors du changement d'image",
-  "Extract and backfill prompt and negative prompt while switching historical gallery images.": "Extraire et remplir l'invite et l'invite négative lors du changement d'images historiques.",
+  "Extract and backfill prompt and negative prompt while switching historical gallery images.":
+    "Extraire et remplir l'invite et l'invite négative lors du changement d'images historiques.",
   "Timing of translation": "Moment de la traduction",
   "No translate": "Ne pas traduire",
   "Translate then generate": "Traduire puis générer",
@@ -250,9 +266,11 @@
   "Improve Detail (face, hand, eyes, etc.)": "Améliorer les détails (visage, main, yeux, etc.)",
   "Modify Content (add objects, change background, etc.)": "Modifier le contenu (ajouter des objets, changer l'arrière-plan, etc.)",
   "Mask Erode or Dilate": "Éroder ou dilater le masque",
-  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)": "Une valeur positive agrandira la zone blanche du masque, une valeur négative la réduira. (par défaut 0, toujours traité avant toute inversion du masque)",
+  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, always processed before any mask invert)":
+    "Une valeur positive agrandira la zone blanche du masque, une valeur négative la réduira. (par défaut 0, toujours traité avant toute inversion du masque)",
   "GroundingDINO Box Erode or Dilate": "Éroder ou dilater le masque GroundingDINO",
-  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, processed before SAM)": "Une valeur positive agrandira la zone blanche du masque, une valeur négative la réduira. (par défaut 0, traité avant SAM)",
+  "Positive value will make white area in the mask larger, negative value will make white area smaller. (default is 0, processed before SAM)":
+    "Une valeur positive agrandira la zone blanche du masque, une valeur négative la réduira. (par défaut 0, traité avant SAM)",
   "Enable Advanced Masking Features": "Activer les fonctionnalités avancées de masquage",
   "Invert Mask When Generating": "Inverser le masque lors de la génération",
 
@@ -291,7 +309,8 @@
   "Drag any image generated by Fooocus here": "Glissez ici toute image générée par Fooocus",
   "Lightning": "Éclair",
   "Preview Metadata": "Aperçu des métadonnées",
-  "The preset package being loaded has model files that need to be downloaded, and it will take some time to wait...": "Le préréglage en cours de chargement contient des fichiers modèles à télécharger, veuillez patienter...",
+  "The preset package being loaded has model files that need to be downloaded, and it will take some time to wait...":
+    "Le préréglage en cours de chargement contient des fichiers modèles à télécharger, veuillez patienter...",
   "Generate Engine": "Moteur de génération",
   "SDXL": "SDXL",
   "HyDiT": "HyDiT",
@@ -307,7 +326,8 @@
   "VAE": "VAE",
   "Hyper-SD": "Hyper-SD",
   "CLIP Skip": "CLIP Skip",
-  "Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).": "Contourner les couches CLIP pour éviter le surapprentissage (utilisez 1 pour ne sauter aucune couche, 2 est recommandé).",
+  "Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).":
+    "Contourner les couches CLIP pour éviter le surapprentissage (utilisez 1 pour ne sauter aucune couche, 2 est recommandé).",
   "Reconnect": "Reconnecter",
 
   "highly detailed face": "visage très détaillé",
@@ -527,7 +547,8 @@
   "fixed styles mode": "mode styles fixes",
   "the tokinator": "le tokinator",
   "One in X chance to use special image type mode": "Une chance sur X d'utiliser le mode type d'image spécial",
-  "Override options (choose the related subject type first for better results)": "Options de remplacement (choisissez d'abord le type de sujet concerné pour de meilleurs résultats)",
+  "Override options (choose the related subject type first for better results)":
+    "Options de remplacement (choisissez d'abord le type de sujet concerné pour de meilleurs résultats)",
   "Overwrite subject:": "Remplacer le sujet :",
   "Smart subject": "Sujet intelligent",
   "Overwrite outfit:": "Remplacer la tenue :",
@@ -536,7 +557,8 @@
   "Place this at back of generated prompt (suffix)": "Placez ceci à la fin de l'invite générée (suffixe)",
   "Additional options": "Options supplémentaires",
   "Overwrite type of image:": "Remplacer le type d'image :",
-  "Filter out following properties (comma seperated). Example film grain, purple, cat": "Filtrer les propriétés suivantes (séparées par des virgules). Exemple : grain de film, violet, chat",
+  "Filter out following properties (comma seperated). Example film grain, purple, cat":
+    "Filtrer les propriétés suivantes (séparées par des virgules). Exemple : grain de film, violet, chat",
 
   "Leo Dragonyear": "LEO - Bonne année du Dragon",
 
