@@ -70,6 +70,20 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
     return dp
 
 def get_path_output() -> str:
+    """
+    Checking output path argument and overriding default path.
+    """
+    global config_dict
+    path_output = 'outputs'
+    if args_manager.args.output_path:
+        path_output = args_manager.args.output_path
+        path_output_abs = os.path.abspath(path_output)
+        config_dict['path_outputs'] = path_output_abs
+    path_output = get_dir_or_set_default('path_outputs', f'../{path_output}')
+    print(f'The path_output: {path_output}')
+    return path_output
+'''
+def get_path_output() -> str:
     global config_dict
     if args_manager.args.output_path:
         path_output = os.path.abspath(args_manager.args.output_path)
@@ -82,7 +96,7 @@ def get_path_output() -> str:
     path_output = os.path.abspath(path_output)
     print(f'Generated images will be stored in {path_output}')
     return path_output
-
+'''
 def get_config_path(config_file):
     if args_manager.args.config:
         config_path = args_manager.args.config
