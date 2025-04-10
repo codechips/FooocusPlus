@@ -2,14 +2,14 @@ import os
 import json
 from pathlib import Path
 import shutil
-import args_manager
+import modules.config
 from custom.OneButtonPrompt.utils import path_fixed
 
 class OneButtonPresets:
     DEFAULT_OBP_FILE = Path(path_fixed("random_prompt/presets/obp_presets.default"))
     OBP_FILE = Path(path_fixed("random_prompt/userfiles/obp_presets.json"))
     OBP_FULLPATH = os.path.abspath(OBP_FILE)
-    USER_FILE = os.path.abspath(f'{args_manager.args.user_dir}/user_topics')
+    USER_FILE = os.path.abspath(f'{modules.config.user_dir}/user_topics')
     CUSTOM_OBP = "Create a New Topic..."
     RANDOM_PRESET_OBP = "All Topics at Random..."
 
