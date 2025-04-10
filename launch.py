@@ -39,6 +39,8 @@ from launch_support import build_launcher, is_win32_standalone_build, python_emb
     delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
+print(config.user_dir)
+torch_base_ver = read_torch_base()
 
 def prepare_environment():
     REINSTALL_ALL = False
@@ -53,7 +55,6 @@ def prepare_environment():
     xformers_ver = torch_dict['xformers_ver']
     pytorchlightning_ver = torch_dict['pytorchlightning_ver']
     lightningfabric_ver = torch_dict['lightningfabric_ver']
-    print(config.user_dir)
     torch_base_ver = read_torch_base()
 
     print(f"Python {sys.version}")
@@ -121,7 +122,6 @@ def ini_args():
     from args_manager import args
     return args
 
-from modules import config
 prepare_environment()
 build_launcher()
 args = ini_args()
