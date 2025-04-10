@@ -121,6 +121,7 @@ def ini_args():
     from args_manager import args
     return args
 
+from modules import config
 prepare_environment()
 build_launcher()
 args = ini_args()
