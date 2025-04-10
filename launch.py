@@ -24,7 +24,7 @@ from launch_support import build_launcher, is_win32_standalone_build, python_emb
 
 print(config.user_dir)
 torch_base_ver = read_torch_base()
-
+quit()
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
 os.environ["translators_default_region"] = "China"
