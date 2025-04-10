@@ -174,7 +174,9 @@ def get_split_value(full_string):
     split_value = scratch[1] if len(scratch) > 1 else ''
     return split_value
       
-def read_torch_base():    
+def read_torch_base():
+    print(modules.config.user_dir)
+    quit()
     try:
         torch_base_path = os.path.abspath(f'{modules.config.user_dir}/torch_base.txt')
         torch_base = open(torch_base_path, 'r')
@@ -183,9 +185,6 @@ def read_torch_base():
         torch_base.close()
     except:
         torch_base_ver = 'undefined'
-    print(torch_base_ver)
-    print(modules.config.user_dir)
-    quit()
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
