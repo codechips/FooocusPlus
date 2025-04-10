@@ -58,7 +58,7 @@ args_parser.parser.add_argument("--models-root", type=str,
   help="Set the path to the models directory", default=None)
 
 args_parser.parser.add_argument("--config", type=str,
-  help="Set the path for config.txt", default=None
+  help="Set the path for config.txt", default=None)
 
 args_parser.parser.add_argument("--disable-comfyd", action='store_true',
   help="Do not auto-start the Comfy server at launch", default=False)
