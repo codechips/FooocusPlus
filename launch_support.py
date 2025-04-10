@@ -183,6 +183,9 @@ def read_torch_base():
         torch_base.close()
     except:
         torch_base_ver = 'undefined'
+    print(torch_base_ver)
+    print(modules.config.user_dir)
+    quit()
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
