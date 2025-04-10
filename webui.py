@@ -880,14 +880,14 @@ with common.GRADIO_ROOT:
             with gr.Tab(label='Advanced', elem_id="scrollable-box"):
                 guidance_scale = gr.Slider(label='Guidance Scale (CFG)', minimum=0.01, maximum=30.0, step=0.01,
                     value=modules.config.default_cfg_scale,
-                    info='Higher value means style is cleaner, vivider, and more artistic.')
-                overwrite_step = gr.Slider(label='Forced Overwrite of Sampling Step',
-                    minimum=-1, maximum=200, step=1,
-                    value=modules.config.default_overwrite_step,
-                    info='Set as -1 to disable.')
+                    info='Higher value means style is cleaner, vivider, and more artistic.')             
                 sharpness = gr.Slider(label='Image Sharpness', minimum=0.0, maximum=30.0, step=0.001,
                     value=modules.config.default_sample_sharpness,
                     info='Higher value means image and texture are sharper.')
+               overwrite_step = gr.Slider(label='Forced Overwrite of Sampling Step',
+                    minimum=-1, maximum=200, step=1,
+                    value=modules.config.default_overwrite_step,
+                    info='Set as -1 to disable.')
                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/117" target="_blank">\U0001F4D4 Documentation</a>')
                 dev_mode = gr.Checkbox(label='Expert Mode', value=modules.config.default_developer_debug_mode_checkbox, container=False)
 
