@@ -2,7 +2,6 @@ import os
 import ssl
 import sys
 import ldm_patched
-import enhanced.version as version
 from common import ROOT
 
 print('[System ARGV] ' + str(sys.argv))
@@ -10,6 +9,7 @@ print(f'Root {ROOT}')
 sys.path.append(ROOT)
 os.chdir(ROOT)
 
+import enhanced.version as version
 if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
@@ -21,6 +21,8 @@ if not version.get_required_library():
 
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
     delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
+from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
+    requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
 print(config.user_dir)
 torch_base_ver = read_torch_base()
@@ -31,9 +33,6 @@ os.environ["translators_default_region"] = "China"
 if "GRADIO_SERVER_PORT" not in os.environ:
     os.environ["GRADIO_SERVER_PORT"] = "7865"
 ssl._create_default_https_context = ssl._create_unverified_context
-
-from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
-    requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
 torchruntime_ver = '1.16.1'
 #verify_installed_version('torchruntime', torchruntime_ver)
