@@ -22,13 +22,6 @@ visited_keys = []
 wildcards_max_bfs_depth = 64
 current_dir = os.path.split(os.getcwd())[-1]
 
-if args_manager.args.user_dir:
-    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
-else:
-    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
-    args_manager.args.user_dir = user_dir
-create_user_structure()
-
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
     global config_dict, visited_keys, always_save_keys
 
@@ -75,6 +68,13 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
             dp = [dp]
     config_dict[key] = dp
     return dp
+
+if args_manager.args.user_dir:
+    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
+else:
+    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
+    args_manager.args.user_dir = user_dir
+create_user_structure()
 
 def get_path_output() -> str:
     global config_dict
