@@ -1,6 +1,7 @@
 import os
 import sys
 from pathlib import Path
+import launch_support
 from launch_support import is_win32_standalone_build
 
 branch = ''
