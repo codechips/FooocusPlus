@@ -3,13 +3,8 @@ import ssl
 import sys
 import ldm_patched
 from common import ROOT
-
-print('[System ARGV] ' + str(sys.argv))
-print(f'Root {ROOT}')
-sys.path.append(ROOT)
-os.chdir(ROOT)
-
 import enhanced.version as version
+
 if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
@@ -18,6 +13,11 @@ if not version.get_required_library():
     print('https://huggingface.co/DavidDragonsage/FooocusPlus/')
     print()
     quit()
+
+print('[System ARGV] ' + str(sys.argv))
+print(f'Root {ROOT}')
+sys.path.append(ROOT)
+os.chdir(ROOT)
 
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
     delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
