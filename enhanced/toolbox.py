@@ -4,7 +4,6 @@ import copy
 import re
 import math
 import shutil
-import args_manager
 import time
 import gradio as gr
 import modules.config as config
@@ -475,7 +474,7 @@ def save_preset(*args):
         preset["embeddings_downloads"] = {} 
 
         save_path = f'presets/{save_name}.json'
-        user_path = f'{args_manager.args.user_dir}/user_presets/{save_name}.json'
+        user_path = f'{config.user_dir}/user_presets/{save_name}.json'
         with open(save_path, "w", encoding="utf-8") as json_file:
             json.dump(preset, json_file, indent=4) # temp. save to working presets
         shutil.copy(save_path, user_path)          # perm. save to user presets
