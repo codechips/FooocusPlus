@@ -74,7 +74,7 @@ def get_path_output() -> str:
     if args_manager.args.user_dir:
         path_output = f'{args_manager.args.user_dir}/Outputs'
     else:
-    path_output = 'f{user_dir}/Outputs'
+        path_output = 'f{user_dir}/Outputs'
     print(path_output)
     path_output = get_dir_or_set_default('path_outputs', {path_output}, make_directory=True)
     if args_manager.args.output_path:
