@@ -22,6 +22,13 @@ visited_keys = []
 wildcards_max_bfs_depth = 64
 current_dir = os.path.split(os.getcwd())[-1]
 
+if args_manager.args.user_dir:
+    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
+else:
+    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
+    args_manager.args.user_dir = user_dir
+create_user_structure()
+
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
     global config_dict, visited_keys, always_save_keys
 
@@ -71,10 +78,7 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
 
 def get_path_output() -> str:
     global config_dict
-    if args_manager.args.user_dir:
-        path_output = f'{args_manager.args.user_dir}/Outputs'
-    else:
-        path_output = 'f{user_dir}/Outputs'
+    path_output = 'f{user_dir}/Outputs'
     print(path_output)
     path_output = get_dir_or_set_default('path_outputs', {path_output}, make_directory=True)
     if args_manager.args.output_path:
@@ -98,12 +102,11 @@ def get_path_output() -> str:
     return path_output
 '''
 def get_config_path(config_file):
+    global user_dir
     if args_manager.args.config:
         config_path = args_manager.args.config
-    elif args_manager.args.user_dir:
-        config_path = args_manager.args.user_dir
     else:
-        config_path = '../user_dir'
+        config_path = user_dir
     config_path = os.path.abspath(f'{config_path}/{config_file}')
     return config_path
 
@@ -136,12 +139,6 @@ def try_get_preset_content(preset):
             print(e)
         print()
     return {}
-
-if args_manager.args.user_dir:
-    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
-else:
-    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
-create_user_structure()
 
 try:
     with open(os.path.abspath(f'./presets/default.json'), "r", encoding="utf-8") as json_file:
@@ -201,10 +198,8 @@ def init_temp_path(path: str | None, default_path: str) -> str:
 if args_manager.args.models_root:
     get_dir_or_set_default('path_models_root', args_manager.args.models_root)
     path_models_root = args_manager.args.models_root
-elif args_manager.args.user_dir:
-    path_models_root = get_dir_or_set_default('path_models_root', f'{args_manager.args.user_dir}/models')
 else:
-    path_models_root = get_dir_or_set_default('path_models_root', '..UserDir/models')
+    path_models_root = get_dir_or_set_default('path_models_root', f'{user_dir}/models')
 path_models_root = os.path.abspath(path_models_root)
 print(f'Generative models are stored in {path_models_root}')
 print('Models may also be stored in other locations, as defined in config.txt')
