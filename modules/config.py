@@ -77,7 +77,7 @@ else:
 create_user_structure()
 
 def get_path_output() -> str:
-    global config_dict
+    global config_dict, user_dir
     path_output = 'f{user_dir}/Outputs'
     print(path_output)
     path_output = get_dir_or_set_default('path_outputs', {path_output}, make_directory=True)
