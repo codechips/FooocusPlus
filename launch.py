@@ -42,7 +42,7 @@ from modules.model_loader import load_file_from_url
 
 def prepare_environment():
     REINSTALL_ALL = False
-
+    from modules import config
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
@@ -53,7 +53,7 @@ def prepare_environment():
     xformers_ver = torch_dict['xformers_ver']
     pytorchlightning_ver = torch_dict['pytorchlightning_ver']
     lightningfabric_ver = torch_dict['lightningfabric_ver']
-
+    print(config.user_dir)
     torch_base_ver = read_torch_base()
 
     print(f"Python {sys.version}")
