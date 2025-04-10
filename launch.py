@@ -19,6 +19,12 @@ if not version.get_required_library():
     print()
     quit()
 
+from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
+    delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
+
+print(config.user_dir)
+torch_base_ver = read_torch_base()
+
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
 os.environ["translators_default_region"] = "China"
@@ -39,8 +45,7 @@ from launch_support import build_launcher, is_win32_standalone_build, python_emb
     delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
-print(config.user_dir)
-torch_base_ver = read_torch_base()
+
 
 def prepare_environment():
     REINSTALL_ALL = False
