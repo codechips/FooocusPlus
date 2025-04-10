@@ -70,11 +70,8 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
     return dp
 
 def get_path_output() -> str:
-    """
-    Checking output path argument and overriding default path.
-    """
     global config_dict
-    path_output = f'..UserDir/{path_output}'
+    path_output = f'../UserDir/Outputs'
     if args_manager.args.output_path:
         path_output = os.path.abspath(args_manager.args.output_path)
         config_dict['path_outputs'] = path_output
