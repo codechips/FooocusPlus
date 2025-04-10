@@ -52,8 +52,7 @@ args_parser.parser.add_argument("--dev", action='store_true',
   help="Launch the dev branch", default=False)
 
 args_parser.parser.add_argument("--user-dir", type=str,
-  help="Set the path to the user directory",
-  default=os.path.join(os.pardir, './UserDir'))
+  help="Set the path to the user directory", default=None)
 
 args_parser.parser.add_argument("--models-root", type=str,
   help="Set the path to the models directory", default=None)
