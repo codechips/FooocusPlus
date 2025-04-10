@@ -25,7 +25,7 @@ def create_user_structure():
   shutil.copytree('./masters/master_batch_startups', f'{config.user_dir}/batch_startups', dirs_exist_ok = True)
   shutil.copytree('./masters/master_control_images', f'{config.user_dir}/control_images', dirs_exist_ok = True)
   shutil.copytree('./masters/master_welcome_images', f'{config.user_dir}/welcome_images', dirs_exist_ok = True)
-  shutil.copytree('./masters/master_wildcards', f'{config.args.user_dir}/wildcards', dirs_exist_ok = True)
+  shutil.copytree('./masters/master_wildcards', f'{config.user_dir}/wildcards', dirs_exist_ok = True)
 
   # delete the contents of user_dir/master_topics to get a clean start
   # copy the contents of '.masters/master_topics' to user_dir for the user's reference only
