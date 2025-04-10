@@ -138,7 +138,7 @@ def try_get_preset_content(preset):
 
 if args_manager.args.user_dir:
     user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
-else
+else:
     user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
 create_user_structure()
 
