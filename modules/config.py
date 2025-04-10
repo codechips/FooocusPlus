@@ -62,7 +62,7 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
             os.makedirs(abs_path, exist_ok=True)
     else:
         print(f'Initial default_value: {default_value}')
-        if default_value != os.path.abspath(default_value):
+        if default_value != os.path.abspath({default_value}):
             dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
         dp = dp.replace(f'{current_dir}\\', '')
         print(f'Final default_value {default_value}')
