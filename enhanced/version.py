@@ -1,14 +1,14 @@
 import os
 import sys
 from pathlib import Path
-import launch_support
-from launch_support import is_win32_standalone_build
 
 branch = ''
 commit_id = ''
 fooocusplus_ver = ''
+is_win32_standalone_build = os.path.exists(python_embedded_path) and os.path.isdir(python_embedded_path)
 
 def get_library_ver():
+    global is_win32_standalone_build
     if is_win32_standalone_build:
         current_library = Path('../python_embedded/embedded_version/library_version.py')
         if os.path.exists(current_library):
@@ -26,6 +26,7 @@ def get_library_ver():
             return 1.00
 
 def get_required_library():
+    global is_win32_standalone_build
     if (not os.path.exists('required_library.py')) or (not is_win32_standalone_build):
         return True
     import required_library
