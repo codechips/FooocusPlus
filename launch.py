@@ -52,20 +52,19 @@ def prepare_environment():
     from modules import config
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
-'''
-    torch_dict = dependency_resolver()
-    torch_ver = torch_dict['torch_ver']
-    torchvision_ver = torch_dict['torchvision_ver']
-    torchaudio_ver = torch_dict['torchaudio_ver']
-    xformers_ver = torch_dict['xformers_ver']
-    pytorchlightning_ver = torch_dict['pytorchlightning_ver']
-    lightningfabric_ver = torch_dict['lightningfabric_ver']
+
+#    torch_dict = dependency_resolver()
+#    torch_ver = torch_dict['torch_ver']
+#    torchvision_ver = torch_dict['torchvision_ver']
+#    torchaudio_ver = torch_dict['torchaudio_ver']
+#    xformers_ver = torch_dict['xformers_ver']
+#    pytorchlightning_ver = torch_dict['pytorchlightning_ver']
+#    lightningfabric_ver = torch_dict['lightningfabric_ver']
     torch_base_ver = read_torch_base()
 
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}, Comfy version: {comfy.comfy_version.version}")
     print(f"Torch base version: {torch_base_ver}")
-'''
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
     print('Checking for required library files and loading Xformers...')
