@@ -8,11 +8,7 @@ import modules.config
 import torchruntime
 from torchruntime.device_db import get_gpus
 from torchruntime.platform_detection import get_torch_platform
-
-win32_root = os.path.dirname(os.path.dirname(__file__))
-python_embedded_path = os.path.join(win32_root, 'python_embedded')
-
-is_win32_standalone_build = os.path.exists(python_embedded_path) and os.path.isdir(python_embedded_path)
+from enhanced.version import is_win32_standalone_build
 
 win32_cmd = '''
 @echo off
