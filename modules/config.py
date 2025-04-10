@@ -61,13 +61,11 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
             dp.append(abs_path)
             os.makedirs(abs_path, exist_ok=True)
     else:
-        print(f'Initial default_value: {default_value}')
         if default_value != os.path.abspath(default_value):
             dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
             dp = dp.replace(f'{current_dir}\\', '')
         else:
             dp = default_value
-        print(f'Final default_value {dp}')
         os.makedirs(dp, exist_ok=True)
         if as_array:
             dp = [dp]
@@ -84,28 +82,13 @@ create_user_structure()
 def get_path_output() -> str:
     global config_dict, user_dir
     path_output = os.path.abspath(f'{user_dir}/Outputs')
-    print(f'Initial value: {path_output}')
     path_output = get_dir_or_set_default('path_outputs', path_output, make_directory=True)
     if args_manager.args.output_path:
-        config_dict['path_outputs'] = path_output = args_manager.args.output_path 
-    path_output = os.path.abspath(path_output)
+        config_dict['path_outputs'] = path_output = os.path.abspath(args_manager.args.output_path)
+#    path_output = os.path.abspath(path_output)
     print(f'Generated images will be stored in {path_output}')
     return path_output
-'''
-def get_path_output() -> str:
-    global config_dict
-    if args_manager.args.output_path:
-        path_output = os.path.abspath(args_manager.args.output_path)
-        config_dict['path_outputs'] = path_output
-    elif args_manager.args.user_dir:
-        path_output = f'{args_manager.args.user_dir}/Outputs'
-    else:
-        path_output = '..UserDir/Outputs'
-    get_dir_or_set_default('path_outputs', {os.path.abspath(path_output)}, make_directory=True)
-    path_output = os.path.abspath(path_output)
-    print(f'Generated images will be stored in {path_output}')
-    return path_output
-'''
+ 
 def get_config_path(config_file):
     global user_dir
     if args_manager.args.config:
