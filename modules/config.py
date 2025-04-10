@@ -72,7 +72,7 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
 def get_path_output() -> str:
     global config_dict
     if args_manager.args.user_dir:
-        path_output = f'{args_manager.args.user_dir}/Outputs
+        path_output = f'{args_manager.args.user_dir}/Outputs'
     else:
         path_output = f'../UserDir/Outputs'
     path_output = get_dir_or_set_default('path_outputs', {path_output}, make_directory=True)
