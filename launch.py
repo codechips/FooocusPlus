@@ -2,8 +2,13 @@ import os
 import ssl
 import sys
 import ldm_patched
-from common import ROOT
 import enhanced.version as version
+from common import ROOT
+
+print('[System ARGV] ' + str(sys.argv))
+print(f'Root {ROOT}')
+sys.path.append(ROOT)
+os.chdir(ROOT)
 
 if not version.get_required_library():
     print()
@@ -14,19 +19,6 @@ if not version.get_required_library():
     print()
     quit()
 
-print('[System ARGV] ' + str(sys.argv))
-print(f'Root {ROOT}')
-sys.path.append(ROOT)
-os.chdir(ROOT)
-
-from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
-    delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
-from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
-    requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
-
-print(config.user_dir)
-torch_base_ver = read_torch_base()
-quit()
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
 os.environ["translators_default_region"] = "China"
@@ -34,16 +26,21 @@ if "GRADIO_SERVER_PORT" not in os.environ:
     os.environ["GRADIO_SERVER_PORT"] = "7865"
 ssl._create_default_https_context = ssl._create_unverified_context
 
-torchruntime_ver = '1.16.1'
-#verify_installed_version('torchruntime', torchruntime_ver)
-#import torchruntime
+from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
+    requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
+print(config.user_dir)
+torch_base_ver = read_torch_base()
+quit()
+
+torchruntime_ver = '1.16.1'
+verify_installed_version('torchruntime', torchruntime_ver)
+import torchruntime
 import platform
 import comfy.comfy_version
 from launch_support import build_launcher, is_win32_standalone_build, python_embedded_path,\
     delete_torch_dependencies, dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
-
 
 
 def prepare_environment():
@@ -52,13 +49,13 @@ def prepare_environment():
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
-#    torch_dict = dependency_resolver()
-#    torch_ver = torch_dict['torch_ver']
-#    torchvision_ver = torch_dict['torchvision_ver']
-#    torchaudio_ver = torch_dict['torchaudio_ver']
-#    xformers_ver = torch_dict['xformers_ver']
-#    pytorchlightning_ver = torch_dict['pytorchlightning_ver']
-#    lightningfabric_ver = torch_dict['lightningfabric_ver']
+    torch_dict = dependency_resolver()
+    torch_ver = torch_dict['torch_ver']
+    torchvision_ver = torch_dict['torchvision_ver']
+    torchaudio_ver = torch_dict['torchaudio_ver']
+    xformers_ver = torch_dict['xformers_ver']
+    pytorchlightning_ver = torch_dict['pytorchlightning_ver']
+    lightningfabric_ver = torch_dict['lightningfabric_ver']
     torch_base_ver = read_torch_base()
 
     print(f"Python {sys.version}")
