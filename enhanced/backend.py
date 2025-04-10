@@ -1,13 +1,7 @@
 import os
-import sys
-import gradio as gr
 import common
-from backend_base import backend_base, utils, comfyd, torch_version, xformers_version, cuda_version, comfyclient_pipeline
-from backend_base.params_mapper import ComfyTaskParams
-from backend_base.models_info import ModelsInfo, sync_model_info
-from launch_support import is_win32_standalone_build
+from backend_base.models_info import ModelsInfo
 
-args_comfyd = [[]]
 modelsinfo_filename = 'models_info.json'
 
 def init_modelsinfo(models_root, path_map):
@@ -16,4 +10,3 @@ def init_modelsinfo(models_root, path_map):
     if not common.MODELS_INFO:
         common.MODELS_INFO = ModelsInfo(models_info_path, path_map)
     return common.MODELS_INFO
-
