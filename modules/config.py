@@ -83,7 +83,7 @@ def get_path_output() -> str:
     global config_dict, user_dir
     path_output = os.path.abspath(f'{user_dir}/Outputs')
     print(f'Initial value: {path_output}')
-    path_output = get_dir_or_set_default('path_outputs', {path_output}, make_directory=True)
+    path_output = get_dir_or_set_default('path_outputs', path_output, make_directory=True)
     if args_manager.args.output_path:
         config_dict['path_outputs'] = path_output = args_manager.args.output_path 
     path_output = os.path.abspath(path_output)
