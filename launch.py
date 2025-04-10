@@ -36,8 +36,8 @@ from modules.launch_util import is_installed, verify_installed_version, run, pyt
     requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
 torchruntime_ver = '1.16.1'
-verify_installed_version('torchruntime', torchruntime_ver)
-import torchruntime
+#verify_installed_version('torchruntime', torchruntime_ver)
+#import torchruntime
 
 import platform
 import comfy.comfy_version
@@ -52,7 +52,7 @@ def prepare_environment():
     from modules import config
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
-
+'''
     torch_dict = dependency_resolver()
     torch_ver = torch_dict['torch_ver']
     torchvision_ver = torch_dict['torchvision_ver']
@@ -64,7 +64,7 @@ def prepare_environment():
 
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}, Comfy version: {comfy.comfy_version.version}")
-    print(f"Torch base version: {torch_base_ver}")
+    print(f"Torch base version: {torch_base_ver}")'''
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
     print('Checking for required library files and loading Xformers...')
