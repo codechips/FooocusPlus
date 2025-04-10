@@ -61,11 +61,11 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
             dp.append(abs_path)
             os.makedirs(abs_path, exist_ok=True)
     else:
-        print(dp)
+        print(f'Initial dp: {dp}')
         if dp != os.path.abspath(dp):
             dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
         dp = dp.replace(f'{current_dir}\\', '')
-        print(dp)
+        print(f'Final {dp}')
         os.makedirs(dp, exist_ok=True)
         if as_array:
             dp = [dp]
@@ -82,7 +82,7 @@ create_user_structure()
 def get_path_output() -> str:
     global config_dict, user_dir
     path_output = os.path.abspath(f'{user_dir}/Outputs')
-    print(path_output)
+    print(f'Initial value: {path_output}')
     path_output = get_dir_or_set_default('path_outputs', {path_output}, make_directory=True)
     if args_manager.args.output_path:
         config_dict['path_outputs'] = path_output = args_manager.args.output_path 
