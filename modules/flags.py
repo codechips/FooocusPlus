@@ -1,4 +1,5 @@
 import math
+from modules.config import aspect_ratios_selection
 from enum import IntEnum, Enum
 
 disabled = 'Disabled'
@@ -109,7 +110,7 @@ comfy_scheduler_list = COMFY_SCHEDULER_NAMES = ["normal", "karras", "exponential
 comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
-default_aspect_ratio = ['1024*1024', '768*768', '1024*1024', '1024*1024']
+default_aspect_ratio = [aspect_ratios_selection, '512*512', '1024*1024', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
