@@ -29,16 +29,13 @@ ssl._create_default_https_context = ssl._create_unverified_context
 from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
     requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
-print(config.user_dir)
 torch_base_ver = read_torch_base()
-quit()
-
 torchruntime_ver = '1.16.1'
 verify_installed_version('torchruntime', torchruntime_ver)
 import torchruntime
 import platform
 import comfy.comfy_version
-from launch_support import build_launcher, python_embedded_path, delete_torch_dependencies,\
+from launch_support import build_launcher, delete_torch_dependencies,\
     dependency_resolver, read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
@@ -46,7 +43,7 @@ from modules.model_loader import load_file_from_url
 def prepare_environment():
     REINSTALL_ALL = False
     from modules import config
-    target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
+    target_path_win = os.path.abspath(os.path.join(version.python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     torch_dict = dependency_resolver()
