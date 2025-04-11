@@ -1,9 +1,10 @@
 import os
 import common
-from backend_base import backend_base, utils, comfyd, models_hub_host, torch_version, xformers_version, cuda_version, comfyclient_pipeline
+from backend_base import backend_base, utils, comfyd, torch_version, xformers_version, cuda_version, comfyclient_pipeline
 from backend_base.params_mapper import ComfyTaskParams
-from backend_base.models_info import ModelsInfo
+from backend_base.models_info import ModelsInfo, sync_model_info
 
+args_comfyd = [[]]
 modelsinfo_filename = 'models_info.json'
 
 def init_modelsinfo(models_root, path_map):
