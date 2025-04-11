@@ -9,7 +9,7 @@ from torchruntime.device_db import get_gpus
 from torchruntime.platform_detection import get_torch_platform
 from enhanced.version import is_win32_standalone_build, win32_root
 # aspect_ratios_selection is used by flags.py:
-from modules.config import user_dir, aspect_ratios_selection
+from modules.config import user_dir
 
 win32_cmd = '''
 @echo off
