@@ -4,11 +4,11 @@ import platform
 import shutil
 import sys
 import args_manager
-import modules.config
 import torchruntime
 from torchruntime.device_db import get_gpus
 from torchruntime.platform_detection import get_torch_platform
 from enhanced.version import is_win32_standalone_build
+from modules.config import user_dir
 
 win32_cmd = '''
 @echo off
@@ -172,7 +172,7 @@ def get_split_value(full_string):
       
 def read_torch_base():
     try:
-        torch_base_path = os.path.abspath(f'{args_manager.args.user_dir}/torch_base.txt')
+        torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
         torch_base = open(torch_base_path, 'r')
         torch_base_ver = torch_base.readline().strip()
         torch_base_ver = get_split_value(torch_base_ver)
@@ -182,7 +182,7 @@ def read_torch_base():
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
-    torch_base_path = os.path.abspath(f'{args_manager.args.user_dir}/torch_base.txt')
+    torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
     torch_base = open(torch_base_path, "w")
     torch_base.write(f"Torch base version = {torch_base_ver}")
     torch_base.close()
