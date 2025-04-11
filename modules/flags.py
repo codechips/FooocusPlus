@@ -1,5 +1,5 @@
 import math
-from modules.config import aspect_ratios_selection
+from launch_support import aspect_ratios_selection
 from enum import IntEnum, Enum
 
 disabled = 'Disabled'
