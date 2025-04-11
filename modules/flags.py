@@ -110,6 +110,7 @@ comfy_scheduler_list = COMFY_SCHEDULER_NAMES = ["normal", "karras", "exponential
 comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
+print(f'Aspect Ratio {ASPECT_SDXL}')
 default_aspect_ratio = [ASPECT_SDXL, '512*512', '1024*1024', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
