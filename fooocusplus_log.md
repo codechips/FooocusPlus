@@ -4,8 +4,8 @@
 * added Torch, CUDA and xformers data to System Information, under the Extras tab
 * the master folders are now subfolders of the new "masters" folder
 * introduced and tested the "experimental" 1280*1280 aspect ratio
-* all presets except SD1.5 use a 0*0 aspect ratio, meaning that they do not have any effect
-* as in mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label has been removed
+* all presets except SD1.5 use a 0*0 aspect ratio, meaning that it does not have any effect
+* like mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label is gone
 * if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
 
 # 0.9.8 Dev
