@@ -1,5 +1,6 @@
 import os
 import common
+from backend_base import backend_base, utils, comfyd, models_hub_host, torch_version, xformers_version, cuda_version, comfyclient_pipeline
 from backend_base.params_mapper import ComfyTaskParams
 from backend_base.models_info import ModelsInfo
 
