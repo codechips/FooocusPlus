@@ -10,7 +10,7 @@ import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
-from common import ROOT
+from common import ROOT, ASPECT_SELECTION
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
@@ -85,7 +85,6 @@ def get_path_output() -> str:
     path_output = get_dir_or_set_default('path_outputs', path_output, make_directory=True)
     if args_manager.args.output_path:
         config_dict['path_outputs'] = path_output = os.path.abspath(args_manager.args.output_path)
-#    path_output = os.path.abspath(path_output)
     print(f'Generated images will be stored in {path_output}')
     return path_output
  
@@ -348,7 +347,7 @@ default_aspect_ratio = get_config_item_or_set_default(
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-
+ASPECT_SELECTION = default_aspect_ratio # save to common
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
     default_value=ads.default['output_format'],
