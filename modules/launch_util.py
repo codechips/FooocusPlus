@@ -10,7 +10,7 @@ import importlib.metadata
 import packaging.version
 import pygit2
 from pathlib import Path
-from launch_support import python_embedded_path, is_win32_standalone_build
+from enhanced.version import python_embedded_path, is_win32_standalone_build
 
 pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
 
