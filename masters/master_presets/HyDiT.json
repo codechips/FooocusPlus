@@ -47,7 +47,7 @@
         "Fooocus V2",
         "Fooocus Enhance"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "checkpoint_downloads": {
         "Alternative\\hunyuan_dit_1.2.safetensors": "https://huggingface.co/comfyanonymous/hunyuan_dit_comfyui/resolve/main/hunyuan_dit_1.2.safetensors"
     },

@@ -47,7 +47,7 @@
     "default_styles": [
         "Fooocus V2"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "default_overwrite_step": 4,
     "checkpoint_downloads": {
         "Flux\\flux1-schnell-Q8_0.gguf": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf?download=true"

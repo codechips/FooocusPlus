@@ -43,7 +43,7 @@
         "Fooocus V2",
         "Fooocus Semi Realistic"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "checkpoint_downloads": {
         "Alternative\\playground-v2.5-1024px-aesthetic.fp16.safetensors": "https://huggingface.co/mashb1t/fav_models/resolve/main/fav/playground-v2.5-1024px-aesthetic.fp16.safetensors"
     },

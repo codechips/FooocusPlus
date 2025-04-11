@@ -47,7 +47,7 @@
     "default_styles": [
         "Fooocus V2"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "default_overwrite_step": 25,
     "checkpoint_downloads": {
         "Flux\\flux-hyp16-Q8_0.gguf": "https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/support/flux-hyp16-Q8_0.gguf"

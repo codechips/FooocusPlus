@@ -41,7 +41,7 @@
         "Fooocus V2",
         "Fooocus Semi Realistic"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "checkpoint_downloads": {
         "magickXL_v10.safetensors": "https://civitai.com/api/download/models/1126742?type=Model&format=SafeTensor&size=pruned&fp=fp16"
     },

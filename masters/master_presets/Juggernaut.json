@@ -39,7 +39,7 @@
         "Fooocus V2",
         "Fooocus Enhance"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "checkpoint_downloads": {
         "juggernautXL_juggXIByRundiffusion.safetensors": "https://civitai.com/api/download/models/782002?type=Model&format=SafeTensor&size=full&fp=fp16"
     },

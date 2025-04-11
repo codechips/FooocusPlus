@@ -47,7 +47,7 @@
     "default_styles": [
         "Fooocus V2"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "default_overwrite_step": 20,
     "checkpoint_downloads": {
      "Flux\\flux1-dev-Q5_K_S.gguf": "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q5_K_S.gguf?download=true"

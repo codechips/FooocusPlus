@@ -48,7 +48,7 @@
         "Fooocus V2",
         "Fooocus Enhance"
     ],
-    "default_aspect_ratio": "1024*1024",
+    "default_aspect_ratio": "0*0",
     "default_overwrite_step": 8,
     "checkpoint_downloads": {},
     "embeddings_downloads": {},
