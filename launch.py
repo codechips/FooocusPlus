@@ -29,7 +29,6 @@ ssl._create_default_https_context = ssl._create_unverified_context
 from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
     requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
-torch_base_ver = read_torch_base()
 torchruntime_ver = '1.16.1'
 verify_installed_version('torchruntime', torchruntime_ver)
 import torchruntime
