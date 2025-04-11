@@ -1,5 +1,6 @@
 import os
 import common
+from backend_base.params_mapper import ComfyTaskParams
 from backend_base.models_info import ModelsInfo
 
 modelsinfo_filename = 'models_info.json'
