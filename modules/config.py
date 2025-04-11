@@ -251,6 +251,9 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         if v is None or v == '':
             v = 'None'
     if validator(v):
+        if v == default_aspect_ratio
+            print(v)
+            ASPECT_SDXL = v # save to common
         return v
     else:
         if v is not None:
@@ -347,7 +350,7 @@ default_aspect_ratio = get_config_item_or_set_default(
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-ASPECT_SDXL = default_aspect_ratio # save to common
+
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
     default_value=ads.default['output_format'],
