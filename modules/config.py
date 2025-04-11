@@ -10,7 +10,7 @@ import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
-from common import ROOT, ASPECT_SELECTION
+from common import ROOT, ASPECT_SDXL
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
@@ -335,8 +335,8 @@ default_image_number = get_config_item_or_set_default(
     expected_type=int
 )
 
-available_aspect_ratios = get_config_item_or_set_default(
-    key='available_aspect_ratios',
+available__ratios = get_config_item_or_set_default(
+    key='available__ratios',
     default_value=modules.flags.available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
@@ -347,7 +347,7 @@ default_aspect_ratio = get_config_item_or_set_default(
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-ASPECT_SELECTION = default_aspect_ratio # save to common
+ASPECT_SDXL = default_aspect_ratio # save to common
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
     default_value=ads.default['output_format'],
