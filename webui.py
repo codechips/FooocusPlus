@@ -676,6 +676,7 @@ with common.GRADIO_ROOT:
                          value=modules.config.default_performance,
                          elem_classes=['performance_selection'])
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
+
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False) 
                         aspect_ratios_selections = []
@@ -707,8 +708,8 @@ with common.GRADIO_ROOT:
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
                         
-                        common.CURRENT_ASPECT = str(aspect_ratios_selection)
-                        print(f'Aspect Ratio selection {aspect_ratios_selection}')
+                        common.CURRENT_ASPECT = aspect_ratios_selection.value
+                        print(f'Aspect Ratio selection {aspect_ratios_selection.value}')
                         print(f'Current Aspect: {common.CURRENT_ASPECT}')
                         print()
                     output_format = gr.Radio(label='Output Format',
