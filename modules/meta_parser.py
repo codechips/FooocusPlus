@@ -216,11 +216,13 @@ def get_steps(key: str, fallback: str | None, source_dict: dict, results: list, 
 def get_resolution(key: str, fallback: str | None, source_dict: dict, results: list, default=None):
     try:
         h = source_dict.get(key, source_dict.get(fallback, default))
-        width, height = eval(h)
-        try:        # trap 0*0
-            formatted = modules.config.add_ratio(f'{width}*{height}')
-        except:
-            return
+        print(f'H: {h}')
+        if h == '0x0':
+            print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')
+            width, height = eval(common.CURRENT_ASPECT)
+        else:
+            width, height = eval(h)
+        formatted = modules.config.add_ratio(f'{width}*{height}')
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
         if 'engine' in source_dict:
             engine = source_dict['engine'].get('backend_engine', engine)
