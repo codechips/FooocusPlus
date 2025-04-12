@@ -471,8 +471,8 @@
     "Metadata": "Metadata",
     "Apply Metadata": "Apply Metadata",
     "Metadata Scheme": "Metadata Scheme",
-    "Use "Fooocus" to regenerate images and "A1111" for Civitai":
-        "Use "Fooocus" to regenerate images and "A1111" for Civitai",
+    'Use "Fooocus" to regenerate images and "A1111" for Civitai':
+        'Use "Fooocus" to regenerate images and "A1111" for Civitai',
     "fooocus": "Fooocus",
     "a1111": "A1111",
     "Unsupported image type in input": "Unsupported image type in input",
