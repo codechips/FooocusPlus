@@ -10,7 +10,7 @@ import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
-from common import ROOT
+from common import ROOT, ASPECT_SDXL
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
@@ -888,6 +888,7 @@ allow_missing_preset_key = [
     ]
 
 available_aspect_ratios_labels = modules.flags.available_aspect_ratios_list['SDXL']
+ASPECT_SDXL = default_aspect_ratio
 
 # Only write to config.txt in the first launch
 if not os.path.exists(config_path):
