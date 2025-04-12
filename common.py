@@ -5,6 +5,9 @@ import os
 GRADIO_ROOT = None
 MODELS_INFO = None
 
+# Store current aspect ratio selection from webui
+CURRENT_ASPECT = ''
+
 # ROOT is used as a constant that
 # is referenced by several modules
 ROOT = os.path.dirname(os.path.abspath(__file__))
