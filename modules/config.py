@@ -241,8 +241,8 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         v = try_eval_env_var(v, expected_type)
         print(f"Environment: {key} = {v}")
         config_dict[key] = v
-    if key == 'default_aspect_ratio':
-        ASPECT_SDXL = v    
+#    if key == 'default_aspect_ratio':
+#        ASPECT_SDXL = v    
     if key not in config_dict:
         config_dict[key] = default_value
         return default_value
