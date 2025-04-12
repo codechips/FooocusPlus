@@ -237,6 +237,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         visited_keys.append(key)
     
     v = os.getenv(key)
+    print(v)
     if v is not None:
         v = try_eval_env_var(v, expected_type)
         print(f"Environment: {key} = {v}")
@@ -347,7 +348,7 @@ default_aspect_ratio = get_config_item_or_set_default(
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-
+ASPECT_SDXL = default_aspect_ratio
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
     default_value=ads.default['output_format'],
@@ -888,7 +889,6 @@ allow_missing_preset_key = [
     ]
 
 available_aspect_ratios_labels = modules.flags.available_aspect_ratios_list['SDXL']
-ASPECT_SDXL = default_aspect_ratio
 
 # Only write to config.txt in the first launch
 if not os.path.exists(config_path):
