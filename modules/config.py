@@ -237,6 +237,9 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         visited_keys.append(key)
     
     v = os.getenv(key)
+    if v == 'default_aspect_ratio':
+        print(F'Default aspect ratio: {v}')
+        ASPECT_SDXL = v # save to common
     if v is not None:
         v = try_eval_env_var(v, expected_type)
         print(f"Environment: {key} = {v}")
@@ -250,9 +253,6 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
     if not disable_empty_as_none:
         if v is None or v == '':
             v = 'None'
-    if v == default_aspect_ratio:
-        print(F'Default aspect ratio: {v}')
-        ASPECT_SDXL = v # save to common
     if validator(v):
         return v
     else:
