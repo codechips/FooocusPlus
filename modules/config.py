@@ -237,7 +237,6 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         visited_keys.append(key)
     
     v = os.getenv(key)
-    print(v)
     if v is not None:
         v = try_eval_env_var(v, expected_type)
         print(f"Environment: {key} = {v}")
@@ -251,6 +250,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
     if not disable_empty_as_none:
         if v is None or v == '':
             v = 'None'
+    print(f'Key: {key} {v}')
     if validator(v):
         return v
     else:
