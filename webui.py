@@ -706,12 +706,12 @@ with common.GRADIO_ROOT:
                         overwrite_height.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
-
                         
-                        common.CURRENT_ASPECT = aspect_ratios_label
-                        print(f'Aspect Ratio selection {aspect_ratios_label}')
+                        common.CURRENT_ASPECT = aspect_ratios_accordion.label
+                        print(f'Aspect Ratio selection {aspect_ratios_accordion.label}')
                         print(f'Current Aspect: {common.CURRENT_ASPECT}')
                         print()
+                        
                     output_format = gr.Radio(label='Output Format',
                          choices=flags.OutputFormat.list(),
                          value=modules.config.default_output_format)
