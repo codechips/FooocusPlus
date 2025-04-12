@@ -10,7 +10,7 @@ import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
 
-from common import ROOT, ASPECT_SDXL
+from common import ROOT
 from modules.model_loader import load_file_from_url
 from modules.user_structure import create_user_structure, create_model_structure
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
@@ -336,20 +336,30 @@ default_image_number = get_config_item_or_set_default(
     expected_type=int
 )
 
-available_aspect_ratios = get_config_item_or_set_default(
-    key='available_aspect_ratios',
+available_standard_aspect = get_config_item_or_set_default(
+    key='available_standard_aspect',
     default_value=modules.flags.available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
-default_aspect_ratio = get_config_item_or_set_default(
-    key='default_aspect_ratio',
+default_standard_aspect = get_config_item_or_set_default(
+    key='default_standard_aspect',
     default_value='1024*1024',
-    validator=lambda x: x in available_aspect_ratios,
+    validator=lambda x: x in available_standard_aspect,
     expected_type=str
 )
-ASPECT_SDXL = default_aspect_ratio
-print(f'Aspect Ratio, config: {ASPECT_SDXL}')
+available_sd1_aspect = get_config_item_or_set_default(
+    key='available_sd1_aspect',
+    default_value=modules.flags.available_aspect_ratios[2],
+    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+    expected_type=list
+)
+default_sd1_aspect = get_config_item_or_set_default(
+    key='default_sd1_aspect',
+    default_value='768*768',
+    validator=lambda x: x in available_sd1_aspect,
+    expected_type=str
+)
 
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
@@ -889,7 +899,8 @@ allow_missing_preset_key = [
     "previous_default_models",
     ]
 
-available_aspect_ratios_labels = modules.flags.available_aspect_ratios_list['SDXL']
+available_standard_aspect_labels = modules.flags.available_aspect_ratios_list['SDXL']
+available_sd1_aspect_labels = modules.flags.available_aspect_ratios_list['Common']
 
 # Only write to config.txt in the first launch
 if not os.path.exists(config_path):
