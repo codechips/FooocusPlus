@@ -679,7 +679,7 @@ with common.GRADIO_ROOT:
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False) 
                         aspect_ratios_selections = []
-                        for template in flags.aspect_ratios_templates:
+                        for template in modules.config.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=flags.available_aspect_ratios_list[template],\
                                 value=flags.default_aspect_ratios[template], visible= template=='SDXL',\
                                 info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.',\
