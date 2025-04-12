@@ -708,8 +708,8 @@ with common.GRADIO_ROOT:
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
                         
-                        common.CURRENT_ASPECT = aspect_ratios_selection.value
-                        print(f'Aspect Ratio selection {aspect_ratios_selection.value}')
+                        common.CURRENT_ASPECT = aspect_ratios_label
+                        print(f'Aspect Ratio selection {aspect_ratios_label}')
                         print(f'Current Aspect: {common.CURRENT_ASPECT}')
                         print()
                     output_format = gr.Radio(label='Output Format',
