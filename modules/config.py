@@ -251,7 +251,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         if v is None or v == '':
             v = 'None'
     if validator(v):
-        if v == default_aspect_ratio
+        if v == default_aspect_ratio:
             print(v)
             ASPECT_SDXL = v # save to common
         return v
