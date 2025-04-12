@@ -337,9 +337,33 @@ default_image_number = get_config_item_or_set_default(
 )
 
 
+# Aspect Ratio selection - formerly in modules.flags but this caused inflexibility
+aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
+available_aspect_ratios = [
+    ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
+     '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
+     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280',
+     '1024*960', '1088*960', '1088*896', '1152*896', '1152*864',
+     '1152*832', '1216*832', '1248*832', '1280*768', '1344*768',
+     '1344*756', '1344*704', '1408*704', '1472*704', '1536*640',
+     '1600*640', '1664*576', '1728*576', '2048*512'],
+
+    ['768*1280', '960*1280', '1024*1024',
+     '1280*768', '1280*960', '1280*1280'],
+    
+    ['288*512', '384*640', '320*512', '384*576',
+     '384*512', '512*640', '512*512', '768*768',
+     '640*512', '512*384', '576*384', '512*320',
+     '640*384', '512*288', '448*192'],
+
+    ['576*1344', '768*1152', '896*1152', '720*1280', '768*1280',
+     '960*1280', '1024*1024', '1024*1280', '1280*1280', '1280*1024',
+     '1280*960', '1280*768', '1280*720', '1152*896', '1152*768', '1344*576']
+]
+
 available_standard_aspect = get_config_item_or_set_default(
     key='available_standard_aspect',
-    default_value=modules.flags.available_aspect_ratios[0],
+    default_value=available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
@@ -351,7 +375,7 @@ default_standard_aspect = get_config_item_or_set_default(
 )
 available_sd1_aspect = get_config_item_or_set_default(
     key='available_sd1_aspect',
-    default_value=modules.flags.available_aspect_ratios[2],
+    default_value=available_aspect_ratios[2],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
@@ -1230,32 +1254,6 @@ def downloading_hydit_model():
     return os.path.join(paths_checkpoints[0] + '\Alternative', 'hunyuan_dit_1.2.safetensors')
 
 update_files()
-
-
-# Aspect Ratio selection - formerly in modules.flags but this caused inflexibility
-aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
-default_aspect_ratio = [default_standard_aspect, '1024*1024', default_sd1_aspect, '1024*1024']
-available_aspect_ratios = [
-    ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
-     '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
-     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280',
-     '1024*960', '1088*960', '1088*896', '1152*896', '1152*864',
-     '1152*832', '1216*832', '1248*832', '1280*768', '1344*768',
-     '1344*756', '1344*704', '1408*704', '1472*704', '1536*640',
-     '1600*640', '1664*576', '1728*576', '2048*512'],
-
-    ['768*1280', '960*1280', '1024*1024',
-     '1280*768', '1280*960', '1280*1280'],
-    
-    ['288*512', '384*640', '320*512', '384*576',
-     '384*512', '512*640', '512*512', '768*768',
-     '640*512', '512*384', '576*384', '512*320',
-     '640*384', '512*288', '448*192'],
-
-    ['576*1344', '768*1152', '896*1152', '720*1280', '768*1280',
-     '960*1280', '1024*1024', '1024*1280', '1280*1280', '1280*1024',
-     '1280*960', '1280*768', '1280*720', '1152*896', '1152*768', '1344*576']
-]
 
 def add_ratio(x):
     a, b = x.replace('*', ' ').split(' ')[:2]
