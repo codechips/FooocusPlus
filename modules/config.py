@@ -349,6 +349,7 @@ default_aspect_ratio = get_config_item_or_set_default(
     expected_type=str
 )
 ASPECT_SDXL = default_aspect_ratio
+print(f'Aspect Ratio, config: {ASPECT_SDXL}')
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
     default_value=ads.default['output_format'],
