@@ -1,5 +1,5 @@
 import math
-from modules.config import default_aspect_ratio
+from common import ASPECT_SDXL
 from enum import IntEnum, Enum
 
 disabled = 'Disabled'
@@ -110,8 +110,8 @@ comfy_scheduler_list = COMFY_SCHEDULER_NAMES = ["normal", "karras", "exponential
 comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
-print(f'Aspect Ratio {default_aspect_ratio}')
-default_aspect_ratio = [default_aspect_ratio, '512*512', '1024*1024', '1024*1024']
+print(f'Aspect Ratio {ASPECT_SDXL}')
+default_aspect_ratio = [ASPECT_SDXL, '512*512', '1024*1024', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
