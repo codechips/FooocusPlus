@@ -111,7 +111,7 @@ comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_
 
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
 print(f'Aspect Ratio {ASPECT_SDXL}')
-default_aspect_ratio = ['0*0', '512*512', '1024*1024', '1024*1024']
+default_aspect_ratio = ['1024*1024', '512*512', '1024*1024', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
