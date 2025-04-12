@@ -241,7 +241,8 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         v = try_eval_env_var(v, expected_type)
         print(f"Environment: {key} = {v}")
         config_dict[key] = v
-
+    if key == 'default_aspect_ratio':
+        ASPECT_SDXL = v    
     if key not in config_dict:
         config_dict[key] = default_value
         return default_value
@@ -250,7 +251,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
     if not disable_empty_as_none:
         if v is None or v == '':
             v = 'None'
-    print(f'Key: {key} {v}')
+
     if validator(v):
         return v
     else:
@@ -336,8 +337,8 @@ default_image_number = get_config_item_or_set_default(
     expected_type=int
 )
 
-available__ratios = get_config_item_or_set_default(
-    key='available__ratios',
+available_aspect_ratios = get_config_item_or_set_default(
+    key='available_aspect_ratios',
     default_value=modules.flags.available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
