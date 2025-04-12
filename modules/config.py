@@ -241,8 +241,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         v = try_eval_env_var(v, expected_type)
         print(f"Environment: {key} = {v}")
         config_dict[key] = v
-#    if key == 'default_aspect_ratio':
-#        ASPECT_SDXL = v    
+ 
     if key not in config_dict:
         config_dict[key] = default_value
         return default_value
@@ -351,6 +350,7 @@ default_aspect_ratio = get_config_item_or_set_default(
 )
 ASPECT_SDXL = default_aspect_ratio
 print(f'Aspect Ratio, config: {ASPECT_SDXL}')
+
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
     default_value=ads.default['output_format'],
@@ -407,7 +407,6 @@ default_styles = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, list) and all(y in modules.sdxl_styles.legal_style_names for y in x),
     expected_type=list
 )
-
 
 default_engine = get_config_item_or_set_default(
     key='default_engine',
