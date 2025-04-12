@@ -697,7 +697,7 @@ with common.GRADIO_ROOT:
                                             minimum=-1, maximum=2048, step=1, value=-1)
                         def overwrite_aspect_ratios(width, height):
                             if width>0 and height>0:
-                                return flags.add_ratio(f'{width}*{height}')
+                                return modules.config.add_ratio(f'{width}*{height}')
                             return gr.update()
                         overwrite_width.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
@@ -706,8 +706,10 @@ with common.GRADIO_ROOT:
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
-                        common.CURRENT_ASPECT = aspect_ratios_selection
+                        
+                        common.CURRENT_ASPECT = str(aspect_ratios_selection)
                         print(f'Aspect Ratio selection {aspect_ratios_selection}')
+                        print(f'Current Aspect: {common.CURRENT_ASPECT}')
                         print()
                     output_format = gr.Radio(label='Output Format',
                          choices=flags.OutputFormat.list(),
@@ -1108,7 +1110,7 @@ with common.GRADIO_ROOT:
                     Torch {torch_ver}{cuda_ver}, Xformers {xformers_ver}<br>\
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
-            iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=flags.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
+            iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=module.config.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
             layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
             def toggle_image_tab(tab, styles):
                 result = []
