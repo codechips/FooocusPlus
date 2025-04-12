@@ -337,7 +337,7 @@ default_image_number = get_config_item_or_set_default(
 )
 
 
-# Aspect Ratio selection - formerly in modules.flags but this caused inflexibility
+# Aspect Ratio selection - formerly in modules.flags but this caused bugs
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
@@ -1252,6 +1252,8 @@ def downloading_hydit_model():
 
 update_files()
 
+
+# Additional aspect ratio support
 def add_ratio(x):
     a, b = x.replace('*', ' ').split(' ')[:2]
     a, b = int(a), int(b)
