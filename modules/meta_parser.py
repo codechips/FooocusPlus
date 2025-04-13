@@ -222,6 +222,8 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')
             h = f'{common.CURRENT_ASPECT}'
             width, height = eval(h)
+        else
+            common.CURRENT_ASPECT = f'{h}'
         formatted = modules.config.add_ratio(f'{width}*{height}')
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
         if 'engine' in source_dict:
