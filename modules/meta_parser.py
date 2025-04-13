@@ -219,7 +219,9 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         print(f'H: {h}')
         width, height = eval(h)
         if (width == '0') or (height == '0') or (h == ''):
-            print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')
+            if common.CURRENT_ASPECT == ''
+                common.CURRENT_ASPECT = modules.config.default_standard_aspect
+            print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')            
             h = f'{common.CURRENT_ASPECT}'
             width, height = eval(h)
         else:
