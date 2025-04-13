@@ -1,5 +1,5 @@
 { 
-    "preset_category": "Flux",
+    "preset_category": "FluxDev",
     "default_engine": {
 	"backend_engine": "Flux",
 	"disvisible": ["backend_selection", "performance_selection", "negative_prompt"],
@@ -10,7 +10,7 @@
                 "base_model_dtype": "auto"
 	    }
     	},
-    "default_model": "Flux\\flux1-dev-bnb-nf4-v2.safetensors",
+    "default_model": "FluxDev\\flux1-dev-bnb-nf4-v2.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.6,
     "default_loras": [
@@ -51,7 +51,7 @@
     "default_aspect_ratio": "0*0",
     "default_overwrite_step": 20,
     "checkpoint_downloads": {
-        "Flux\\flux1-dev-bnb-nf4-v2.safetensors": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors?download=true"
+        "FluxDev\\flux1-dev-bnb-nf4-v2.safetensors": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {},
