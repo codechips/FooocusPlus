@@ -1,5 +1,5 @@
 { 
-    "preset_category": "Flux",
+    "preset_category": "FluxSchnell",
     "default_engine": {
 	"backend_engine": "Flux",
 	"disvisible": ["backend_selection", "performance_selection", "negative_prompt"],
@@ -9,7 +9,7 @@
             "clip_model": "t5xxl_fp8_e4m3fn.safetensors"
             }
     	},
-    "default_model": "Flux\\flux1-schnell-Q8_0.gguf",
+    "default_model": "FluxSchnell\\flux1-schnell-Q8_0.gguf",
     "default_refiner": "None",
     "default_refiner_switch": 0.6,
     "default_loras": [
@@ -50,7 +50,7 @@
     "default_aspect_ratio": "0*0",
     "default_overwrite_step": 4,
     "checkpoint_downloads": {
-        "Flux\\flux1-schnell-Q8_0.gguf": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf?download=true"
+        "FluxSchnell\\flux1-schnell-Q8_0.gguf": "https://huggingface.co/city96/FLUX.1-schnell-gguf/resolve/main/flux1-schnell-Q8_0.gguf?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
