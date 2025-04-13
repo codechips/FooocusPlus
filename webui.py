@@ -1231,7 +1231,7 @@ with common.GRADIO_ROOT:
             else:
                 results = [gr.update()] * 4
             common.CURRENT_ASPECT = results
-            print(f'Aspect Ratio selection {str.aspect_ratios_selection}')
+            print(f'Aspect Ratio selection {str(aspect_ratios_selection)}')
             print(f'Current Aspect: {common.CURRENT_ASPECT}')
             print()
             return results
