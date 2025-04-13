@@ -386,7 +386,7 @@ default_sd1_aspect = get_config_item_or_set_default(
     expected_type=str
 )
 default_aspect_ratio = [default_standard_aspect, '1024*1024', default_sd1_aspect, '768*768']
-CURRENT_ASPECT = default_standard_aspect
+CURRENT_ASPECT = f'{default_standard_aspect}'
 
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
