@@ -41,7 +41,7 @@ def create_user_structure():
   working_topics = os.path.abspath('./custom/OneButtonPrompt/random_prompt/userfiles')
   os.makedirs(working_topics, exist_ok = True)
   if os.path.exists(working_topics):
-    shutil.rmtree(working_topics, ignore_errors=False)
+    shutil.rmtree(working_topics, ignore_errors=True)
   shutil.copytree('./masters/master_topics', working_topics, dirs_exist_ok = True)
 
   # overwrite 'userfiles' with the contents of user_dir './user_topics'
@@ -56,7 +56,7 @@ def create_user_structure():
   # in a similar way, initialize the Presets structure
   master_presets = f'{config.user_dir}/master_presets'
   if os.path.exists(master_presets):
-    shutil.rmtree(master_presets, ignore_errors=False)
+    shutil.rmtree(master_presets, ignore_errors=True)
   shutil.copytree('./masters/master_presets', master_presets, dirs_exist_ok = True)
 
   working_presets = os.path.abspath('./presets')
