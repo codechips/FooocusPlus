@@ -685,11 +685,18 @@ with common.GRADIO_ROOT:
                                 value=modules.config.default_aspect_ratios[template], visible= template=='SDXL',\
                                 info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.',\
                                 elem_classes='aspect_ratios'))
+
+                        def save_current_aspect(x);
+                            common.CURRENT_ASPECT = x
+                            return x
                         
                         for aspect_ratios_select in aspect_ratios_selections:
-                            aspect_ratios_select.change(lambda x: x, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
+                            aspect_ratios_select.change(save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
                                 queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
                                 show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+#                            aspect_ratios_select.change(lambda x: x, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
+#                                queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
+#                                show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
                             info='Set to -1 to disable. '
