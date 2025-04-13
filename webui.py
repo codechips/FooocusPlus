@@ -687,8 +687,16 @@ with common.GRADIO_ROOT:
                                 elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
-                            common.CURRENT_ASPECT = x
+                            if x = '':
+                                if modules.config.default_aspect_ratios[2]:
+                                    common.CURRENT_ASPECT = modules.config.default_sd1_aspect
+                                else:
+                                    common.CURRENT_ASPECT = modules.config.default_standard_aspect
+                            else:
+                                common.CURRENT_ASPECT = x.replace('x','*').split(' ')[:2]
+                            print(f'Current Aspect: {common.CURRENT_ASPECT}')
                             return x
+
                         
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
@@ -1237,10 +1245,6 @@ with common.GRADIO_ROOT:
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
             else:
                 results = [gr.update()] * 4
-
-            print(f'Aspect Ratio selection {aspect_ratios_selection.value}')
-            print(f'Current Aspect: {common.CURRENT_ASPECT}')
-            print()
             return results
 
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
