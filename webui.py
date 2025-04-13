@@ -693,7 +693,8 @@ with common.GRADIO_ROOT:
                                 else:
                                     common.CURRENT_ASPECT = modules.config.default_standard_aspect
                             else:
-                                common.CURRENT_ASPECT = x.replace('x','*').split(' ')[1]
+                                x = x.replace('x','*').split(' ')[2]
+                                common.CURRENT_ASPECT = (x[0])
                             print(f'Current Aspect: {common.CURRENT_ASPECT}')
                             return x
 
