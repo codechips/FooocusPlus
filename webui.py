@@ -686,7 +686,7 @@ with common.GRADIO_ROOT:
                                 info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.',\
                                 elem_classes='aspect_ratios'))
 
-                        def save_current_aspect(x);
+                        def save_current_aspect(x):
                             common.CURRENT_ASPECT = x
                             return x
                         
