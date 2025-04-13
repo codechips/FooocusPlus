@@ -707,8 +707,8 @@ with common.GRADIO_ROOT:
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         
-                        common.CURRENT_ASPECT = aspect_ratios_accordion.label
-                        print(f'Aspect Ratio selection {aspect_ratios_accordion.label}')
+                        common.CURRENT_ASPECT = aspect_ratios_selection
+                        print(f'Aspect Ratio selection {aspect_ratios_selection}')
                         print(f'Current Aspect: {common.CURRENT_ASPECT}')
                         print()
                         
