@@ -1221,6 +1221,7 @@ with common.GRADIO_ROOT:
 
         
         def reset_aspect_ratios(aspect_ratios):
+            global aspect_ratios_selection
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
@@ -1234,6 +1235,10 @@ with common.GRADIO_ROOT:
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
             else:
                 results = [gr.update()] * 4
+            common.CURRENT_ASPECT = results
+            print(f'Aspect Ratio selection {aspect_ratios_selection}')
+            print(f'Current Aspect: {common.CURRENT_ASPECT}')
+            print()
             return results
 
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
