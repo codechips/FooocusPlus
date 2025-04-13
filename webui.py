@@ -678,7 +678,7 @@ with common.GRADIO_ROOT:
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
 
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='', visible=True) 
+                        aspect_ratios_selection = gr.Textbox(value='', visible=False) 
                         aspect_ratios_selections = []
                         for template in modules.config.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.available_aspect_ratios_list[template],\
@@ -687,26 +687,20 @@ with common.GRADIO_ROOT:
                                 elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
-                            #temp_a = x.split('<')
-                            temp_a = (x.split('<')[0])
-                            common.CURRENT_ASPECT = temp_a.replace("x", "*")
-                            print(f'Current Aspect: {common.CURRENT_ASPECT}')
+                            common.CURRENT_ASPECT = x.split('<')[0]
                             return x
 
-                        
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
                                 queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
                                 show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
-#                            aspect_ratios_select.change(lambda x: x, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
-#                                queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
-#                                show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
                             info='Set to -1 to disable. '
                             'Results will be worse for non-standard numbers that the model is not trained on.')
                         overwrite_height = gr.Slider(label='Forced Overwrite of Generating Height',
                                             minimum=-1, maximum=2048, step=1, value=-1)
+
                         def overwrite_aspect_ratios(width, height):
                             if width>0 and height>0:
                                 return modules.config.add_ratio(f'{width}*{height}')
