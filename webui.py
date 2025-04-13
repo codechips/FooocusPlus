@@ -687,15 +687,9 @@ with common.GRADIO_ROOT:
                                 elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
-                            if x == '':
-                                if modules.config.default_aspect_ratios[2]:
-                                    common.CURRENT_ASPECT = modules.config.default_sd1_aspect
-                                else:
-                                    common.CURRENT_ASPECT = modules.config.default_standard_aspect
-                            else:
-                                temp_a = x.split('<')
-                                temp_a = (temp_a[0])
-                                common.CURRENT_ASPECT = temp_a.replace('x','*')
+                            #temp_a = x.split('<')
+                            temp_a = (x.split('<')[0])
+                            common.CURRENT_ASPECT = temp_a.replace("x", "*")
                             print(f'Current Aspect: {common.CURRENT_ASPECT}')
                             return x
 
