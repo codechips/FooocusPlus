@@ -222,8 +222,8 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.default_standard_aspect
             print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')            
-            h = f'{common.CURRENT_ASPECT}'
-            width, height = eval(h)
+            h = (f'{common.CURRENT_ASPECT}').replace("*","x")
+            width, height = h.split("x")
         else:
             common.CURRENT_ASPECT = f'{h}'
         formatted = modules.config.add_ratio(f'{width}*{height}')
