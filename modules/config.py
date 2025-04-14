@@ -361,8 +361,8 @@ available_aspect_ratios = [
      '1280*960', '1280*768', '1280*720', '1152*896', '1152*768', '1344*576']
 ]
 
-available_standard_aspect = get_config_item_or_set_default(
-    key='available_standard_aspect',
+available_aspect_ratios = get_config_item_or_set_default(
+    key='available_aspect_ratios',
     default_value=available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
@@ -370,11 +370,26 @@ available_standard_aspect = get_config_item_or_set_default(
 default_standard_aspect = get_config_item_or_set_default(
     key='default_standard_aspect',
     default_value='1024*1024',
-    validator=lambda x: x in available_standard_aspect,
+    validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-available_sd1_aspect = get_config_item_or_set_default(
-    key='available_sd1_aspect',
+
+'''
+available_standard_aspects = get_config_item_or_set_default(
+    key='available_standard_aspects',
+    default_value=available_aspect_ratios[0],
+    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+    expected_type=list
+)
+default_standard_aspect = get_config_item_or_set_default(
+    key='default_standard_aspect',
+    default_value='1024*1024',
+    validator=lambda x: x in available_standard_aspects,
+    expected_type=str
+)
+'''
+available_sd1_aspects = get_config_item_or_set_default(
+    key='available_sd1_aspects',
     default_value=available_aspect_ratios[2],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
@@ -382,7 +397,7 @@ available_sd1_aspect = get_config_item_or_set_default(
 default_sd1_aspect = get_config_item_or_set_default(
     key='default_sd1_aspect',
     default_value='768*768',
-    validator=lambda x: x in available_sd1_aspect,
+    validator=lambda x: x in available_sd1_aspects,
     expected_type=str
 )
 default_aspect_ratio = [default_standard_aspect, '1024*1024', default_sd1_aspect, '768*768']
