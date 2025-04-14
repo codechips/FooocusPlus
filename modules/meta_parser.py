@@ -216,15 +216,14 @@ def get_steps(key: str, fallback: str | None, source_dict: dict, results: list, 
 def get_resolution(key: str, fallback: str | None, source_dict: dict, results: list, default=None):
     try:
         h = source_dict.get(key, source_dict.get(fallback, default))
-        print(f'H: {h}')
         width, height = eval(h)
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.default_standard_aspect
-            print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')
             try:
-                h = (f'{common.CURRENT_ASPECT}').replace("*","x")
-                h = h.replace("×","x")
+                # accept manual entries in config.txt that use "x" instead of "*"
+                h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
+                h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
                 width, height = h.split("x")
             except:
                 h = f'{common.CURRENT_ASPECT}'
