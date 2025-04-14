@@ -10,7 +10,7 @@ from PIL import Image
 import enhanced.version
 import modules.config
 import modules.sdxl_styles
-import common
+from common import CURRENT_ASPECT, MODELS_INFO
 from modules.flags import MetadataScheme, Performance, Steps, task_class_mapping, get_taskclass_by_fullname, default_class_params, scheduler_list, sampler_list
 from modules.flags import SAMPLERS, CIVITAI_NO_KARRAS
 from modules.util import quote, unquote, extract_styles_from_prompt, is_json, sha256
@@ -219,13 +219,15 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         print(f'H: {h}')
         width, height = eval(h)
         if (width == '0') or (height == '0') or (h == ''):
-            if common.CURRENT_ASPECT == '':
-                common.CURRENT_ASPECT = modules.config.default_standard_aspect
-            print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')            
-            h = (f'{common.CURRENT_ASPECT}').replace("*","x")
-            width, height = h.split("x")
+            if CURRENT_ASPECT == '':
+                CURRENT_ASPECT = modules.config.default_standard_aspect
+                h = (f'{CURRENT_ASPECT}').replace("*","x")
+                width, height = h.split("x")
+            else
+                width, height = eval(f'{CURRENT_ASPECT}')
+            print(f'CURRENT_ASPECT from common: {CURRENT_ASPECT}')
         else:
-            common.CURRENT_ASPECT = f'{h}'
+            CURRENT_ASPECT = f'{h}'
         formatted = modules.config.add_ratio(f'{width}*{height}')
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
         if 'engine' in source_dict:
@@ -352,7 +354,7 @@ def get_sha256(filepath):
     if not os.path.isfile(filepath):
         return ''
     if filepath not in hash_cache:
-        filehash = common.MODELS_INFO.get_file_muid(filepath)
+        filehash = MODELS_INFO.get_file_muid(filepath)
         if not filehash:
             filehash = sha256(filepath)
         hash_cache[filepath] = filehash
@@ -434,19 +436,19 @@ class MetadataParser(ABC):
         self.base_model_name = Path(base_model_name).stem
 
         if base_model_name not in ['', 'None']:
-            base_model_path = common.MODELS_INFO.get_model_filepath('checkpoints', base_model_name)
-            self.base_model_hash = common.MODELS_INFO.get_file_muid(base_model_path)
+            base_model_path = MODELS_INFO.get_model_filepath('checkpoints', base_model_name)
+            self.base_model_hash = MODELS_INFO.get_file_muid(base_model_path)
 
         if refiner_model_name not in ['', 'None']:
             self.refiner_model_name = Path(refiner_model_name).stem
-            refiner_model_path = common.MODELS_INFO.get_model_filepath('checkpoints', refiner_model_name)
-            self.refiner_model_hash = common.MODELS_INFO.get_file_muid(refiner_model_path)
+            refiner_model_path = MODELS_INFO.get_model_filepath('checkpoints', refiner_model_name)
+            self.refiner_model_hash = MODELS_INFO.get_file_muid(refiner_model_path)
 
         self.loras = []
         for (lora_name, lora_weight) in loras:
             if lora_name != 'None':
-                lora_path = common.MODELS_INFO.get_model_filepath('loras', lora_name)
-                lora_hash = common.MODELS_INFO.get_file_muid(lora_path)
+                lora_path = MODELS_INFO.get_model_filepath('loras', lora_name)
+                lora_hash = MODELS_INFO.get_file_muid(lora_path)
                 self.loras.append((Path(lora_name).stem, lora_weight, lora_hash))
         self.vae_name = Path(vae_name).stem
         if styles_definition != 'None':
