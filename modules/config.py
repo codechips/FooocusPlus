@@ -1279,5 +1279,7 @@ available_aspect_ratios_list = {
     for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
 }
 
-available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
-available_sd1_aspect_labels = available_aspect_ratios_list['Common']
+default_aspect_ratio = default_aspect_ratios['SDXL']
+available_aspect_ratios_labels = flags.available_aspect_ratios_list['SDXL']
+#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
+#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
