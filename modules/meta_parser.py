@@ -223,7 +223,8 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
                 common.CURRENT_ASPECT = modules.config.default_standard_aspect
             print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')
             try:
-                h = (f'{common.CURRENT_ASPECT}').replace("*","x")                
+                h = (f'{common.CURRENT_ASPECT}').replace("*","x")
+                h = h.replace("×","x")
                 width, height = h.split("x")
             except:
                 h = f'{common.CURRENT_ASPECT}'
