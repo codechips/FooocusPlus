@@ -223,7 +223,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
                 CURRENT_ASPECT = modules.config.default_standard_aspect
                 h = (f'{CURRENT_ASPECT}').replace("*","x")
                 width, height = h.split("x")
-            else
+            else:
                 width, height = eval(f'{CURRENT_ASPECT}')
             print(f'CURRENT_ASPECT from common: {CURRENT_ASPECT}')
         else:
