@@ -221,16 +221,14 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.default_standard_aspect
-                h = (f'{common.CURRENT_ASPECT}').replace("*","x")
-            else:
-                h = f'{common.CURRENT_ASPECT}'
-            print(f'CURRENT_ASPECT from common: {h}')
+            print(f'CURRENT_ASPECT from common: {common.CURRENT_ASPECT}')
             try:
+                h = (f'{common.CURRENT_ASPECT}').replace("*","x")                
                 width, height = h.split("x")
             except:
+                h = f'{common.CURRENT_ASPECT}'
                 width, height = eval(h)
-        else:
-            common.CURRENT_ASPECT = f'{h}'
+        common.CURRENT_ASPECT = f'{h}'
         formatted = modules.config.add_ratio(f'{width}*{height}')
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
         if 'engine' in source_dict:
