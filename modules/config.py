@@ -339,6 +339,7 @@ default_image_number = get_config_item_or_set_default(
 
 # Aspect Ratio selection - formerly in modules.flags but this caused bugs
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
+default_aspect_ratio = ['1024*1024', '1024*1024', '768*768', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
@@ -367,8 +368,8 @@ available_aspect_ratios = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
-default_standard_aspect = get_config_item_or_set_default(
-    key='default_standard_aspect',
+default_aspect_ratio = get_config_item_or_set_default(
+    key='default_aspect_ratio',
     default_value='1024*1024',
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
