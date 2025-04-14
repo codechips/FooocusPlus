@@ -337,9 +337,34 @@ default_image_number = get_config_item_or_set_default(
 )
 
 
+available_aspect_ratios = get_config_item_or_set_default(
+    key='available_aspect_ratios',
+    default_value=available_aspect_ratios[0],
+    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+    expected_type=list
+)
+default_aspect_ratio = get_config_item_or_set_default(
+    key='default_aspect_ratio',
+    default_value='1024*1024',
+    validator=lambda x: x in available_aspect_ratios,
+    expected_type=str
+)
+available_sd1_aspects = get_config_item_or_set_default(
+    key='available_sd1_aspects',
+    default_value=available_aspect_ratios[2],
+    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+    expected_type=list
+)
+default_sd1_aspect = get_config_item_or_set_default(
+    key='default_sd1_aspect',
+    default_value='768*768',
+    validator=lambda x: x in available_sd1_aspects,
+    expected_type=str
+)
+
 # Aspect Ratio selection - formerly in modules.flags but this caused bugs
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
-default_aspect_ratio = ['1024*1024', '1024*1024', '768*768', '1024*1024']
+default_aspect_ratio = [default_aspect_ratio, '1024*1024', default_sd1_aspect, '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
@@ -362,18 +387,6 @@ available_aspect_ratios = [
      '1280*960', '1280*768', '1280*720', '1152*896', '1152*768', '1344*576']
 ]
 
-available_aspect_ratios = get_config_item_or_set_default(
-    key='available_aspect_ratios',
-    default_value=available_aspect_ratios[0],
-    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
-    expected_type=list
-)
-default_aspect_ratio = get_config_item_or_set_default(
-    key='default_aspect_ratio',
-    default_value='1024*1024',
-    validator=lambda x: x in available_aspect_ratios,
-    expected_type=str
-)
 
 '''
 available_standard_aspects = get_config_item_or_set_default(
@@ -389,18 +402,7 @@ default_standard_aspect = get_config_item_or_set_default(
     expected_type=str
 )
 '''
-available_sd1_aspects = get_config_item_or_set_default(
-    key='available_sd1_aspects',
-    default_value=available_aspect_ratios[2],
-    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
-    expected_type=list
-)
-default_sd1_aspect = get_config_item_or_set_default(
-    key='default_sd1_aspect',
-    default_value='768*768',
-    validator=lambda x: x in available_sd1_aspects,
-    expected_type=str
-)
+
 default_aspect_ratio = [default_aspect_ratio, '1024*1024', default_sd1_aspect, '768*768']
 CURRENT_ASPECT = f'{default_aspect_ratio}'
 
