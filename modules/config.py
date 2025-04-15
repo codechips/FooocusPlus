@@ -361,10 +361,6 @@ available_aspect_ratios = [
      '1280*960', '1280*768', '1280*720', '1152*896', '1152*768', '1344*576']
 ]
 
-# Additional aspect ratio support
-default_standard_aspect = [default_standard_aspect, '1024*1024', default_sd1_aspect, '768*768']
-CURRENT_ASPECT = f'{default_standard_aspect}'
-
 def add_ratio(x):
     print(f'x: {x}')
     if len(x) <4: return
@@ -434,6 +430,10 @@ default_standard_aspect = get_config_item_or_set_default(
     expected_type=str
 )
 '''
+# Additional aspect ratio support
+default_standard_aspect = [default_standard_aspect, '1024*1024', default_sd1_aspect, '768*768']
+CURRENT_ASPECT = f'{default_standard_aspect}'
+
 
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
