@@ -6,6 +6,7 @@ import args_manager
 import tempfile
 import ldm_patched
 from ldm_patched.modules import model_management
+import modules.aspect_ratio as AR
 import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
@@ -336,57 +337,15 @@ default_image_number = get_config_item_or_set_default(
     expected_type=int
 )
 
-
-# Aspect Ratio selection - formerly in modules.flags but this caused bugs
-aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
-available_aspect_ratios = [
-    ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
-     '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
-     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280',
-     '1024*960', '1088*960', '1088*896', '1152*896', '1152*864',
-     '1152*832', '1216*832', '1248*832', '1280*768', '1344*768',
-     '1344*756', '1344*704', '1408*704', '1472*704', '1536*640',
-     '1600*640', '1664*576', '1728*576', '2048*512'],
-
-    ['768*1280', '960*1280', '1024*1024',
-     '1280*768', '1280*960', '1280*1280'],
-    
-    ['288*512', '384*640', '320*512', '384*576',
-     '384*512', '512*640', '512*512', '768*768',
-     '640*512', '512*384', '576*384', '512*320',
-     '640*384', '512*288', '448*192'],
-
-    ['576*1344', '768*1152', '896*1152', '720*1280', '768*1280',
-     '960*1280', '1024*1024', '1024*1280', '1280*1280', '1280*1024',
-     '1280*960', '1280*768', '1280*720', '1152*896', '1152*768', '1344*576']
-]
-
-def add_ratio(x):
-    print(f'x: {x}')
-    if len(x) <4: return
-    a, b = x.replace('*', ' ').split(' ')[:2]
-    a, b = int(a), int(b)
-    g = math.gcd(a, b)
-    c, d = a // g, b // g
-    if (a, b) == (576, 1344):
-        c, d = 9, 21
-    elif (a, b) == (1344, 576):
-        c, d = 21, 9
-    elif (a, b) == (768, 1280):
-        c, d = 9, 15
-    elif (a, b) == (1280, 768):
-        c, d = 15, 9
-    return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
-
 available_aspect_ratios = get_config_item_or_set_default(
     key='available_aspect_ratios',
-    default_value=available_aspect_ratios[0],
+    default_value=AR.available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
 default_standard_aspect = get_config_item_or_set_default(
     key='default_standard_aspect',
-    default_value='768*768' if '768*768' in available_aspect_ratios else '1024*1024',
+    default_value='1024*1024',
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
@@ -420,15 +379,6 @@ default_standard_aspect = get_config_item_or_set_default(
 # Additional aspect ratio support
 default_standard_aspect = [default_standard_aspect, '1024*1024', default_sd1_aspect, '768*768']
 CURRENT_ASPECT = f'{default_standard_aspect}'
-
-default_aspect_ratios = {
-    template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, default_standard_aspect)
-}
-available_aspect_ratios_list = {
-    template: [add_ratio(x) for x in ratios]
-    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
-}
 
 #available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
 available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
@@ -974,8 +924,8 @@ allow_missing_preset_key = [
     "previous_default_models",
     ]
 
-default_standard_aspect = default_aspect_ratios['SDXL']
-available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
+default_standard_aspect = AR.default_aspect_ratios['SDXL']
+available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
 
 # Only write to config.txt in the first launch
 if not os.path.exists(config_path):
