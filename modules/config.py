@@ -1270,6 +1270,7 @@ default_standard_aspect = [default_standard_aspect, '1024*1024', default_sd1_asp
 CURRENT_ASPECT = f'{default_standard_aspect}'
 
 def add_ratio(x):
+    print(f'x: {x}')
     a, b = x.replace('*', ' ').split(' ')[:2]
     a, b = int(a), int(b)
     g = math.gcd(a, b)
