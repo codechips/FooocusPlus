@@ -363,6 +363,17 @@ default_sd1_aspect = get_config_item_or_set_default(
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
+
+# Additional aspect ratio support
+default_aspect_ratio = [default_standard_aspect, '1024*1024', default_sd1_aspect, '1024*1024']
+#default_standard_aspect = default_aspect_ratios['SDXL']
+
+available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
+
+#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
+#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
+#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
+
 '''
 available_standard_aspects = get_config_item_or_set_default(
     key='available_standard_aspects',
@@ -916,13 +927,6 @@ allow_missing_preset_key = [
     "previous_default_models",
     ]
 
-# Additional aspect ratio support
-default_standard_aspect = AR.default_aspect_ratios['SDXL']
-available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
-
-#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
-#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
-#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
 
 # Only write to config.txt in the first launch
 if not os.path.exists(config_path):
