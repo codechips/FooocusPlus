@@ -383,7 +383,7 @@ default_standard_aspect = get_config_item_or_set_default(
 default_sd1_aspect = get_config_item_or_set_default(
     key='default_sd1_aspect',
     default_value='768*768',
-    validator=lambda x: x in available_sd1_aspects,
+    validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
 '''
