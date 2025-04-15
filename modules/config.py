@@ -373,20 +373,20 @@ default_standard_aspect = get_config_item_or_set_default(
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-'''
-available_sd1_aspects = get_config_item_or_set_default(
-    key='available_sd1_aspects',
-    default_value=available_aspect_ratios[2],
-    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
-    expected_type=list
-)
+
+#available_sd1_aspects = get_config_item_or_set_default(
+#    key='available_sd1_aspects',
+#    default_value=available_aspect_ratios[2],
+#    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+#    expected_type=list
+#)
 default_sd1_aspect = get_config_item_or_set_default(
     key='default_sd1_aspect',
     default_value='768*768',
     validator=lambda x: x in available_sd1_aspects,
     expected_type=str
 )
-
+'''
 available_standard_aspects = get_config_item_or_set_default(
     key='available_standard_aspects',
     default_value=available_aspect_ratios[0],
