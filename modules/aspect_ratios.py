@@ -40,10 +40,10 @@ def add_ratio(x):
         c, d = 15, 9
     return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
-default_aspect_ratios = {
-    template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
-}
+#default_aspect_ratios = {
+#    template: add_ratio(ratio)
+#    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
+#}
 
 available_aspect_ratios_list = {
     template: [add_ratio(x) for x in ratios]
