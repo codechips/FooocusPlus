@@ -939,6 +939,9 @@ allow_missing_preset_key = [
     "previous_default_models",
     ]
 
+default_standard_aspect = default_aspect_ratios['SDXL']
+available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
+
 # Only write to config.txt in the first launch
 if not os.path.exists(config_path):
     with open(config_path, "w", encoding="utf-8") as json_file:
@@ -1295,7 +1298,7 @@ available_aspect_ratios_list = {
     template: [add_ratio(x) for x in ratios]
     for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
 }
-available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
-#available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
+#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
+available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
 #available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
 #available_sd1_aspect_labels = available_aspect_ratios_list['Common']
