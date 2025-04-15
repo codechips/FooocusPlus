@@ -221,14 +221,12 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.default_standard_aspect
-            try:
-                # accept manual entries in config.txt that use "x" instead of "*"
-                h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
-                h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
-                width, height = h.split("x")
-            except:
-                h = f'{common.CURRENT_ASPECT}'
-                width, height = eval(h)
+
+            # accept manual entries in config.txt that use "x" instead of "*"
+            h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
+            h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
+            width, height = h.split("x")
+            
         common.CURRENT_ASPECT = f'{h}'
         formatted = AR.add_ratio(f'{width}*{height}')
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
