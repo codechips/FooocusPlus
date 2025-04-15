@@ -1271,6 +1271,7 @@ CURRENT_ASPECT = f'{default_standard_aspect}'
 
 def add_ratio(x):
     print(f'x: {x}')
+    if len(x) <4: return
     a, b = x.replace('*', ' ').split(' ')[:2]
     a, b = int(a), int(b)
     g = math.gcd(a, b)
