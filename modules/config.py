@@ -373,6 +373,7 @@ default_standard_aspect = get_config_item_or_set_default(
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
+'''
 available_sd1_aspects = get_config_item_or_set_default(
     key='available_sd1_aspects',
     default_value=available_aspect_ratios[2],
@@ -385,7 +386,7 @@ default_sd1_aspect = get_config_item_or_set_default(
     validator=lambda x: x in available_sd1_aspects,
     expected_type=str
 )
-'''
+
 available_standard_aspects = get_config_item_or_set_default(
     key='available_standard_aspects',
     default_value=available_aspect_ratios[0],
