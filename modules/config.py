@@ -6,7 +6,7 @@ import args_manager
 import tempfile
 import ldm_patched
 from ldm_patched.modules import model_management
-import modules.aspect_ratio as AR
+import modules.aspect_ratios as AR
 import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
