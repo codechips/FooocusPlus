@@ -1295,4 +1295,4 @@ def add_ratio(x):
 
 #available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
 #available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
-available_sd1_aspect_labels = available_aspect_ratios_list['Common']
+#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
