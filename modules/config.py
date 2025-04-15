@@ -378,11 +378,6 @@ def add_ratio(x):
         c, d = 15, 9
     return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
-#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
-available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
-#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
-#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
-
 available_aspect_ratios = get_config_item_or_set_default(
     key='available_aspect_ratios',
     default_value=available_aspect_ratios[0],
@@ -434,6 +429,12 @@ available_aspect_ratios_list = {
     template: [add_ratio(x) for x in ratios]
     for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
 }
+
+#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
+available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
+#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
+#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
+
 
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
