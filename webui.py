@@ -678,6 +678,7 @@ with common.GRADIO_ROOT:
                          elem_classes=['performance_selection'])
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
 
+                    
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False) 
                         aspect_ratios_selections = []
@@ -704,7 +705,7 @@ with common.GRADIO_ROOT:
 
                         def overwrite_aspect_ratios(width, height):
                             if width>0 and height>0:
-                                return modules.config.add_ratio(f'{width}*{height}')
+                                return AR.add_ratio(f'{width}*{height}')
                             return gr.update()
                         overwrite_width.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
@@ -712,7 +713,8 @@ with common.GRADIO_ROOT:
                         overwrite_height.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
-                        
+
+                    
                     output_format = gr.Radio(label='Output Format',
                          choices=flags.OutputFormat.list(),
                          value=modules.config.default_output_format)
