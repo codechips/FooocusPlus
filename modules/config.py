@@ -1284,15 +1284,15 @@ def add_ratio(x):
         c, d = 15, 9
     return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
-default_aspect_ratios = {
-    template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, default_standard_aspect)
-}
-available_aspect_ratios_list = {
-    template: [add_ratio(x) for x in ratios]
-    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
-}
+#default_aspect_ratios = {
+#    template: add_ratio(ratio)
+#    for template, ratio in zip(aspect_ratios_templates, default_standard_aspect)
+#}
+#available_aspect_ratios_list = {
+#    template: [add_ratio(x) for x in ratios]
+#    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
+#}
 
 available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
 #available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
-#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
+available_sd1_aspect_labels = available_aspect_ratios_list['Common']
