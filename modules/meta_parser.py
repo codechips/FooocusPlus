@@ -10,6 +10,7 @@ from PIL import Image
 import common
 import enhanced.version
 import modules.config
+import modules.aspect_ratios as AR
 import modules.sdxl_styles
 from modules.flags import MetadataScheme, Performance, Steps, task_class_mapping, get_taskclass_by_fullname, default_class_params, scheduler_list, sampler_list
 from modules.flags import SAMPLERS, CIVITAI_NO_KARRAS
@@ -229,7 +230,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
                 h = f'{common.CURRENT_ASPECT}'
                 width, height = eval(h)
         common.CURRENT_ASPECT = f'{h}'
-        formatted = modules.config.add_ratio(f'{width}*{height}')
+        formatted = AR.add_ratio(f'{width}*{height}')
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
         if 'engine' in source_dict:
             engine = source_dict['engine'].get('backend_engine', engine)
