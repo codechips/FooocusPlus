@@ -361,6 +361,40 @@ available_aspect_ratios = [
      '1280*960', '1280*768', '1280*720', '1152*896', '1152*768', '1344*576']
 ]
 
+# Additional aspect ratio support
+default_standard_aspect = [default_standard_aspect, '1024*1024', default_sd1_aspect, '768*768']
+CURRENT_ASPECT = f'{default_standard_aspect}'
+
+def add_ratio(x):
+    print(f'x: {x}')
+    if len(x) <4: return
+    a, b = x.replace('*', ' ').split(' ')[:2]
+    a, b = int(a), int(b)
+    g = math.gcd(a, b)
+    c, d = a // g, b // g
+    if (a, b) == (576, 1344):
+        c, d = 9, 21
+    elif (a, b) == (1344, 576):
+        c, d = 21, 9
+    elif (a, b) == (768, 1280):
+        c, d = 9, 15
+    elif (a, b) == (1280, 768):
+        c, d = 15, 9
+    return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
+
+default_aspect_ratios = {
+    template: add_ratio(ratio)
+    for template, ratio in zip(aspect_ratios_templates, default_standard_aspect)
+}
+available_aspect_ratios_list = {
+    template: [add_ratio(x) for x in ratios]
+    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
+}
+#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
+available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
+#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
+#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
+
 available_aspect_ratios = get_config_item_or_set_default(
     key='available_aspect_ratios',
     default_value=available_aspect_ratios[0],
@@ -1267,38 +1301,3 @@ def downloading_hydit_model():
     return os.path.join(paths_checkpoints[0] + '\Alternative', 'hunyuan_dit_1.2.safetensors')
 
 update_files()
-
-
-# Additional aspect ratio support
-default_standard_aspect = [default_standard_aspect, '1024*1024', default_sd1_aspect, '768*768']
-CURRENT_ASPECT = f'{default_standard_aspect}'
-
-def add_ratio(x):
-    print(f'x: {x}')
-    if len(x) <4: return
-    a, b = x.replace('*', ' ').split(' ')[:2]
-    a, b = int(a), int(b)
-    g = math.gcd(a, b)
-    c, d = a // g, b // g
-    if (a, b) == (576, 1344):
-        c, d = 9, 21
-    elif (a, b) == (1344, 576):
-        c, d = 21, 9
-    elif (a, b) == (768, 1280):
-        c, d = 9, 15
-    elif (a, b) == (1280, 768):
-        c, d = 15, 9
-    return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
-
-default_aspect_ratios = {
-    template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, default_standard_aspect)
-}
-available_aspect_ratios_list = {
-    template: [add_ratio(x) for x in ratios]
-    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
-}
-#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
-available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
-#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
-#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
