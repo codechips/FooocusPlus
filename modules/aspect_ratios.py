@@ -1,11 +1,11 @@
 import math
 
 aspect_ratios_templates = ['SDXL', 'HyDiT', 'Common', 'Flux']
-#default_aspect_ratio = ['1024*1024', '1024*1024', '768*768', '1024*1024']
+default_aspect_ratio = ['1024*1024', '1024*1024', '768*768', '1024*1024']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
-     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280',
+     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280'
      '1024*960', '1088*960', '1088*896', '1152*896', '1152*864',
      '1152*832', '1216*832', '1248*832', '1280*768', '1344*768',
      '1344*756', '1344*704', '1408*704', '1472*704', '1536*640',
@@ -40,10 +40,10 @@ def add_ratio(x):
         c, d = 15, 9
     return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
-#default_aspect_ratios = {
-#    template: add_ratio(ratio)
-#    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
-#}
+default_aspect_ratios = {
+    template: add_ratio(ratio)
+    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
+}
 
 available_aspect_ratios_list = {
     template: [add_ratio(x) for x in ratios]
