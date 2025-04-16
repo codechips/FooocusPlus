@@ -342,7 +342,7 @@ available_aspect_ratios = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
-default_standard_aspect = get_config_item_or_set_default(
+modules.config.default_sdxl_aspect_ratio = get_config_item_or_set_default(
     key='default_standard_aspect',
     default_value='1024*1024',
     validator=lambda x: x in available_aspect_ratios,
@@ -355,27 +355,12 @@ available_sd1_aspects = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
-default_sd1_aspect = get_config_item_or_set_default(
+default_sd1_aspect_ratio = get_config_item_or_set_default(
     key='default_sd1_aspect',
     default_value='768*768',
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-
-'''
-available_standard_aspects = get_config_item_or_set_default(
-    key='available_standard_aspects',
-    default_value=available_aspect_ratios[0],
-    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
-    expected_type=list
-)
-default_standard_aspect = get_config_item_or_set_default(
-    key='default_standard_aspect',
-    default_value='1024*1024',
-    validator=lambda x: x in available_standard_aspects,
-    expected_type=str
-)
-'''
 
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
@@ -1245,23 +1230,7 @@ update_files()
 
 # Additional aspect ratio support
 CURRENT_ASPECT = f'{default_standard_aspect}'
-print(f'CURRENT_ASPECT {CURRENT_ASPECT}')
 
 import modules.aspect_ratios as AR
-#default_aspect_ratio = modules.flags.default_aspect_ratios['SDXL']
+default_aspect_ratio = modules.flags.default_aspect_ratios['SDXL']
 available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
-
-#default_aspect_ratios = {
-#    template: AR.add_ratio(ratio)
-#    for template, ratio in zip(AR.aspect_ratios_templates, default_standard_aspect)
-#}
-
-#available_aspect_ratios_list = {
-#    template: [AR.add_ratio(x) for x in ratios]
-#    for template, ratios in zip(AR.aspect_ratios_templates, available_aspect_ratios)
-#}
-
-#default_standard_aspect = default_aspect_ratios['SDXL']
-#available_aspect_ratios_labels = [add_ratio(x) for x in available_aspect_ratios]
-#available_standard_aspect_labels = available_aspect_ratios_list['SDXL']
-#available_sd1_aspect_labels = available_aspect_ratios_list['Common']
