@@ -220,7 +220,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         width, height = eval(h)
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
-                common.CURRENT_ASPECT = modules.config.default_standard_aspect
+                common.CURRENT_ASPECT = modules.config.default_sdxl_aspect_ratio
 
             # accept manual entries in config.txt that use "x" instead of "*"
             h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
