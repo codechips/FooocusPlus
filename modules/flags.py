@@ -1,6 +1,6 @@
 #import math
 from enum import IntEnum, Enum
-from modules.common import CURRENT_ASPECT
+from common import CURRENT_ASPECT
 
 disabled = 'Disabled'
 enabled = 'Enabled'
