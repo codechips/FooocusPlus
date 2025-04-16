@@ -50,7 +50,7 @@ default_aspect_ratios = {
     for template, ratio in zip(aspect_ratios_templates, CURRENT_ASPECT)
 }
 
-#available_aspect_ratios_list = {
-#    template: [add_ratio(x) for x in ratios]
-#    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
-#}
+available_aspect_ratios_list = {
+    template: [add_ratio(x) for x in ratios]
+    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
+}
