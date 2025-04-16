@@ -689,7 +689,8 @@ with common.GRADIO_ROOT:
                             elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
-                            common.CURRENT_ASPECT = f'{x.split("<")[0]}'
+                            if x != '':
+                                common.CURRENT_ASPECT = f'{x.split("<")[0]}'
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
