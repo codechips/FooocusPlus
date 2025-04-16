@@ -1,5 +1,3 @@
-#import math
-import common
 from enum import IntEnum, Enum
 
 
@@ -110,7 +108,6 @@ COMFY_KSAMPLER_NAMES = ["euler", "euler_cfg_pp", "euler_ancestral", "euler_ances
 comfy_scheduler_list = COMFY_SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform", "beta"]
 comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
-print(f'CURRENT_ASPECT in flags: {common.CURRENT_ASPECT}')
 aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt']
 default_aspect_ratio = ['1024*1024', '768*768', '3840*2160']
 available_aspect_ratios = [
