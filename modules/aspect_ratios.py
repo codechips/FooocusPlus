@@ -1,7 +1,8 @@
 import math
 from common import CURRENT_ASPECT
+from modules.flags import aspect_ratios_templates, default_aspect_ratio, available_aspect_ratios
 
-print(f'CURRENT_ASPECT: {CURRENT_ASPECT}')
+print(f'CURRENT_ASPECT in AR: {CURRENT_ASPECT}')
 
 def add_ratio(x):
     print(f'x: {x}')
