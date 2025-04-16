@@ -235,7 +235,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             template = source_dict['engine'].get('available_aspect_ratios_selection', default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection']))
         else:
             template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
-        if formatted in modules.config.available_aspect_ratios_list[template]:
+        if formatted in AR.available_aspect_ratios_list[template]:
             h = f'{formatted},{template}'
             results.append(h)
             results.append(-1)
