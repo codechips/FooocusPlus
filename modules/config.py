@@ -371,12 +371,13 @@ default_sd1_aspect = get_config_item_or_set_default(
 #    for template, ratio in zip(AR.aspect_ratios_templates, default_standard_aspect)
 #}
 
-available_aspect_ratios_list = {
-    template: [AR.add_ratio(x) for x in ratios]
-    for template, ratios in zip(AR.aspect_ratios_templates, available_aspect_ratios)
-}
+#available_aspect_ratios_list = {
+#    template: [AR.add_ratio(x) for x in ratios]
+#    for template, ratios in zip(AR.aspect_ratios_templates, available_aspect_ratios)
+#}
+#default_aspect_ratio = AR.default_aspect_ratios['SDXL']
 
-available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
+available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
 
 '''
 available_standard_aspects = get_config_item_or_set_default(
