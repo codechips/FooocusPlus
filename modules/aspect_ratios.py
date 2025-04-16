@@ -2,7 +2,7 @@ import math
 from common import CURRENT_ASPECT
 
 aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt']
-default_aspect_ratio = ['1024*1024', '768*768', '3840*2160']
+default_aspect_ratio = [CURRENT_ASPECT, '768*768', '3840*2160']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
@@ -47,7 +47,7 @@ def add_ratio(x):
     
 default_aspect_ratios = {
     template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, CURRENT_ASPECT)
+    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
 }
 
 available_aspect_ratios_list = {
