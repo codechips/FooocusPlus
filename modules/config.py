@@ -337,6 +337,7 @@ default_image_number = get_config_item_or_set_default(
     expected_type=int
 )
 
+
 available_aspect_ratios = get_config_item_or_set_default(
     key='available_aspect_ratios',
     default_value=AR.available_aspect_ratios[0],
@@ -367,7 +368,7 @@ default_sd1_aspect = get_config_item_or_set_default(
 # Additional aspect ratio support
 default_aspect_ratios = {
     template: AR.add_ratio(ratio)
-    for template, ratio in zip(AR.aspect_ratios_templates, default_aspect_ratio)
+    for template, ratio in zip(AR.aspect_ratios_templates, default_standard_aspect)
 }
 
 available_aspect_ratios_list = {
