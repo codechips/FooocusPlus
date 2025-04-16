@@ -1,6 +1,7 @@
 import math
 from common import CURRENT_ASPECT
 
+print(f'CURRENT_ASPECT: {CURRENT_ASPECT}')
 aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt']
 default_aspect_ratio = [CURRENT_ASPECT, '768*768', '3840*2160']
 available_aspect_ratios = [
