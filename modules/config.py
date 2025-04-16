@@ -351,18 +351,31 @@ default_standard_aspect = get_config_item_or_set_default(
 )
 CURRENT_ASPECT = f'{default_standard_aspect}'
 
-#available_sd1_aspects = get_config_item_or_set_default(
-#    key='available_sd1_aspects',
-#    default_value=available_aspect_ratios[2],
-#    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
-#    expected_type=list
-#)
+available_sd1_aspects = get_config_item_or_set_default(
+    key='available_sd1_aspects',
+    default_value=AR.available_aspect_ratios[1],
+    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+    expected_type=list
+)
 default_sd1_aspect = get_config_item_or_set_default(
     key='default_sd1_aspect',
     default_value='768*768',
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
+
+# Additional aspect ratio support
+default_aspect_ratios = {
+    template: add_ratio(ratio)
+    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
+}
+
+available_aspect_ratios_list = {
+    template: [add_ratio(x) for x in ratios]
+    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
+}
+
+available_aspect_ratios_labels = available_aspect_ratios_list['SDXL']
 
 '''
 available_standard_aspects = get_config_item_or_set_default(
@@ -1246,11 +1259,6 @@ update_files()
 
 
 # Additional aspect ratio support
-default_aspect_ratio = [default_standard_aspect, '1024*1024', default_sd1_aspect, '1024*1024']
-default_aspect_ratios = {
-    template: AR.add_ratio(ratio)
-    for template, ratio in zip(AR.aspect_ratios_templates, default_aspect_ratio)
-}
 available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
 
 #default_standard_aspect = default_aspect_ratios['SDXL']
