@@ -1,6 +1,7 @@
 #import math
+import common
 from enum import IntEnum, Enum
-from common import CURRENT_ASPECT
+
 
 disabled = 'Disabled'
 enabled = 'Enabled'
@@ -109,13 +110,13 @@ COMFY_KSAMPLER_NAMES = ["euler", "euler_cfg_pp", "euler_ancestral", "euler_ances
 comfy_scheduler_list = COMFY_SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform", "beta"]
 comfy_sampler_list = COMFY_SAMPLER_NAMES = COMFY_KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
-print(f'CURRENT_ASPECT in flags: {CURRENT_ASPECT}')
+print(f'CURRENT_ASPECT in flags: {common.CURRENT_ASPECT}')
 aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt']
 default_aspect_ratio = ['1024*1024', '768*768', '3840*2160']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
-     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280'
+     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280',
      '1024*960', '1088*960', '1088*896', '1152*896', '1152*864',
      '1152*832', '1216*832', '1248*832', '1280*768', '1344*768',
      '1344*756', '1344*704', '1408*704', '1472*704', '1536*640',
