@@ -1,4 +1,5 @@
 import math
+from common import CURRENT_ASPECT
 
 aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt']
 default_aspect_ratio = ['1024*1024', '768*768', '3840*2160']
@@ -44,14 +45,12 @@ def add_ratio(x):
         c, d = 15, 9
     return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
     
-'''
 default_aspect_ratios = {
     template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
+    for template, ratio in zip(aspect_ratios_templates, CURRENT_ASPECT)
 }
 
-available_aspect_ratios_list = {
-    template: [add_ratio(x) for x in ratios]
-    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
-}
-'''
+#available_aspect_ratios_list = {
+#    template: [add_ratio(x) for x in ratios]
+#    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
+#}
