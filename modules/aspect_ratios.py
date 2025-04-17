@@ -36,14 +36,14 @@ def reset_aspect_ratios(aspect_ratios):
         template = aspect_ratios.split(',')[1]
         aspect_ratios = aspect_ratios.split(',')[0]
         if template=='SD1':
-    
+            print()
         elif template=='PixArt':
-    
+            print()
         elif template=='Spare':
-    
+            print()    
         else:        # SDXL template
- 
+             print()
     else:
- 
+        print()
     return results
      
