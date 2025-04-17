@@ -1229,15 +1229,15 @@ with common.GRADIO_ROOT:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
                 if template=='SD1':
-                    results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
+                    results = [gr.update(visible=False), gr.update(info=AR.ar_info[AR.ar_index]), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
                 elif template=='PixArt':
-                    results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
+                    results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(info=AR.ar_info[AR.ar_index]), gr.update(visible=False)]
                 elif template=='Spare':
-                    results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
+                    results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, gr.update(info=AR.ar_info[AR.ar_index]), visible=True)]
                 else:        # SDXL template
-                    results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
+                    results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3, gr.update(info=AR.ar_info[AR.ar_index])
             else:
-                results = [gr.update()] * 4
+                results = [gr.update()] * 4, gr.update(info=AR.ar_info[AR.ar_index])
             return results
 
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
