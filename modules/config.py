@@ -1229,6 +1229,7 @@ update_files()
 
 # Additional aspect ratio support
 CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
+print(f'CURRENT_ASPECT, config: {CURRENT_ASPECT}')
 
 import modules.aspect_ratios as AR
 default_aspect_ratio = AR.default_aspect_ratios['SDXL']
