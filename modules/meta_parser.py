@@ -18,7 +18,7 @@ from modules.util import quote, unquote, extract_styles_from_prompt, is_json, sh
 import enhanced.all_parameters as ads
 from modules.hash_cache import sha256_from_cache
 
-ar_template = 'SDXL' 
+ar_template = 'SDXL'
 
 re_param_code = r'\s*(\w[\w \-/]+):\s*("(?:\\.|[^\\"])+"|[^,]*)(?:,|$)'
 re_param = re.compile(re_param_code)
@@ -81,7 +81,6 @@ def switch_layout_template(presetdata: dict | str, state_params, preset_url=''):
     #for i in range(modules.config.default_max_lora_number):
     #    results += [get_layout_visible_inter('loras', visible, inter)] * 3
 
-
     #[output_format, inpaint_advanced_masking_checkbox, mixing_image_prompt_and_vary_upscale, mixing_image_prompt_and_inpaint, backfill_prompt, translation_methods, input_image_checkbox, state_topbar]
     # if default_X in config_prese then update the value to gr.X else update with default value in ads.default[X]
     update_value_if_existed = lambda x: gr.update() if x not in presetdata_dict else presetdata_dict[x]
@@ -97,7 +96,6 @@ def switch_layout_template(presetdata: dict | str, state_params, preset_url=''):
     results.append(state_params)
 
     return results
-
 
 
 def load_parameter_button_click(raw_metadata: dict | str, is_generating: bool, inpaint_mode: str):
