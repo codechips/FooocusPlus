@@ -691,6 +691,7 @@ with common.GRADIO_ROOT:
                         def save_current_aspect(x):
                             if x != '':
                                 common.CURRENT_ASPECT = f'{x.split("<")[0]}'
+                                gr.update(info=AR.ar_info[AR.ar_index])
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
@@ -1225,7 +1226,6 @@ with common.GRADIO_ROOT:
         
         def reset_aspect_ratios(aspect_ratios):
             global aspect_ratios_selection
-            gr.update(info=AR.ar_info[AR.ar_index])
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
