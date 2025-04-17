@@ -1231,5 +1231,5 @@ update_files()
 CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
 
 import modules.aspect_ratios as AR
-default_aspect_ratio = modules.flags.default_aspect_ratios['SDXL']
+default_aspect_ratio = AR.default_aspect_ratios['SDXL']
 available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
