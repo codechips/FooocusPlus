@@ -1,6 +1,6 @@
 import math
 from common import CURRENT_ASPECT
-from meta_parser import ar_template
+from modules.meta_parser import ar_template
 from modules.flags import aspect_ratios_templates, default_aspect_ratio, available_aspect_ratios
 
 print(f'CURRENT_ASPECT in AR: {CURRENT_ASPECT}')
