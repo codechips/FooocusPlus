@@ -11,7 +11,7 @@ import comfy.comfy_version
 import modules.html
 import modules.async_worker as worker
 import modules.constants as constants
-import modules.aspect_ratios as AR
+import modules. as AR
 import modules.flags as flags
 import modules.gradio_hijack as grh
 import modules.style_sorter as style_sorter
@@ -1224,7 +1224,6 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)
         
         def reset_aspect_ratios(aspect_ratios):
-            print(f'aspect_ratios: {aspect_ratios}')
             global aspect_ratios_selection
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
