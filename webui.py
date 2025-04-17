@@ -1226,7 +1226,6 @@ with common.GRADIO_ROOT:
         def reset_aspect_ratios(aspect_ratios):
             print(f'aspect_ratios: {aspect_ratios}')
             global aspect_ratios_selection
-            print(f'aspect_ratios_selection: {aspect_ratios_selection}')
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
@@ -1242,7 +1241,9 @@ with common.GRADIO_ROOT:
                 results = [gr.update()] * 4
             return results
 
-        aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections, queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+        aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
+            queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
+            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
