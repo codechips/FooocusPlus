@@ -18,6 +18,8 @@ from modules.util import quote, unquote, extract_styles_from_prompt, is_json, sh
 import enhanced.all_parameters as ads
 from modules.hash_cache import sha256_from_cache
 
+ar_template = 'SDXL' 
+
 re_param_code = r'\s*(\w[\w \-/]+):\s*("(?:\\.|[^\\"])+"|[^,]*)(?:,|$)'
 re_param = re.compile(re_param_code)
 re_imagesize = re.compile(r"^(\d+)x(\d+)$")
@@ -215,6 +217,7 @@ def get_steps(key: str, fallback: str | None, source_dict: dict, results: list, 
 
 
 def get_resolution(key: str, fallback: str | None, source_dict: dict, results: list, default=None):
+    global ar_template
     try:
         h = source_dict.get(key, source_dict.get(fallback, default))
         width, height = eval(h)
@@ -235,7 +238,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             template = source_dict['engine'].get('available_aspect_ratios_selection', default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection']))
         else:
             template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
-        print(f'Template, meta_parser: {template}')
+        ar_template = template     # used in other aspect ratio routines
         if formatted in AR.available_aspect_ratios_list[template]:
             h = f'{formatted},{template}'
             results.append(h)
