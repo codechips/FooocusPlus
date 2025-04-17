@@ -1,9 +1,7 @@
 import math
-from common import CURRENT_ASPECT
 from modules.meta_parser import ar_template
 from modules.flags import aspect_ratios_templates, available_aspect_ratios
 
-print(f'CURRENT_ASPECT in AR: {CURRENT_ASPECT}')
 default_aspect_ratio = ['1024*1024', '768*768', '3840*2160']
 ar_index = aspect_ratios_templates.index(ar_template)
 
