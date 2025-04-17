@@ -11,7 +11,7 @@ import comfy.comfy_version
 import modules.html
 import modules.async_worker as worker
 import modules.constants as constants
-import modules. as AR
+import modules.aspect_ratio as AR
 import modules.flags as flags
 import modules.gradio_hijack as grh
 import modules.style_sorter as style_sorter
@@ -685,7 +685,7 @@ with common.GRADIO_ROOT:
                         for template in flags.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=AR.available_aspect_ratios_list[template],
                             value=AR.default_aspect_ratios[template], visible= template=='SDXL',
-                            info=AR.ar_info[0],
+                            info=AR.ar_info[AR.ar_index],
                             elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
