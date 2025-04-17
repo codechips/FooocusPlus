@@ -685,7 +685,7 @@ with common.GRADIO_ROOT:
                         for template in flags.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=AR.available_aspect_ratios_list[template],
                             value=AR.default_aspect_ratios[template], visible= template=='SDXL',
-                            info=AR.ar_info[template],
+                            info=AR.ar_info[0],
                             elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
