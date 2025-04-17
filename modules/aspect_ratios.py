@@ -29,3 +29,21 @@ available_aspect_ratios_list = {
     template: [add_ratio(x) for x in ratios]
     for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
 }
+
+def reset_aspect_ratios(aspect_ratios):
+#    global aspect_ratios_selection
+    if len(aspect_ratios.split(','))>1:
+        template = aspect_ratios.split(',')[1]
+        aspect_ratios = aspect_ratios.split(',')[0]
+        if template=='SD1':
+ 
+        elif template=='PixArt':
+ 
+        elif template=='Spare':
+ 
+        else:        # SDXL template
+ 
+    else:
+ 
+    return results
+     
