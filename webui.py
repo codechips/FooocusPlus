@@ -1224,7 +1224,9 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)
         
         def reset_aspect_ratios(aspect_ratios):
+            print(f'aspect_ratios: {aspect_ratios}')
             global aspect_ratios_selection
+            print(f'aspect_ratios_selection: {aspect_ratios_selection}')
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
