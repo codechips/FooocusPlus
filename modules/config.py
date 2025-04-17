@@ -342,13 +342,12 @@ available_aspect_ratios = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
-modules.config.default_sdxl_aspect_ratio = get_config_item_or_set_default(
-    key='default_standard_aspect',
+default_sdxl_aspect_ratio = get_config_item_or_set_default(
+    key='default_sdxl_aspect_ratio',
     default_value='1024*1024',
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
-
 available_sd1_aspects = get_config_item_or_set_default(
     key='available_sd1_aspects',
     default_value=modules.flags.available_aspect_ratios[1],
@@ -356,7 +355,7 @@ available_sd1_aspects = get_config_item_or_set_default(
     expected_type=list
 )
 default_sd1_aspect_ratio = get_config_item_or_set_default(
-    key='default_sd1_aspect',
+    key='default_sd1_aspect_ratio',
     default_value='768*768',
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
@@ -1229,7 +1228,7 @@ update_files()
 
 
 # Additional aspect ratio support
-CURRENT_ASPECT = f'{default_standard_aspect}'
+CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
 
 import modules.aspect_ratios as AR
 default_aspect_ratio = modules.flags.default_aspect_ratios['SDXL']
