@@ -682,7 +682,6 @@ with common.GRADIO_ROOT:
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False)
                         aspect_ratios_selections = []
-                        print(f'Template: {flags.template}')
                         for template in flags.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=AR.available_aspect_ratios_list[template],
                             value=AR.default_aspect_ratios[template], visible= template=='SDXL',
@@ -1223,20 +1222,19 @@ with common.GRADIO_ROOT:
                                          adm_scaler_negative, refiner_switch, refiner_model, sampler_name,
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)
-
         
         def reset_aspect_ratios(aspect_ratios):
             global aspect_ratios_selection
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
-                if template=='HyDiT':
+                if template=='SD1':
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
-                elif template=='Common':
+                elif template=='PixArt':
                     results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
-                elif template=='Flux':
+                elif template=='Spare':
                     results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-                else:
+                else:        # SDXL template
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
             else:
                 results = [gr.update()] * 4
