@@ -1,8 +1,11 @@
 import math
 from common import CURRENT_ASPECT
+from meta_parser import ar_template
 from modules.flags import aspect_ratios_templates, default_aspect_ratio, available_aspect_ratios
 
 print(f'CURRENT_ASPECT in AR: {CURRENT_ASPECT}')
+default_aspect_ratio = ['1024*1024', '768*768', '3840*2160']
+ar_index = aspect_ratios_templates.index(ar_template)
 
 # help text for the webui AR selector
 ar_info=['Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.',\
