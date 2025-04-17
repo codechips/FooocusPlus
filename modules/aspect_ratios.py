@@ -4,6 +4,11 @@ from modules.flags import aspect_ratios_templates, default_aspect_ratio, availab
 
 print(f'CURRENT_ASPECT in AR: {CURRENT_ASPECT}')
 
+# help text for the webui AR selector
+ar_info=['Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental.',\
+        'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9).',\
+        'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).']
+
 def add_ratio(x):
     print(f'x: {x}')
     a, b = x.replace('*', ' ').split(' ')[:2]
