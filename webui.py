@@ -685,17 +685,16 @@ with common.GRADIO_ROOT:
                         for template in flags.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=AR.available_aspect_ratios_list[template],
                             value=AR.default_aspect_ratios[template], visible= template=='SDXL',
-                            info=AR.ar_info[AR.ar_index],
+                            info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental for SDXL.',
                             elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
                             if x != '':
                                 common.CURRENT_ASPECT = f'{x.split("<")[0]}'
-                                gr.update(info=AR.ar_info[AR.ar_index])
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
-                            aspect_ratios_select.change(save_current_aspect, inputs=aspect_ratios_select, outputs=[aspect_ratios_selection, info],\
+                            aspect_ratios_select.change(save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
                                 queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
                                 show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
