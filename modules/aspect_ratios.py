@@ -3,7 +3,7 @@ import math
 
 #ar_index = aspect_ratios_templates.index(ar_template)
 
-aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt']
+aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt', Custom]
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
@@ -28,6 +28,11 @@ available_aspect_ratios = [
      '2048*1152', '3840*2160', '1344*704', '1408*704', '1472*704',
      '1792*768', '1536*640', '1600*640', '1664*576', '1728*576',
      '2048*512'],
+
+    ['756*1344', '768*1344', '768*1280', '832*1248', '864*1152',
+     '896*1152', '960*1088', '1024*1024', '1088*960', '1152*896',
+     '1152*864', '1248*832', '1280*768', '1344*768', '1344*756',
+     '1408*704', '1536*640'],
 ]
 
 def add_ratio(x):
@@ -54,7 +59,7 @@ def reset_aspect_ratios(aspect_ratios):
             print()
         elif template=='PixArt':
             print()
-        elif template=='Spare':
+        elif template=='Custom':
             print()    
         else:        # SDXL template
              print()
