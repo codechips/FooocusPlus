@@ -3,7 +3,7 @@ from modules.meta_parser import ar_template
 from modules.flags import aspect_ratios_templates, available_aspect_ratios
 
 
-default_aspect_ratio = ['1024*1024', '768*768', '3840*2160']
+default_aspect_ratio_values = ['1024*1024', '768*768', '3840*2160']
 ar_index = aspect_ratios_templates.index(ar_template)
 
 def add_ratio(x):
@@ -16,7 +16,7 @@ def add_ratio(x):
     
 default_aspect_ratios = {
     template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio)
+    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)
 }
 
 available_aspect_ratios_list = {
