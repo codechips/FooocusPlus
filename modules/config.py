@@ -1244,7 +1244,7 @@ CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
 print(f'CURRENT_ASPECT, config: {CURRENT_ASPECT}')
 
 import modules.aspect_ratios as AR
-AR.default_aspect_ratio = [default_sdxl_aspect_ratio, default_sd1_aspect_ratio, default_pixart_aspect_ratio
+AR.default_aspect_ratio_values = [default_sdxl_aspect_ratio, default_sd1_aspect_ratio, default_pixart_aspect_ratio
 ]
-default_aspect_ratio = AR.default_aspect_ratios['SDXL']
+default_aspect_ratio_names = AR.default_aspect_ratios['SDXL']
 available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
