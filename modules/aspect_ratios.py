@@ -42,7 +42,7 @@ def default_aspect_ratios_list(default_aspect_ratio_values):
     return {template: add_ratio(ratio)
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
-def available_aspect_ratios_list(config_aspect_ratios):
+def config_aspect_ratios_list(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
