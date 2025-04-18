@@ -1232,7 +1232,7 @@ with common.GRADIO_ROOT:
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
                 elif template=='PixArt':
                     results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
-                elif template=='Spare':
+                elif template=='Custom':
                     results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
                 else:        # SDXL template
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
