@@ -684,7 +684,7 @@ with common.GRADIO_ROOT:
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratios_list[template],
-                            value=modules.config.default_aspect_ratios[template], visible= template=='SDXL',
+                            value=modules.config.default_aspect_ratio_values[template], visible= template=='SDXL',
                             info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental for SDXL.',
                             elem_classes='aspect_ratios'))
 
