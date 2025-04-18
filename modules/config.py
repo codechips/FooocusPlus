@@ -6,7 +6,6 @@ import args_manager
 import tempfile
 import ldm_patched
 from ldm_patched.modules import model_management
-import modules.aspect_ratios as AR
 import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
@@ -358,6 +357,12 @@ available_sd1_aspects = get_config_item_or_set_default(
 default_sd1_aspect_ratio = get_config_item_or_set_default(
     key='default_sd1_aspect_ratio',
     default_value='768*768',
+    validator=lambda x: x in available_aspect_ratios,
+    expected_type=str
+)
+default_pixart_aspect_ratio = get_config_item_or_set_default(
+    key='default_pixart_aspect_ratio',
+    default_value='3840*2160',
     validator=lambda x: x in available_aspect_ratios,
     expected_type=str
 )
@@ -1232,5 +1237,8 @@ update_files()
 CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
 print(f'CURRENT_ASPECT, config: {CURRENT_ASPECT}')
 
+import modules.aspect_ratios as AR
+AR.default_aspect_ratio = [default_sdxl_aspect_ratio, default_sd1_aspect_ratio, default_pixart_aspect_ratio
+]
 default_aspect_ratio = AR.default_aspect_ratios['SDXL']
 available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
