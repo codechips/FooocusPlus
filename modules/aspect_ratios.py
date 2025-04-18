@@ -3,7 +3,7 @@ import math
 
 #ar_index = aspect_ratios_templates.index(ar_template)
 
-aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt', Custom]
+aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt', 'Custom']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
