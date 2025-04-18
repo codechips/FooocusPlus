@@ -6,6 +6,7 @@ import args_manager
 import tempfile
 import ldm_patched
 from ldm_patched.modules import model_management
+import modules.aspect_ratios as AR
 import modules.flags
 import modules.sdxl_styles
 import enhanced.all_parameters as ads
@@ -1231,6 +1232,5 @@ update_files()
 CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
 print(f'CURRENT_ASPECT, config: {CURRENT_ASPECT}')
 
-import modules.aspect_ratios as AR
 default_aspect_ratio = AR.default_aspect_ratios['SDXL']
 available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
