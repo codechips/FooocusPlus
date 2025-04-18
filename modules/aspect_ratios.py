@@ -1,10 +1,36 @@
 import math
-from modules.meta_parser import ar_template
+#from modules.meta_parser import ar_template
 from modules.flags import aspect_ratios_templates, available_aspect_ratios
 
 
-default_aspect_ratio_values = ['1024*1024', '768*768', '3840*2160']
-ar_index = aspect_ratios_templates.index(ar_template)
+#ar_index = aspect_ratios_templates.index(ar_template)
+
+aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt']
+available_aspect_ratios = [
+    ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
+     '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
+     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280',
+     '1024*960', '1088*960', '1088*896', '1152*896', '1152*864',
+     '1152*832', '1216*832', '1248*832', '1280*768', '1344*768',
+     '1344*756', '1344*704', '1408*704', '1472*704', '1536*640',
+     '1600*640', '1664*576', '1728*576', '2048*512'],
+
+    ['288*512', '384*640', '320*512', '384*576',
+     '384*512', '512*640', '512*512', '768*768',
+     '640*512', '512*384', '576*384', '512*320',
+     '640*384', '512*288', '448*192'],
+
+    ['704*1408', '704*1344', '756*1344', '768*1344', '1152*2048',
+     '2160*3840', '768*1280', '832*1248', '1280*1920', '832*1216',
+     '832*1152', '864*1152', '1536*2048', '896*1152', '1536*1920',
+     '896*1088', '960*1088', '960*1024', '1024*1024', '1280*1280',
+     '2880*2880', '1024*960', '1088*960', '1088*896', '1920*1536',
+     '1152*896', '1152*864', '2048*1536', '1152*832', '1216*832',
+     '1248*832', '1920*1280', '1280*768', '1344*768', '1344*756',
+     '2048*1152', '3840*2160', '1344*704', '1408*704', '1472*704',
+     '1792*768', '1536*640', '1600*640', '1664*576', '1728*576',
+     '2048*512'],
+]
 
 def add_ratio(x):
     print(f'x: {x}')
@@ -13,16 +39,14 @@ def add_ratio(x):
     g = math.gcd(a, b)
     c, d = a // g, b // g
     return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
-    
-default_aspect_ratios = {
-    template: add_ratio(ratio)
-    for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)
-}
 
-available_aspect_ratios_list = {
-    template: [add_ratio(x) for x in ratios]
-    for template, ratios in zip(aspect_ratios_templates, available_aspect_ratios)
-}
+def default_aspect_ratios_list(default_aspect_ratio_values):
+    return {template: add_ratio(ratio)
+        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
+
+def available_aspect_ratios_list(config_aspect_ratios):
+    return {template: [add_ratio(x) for x in ratios]
+        for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
 def reset_aspect_ratios(aspect_ratios):
 #    global aspect_ratios_selection
@@ -40,4 +64,3 @@ def reset_aspect_ratios(aspect_ratios):
     else:
         print()
     return results
-     
