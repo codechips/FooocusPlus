@@ -365,6 +365,7 @@ available_pixart_aspect_ratios = get_config_item_or_set_default(
     default_value=modules.flags.available_aspect_ratios[2],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
+)
 default_pixart_aspect_ratio = get_config_item_or_set_default(
     key='default_pixart_aspect_ratio',
     default_value='3840*2160',
