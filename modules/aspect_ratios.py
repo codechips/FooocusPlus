@@ -31,7 +31,6 @@ available_aspect_ratios = [
 ]
 
 def add_ratio(x):
-    print(f'x: {x}')
     a, b = x.replace('*', ' ').split(' ')[:2]
     a, b = int(a), int(b)
     g = math.gcd(a, b)
