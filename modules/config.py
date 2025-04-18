@@ -3,6 +3,7 @@ import json
 import math
 import numbers
 import args_manager
+import modules.aspect_ratios as AR
 import tempfile
 import ldm_patched
 from ldm_patched.modules import model_management
@@ -338,7 +339,7 @@ default_image_number = get_config_item_or_set_default(
 
 available_sdxl_aspect_ratios = get_config_item_or_set_default(
     key='available_sdxl_aspect_ratios',
-    default_value=modules.flags.available_aspect_ratios[0],
+    default_value=AR.available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
@@ -350,7 +351,7 @@ default_sdxl_aspect_ratio = get_config_item_or_set_default(
 )
 available_sd1_aspect_ratios = get_config_item_or_set_default(
     key='available_sd1_aspect_ratios',
-    default_value=modules.flags.available_aspect_ratios[1],
+    default_value=AR.available_aspect_ratios[1],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
@@ -362,7 +363,7 @@ default_sd1_aspect_ratio = get_config_item_or_set_default(
 )
 available_pixart_aspect_ratios = get_config_item_or_set_default(
     key='available_pixart_aspect_ratios',
-    default_value=modules.flags.available_aspect_ratios[2],
+    default_value=AR.available_aspect_ratios[2],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
@@ -1243,8 +1244,11 @@ update_files()
 CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
 print(f'CURRENT_ASPECT, config: {CURRENT_ASPECT}')
 
-import modules.aspect_ratios as AR
-AR.default_aspect_ratio_values = [default_sdxl_aspect_ratio, default_sd1_aspect_ratio, default_pixart_aspect_ratio
-]
-default_aspect_ratio_names = AR.default_aspect_ratios['SDXL']
-available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
+default_aspect_ratio_values = [default_sdxl_aspect_ratio, default_sd1_aspect_ratio, default_pixart_aspect_ratio]
+config_default_aspect_ratios_list = AR.default_aspect_ratios_list(default_aspect_ratio_values)
+
+config_aspect_ratios = [available_sdxl_aspect_ratios, available_sd1_aspect_ratios, available_pixart_aspect_ratios]
+config_aspect_ratios_list = AR.config_aspect_ratios_list(config_aspect_ratios)
+
+#default_aspect_ratio_names = AR.default_aspect_ratios['SDXL']
+#available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
