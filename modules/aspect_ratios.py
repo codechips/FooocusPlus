@@ -1,7 +1,5 @@
 import math
 #from modules.meta_parser import ar_template
-from modules.flags import aspect_ratios_templates, available_aspect_ratios
-
 
 #ar_index = aspect_ratios_templates.index(ar_template)
 
