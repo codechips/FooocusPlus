@@ -1266,3 +1266,7 @@ config_aspect_ratios_text = AR.config_aspect_ratios_text(config_aspect_ratios)
 
 #default_aspect_ratio_names = AR.default_aspect_ratios['SDXL']
 #available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
+
+def assign_default_by_template(template):
+    ar_index = AR.aspect_ratios_templates.index(template)
+    return default_aspect_ratio_values[ar_index]
