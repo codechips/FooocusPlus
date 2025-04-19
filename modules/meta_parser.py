@@ -18,8 +18,6 @@ from modules.util import quote, unquote, extract_styles_from_prompt, is_json, sh
 import enhanced.all_parameters as ads
 from modules.hash_cache import sha256_from_cache
 
-ar_template = 'SDXL'
-
 re_param_code = r'\s*(\w[\w \-/]+):\s*("(?:\\.|[^\\"])+"|[^,]*)(?:,|$)'
 re_param = re.compile(re_param_code)
 re_imagesize = re.compile(r"^(\d+)x(\d+)$")
@@ -215,14 +213,23 @@ def get_steps(key: str, fallback: str | None, source_dict: dict, results: list, 
 
 
 def get_resolution(key: str, fallback: str | None, source_dict: dict, results: list, default=None):
-    global ar_template
     try:
         h = source_dict.get(key, source_dict.get(fallback, default))
+        engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
+        if 'engine' in source_dict:
+            engine = source_dict['engine'].get('backend_engine', engine)
+            template = source_dict['engine'].get('available_aspect_ratios_selection', default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection']))
+        else:
+            template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
+        if common.AR_TEMPLATE != template:    # i.e. the template has changed
+            common.AR_TEMPLATE = template
+            common.CURRENT_ASPECT = ''
+            h=''
         width, height = eval(h)
+        
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
-                common.CURRENT_ASPECT = modules.config.default_sdxl_aspect_ratio
-
+                common.CURRENT_ASPECT = modules.config.assign_default_by_template(template)
             # accept manual entries in config.txt that use "x" instead of "*"
             h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
             h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
@@ -230,14 +237,8 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             
         common.CURRENT_ASPECT = f'{h}'
         formatted = AR.add_ratio(f'{width}*{height}')
-        engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
-        if 'engine' in source_dict:
-            engine = source_dict['engine'].get('backend_engine', engine)
-            template = source_dict['engine'].get('available_aspect_ratios_selection', default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection']))
-        else:
-            template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
-        ar_template = template     # used in other aspect ratio routines
-        if formatted in modules.config.config_aspect_ratios_list[template]:
+ 
+        if formatted in modules.config.config_aspect_ratios_text[template]:
             h = f'{formatted},{template}'
             results.append(h)
             results.append(-1)
