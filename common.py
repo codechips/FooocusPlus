@@ -8,7 +8,7 @@ MODELS_INFO = None
 # Store current aspect ratio selection from webui
 CURRENT_ASPECT = ''
 # Store the aspect ratio selection from the current preset
-AR_TEMPLATE = 'SDXL'
+AR_TEMPLATE = 'Std.'
 
 # ROOT is used as a constant that
 # is referenced by several modules
