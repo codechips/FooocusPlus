@@ -39,7 +39,7 @@ def add_ratio(x, template):
     c, d = a // g, b // g
     return f'{template}{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
-def default_aspect_ratio_title(default_aspect_ratio_values):
+def aspect_ratio_title(default_aspect_ratio_values):
     return {template: add_ratio(ratio, f'{template} Aspect Ratios: ')
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
