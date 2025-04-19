@@ -1265,5 +1265,6 @@ config_aspect_ratios = [available_std_aspect_ratios, available_sd1_5_aspect_rati
 config_aspect_ratio_labels = AR.aspect_ratio_labels(config_aspect_ratios)
 
 def assign_default_by_template(template):
+    if template == 'SDXL': template = 'Std.'
     ar_index = AR.aspect_ratios_templates.index(template)
     return default_aspect_ratio_values[ar_index]
