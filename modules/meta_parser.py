@@ -226,9 +226,10 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         if h != '':
             width, height = eval(h)
         if common.AR_TEMPLATE != template:    # i.e. the template has changed
-            common.AR_TEMPLATE = template
-            common.CURRENT_ASPECT = ''
-            h = ''
+            if not (common.AR_TEMPLATE == 'Custom' and template = 'Std.'):
+                common.AR_TEMPLATE = template
+                common.CURRENT_ASPECT = ''
+                h = ''
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.assign_default_by_template(template)
