@@ -43,6 +43,6 @@ def default_aspect_ratio_title(default_aspect_ratio_values):
     return {template: add_ratio(ratio, f'{template} Aspect Ratios: ')
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
-def config_aspect_ratio_labels(config_aspect_ratios):
+def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x, '') for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
