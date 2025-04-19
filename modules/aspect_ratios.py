@@ -1,6 +1,6 @@
 import math
 
-aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt', 'Custom']
+aspect_ratios_templates = ['Std.', 'SD1.5', 'PixArt', 'Custom']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
@@ -37,12 +37,12 @@ def add_ratio(x, template):
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'{template}: {a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
+    return f'{template}{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
-def default_aspect_ratios_text(default_aspect_ratio_values):
-    return {template: add_ratio(ratio, template)
+def default_aspect_ratio_title(default_aspect_ratio_values):
+    return {template: add_ratio(ratio, f'{template} Aspect Ratios: ')
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
-def config_aspect_ratios_text(config_aspect_ratios):
+def config_aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x, '') for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
