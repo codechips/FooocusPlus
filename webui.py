@@ -679,13 +679,13 @@ with common.GRADIO_ROOT:
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
 
                     
-                    with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                    with gr.Accordion(label='', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratios_text[template],
-                            value=modules.config.config_default_aspect_ratios_text[template], visible= template=='SDXL',
-                            info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). 1280*1280 is experimental for SDXL.',
+                            value=modules.config.config_default_aspect_ratio_labels[template], visible= template=='Std',
+                            info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). For SDXL, 1280*1280 is experimental.',
                             elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
@@ -1228,13 +1228,13 @@ with common.GRADIO_ROOT:
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
-                if template=='SD1':
+                if template=='SD1.5':
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
                 elif template=='PixArt':
                     results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
                 elif template=='Custom':
                     results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-                else:        # SDXL template
+                else:        # Std. template
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
             else:
                 results = [gr.update()] * 4
