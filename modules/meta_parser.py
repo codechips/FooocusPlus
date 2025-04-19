@@ -238,7 +238,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         common.CURRENT_ASPECT = f'{h}'
 
         formatted = AR.add_ratio(f'{width}*{height}') 
-        if formatted in modules.config.config_aspect_ratios_text[template]:
+        if formatted in modules.config.config_aspect_ratio_labels[template]:
             h = f'{formatted},{template}'
             results.append(h)
             results.append(-1)
