@@ -223,7 +223,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         else:
             template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
 
-        if h != ''
+        if h != '':
             width, height = eval(h)
         if common.AR_TEMPLATE != template:    # i.e. the template has changed
             common.AR_TEMPLATE = template
