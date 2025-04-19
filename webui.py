@@ -1,9 +1,10 @@
 import gradio as gr
-import random
 import os
 import sys
 import platform
 import json
+import random
+import re
 import time
 import common
 import modules.config
@@ -690,7 +691,10 @@ with common.GRADIO_ROOT:
 
                         def save_current_aspect(x):
                             if x != '':
-                                common.CURRENT_ASPECT = f'{x.split("<")[0]}'
+                                y = f'{x.split("<")[0]}'
+                                print(f'y= {y}')
+                                common.CURRENT_ASPECT = f'{y.split(":")[1]}'
+                                print(f'Second split: {common.CURRENT_ASPECT}')
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
