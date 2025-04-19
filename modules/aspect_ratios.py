@@ -31,15 +31,15 @@ available_aspect_ratios = [
      '1280*768', '1344*768', '1344*756', '1408*704', '1536*640'],
 ]
 
-def add_ratio(x, template):
+def add_ratio(x):
     a, b = x.replace('*', ' ').split(' ')[:2]
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'{template}{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
+    return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
 def aspect_ratio_title(default_aspect_ratio_values):
-    return {template: add_ratio(ratio, f'{template} Aspect Ratios: ')
+    return {template: add_ratio(ratio)
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
 def aspect_ratio_labels(config_aspect_ratios):
