@@ -49,20 +49,3 @@ def default_aspect_ratios_text(default_aspect_ratio_values):
 def config_aspect_ratios_text(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
-
-def reset_aspect_ratios(aspect_ratios):
-#    global aspect_ratios_selection
-    if len(aspect_ratios.split(','))>1:
-        template = aspect_ratios.split(',')[1]
-        aspect_ratios = aspect_ratios.split(',')[0]
-        if template=='SD1':
-            print()
-        elif template=='PixArt':
-            print()
-        elif template=='Custom':
-            print()    
-        else:        # SDXL template
-             print()
-    else:
-        print()
-    return results
