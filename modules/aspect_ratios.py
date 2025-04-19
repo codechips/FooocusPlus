@@ -1,7 +1,4 @@
 import math
-#from modules.meta_parser import ar_template
-
-#ar_index = aspect_ratios_templates.index(ar_template)
 
 aspect_ratios_templates = ['SDXL', 'SD1', 'PixArt', 'Custom']
 available_aspect_ratios = [
@@ -35,17 +32,17 @@ available_aspect_ratios = [
      '1408*704', '1536*640'],
 ]
 
-def add_ratio(x):
+def add_ratio(x, template):
     a, b = x.replace('*', ' ').split(' ')[:2]
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
+    return f'{template}: {a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
 
 def default_aspect_ratios_text(default_aspect_ratio_values):
-    return {template: add_ratio(ratio)
+    return {template: add_ratio(ratio, template)
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
 def config_aspect_ratios_text(config_aspect_ratios):
-    return {template: [add_ratio(x) for x in ratios]
+    return {template: [add_ratio(x, template) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
