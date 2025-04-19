@@ -680,7 +680,7 @@ with common.GRADIO_ROOT:
 
                     
                     with gr.Accordion(label='', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='', visible=False)
+                        aspect_ratios_selection = gr.Textbox(value='', visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
