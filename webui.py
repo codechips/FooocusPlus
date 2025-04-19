@@ -691,10 +691,10 @@ with common.GRADIO_ROOT:
 
                         def save_current_aspect(x):
                             if x != '':
-                                y = f'{x.split("<")[0]}'
-                                print(f'y= {y}')
-                                common.CURRENT_ASPECT = f'{y.split(":")[1]}'
-                                print(f'Second split: {common.CURRENT_ASPECT}')
+                                common.CURRENT_ASPECT = f'{x.split("<")[0]}'
+ #                               print(f'y= {y}')
+ #                               common.CURRENT_ASPECT = f'{y.split(":")[1]}'
+                                print(f'Split: {common.CURRENT_ASPECT}')
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
