@@ -373,6 +373,19 @@ default_pixart_aspect_ratio = get_config_item_or_set_default(
     validator=lambda x: x in available_pixart_aspect_ratios,
     expected_type=str
 )
+available_custom_aspect_ratios = get_config_item_or_set_default(
+    key='available_custom_aspect_ratios',
+    default_value=AR.available_aspect_ratios[3],
+    validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
+    expected_type=list
+)
+default_custom_aspect_ratio = get_config_item_or_set_default(
+    key='default_custom_aspect_ratio',
+    default_value='1024*1024',
+    validator=lambda x: x in available_custom_aspect_ratios,
+    expected_type=str
+)
+
 
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
@@ -1243,11 +1256,13 @@ update_files()
 # Additional aspect ratio support
 CURRENT_ASPECT = f'{default_sdxl_aspect_ratio}'
 
-default_aspect_ratio_values = [default_sdxl_aspect_ratio, default_sd1_aspect_ratio, default_pixart_aspect_ratio]
-config_default_aspect_ratios_list = AR.default_aspect_ratios_list(default_aspect_ratio_values)
+default_aspect_ratio_values = [default_sdxl_aspect_ratio, default_sd1_aspect_ratio,\
+    default_pixart_aspect_ratio, default_custom_aspect_ratio]
+config_default_aspect_ratios_text = AR.default_aspect_ratios_text(default_aspect_ratio_values)
 
-config_aspect_ratios = [available_sdxl_aspect_ratios, available_sd1_aspect_ratios, available_pixart_aspect_ratios]
-config_aspect_ratios_list = AR.config_aspect_ratios_list(config_aspect_ratios)
+config_aspect_ratios = [available_sdxl_aspect_ratios, available_sd1_aspect_ratios,\
+    available_pixart_aspect_ratios, available_custom_aspect_ratios,]
+config_aspect_ratios_text = AR.config_aspect_ratios_text(config_aspect_ratios)
 
 #default_aspect_ratio_names = AR.default_aspect_ratios['SDXL']
 #available_aspect_ratios_labels = AR.available_aspect_ratios_list['SDXL']
