@@ -44,5 +44,5 @@ def default_aspect_ratios_text(default_aspect_ratio_values):
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
 def config_aspect_ratios_text(config_aspect_ratios):
-    return {template: [add_ratio(x, template) for x in ratios]
+    return {template: [add_ratio(x, '') for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
