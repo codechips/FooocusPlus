@@ -214,6 +214,7 @@ def get_steps(key: str, fallback: str | None, source_dict: dict, results: list, 
 
 def get_resolution(key: str, fallback: str | None, source_dict: dict, results: list, default=None):
     try:
+        width, height = 0, 0
         h = source_dict.get(key, source_dict.get(fallback, default))
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
         if 'engine' in source_dict:
@@ -222,10 +223,12 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         else:
             template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
 
+        if h != ''
+            width, height = eval(h)
         if common.AR_TEMPLATE != template:    # i.e. the template has changed
             common.AR_TEMPLATE = template
             common.CURRENT_ASPECT = ''
-            width, height, h = 0, 0, ''
+            h = ''
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.assign_default_by_template(template)
@@ -233,8 +236,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
             h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
             width, height = h.split("x")
-        else:
-            width, height = eval(h)
+
         common.CURRENT_ASPECT = f'{h}'
 
         formatted = AR.add_ratio(f'{width}*{height}','') 
