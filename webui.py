@@ -680,8 +680,8 @@ with common.GRADIO_ROOT:
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
 
                     
-                    with gr.Accordion(label='', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='', visible=True)
+                    with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                        aspect_ratios_selection = gr.Textbox(value='', visible=False)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -692,9 +692,6 @@ with common.GRADIO_ROOT:
                         def save_current_aspect(x):
                             if x != '':
                                 common.CURRENT_ASPECT = f'{x.split("<")[0]}'
- #                               print(f'y= {y}')
- #                               common.CURRENT_ASPECT = f'{y.split(":")[1]}'
-                                print(f'Split: {common.CURRENT_ASPECT}')
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
