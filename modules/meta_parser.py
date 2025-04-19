@@ -221,12 +221,11 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             template = source_dict['engine'].get('available_aspect_ratios_selection', default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection']))
         else:
             template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
+
         if common.AR_TEMPLATE != template:    # i.e. the template has changed
             common.AR_TEMPLATE = template
             common.CURRENT_ASPECT = ''
-            h=''
-        width, height = eval(h)
-        
+            h=''              
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.assign_default_by_template(template)
@@ -234,10 +233,11 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
             h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
             width, height = h.split("x")
-            
+        else:
+            width, height = eval(h)
         common.CURRENT_ASPECT = f'{h}'
-        formatted = AR.add_ratio(f'{width}*{height}')
- 
+
+        formatted = AR.add_ratio(f'{width}*{height}') 
         if formatted in modules.config.config_aspect_ratios_text[template]:
             h = f'{formatted},{template}'
             results.append(h)
