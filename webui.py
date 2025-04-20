@@ -209,6 +209,7 @@ with common.GRADIO_ROOT:
                         
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
+                        bar_dropdown = []
                         category_list = ['Favorites', 'Alternative', 'Fantasy', 'Flux1D', 'Flux1S', 'LowVRAM', 'Pony', 'Realism', 'SD1.5']
                         for i in range(len(category_list)):
                             bar_buttons.append(gr.Button(value=category_list[i], size='sm', visible=True, min_width=50, elem_id=f'bar{i}', elem_classes='bar_button'))
