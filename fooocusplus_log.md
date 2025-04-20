@@ -3,13 +3,16 @@
 * removed the irrelevant Fooocus and Simple version information. FooocusPlus does not synchronize with either of them
 * added Torch, CUDA and xformers data to System Information, under the Extras tab
 * the master folders are now subfolders of the new "masters" folder
-* introduced and tested the "experimental" 1280*1280 aspect ratio
-* all presets except for SD1.5 now use a 0*0 aspect ratio, meaning that it does not have any effect
-* the four default aspect ratios in config.txt are only used for initial values, they do not override settings in the UI
-* as Std. presets such SDXL or Flux are changed, by default the UI set aspect ratio does not change
+* by default, all presets except for SD1.5 now use a 0*0 aspect ratio, meaning that it does not have any effect
+* but as before, if a valid aspect ratio is set in a preset it overrides all other settings
+* the four default aspect ratios in config.txt are only used for initial values, they do not override setting changes in the UI
+* as Std. presets such SDXL or Flux are changed, by default the UI setting for aspect ratio does not change
 * there are now four sets of aspect ratios defined in config.txt, the Std., SD1.5, PixArt and Custom templates
 * FooocusPlus starts up with the Std. template. It is switched to the other templates by the appropriate preset
-* the Custom is a Std. template that is simplified to only 15 values, toggled on and off by the Custom preset
+* Custom is a Std. template that is simplified to only 15 values, toggled on and off by the Custom preset
+* the SD1.5_RealVis preset sets the UI to the SD1.5 default value and aspect ratio set
+* when PixArt Sigma is introduced, a preset will select the appropriate aspect ratio set
+* introduced and tested the "experimental" SDXL 1280*1280 aspect ratio
 * the Flux presets are recategorized into FluxDev and FluxSchnell, with appropriate folders
 * like mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label is gone
 * if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
