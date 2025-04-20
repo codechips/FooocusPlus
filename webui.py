@@ -1499,7 +1499,7 @@ if not args_manager.args.disable_comfyd:
 common.GRADIO_ROOT.launch(
     inbrowser=args_manager.args.in_browser,
     server_name="127.0.0.1", # allow local machine only
-    share=False,
+    share=True,
     server_port=args_manager.args.port,
     root_path=args_manager.args.webroot,
     blocked_paths=[constants.AUTH_FILENAME]
