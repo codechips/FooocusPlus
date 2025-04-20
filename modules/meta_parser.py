@@ -227,13 +227,16 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
 
         if h != '':
             width, height = eval(h)
-        if common.AR_TEMPLATE != template:    # i.e. the template has changed
+        if common.AR_TEMPLATE == 'Custom' and template == 'Custom'
+            template = 'Std'
+        elif common.AR_TEMPLATE != template:    # i.e. the template has changed
             if common.AR_TEMPLATE == 'Custom' and template == 'Std.':
                 template = 'Custom'
             else:
-                common.AR_TEMPLATE = template
                 common.CURRENT_ASPECT = ''
                 h = ''
+        common.AR_TEMPLATE = template
+
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.assign_default_by_template(template)
@@ -241,7 +244,6 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
             h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
             width, height = h.split("x")
-
         common.CURRENT_ASPECT = f'{h}'
 
         formatted = AR.add_ratio(f'{width}*{height}') 
