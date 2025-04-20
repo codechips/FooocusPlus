@@ -211,7 +211,7 @@ with common.GRADIO_ROOT:
                         category_buttons = []
                         category_list = ['Favorites', 'Alternative', 'Fantasy', 'Flux1D', 'Flux1S', 'LowVRAM', 'Pony', 'Realism', 'SD1.5']
                         for i in range(len(category_list)):
-                            bar_buttons.append(gr.Button(value=category_list[i], size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                            category_buttons.append(gr.Button(value=category_list[i], size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='category_button'))
                         #bar_dropdown = gr.Dropdown(show_label=False, choices=['self','preset1','preset2','preset3'], value='self')
 
                 with gr.Row():
