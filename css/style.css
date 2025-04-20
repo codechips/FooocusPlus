@@ -484,6 +484,7 @@ iframe::-webkit-scrollbar {
     position: absolute;
     left: 8px;
     top: 2px;
+    margin-right: 5px;
     white-space: nowrap;
     overflow: hidden;
 }
