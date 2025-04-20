@@ -13,7 +13,7 @@
 * the SD1.5_RealVis preset sets the UI to the SD1.5 default value and aspect ratio set
 * when PixArt Sigma is introduced, a preset will select the appropriate aspect ratio set
 * introduced and tested the "experimental" SDXL 1280*1280 aspect ratio
-* the Flux presets are recategorized into FluxDev and FluxSchnell, with appropriate folders
+* the Flux base models are recategorized into the FluxDev and FluxSchnell folders
 * like mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label is gone
 * if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
 
