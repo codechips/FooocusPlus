@@ -228,7 +228,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         if h != '':
             width, height = eval(h)
         if common.AR_TEMPLATE == 'Custom' and template == 'Custom':
-            template = 'Std'
+            template = 'Std.'
         elif common.AR_TEMPLATE != template:    # i.e. the template has changed
             if common.AR_TEMPLATE == 'Custom' and template == 'Std.':
                 template = 'Custom'
