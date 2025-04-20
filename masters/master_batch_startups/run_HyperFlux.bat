@@ -1,3 +1,3 @@
 @echo off
-python_embedded\python.exe -s FooocusPlusAI\entry_with_update.py --language en --preset HyperFlux %*
+python_embedded\python.exe -s FooocusPlusAI\entry_with_update.py --preset HyperFlux %*
 pause

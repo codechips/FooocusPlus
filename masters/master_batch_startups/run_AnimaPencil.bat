@@ -1,3 +1,3 @@
 @echo off
-python_embedded\python.exe -s FooocusPlusAI\entry_with_update.py --language en --preset AnimaPencil %*
+python_embedded\python.exe -s FooocusPlusAI\entry_with_update.py --preset AnimaPencil %*
 pause
