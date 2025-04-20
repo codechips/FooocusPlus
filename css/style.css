@@ -478,9 +478,9 @@ iframe::-webkit-scrollbar {
 }
 
 .bar_title {
-    min-width: 60px !important;
+    min-width: 70px !important;
     position: absolute;
-    left: 8px;
+    left: 5px;
     top: 2px;
     margin-right: 10px;
     white-space: nowrap;
@@ -488,7 +488,7 @@ iframe::-webkit-scrollbar {
 }
 
 .bar_button {
-    max-width: 80px !important;  
+    max-width: 70px !important;  
     padding-bottom: 5px !important;
     white-space: nowrap;
     overflow: hidden;
