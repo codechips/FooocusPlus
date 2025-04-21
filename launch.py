@@ -85,8 +85,8 @@ def prepare_environment():
             torchruntime.install(["--no-deps", xformers_statement])
         else:
             print("Installation of xformers is not supported in this version of Python.")
-            print(
-                "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
+            print("You can also check this and build manually:" +\
+                "https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
             if not is_installed("xformers"):
                 exit(0)
     
@@ -101,9 +101,10 @@ def prepare_environment():
             run_pip(f"install -r \"{requirements_file}\"", "requirements")
 
     patch_requirements = "requirements_patch.txt"
-    if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not version.is_win32_standalone_build:
-        print('Updating with required patch files...')
-        run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
+    if (REINSTALL_ALL or not requirements_met(patch_requirements)) and\
+        (version.is_win32_standalone_build = False):
+            print('Updating with required patch files...')
+            run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
     return
 
 
