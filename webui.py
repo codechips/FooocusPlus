@@ -668,7 +668,7 @@ with common.GRADIO_ROOT:
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
                 if not args_manager.args.disable_preset_selection and modules.config.get_preset_foldernames():
-                    with gr.Group()                            
+                    with gr.Group():
                         category_selection = gr.Radio(label='Preset Categories',
                             choices=modules.config.get_preset_foldernames(),
                             value='Favorite', visible=True, interactive=True)               
