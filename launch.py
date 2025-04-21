@@ -64,7 +64,6 @@ def prepare_environment():
         print(f'Updating to Torch {torch_ver} and its dependencies:')
         print(torch_dict)
         print()
-        write_torch_base(torch_ver)
         delete_torch_dependencies()
         if torch_ver == "special":
             torch_ver = ""
@@ -74,6 +73,7 @@ def prepare_environment():
         torchruntime.install([torch_statement])
         torch_statement = " torchaudio==" + torchaudio_ver
         torchruntime.install([torch_statement])
+        write_torch_base(torch_ver)
 
     verify_installed_version('pytorch-lightning', pytorchlightning_ver)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
