@@ -5,7 +5,7 @@ import numbers
 import args_manager
 import modules.aspect_ratios as AR
 import tempfile
-import ldm_patched
+# import ldm_patched
 from ldm_patched.modules import model_management
 import modules.flags
 import modules.sdxl_styles
