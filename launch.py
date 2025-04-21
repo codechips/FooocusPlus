@@ -51,9 +51,7 @@ def prepare_environment():
     xformers_ver = torch_dict['xformers_ver']
     pytorchlightning_ver = torch_dict['pytorchlightning_ver']
     lightningfabric_ver = torch_dict['lightningfabric_ver']
-    
-    verify_installed_version('torch', torch_ver)   
-    torch_base_ver = read_torch_base() # this call must not occur before torch verification
+    torch_base_ver = read_torch_base()
 
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}, Comfy version: {comfy.comfy_version.version}")
