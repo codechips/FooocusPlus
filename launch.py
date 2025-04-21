@@ -42,7 +42,6 @@ from modules.model_loader import load_file_from_url
 
 def prepare_environment():
     REINSTALL_ALL = False
-    from modules import config
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
