@@ -57,6 +57,7 @@ def get_preset_name_list():
     for i in range(len(presets)):
         name_list += f'{presets[i][:-5]},'
     name_list = name_list[:-1]
+    name_list = name_list[Favorite/Default] # temp patch
     return name_list
 
 def is_models_file_absent(preset_name):
