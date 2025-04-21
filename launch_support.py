@@ -7,7 +7,6 @@ import args_manager
 import torchruntime
 from torchruntime.device_db import get_gpus
 from torchruntime.platform_detection import get_torch_platform
-from modules.config import user_dir
 
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
@@ -176,6 +175,7 @@ def get_split_value(full_string):
     return split_value
       
 def read_torch_base():
+    from modules.config import user_dir
     try:
         torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
         torch_base = open(torch_base_path, 'r')
@@ -187,6 +187,7 @@ def read_torch_base():
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
+    from modules.config import user_dir
     torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
     torch_base = open(torch_base_path, "w")
     torch_base.write(f"Torch base version = {torch_base_ver}")
