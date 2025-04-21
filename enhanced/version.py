@@ -1,10 +1,13 @@
 import os
 import sys
 from pathlib import Path
-from launch_support import is_win32_standalone_build
 
 commit_id = ''
 fooocusplus_ver = ''
+
+win32_root = os.path.dirname(os.path.dirname(__file__))
+python_embedded_path = os.path.join(win32_root, 'python_embedded')
+is_win32_standalone_build = os.path.exists(python_embedded_path) and os.path.isdir(python_embedded_path)
 
 def get_library_ver():
     if is_win32_standalone_build:
