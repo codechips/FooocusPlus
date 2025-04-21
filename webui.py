@@ -209,11 +209,9 @@ with common.GRADIO_ROOT:
                         
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
-                        bar_dropdown = []
-                        category_list = ['Favorites', 'Alternative', 'Fantasy', 'Flux1D', 'Flux1S', 'LowVRAM', 'Pony', 'Realism', 'SD1.5']
-                        for i in range(len(category_list)):
-                            bar_buttons.append(gr.Button(value=category_list[i], size='sm', visible=True, min_width=50, elem_id=f'bar{i}', elem_classes='bar_button'))
-                            bar_dropdown.append(gr.Dropdown(show_label=False, choices=['self','preset1','preset2','preset3'], value='self'))
+                        for i in range(topbar.topbar_limit):
+                            bar_buttons.append(gr.Button(value='Default' if i==0 else '', size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                        #bar_dropdown = gr.Dropdown(show_label=False, choices=['self','preset1','preset2','preset3'], value='self')
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -669,11 +667,15 @@ with common.GRADIO_ROOT:
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
-                if not args_manager.args.disable_preset_selection:
-                    preset_selection = gr.Radio(label='Preset',
-                        choices=modules.config.available_presets,
-                        value=args_manager.args.preset if args_manager.args.preset else "initial",
-                        visible=False, interactive=False)
+                if not args_manager.args.disable_preset_selection and modules.config.get_preset_foldernames():
+                    with gr.Group()                            
+                        category_selection = gr.Radio(label='Preset Categories',
+                            choices=modules.config.get_preset_foldernames(),
+                            value='Favorite', visible=True, interactive=True)               
+                        preset_selection = gr.Radio(label='Presets',
+                            choices=modules.config.available_presets,
+                            value=args_manager.args.preset if args_manager.args.preset else "initial",
+                            visible=True, interactive=True)
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
                          choices=flags.Performance.values(),
