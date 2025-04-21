@@ -175,10 +175,8 @@ def get_split_value(full_string):
     return split_value
       
 def read_torch_base():
-    print(f'is_win32_standalone_build {is_win32_standalone_build}')
     if is_win32_standalone_build:
-        print(f'PATH {os.path.abspath(f'../python_embedded/Lib/site-packages/torch')}')
-        if not os.path.abspath(f'../python_embedded/Lib/site-packages/torch'):
+        if not os.path.exists(os.path.abspath(f'../python_embedded/Lib/site-packages/torch')):
             return 'not installed'
     from modules.config import user_dir
     try:
