@@ -102,7 +102,7 @@ def prepare_environment():
 
     patch_requirements = "requirements_patch.txt"
     if (REINSTALL_ALL or not requirements_met(patch_requirements)) and\
-        (version.is_win32_standalone_build = False):
+        (version.is_win32_standalone_build == False):
             print('Updating with required patch files...')
             run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
     return
