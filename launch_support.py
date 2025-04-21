@@ -175,6 +175,9 @@ def get_split_value(full_string):
     return split_value
       
 def read_torch_base():
+    if is_win32_standalone_build:
+        if not os.path.abspath(f'../python_embedded/Lib/site-packages/torch')
+            return 'not installed'
     from modules.config import user_dir
     try:
         torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
