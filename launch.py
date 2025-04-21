@@ -35,11 +35,12 @@ import torchruntime
 import platform
 import comfy.comfy_version
 from launch_support import build_launcher, delete_torch_dependencies,\
-    dependency_resolver, read_torch_base, write_torch_base
+    dependency_resolver, read_torch_base, is_win32_standalone_build, write_torch_base
 from modules.model_loader import load_file_from_url
 
 
 def prepare_environment():
+    global is_win32_standalone_build
     REINSTALL_ALL = False
     from modules import config
     target_path_win = os.path.abspath(os.path.join(version.python_embedded_path, 'Lib/site-packages'))
@@ -95,15 +96,14 @@ def prepare_environment():
             for p in met_diff.keys():
                 print(f'Uninstall {p}.{met_diff[p]} ...')
                 run(f'"{python}" -m pip uninstall -y {p}=={met_diff[p]}')
-        if version.is_win32_standalone_build:
+        if is_win32_standalone_build:
             run_pip(f"install -r \"{requirements_file}\" -t {target_path_win}", "requirements")
         else:
             run_pip(f"install -r \"{requirements_file}\"", "requirements")
 
     patch_requirements = "requirements_patch.txt"
-    if (REINSTALL_ALL or not requirements_met(patch_requirements)) and\
-        (version.is_win32_standalone_build == False):
-            print(f'version.is_win32_standalone_build {version.is_win32_standalone_build}')
+    if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
+        is_win32_standalone_build:
             print('Updating with required patch files...')
             run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
     return
