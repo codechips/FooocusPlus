@@ -1,7 +1,7 @@
 import os
 import ssl
 import sys
-import ldm_patched
+#import ldm_patched
 import enhanced.version as version
 from common import ROOT
 
