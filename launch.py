@@ -95,7 +95,6 @@ def prepare_environment():
             for p in met_diff.keys():
                 print(f'Uninstall {p}.{met_diff[p]} ...')
                 run(f'"{python}" -m pip uninstall -y {p}=={met_diff[p]}')
-        print(f'target_path_win {target_path_win}')
         if version.is_win32_standalone_build:
             run_pip(f"install -r \"{requirements_file}\" -t {target_path_win}", "requirements")
         else:
@@ -104,6 +103,7 @@ def prepare_environment():
     patch_requirements = "requirements_patch.txt"
     if (REINSTALL_ALL or not requirements_met(patch_requirements)) and\
         (version.is_win32_standalone_build == False):
+            print(f'version.is_win32_standalone_build {version.is_win32_standalone_build}')
             print('Updating with required patch files...')
             run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
     return
