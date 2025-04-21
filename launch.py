@@ -35,7 +35,8 @@ import torchruntime
 import platform
 import comfy.comfy_version
 from launch_support import build_launcher, delete_torch_dependencies,\
-    dependency_resolver, read_torch_base, is_win32_standalone_build, write_torch_base
+    dependency_resolver, is_win32_standalone_build, python_embedded_path,\
+    read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
 
@@ -43,7 +44,7 @@ def prepare_environment():
     global is_win32_standalone_build
     REINSTALL_ALL = False
     from modules import config
-    target_path_win = os.path.abspath(os.path.join(version.python_embedded_path, 'Lib/site-packages'))
+    target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     torch_dict = dependency_resolver()
