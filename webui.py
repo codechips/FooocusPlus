@@ -207,10 +207,10 @@ with common.GRADIO_ROOT:
                         # disable the iFrame display of help for preset selections:
                         preset_instruction = gr.HTML(visible=False, value=topbar.preset_no_instruction())
                         
-                        bar_title = gr.Markdown('<b>Presets:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
+                        bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
                         for i in range(topbar.topbar_limit):
-                            bar_buttons.append(gr.Button(value='Default' if i==0 else '', size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                            bar_buttons.append(gr.Button(value='Default' if i==0 else '', size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
                         #bar_dropdown = gr.Dropdown(show_label=False, choices=['self','preset1','preset2','preset3'], value='self')
 
                 with gr.Row():
@@ -671,9 +671,9 @@ with common.GRADIO_ROOT:
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=modules.config.get_preset_foldernames(),
-                            value='Favorite', visible=True, interactive=True)              
+                            value='Favorite', visible=True, interactive=True)          
                         preset_selection = gr.Dropdown(label='Presets',
-                            choices=f'./presets/{category_selection}',
+                            choices=f'./presets/{category_selection.value}',
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
                 with gr.Group():
