@@ -21,6 +21,7 @@ pause
 '''
 
 def build_launcher():
+    global is_win32_standalone_build
     if not is_win32_standalone_build:
         return
 
