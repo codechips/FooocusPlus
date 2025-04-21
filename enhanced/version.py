@@ -7,7 +7,6 @@ commit_id = ''
 fooocusplus_ver = ''
 
 def get_library_ver():
-    global is_win32_standalone_build
     if is_win32_standalone_build:
         current_library = Path('../python_embedded/embedded_version/library_version.py')
         if os.path.exists(current_library):
@@ -25,7 +24,6 @@ def get_library_ver():
             return 1.00
 
 def get_required_library():
-    global is_win32_standalone_build
     if (not os.path.exists('required_library.py')) or (not is_win32_standalone_build):
         return True
     import required_library
