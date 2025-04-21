@@ -41,7 +41,6 @@ from modules.model_loader import load_file_from_url
 
 
 def prepare_environment():
-    global is_win32_standalone_build
     REINSTALL_ALL = False
     from modules import config
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
