@@ -669,10 +669,10 @@ with common.GRADIO_ROOT:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
                 if not args_manager.args.disable_preset_selection and modules.config.get_preset_foldernames():
                     with gr.Group():
-                        category_selection = gr.Radio(label='Preset Categories',
+                        category_selection = gr.Dropdown(label='Preset Categories',
                             choices=modules.config.get_preset_foldernames(),
                             value='Favorite', visible=True, interactive=True)               
-                        preset_selection = gr.Radio(label='Presets',
+                        preset_selection = gr.Dropdown(label='Presets',
                             choices=modules.config.available_presets,
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
