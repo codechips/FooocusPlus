@@ -98,9 +98,16 @@ def get_config_path(config_file):
     config_path = os.path.abspath(f'{config_path}/{config_file}')
     return config_path
 
+def get_preset_foldernames():
+    preset_folder = '.\presets'
+    preset_foldernames = []
+    if os.path.exists(preset_folder):
+        preset_foldernames = [f.name for f in os.scandir('.\presets') if f.is_dir()]
+    return preset_foldernames
+
 def get_presets():
     preset_folder = '.\presets'
-    presets = ['default']
+    presets = ['Default']
     if not os.path.exists(preset_folder):
         print('No presets found')
         presets = ['initial']
