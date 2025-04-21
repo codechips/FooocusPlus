@@ -95,6 +95,7 @@ def prepare_environment():
             for p in met_diff.keys():
                 print(f'Uninstall {p}.{met_diff[p]} ...')
                 run(f'"{python}" -m pip uninstall -y {p}=={met_diff[p]}')
+        print(f'target_path_win {target_path_win}')
         if version.is_win32_standalone_build:
             run_pip(f"install -r \"{requirements_file}\" -t {target_path_win}", "requirements")
         else:
