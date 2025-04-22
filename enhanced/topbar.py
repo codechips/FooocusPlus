@@ -45,8 +45,7 @@ else:
    
 
 def get_preset_name_list():
-    '''
-    path_preset = os.path.abspath(f'./presets/Favorite')
+    path_preset = os.path.abspath(f'./presets/')
     presets = [p for p in util.get_files_from_folder(path_preset, ['.json'], None) if not p.startswith('.')]
     file_times = [(f, os.path.getmtime(os.path.join(path_preset, f))) for f in presets]
     sorted_file_times = sorted(file_times, key=lambda x: x[1], reverse=True)
@@ -58,8 +57,7 @@ def get_preset_name_list():
     for i in range(len(presets)):
         name_list += f'{presets[i][:-5]},'
     name_list = name_list[:-1]
-    '''    
-    return ['Favorite/Default',] # name_list temp patch
+    return name_list
 
 def is_models_file_absent(preset_name):
     preset_path = os.path.abspath(f'./presets/{preset_name}.json')
@@ -131,7 +129,7 @@ function(system_params) {
 
     return system_params;
 }
-
+'''
 
 
 refresh_topbar_status_js = '''
@@ -189,7 +187,7 @@ function(system_params) {
     }
     return {}
 }
-
+'''
 
 
 def init_nav_bars(state_params, request: gr.Request):
