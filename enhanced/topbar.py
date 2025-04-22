@@ -131,7 +131,7 @@ function(system_params) {
 
     return system_params;
 }
-'''
+
 
 
 refresh_topbar_status_js = '''
@@ -189,7 +189,7 @@ function(system_params) {
     }
     return {}
 }
-'''
+
 
 
 def init_nav_bars(state_params, request: gr.Request):
