@@ -59,8 +59,7 @@ def get_preset_name_list():
         name_list += f'{presets[i][:-5]},'
     name_list = name_list[:-1]
     '''    
-    name_list = name_list[Favorite/Default] # temp patch
-    return name_list
+    return [Favorite/Default] # name_list temp patch
 
 def is_models_file_absent(preset_name):
     preset_path = os.path.abspath(f'./presets/{preset_name}.json')
