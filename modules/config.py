@@ -3,19 +3,19 @@ import json
 import math
 import numbers
 import args_manager
+import enhanced.all_parameters as ads
 import modules.aspect_ratios as AR
-import tempfile
-# import ldm_patched
-from ldm_patched.modules import model_management
 import modules.flags
 import modules.sdxl_styles
-import enhanced.all_parameters as ads
+import modules.preset_resource as PR
+import tempfile
 
 from common import ROOT, CURRENT_ASPECT
-from modules.model_loader import load_file_from_url
-from modules.user_structure import create_user_structure, create_model_structure
+from ldm_patched.modules import model_management
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
+from modules.model_loader import load_file_from_url
+from modules.user_structure import create_user_structure, create_model_structure
 
 config_dict = {}
 always_save_keys = []
@@ -98,56 +98,21 @@ def get_config_path(config_file):
     config_path = os.path.abspath(f'{config_path}/{config_file}')
     return config_path
 
-def get_preset_foldernames():
-    preset_folder = '.\presets'
-    preset_foldernames = []
-    if os.path.exists(preset_folder):
-        preset_foldernames = [f.name for f in os.scandir('.\presets') if f.is_dir()]
-    return preset_foldernames
-
-def get_presets():
-    preset_folder = '.\presets'
-    presets = ['Default']
-    if not os.path.exists(preset_folder):
-        print('No presets found')
-        presets = ['initial']
-        return presets
-    return presets + [f[:f.index(".json")] for f in os.listdir(preset_folder) if f.endswith('.json')]
-
-def update_presets():
-    global available_presets
-    available_presets = get_presets()
-
-def try_get_preset_content(preset):
-    if isinstance(preset, str):
-        preset_path = os.path.abspath(f'./presets/{preset}.json')
-        try:
-            if os.path.exists(preset_path):
-                with open(preset_path, "r", encoding="utf-8") as json_file:
-                    json_content = json.load(json_file)
-                    print(f'Loaded preset: {preset_path}')
-                    return json_content
-            else:
-                raise FileNotFoundError
-        except Exception as e:
-            print(f'Load preset [{preset_path}] failed')
-            print(e)
-        print()
-    return {}
-
 try:
     with open(os.path.abspath(f'./presets/Favorite/Default.json'), "r", encoding="utf-8") as json_file:
         config_dict.update(json.load(json_file))
 except Exception as e:
     print(f'Loading Default preset failed.')
     print(e)
-available_presets = get_presets()
+
+#available_presets = PR.get_presets()
 preset = args_manager.args.preset
-if (preset=='initial' or preset=='default') and (int(model_management.get_vram())<6000)\
+if (preset=='initial' or preset.lower()=='default') and (int(model_management.get_vram())<6000)\
 and (os.path.exists('./presets/LowVRAM/4GB_Default.json')):
     preset='LowVRAM/4GB_Default'
     print('Loading the "4GB_Default" preset, the default for low VRAM systems')
-config_dict.update(try_get_preset_content(preset))
+config_dict.update(PR.try_get_preset_content(preset))
+
 theme = args_manager.args.theme
 
 config_path = get_config_path('/config.txt')
@@ -868,7 +833,6 @@ config_dict["default_loras"] = default_loras = default_loras[:default_max_lora_n
 
 # mapping config to meta parameter
 possible_preset_keys = {
-    "preset_category": "preset_category",
     "default_engine": "engine",
     "default_model": "base_model",
     "default_refiner": "refiner_model",
@@ -1008,7 +972,7 @@ def update_files(engine='Fooocus', task_method=None):    # from Simple
     lora_filenames = modelsinfo.get_model_names('loras')
     vae_filenames = modelsinfo.get_model_names('vae')
     wildcard_filenames = get_files_from_folder(path_wildcards, ['.txt'])
-    available_presets = get_presets()
+    available_presets = PR.get_presets()
     return model_filenames, lora_filenames, vae_filenames
 
 def downloading_inpaint_models(v):
