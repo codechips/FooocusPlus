@@ -17,6 +17,7 @@ import modules.flags as flags
 import modules.gradio_hijack as grh
 import modules.style_sorter as style_sorter
 import modules.meta_parser
+import modules.preset_resource as PR
 import args_manager
 import copy
 import ldm_patched
@@ -667,15 +668,16 @@ with common.GRADIO_ROOT:
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
-                if not args_manager.args.disable_preset_selection and modules.config.get_preset_foldernames():
+                if not args_manager.args.disable_preset_selection and PR.get_preset_foldernames():
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
-                            choices=modules.config.get_preset_foldernames(),
+                            choices=PR.get_preset_foldernames(),
                             value='Favorite', visible=True, interactive=True)          
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=f'./presets/{category_selection.value}',
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
+                        
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
                          choices=flags.Performance.values(),
@@ -1049,7 +1051,7 @@ with common.GRADIO_ROOT:
                     results += [gr.update(choices=['None'] + model_filenames)]
                     results += [gr.update(choices=[flags.default_vae] + vae_filenames)]
                     if not args_manager.args.disable_preset_selection:
-                        results += [gr.update(choices=modules.config.available_presets)]
+                        results += [gr.update(choices=PR.get_presets())]
                     for i in range(modules.config.default_max_lora_number):
                         results += [gr.update(interactive=True),
                                     gr.update(choices=['None'] + lora_filenames), gr.update()]
