@@ -1,24 +1,26 @@
 import os
-import json
-import gradio as gr
-import modules.util as util
-import modules.config as config
-import modules.flags
-import modules.sdxl_styles
-import numbers
-import args_manager
 import copy
-import re
+import json
+import numbers
 import random
+import re
+import gradio as gr
+import args_manager
 import common
-import modules.constants as constants
-import modules.meta_parser as meta_parser
 import enhanced.all_parameters as ads
-import modules.sdxl_styles as sdxl_styles
-import modules.style_sorter as style_sorter
 import enhanced.gallery as gallery_util
 import enhanced.superprompter as superprompter
 import enhanced.comfy_task as comfy_task
+import modules.config as config
+import modules.constants as constants
+import modules.flags
+import modules.meta_parser as meta_parser
+import modules.preset_resource as PR
+import modules.sdxl_styles
+import modules.sdxl_styles as sdxl_styles
+import modules.style_sorter as style_sorter
+import modules.util as util
+
 from args_manager import args
 from enhanced.backend import comfyd
 from enhanced.welcome import get_welcome_image
@@ -348,7 +350,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     #state_params.update({"__prompt": prompt})
     #state_params.update({"__negative_prompt": negative_prompt})
 
-    config_preset = config.try_get_preset_content(preset)
+    config_preset = PR.try_get_preset_content(preset)
     preset_prepared = meta_parser.parse_meta_from_preset(config_preset)
     #print(f'preset_prepared:{preset_prepared}')
     
