@@ -14,6 +14,7 @@
 * when PixArt Sigma is introduced, a preset will select the appropriate aspect ratio set
 * introduced and tested the "experimental" SDXL 1280*1280 aspect ratio
 * the Flux base models are recategorized into the FluxDev and FluxSchnell folders
+* fixed a bug that prevented reinstallation of Torch if its folder was not found
 * like mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label is gone
 * if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
 
