@@ -133,6 +133,7 @@ if args.hf_mirror is not None:
 
 from modules import config
 from modules.hash_cache import init_cache
+from ldm_patched.modules.model_management import get_vram
 os.environ["U2NET_HOME"] = config.paths_inpaint[0]
 os.environ["BERT_HOME"] = config.paths_llms[0]
 os.environ['GRADIO_TEMP_DIR'] = config.temp_path
@@ -188,7 +189,7 @@ def download_models(default_model, previous_default_models, checkpoint_downloads
 
     return default_model, checkpoint_downloads
 
-launch_vram = int(ldm_patched.modules.model_management.get_vram()/1000)
+launch_vram = int(get_vram()/1000)
 if launch_vram<6:
     print()
     print(f'The video card has only {launch_vram}GB of memory (VRAM) but FooocusPlus')
