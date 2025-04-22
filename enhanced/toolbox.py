@@ -361,7 +361,6 @@ def save_preset(*args):
     args = list(args)  
     args.reverse()
     save_name = args.pop() # retrieve the save_name the user entered
-    # preset_category = args.pop()
     backend_params = dict(args.pop())
     output_format = args.pop()
     inpaint_advanced_masking_checkbox = args.pop()
@@ -416,10 +415,7 @@ def save_preset(*args):
         save_name = save_name.replace(" ", "_")
         save_name = save_name[:1].upper() + save_name[1:]
         preset = {}
-        try:
-            preset["preset_category"] = preset_category
-        except:
-            preset["preset_category"] = "Favorite"
+
         if 'backend_engine' in backend_params and backend_params['backend_engine']!='Fooocus':
             preset["default_engine"] = backend_params
         preset["default_model"] = base_model
@@ -473,8 +469,10 @@ def save_preset(*args):
         embeddings = embeddings.keys()
         preset["embeddings_downloads"] = {} 
 
-        save_path = f'presets/{save_name}.json'
-        user_path = f'{config.user_dir}/user_presets/{save_name}.json'
+        save_path = f'presets/Favorite/{save_name}.json'
+        user_Favorite = f'{config.user_dir}/user_presets/Favorite'      
+        user_path = f'{config.user_dir}/user_presets/Favorite/{save_name}.json'
+        os.makedirs(user_Favorite, exist_ok = True)
         with open(save_path, "w", encoding="utf-8") as json_file:
             json.dump(preset, json_file, indent=4) # temp. save to working presets
         shutil.copy(save_path, user_path)          # perm. save to user presets
