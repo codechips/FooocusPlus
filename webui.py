@@ -207,7 +207,7 @@ with common.GRADIO_ROOT:
                         # disable the iFrame display of help for preset selections:
                         preset_instruction = gr.HTML(visible=False, value=topbar.preset_no_instruction())
                         
-                        bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
+                        bar_title = gr.Markdown('<b>Presets:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
                         for i in range(topbar.topbar_limit):
                             bar_buttons.append(gr.Button(value='Default' if i==0 else '', size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
