@@ -45,7 +45,7 @@ else:
    
 
 def get_preset_name_list():
-'''
+    '''
     path_preset = os.path.abspath(f'./presets/Favorite')
     presets = [p for p in util.get_files_from_folder(path_preset, ['.json'], None) if not p.startswith('.')]
     file_times = [(f, os.path.getmtime(os.path.join(path_preset, f))) for f in presets]
@@ -58,7 +58,7 @@ def get_preset_name_list():
     for i in range(len(presets)):
         name_list += f'{presets[i][:-5]},'
     name_list = name_list[:-1]
-'''    
+    '''    
     name_list = name_list[Favorite/Default] # temp patch
     return name_list
 
