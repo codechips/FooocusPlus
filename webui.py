@@ -676,7 +676,7 @@ with common.GRADIO_ROOT:
                         print(f'Category_selection: {category_selection}')
                         print()
                         preset_selection = gr.Dropdown(label='Presets',
-                            choices=PR.get_presets()',
+                            choices=PR.get_presets(),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
                         
