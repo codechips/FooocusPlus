@@ -673,16 +673,16 @@ with common.GRADIO_ROOT:
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_foldernames(),
                             value='Favorite', visible=True, interactive=True)
-
-                        category_selection.change(lambda: None, inputs=category_selection,
-                            outputs=preset_selection, show_progress=False, queue=False)
-                        print(f'Category_selection: {category_selection}')
-                        print()
                         
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presets(),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
+
+                        category_selection.change(lambda: None, inputs=category_selection,
+                            outputs=preset_selection, show_progress=False, queue=False)
+                        print(f'Category_selection: {category_selection}')
+                        print()
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
