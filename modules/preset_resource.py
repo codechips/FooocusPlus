@@ -23,11 +23,11 @@ def update_presets():
     available_presets = get_presets()
     return
 
-def try_get_preset_content(preset):
-    preset = f'{preset}.json'
+def get_preset_content(preset):
+    preset_json = f'{preset}.json'
     preset_file = ''
     preset_path = Path('.\presets')
-    for preset_file in preset_path.rglob(preset):
+    for preset_file in preset_path.rglob(preset_json):
       if not preset_file:
         print(f'Could not find the {preset} preset')
         print()
