@@ -673,8 +673,12 @@ with common.GRADIO_ROOT:
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_foldernames(),
                             value='Favorite', visible=True, interactive=True)
+
+                        category_selection.change(lambda: None, inputs=category_selection,
+                            outputs=preset_selection, show_progress=False, queue=False)
                         print(f'Category_selection: {category_selection}')
                         print()
+                        
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presets(),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
@@ -686,7 +690,6 @@ with common.GRADIO_ROOT:
                          value=modules.config.default_performance,
                          elem_classes=['performance_selection'])
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
-
                     
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False)
@@ -786,7 +789,6 @@ with common.GRADIO_ROOT:
                                     label='Content Type',
                                     choices=flags.describe_types,
                                     value=modules.config.default_describe_content_type)
-                            with gr.Row():
                                 describe_apply_styles = gr.Checkbox(label='Apply Styles', value=modules.config.default_describe_apply_prompts_checkbox)
                                 auto_describe_checkbox = gr.Checkbox(label='Auto-Describe', value=args_manager.args.enable_auto_describe_image)
                             with gr.Column():
