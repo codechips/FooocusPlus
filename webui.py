@@ -679,7 +679,7 @@ with common.GRADIO_ROOT:
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
 
-                        category_selection.change(lambda: None, inputs=category_selection,
+                        category_selection.change(inputs=category_selection,
                             outputs=preset_selection, show_progress=False, queue=False)
                         print(f'Category_selection: {category_selection}')
                         print()
