@@ -25,18 +25,18 @@ def update_presets():
 
 def try_get_preset_content(preset):
     preset_path = Path('.\presets')
-    for preset_path in preset_path.rglob(preset):
-      if not preset_path:
+    for preset_file in preset_path.rglob(preset):
+      if not preset_file:
         print(f'Could not find the {preset} preset')
         print()
         return
     try:
-      with open(preset_path, "r", encoding="utf-8") as json_file:
+      with open(preset_file, "r", encoding="utf-8") as json_file:
           json_content = json.load(json_file)
-          print(f'Loaded the {preset} preset from {preset_path}')
+          print(f'Loaded the {preset} preset from {preset_file}')
           return json_content
     except Exception as e:
-        print(f'Load not load the {preset} preset from {preset_path}')
+        print(f'Could not load the {preset} preset from {preset_file}')
         print(e)
     print()
     return {}
