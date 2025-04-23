@@ -16,7 +16,7 @@ def get_presets():
         print('No presets found')
         presets = ['initial']
         return presets
-    return presets # + [f[:f.index(".json")] for f in os.listdir(preset_folder) if f.endswith('.json')]
+    return presets
 
 def update_presets():
     global available_presets
@@ -31,7 +31,7 @@ def get_preset_content(preset):
       if not preset_file:
         print(f'Could not find the {preset} preset')
         print()
-        return
+        return {}
     try:
       with open(preset_file, "r", encoding="utf-8") as json_file:
           json_content = json.load(json_file)
