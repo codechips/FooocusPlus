@@ -473,6 +473,7 @@ iframe::-webkit-scrollbar {
 }
 
 .preset_bar {
+    display: none;
     text-align: center;
     padding: 0px;
 }
