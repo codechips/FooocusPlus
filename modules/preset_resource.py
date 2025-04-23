@@ -25,7 +25,7 @@ def update_presets():
 
 def try_get_preset_content(preset):
     preset_path = Path('.\presets')
-    for preset_path in root_path.rglob(preset):
+    for preset_path in preset_path.rglob(preset):
       if not preset_path:
         print(f'Could not find the {preset} preset')
         print()
