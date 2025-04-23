@@ -24,6 +24,8 @@ def update_presets():
     return
 
 def try_get_preset_content(preset):
+    preset = f'{preset}.json'
+    preset_file = ''
     preset_path = Path('.\presets')
     for preset_file in preset_path.rglob(preset):
       if not preset_file:
