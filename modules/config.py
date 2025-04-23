@@ -111,7 +111,7 @@ if (preset=='initial' or preset.lower()=='default') and (int(model_management.ge
 and (os.path.exists('./presets/LowVRAM/4GB_Default.json')):
     preset='LowVRAM/4GB_Default'
     print('Loading the "4GB_Default" preset, the default for low VRAM systems')
-config_dict.update(PR.try_get_preset_content(preset))
+config_dict.update(PR.get_preset_content(preset))
 
 theme = args_manager.args.theme
 
