@@ -11,7 +11,7 @@ def get_preset_foldernames():
 
 def get_presets():
     preset_path = Path('.\presets')
-    presets = list(preset_path.rglob('*.json')
+    presets = list(preset_path.rglob('*.json'))
     if not [presets]:
         print('No presets found')
         presets = ['initial']
