@@ -127,6 +127,7 @@ css = '''
 .min_pad {
     padding: 2px !important;
 }
+'''
 
 # app context
 toolbox_note_preset_title='Create a new preset using the current parameters. Leave blank and click Enter to cancel.'
