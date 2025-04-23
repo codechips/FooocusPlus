@@ -350,7 +350,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     #state_params.update({"__prompt": prompt})
     #state_params.update({"__negative_prompt": negative_prompt})
 
-    config_preset = PR.try_get_preset_content(preset)
+    config_preset = PR.get_preset_content(preset)
     preset_prepared = meta_parser.parse_meta_from_preset(config_preset)
     #print(f'preset_prepared:{preset_prepared}')
     
