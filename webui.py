@@ -672,7 +672,8 @@ with common.GRADIO_ROOT:
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_foldernames(),
-                            value='Favorite', visible=True, interactive=True)          
+                            value='Favorite', visible=True, interactive=True)
+                        print(f'category_selection: {category_selection}')
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=f'./presets/{category_selection.value}',
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
