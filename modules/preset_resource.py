@@ -30,13 +30,15 @@ def try_get_preset_content(preset):
         print(f'Could not find the {preset} preset')
         print()
         return
+    print(f'Preset: {preset}')
+    print(f'Preset path: {preset_path}')
     try:
       with open(preset_path, "r", encoding="utf-8") as json_file:
           json_content = json.load(json_file)
           print(f'Loaded preset: {preset_path}')
           return json_content
     except Exception as e:
-        print(f'Load preset [{preset_path}] failed')
+        print(f'Load not load the {preset_path} preset')
         print(e)
     print()
     return {}
