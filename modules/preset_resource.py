@@ -47,7 +47,7 @@ def get_presets_in_folder(arg_folder_name):
     folder_name = Path(f'.\presets\{arg_folder_name}') 
     presets_in_folder = []
     if os.path.exists(folder_name):
-        presets_in_folder = [f.name for f in os.scandir(folder_name) if f.is_file() and f.endswith(".json")]
+        presets_in_folder = [f.name for f in os.scandir(folder_name) if f.is_file(): if f.endswith(".json")]
         if not presets_in_folder:
             print(f'Could not find presets in the {arg_folder_name} folder.')
             print()
