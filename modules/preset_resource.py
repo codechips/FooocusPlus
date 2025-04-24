@@ -58,6 +58,7 @@ def get_presets_in_folder(folder_name):
 
 def get_presetnames_in_folder(folder_name):
     presets_in_folder = get_presets_in_folder(folder_name)
+    presetnames_in_folder = []
     for file in presets_in_folder:
         presetname, ext = os.path.splitext(file)
         presetnames_in_folder.append(presetname)
