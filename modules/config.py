@@ -105,15 +105,7 @@ except Exception as e:
     print(f'Loading Default preset failed.')
     print(e)
 
-#available_presets = PR.get_presets()
-preset = args_manager.args.preset
-if (preset=='initial' or preset.lower()=='default') and (int(model_management.get_vram())<6000)\
-and (PR.find_preset_file('4GB_Default')):
-    preset='4GB_Default'
-    args_manager.args.preset = preset
-    print('Loading the "4GB_Default" preset, the default for low VRAM systems')
-config_dict.update(PR.get_preset_content(preset))
-
+config_dict.update(PR.get_initial_preset_content())
 theme = args_manager.args.theme
 
 config_path = get_config_path('/config.txt')
