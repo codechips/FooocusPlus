@@ -108,8 +108,9 @@ except Exception as e:
 #available_presets = PR.get_presets()
 preset = args_manager.args.preset
 if (preset=='initial' or preset.lower()=='default') and (int(model_management.get_vram())<6000)\
-and (os.path.exists('./presets/LowVRAM/4GB_Default.json')):
-    preset='LowVRAM/4GB_Default'
+and (PR.find_preset_file('4GB_Default')):
+    preset='4GB_Default'
+    args_manager.args.preset = preset
     print('Loading the "4GB_Default" preset, the default for low VRAM systems')
 config_dict.update(PR.get_preset_content(preset))
 
