@@ -37,7 +37,7 @@ def get_presets_in_folder(folder_name):
     if os.path.exists(folder_name):
         presets_in_folder = [f.name for f in os.scandir('.\presets') if f.is_dir()]
         if not presets_in_folder:
-            print(f'Could not find presets in the '{folder_name}' folder.')
+            print(f'Could not find presets in the {folder_name} folder.')
             print()
     return presets_in_folder  
 
@@ -47,7 +47,7 @@ def get_preset_names():
     if os.path.exists(preset_folder):
         preset_names = [f.name for f in os.scandir('.\presets') if f.is_file()]
         if not presets_names:
-            print(f'Could not find presets in the '{preset_folder}' subfolders.')
+            print(f'Could not find presets in the {preset_folder} subfolders.')
             print()
     return preset_names
 
