@@ -41,18 +41,18 @@ def get_preset_foldernames():
         print() 
     return preset_foldernames
 
-def get_presets_in_folder(folder_name):
-    if not folder_name:
-        folder_name = category_selection
-    preset_folder = []
-    presets_in_folder = ''
+def get_presets_in_folder(arg_folder_name):
+    if not arg_folder_name:
+        arg_folder_name = category_selection
+    folder_name = Path(f'.\presets\{arg_folder_name}') 
+    presets_in_folder = []
     if os.path.exists(folder_name):
-        presets_in_folder = [f.name for f in os.scandir('.\presets') if f.is_file() and f.endswith(".json")]
+        presets_in_folder = [f.name for f in os.scandir(folder_name) if f.is_file() and f.endswith(".json")]
         if not presets_in_folder:
-            print(f'Could not find presets in the {folder_name} folder.')
+            print(f'Could not find presets in the {arg_folder_name} folder.')
             print()
     else:
-        print(f'Could not find the {folder_name} folder.')
+        print(f'Could not find the {arg_folder_name} folder.')
         print()        
     return presets_in_folder  
 
