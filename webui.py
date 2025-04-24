@@ -682,7 +682,7 @@ with common.GRADIO_ROOT:
                         category_selection.change(PR.get_category_selection, inputs=category_selection,
                             outputs=category_selection, show_progress=False, queue=False)
                         print(f'Category_selection: {category_selection}')
-                        print(f'PR.Category_selection: {pr.category_selection}')
+                        print(f'PR.Category_selection: {PR.category_selection}')
                         print()
                         
                 with gr.Group():
