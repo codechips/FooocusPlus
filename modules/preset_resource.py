@@ -2,27 +2,6 @@ import os
 import json
 from pathlib import Path
 
-def get_preset_foldernames():
-    preset_folder = '.\presets'
-    preset_foldernames = []
-    if os.path.exists(preset_folder):
-        preset_foldernames = [f.name for f in os.scandir('.\presets') if f.is_dir()]
-    return preset_foldernames
-
-def get_presets():
-    preset_path = Path('.\presets')
-    presets = list(preset_path.rglob('*.json'))
-    if not [presets]:
-        print('No presets found')
-        presets = ['initial']
-        return presets
-    return presets
-
-def update_presets():
-    global available_presets
-    available_presets = get_presets()
-    return
-
 def get_preset_content(preset):
     preset_json = f'{preset}.json'
     preset_file = ''
@@ -42,3 +21,46 @@ def get_preset_content(preset):
         print(e)
     print()
     return {}
+
+def get_preset_foldernames():
+    preset_folder = '.\presets'
+    preset_foldernames = []
+    if os.path.exists(preset_folder):
+        preset_foldernames = [f.name for f in os.scandir('.\presets') if f.is_dir()]
+    return preset_foldernames
+
+category_selection = 'Favorite'
+def get_presets_in_folder(folder_name)
+    if not folder_name
+        folder_name = category_selection
+    preset_folder = []
+    if os.path.exists(folder_name):
+        presets_in_folder = [f.name for f in os.scandir('.\presets') if f.is_dir()]
+        if not presets_in_folder:
+            print(f'Could not find presets in the '{folder_name}' folder.')
+            print()
+    return presets_in_folder  
+
+def get_preset_names():
+    preset_folder = '.\presets'
+    preset_names = []
+    if os.path.exists(preset_folder):
+        preset_names = [f.name for f in os.scandir('.\presets') if f.is_file()]
+        if not presets_names:
+            print(f'Could not find presets in the '{preset_folder}' subfolders.')
+            print()
+    return preset_names
+
+def get_preset_paths():
+    preset_path = Path('.\presets')
+    presets = list(preset_path.rglob('*.json'))
+    if not [presets]:
+        print('No presets found')
+        presets = ['initial']
+        return presets
+    return presets
+
+#def update_presets():
+#    global available_presets
+#    available_presets = get_presets()
+#    return
