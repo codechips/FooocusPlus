@@ -965,14 +965,14 @@ def get_base_model_list(engine='Fooocus', task_method=None):
         base_model_list = [f for f in base_model_list if ("hyp8" in f or "hyp16" in f or "flux" in f) and f.endswith("gguf")]
     return base_model_list
 
-def update_files(engine='Fooocus', task_method=None):    # from Simple
-    global modelsinfo, model_filenames, lora_filenames, vae_filenames, wildcard_filenames, available_presets
+def update_files(engine='Fooocus', task_method=None):    # called by the webui update button
+    global modelsinfo, model_filenames, lora_filenames, vae_filenames, wildcard_filenames
     modelsinfo.refresh_from_path()
     model_filenames = get_base_model_list(engine, task_method)
     lora_filenames = modelsinfo.get_model_names('loras')
     vae_filenames = modelsinfo.get_model_names('vae')
     wildcard_filenames = get_files_from_folder(path_wildcards, ['.txt'])
-    available_presets = PR.get_presets()
+    available_presets = PR.get_preset_paths()
     return model_filenames, lora_filenames, vae_filenames
 
 def downloading_inpaint_models(v):
