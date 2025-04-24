@@ -35,23 +35,30 @@ def get_presets_in_folder(folder_name):
         folder_name = category_selection
     preset_folder = []
     if os.path.exists(folder_name):
-        presets_in_folder = [f.name for f in os.scandir('.\presets') if f.is_dir()]
+        presets_in_folder = [f.name for f in os.scandir('.\presets') if f.is_file() and f.endswith(".json")]
         if not presets_in_folder:
             print(f'Could not find presets in the {folder_name} folder.')
             print()
     return presets_in_folder  
 
+def get_presetnames_in_folder(folder_name):
+    presets_in_folder = get_presets_in_folder(folder_name)
+    for file in presets_in_folder:
+        presetname, ext = os.path.splitext(file)
+        presetnames_in_folder.append(presetname)
+    return presetnames_in_folder
+
 def get_preset_names():
     preset_folder = '.\presets'
     preset_names = []
     if os.path.exists(preset_folder):
-        preset_names = [f.name for f in os.scandir('.\presets') if f.is_file()]
+        preset_names = [f.name for f in os.scandir('.\presets') if f.is_file() and f.endswith(".json")]
         if not presets_names:
             print(f'Could not find presets in the {preset_folder} subfolders.')
             print()
     return preset_names
 
-def get_preset_paths():
+def get_preset_paths():    # called by update_files() in modules.config
     preset_path = Path('.\presets')
     presets = list(preset_path.rglob('*.json'))
     if not [presets]:
