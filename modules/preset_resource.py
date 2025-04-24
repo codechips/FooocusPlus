@@ -2,6 +2,15 @@ import os
 import json
 from pathlib import Path
 
+
+category_selection = 'Favorite'
+def category_selection(arg_category_selection):
+    global category_selection
+    if category_selection == '':
+        category_selection = 'Favorite'
+    category_selection = arg_category_selection
+    return category_selection
+
 def get_preset_content(preset):
     preset_json = f'{preset}.json'
     preset_file = ''
@@ -29,7 +38,6 @@ def get_preset_foldernames():
         preset_foldernames = [f.name for f in os.scandir('.\presets') if f.is_dir()]
     return preset_foldernames
 
-category_selection = 'Favorite'
 def get_presets_in_folder(folder_name):
     if not folder_name:
         folder_name = category_selection
