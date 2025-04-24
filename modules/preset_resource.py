@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 category_selection = 'Favorite'
-def category_selection(arg_category_selection):
+def get_category_selection(arg_category_selection):
     global category_selection
     if category_selection == '':
         category_selection = 'Favorite'
