@@ -105,7 +105,9 @@ except Exception as e:
     print(f'Loading Default preset failed.')
     print(e)
 
-config_dict.update(PR.get_initial_preset_content())
+initial_preset_content = PR.get_initial_preset_content()
+if initial_preset_content:
+    config_dict.update(initial_preset_content)
 theme = args_manager.args.theme
 
 config_path = get_config_path('/config.txt')
