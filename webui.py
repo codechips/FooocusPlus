@@ -675,7 +675,7 @@ with common.GRADIO_ROOT:
                             value='Favorite', visible=True, interactive=True)
                         
                         preset_selection = gr.Dropdown(label='Presets',
-                            choices=PR.get_presets_in_folder(PR.category_selection),
+                            choices=PR.get_presetnames_in_folder(PR.category_selection),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
 
