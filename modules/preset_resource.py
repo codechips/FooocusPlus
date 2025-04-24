@@ -30,8 +30,8 @@ def get_preset_foldernames():
     return preset_foldernames
 
 category_selection = 'Favorite'
-def get_presets_in_folder(folder_name)
-    if not folder_name
+def get_presets_in_folder(folder_name):
+    if not folder_name:
         folder_name = category_selection
     preset_folder = []
     if os.path.exists(folder_name):
