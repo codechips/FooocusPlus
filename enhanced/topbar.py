@@ -44,25 +44,10 @@ if os.path.exists(enhanced_config):
         config_ext.update(json.load(json_file))
 else:
     config_ext.update({'fooocus_line': '# 2.1.852', 'simplesdxl_line': '# 2023-12-20'})
-   
-'''
-def get_preset_name_list():
-    path_preset = os.path.abspath(f'./presets/Favorite/')
-    presets = [p for p in util.get_files_from_folder(path_preset, ['.json'], None) if not p.startswith('.')]
-    file_times = [(f, os.path.getmtime(os.path.join(path_preset, f))) for f in presets]
-    sorted_file_times = sorted(file_times, key=lambda x: x[1], reverse=True)
-    sorted_files = [f[0] for f in sorted_file_times]
-    sorted_files.pop(sorted_files.index(f'{config.preset}.json'))
-    sorted_files.insert(0, f'{config.preset}.json')
-    presets = sorted_files[:topbar_limit]
-    name_list = ''
-    for i in range(len(presets)):
-        name_list += f'{presets[i][:-5]},'
-    name_list = name_list[:-1]
-    return name_list
-'''
+ 
+
 def is_models_file_absent(preset_name):
-    preset_path = os.path.abspath(f'./presets/{preset_name}.json')
+    preset_path = PR.find_preset_file(preset_name)
     if os.path.exists(preset_path):
         with open(preset_path, "r", encoding="utf-8") as json_file:
             config_preset = json.load(json_file)
