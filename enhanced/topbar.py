@@ -45,7 +45,7 @@ if os.path.exists(enhanced_config):
 else:
     config_ext.update({'fooocus_line': '# 2.1.852', 'simplesdxl_line': '# 2023-12-20'})
    
-
+'''
 def get_preset_name_list():
     path_preset = os.path.abspath(f'./presets/Favorite/')
     presets = [p for p in util.get_files_from_folder(path_preset, ['.json'], None) if not p.startswith('.')]
@@ -60,7 +60,7 @@ def get_preset_name_list():
         name_list += f'{presets[i][:-5]},'
     name_list = name_list[:-1]
     return name_list
-
+'''
 def is_models_file_absent(preset_name):
     preset_path = os.path.abspath(f'./presets/{preset_name}.json')
     if os.path.exists(preset_path):
@@ -252,7 +252,7 @@ def get_preset_inc_url(preset_name='blank'):
         return f'{args_manager.args.webroot}/file={blank_inc_path}'
 
 def refresh_nav_bars(state_params):
-    state_params.update({"__nav_name_list": get_preset_name_list()})
+    state_params.update({"__nav_name_list": PR.get_presetnames_in_folder('.\presets')})
     preset_name_list = state_params["__nav_name_list"].split(',')
     for i in range(topbar_limit-len(preset_name_list)):
         preset_name_list.append('')
@@ -275,7 +275,7 @@ def refresh_nav_bars(state_params):
 
 def process_before_generation(state_params, backend_params, backfill_prompt, translation_methods, comfyd_active_checkbox):
     if "__nav_name_list" not in state_params.keys():
-        state_params.update({"__nav_name_list": get_preset_name_list()})
+        state_params.update({"__nav_name_list": PR.get_presetnames_in_folder('.\presets')})
     superprompter.remove_superprompt()
     remove_tokenizer()
     backend_params.update({
@@ -484,5 +484,5 @@ def prompt_token_prediction(text, style_selections):
     return len(tokenizer.tokenize(positive_basic_workloads[0]))
 
 
-nav_name_list = get_preset_name_list()
+nav_name_list = PR.get_presetnames_in_folder('.\presets')
 system_message = get_system_message()
