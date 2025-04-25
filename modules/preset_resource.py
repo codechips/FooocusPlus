@@ -7,8 +7,8 @@ from pathlib import Path
 
 category_selection = 'Favorite'
 
-def get_preset_paths():    # called by update_files() in modules.config
-    preset_path = Path('.\presets')
+def get_preset_paths():              # called by update_files() in modules.config
+    preset_path = Path('.\presets')  # also used to check if preset files exist
     presets = list(preset_path.rglob('*.json'))
     if not [presets]:
         print('No presets found')
@@ -51,9 +51,6 @@ def get_presetnames_in_folder(folder_name):
 
 def get_all_presetnames():    
     return get_presetnames_in_folder('.\presets')
-
-def get_all_presets(): # used to check if preset files exist
-    return get_presets_in_folder('.\presets')
 
 def find_preset_file(preset):
     preset_json = f'{preset}.json'
