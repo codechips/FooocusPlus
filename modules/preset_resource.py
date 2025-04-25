@@ -28,6 +28,10 @@ def get_presetnames_in_folder(folder_name):
         presetnames_in_folder.append(presetname)
     return presetnames_in_folder
 
+def get_all_presetnames():
+    get_presetnames_in_folder('.\presets')
+    return all_presetnames
+
 def find_preset_file(preset):
     preset_json = f'{preset}.json'
     preset_file = ''
