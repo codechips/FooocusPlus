@@ -49,13 +49,11 @@ def get_presetnames_in_folder(folder_name):
             presetnames_in_folder.append(presetname)
     return presetnames_in_folder
 
-def get_all_presetnames():
-    get_presetnames_in_folder('.\presets')
-    return all_presetnames
+def get_all_presetnames():    
+    return get_presetnames_in_folder('.\presets')
 
 def get_all_presets(): # used to check if preset files exist
-    get_presets_in_folder('.\presets')
-    return all_presets
+    return get_presets_in_folder('.\presets')
 
 def find_preset_file(preset):
     preset_json = f'{preset}.json'
