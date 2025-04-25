@@ -2,6 +2,7 @@ import os
 import json
 import random
 import args_manager
+from ldm_patched.modules import model_management
 from pathlib import Path
 
 
