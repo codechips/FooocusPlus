@@ -252,7 +252,7 @@ def get_preset_inc_url(preset_name='blank'):
         return f'{args_manager.args.webroot}/file={blank_inc_path}'
 
 def refresh_nav_bars(state_params):
-    state_params.update({"__nav_name_list": PR.get_presetnames_in_folder('.\presets')})
+    state_params.update({"__nav_name_list": PR.get_all_presetnames()})
     preset_name_list = state_params["__nav_name_list"].split(',')
     for i in range(topbar_limit-len(preset_name_list)):
         preset_name_list.append('')
@@ -275,7 +275,7 @@ def refresh_nav_bars(state_params):
 
 def process_before_generation(state_params, backend_params, backfill_prompt, translation_methods, comfyd_active_checkbox):
     if "__nav_name_list" not in state_params.keys():
-        state_params.update({"__nav_name_list": PR.get_presetnames_in_folder('.\presets')})
+        state_params.update({"__nav_name_list": PR.get_all_presetnames()})
     superprompter.remove_superprompt()
     remove_tokenizer()
     backend_params.update({
@@ -484,5 +484,5 @@ def prompt_token_prediction(text, style_selections):
     return len(tokenizer.tokenize(positive_basic_workloads[0]))
 
 
-nav_name_list = PR.get_presetnames_in_folder('.\presets')
+nav_name_list = PR.get_all_presetnames()
 system_message = get_system_message()
