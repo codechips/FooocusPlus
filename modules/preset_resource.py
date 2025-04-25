@@ -25,6 +25,8 @@ def get_random_preset():
 def get_presets_in_folder(arg_folder_name):
     if not arg_folder_name:
         arg_folder_name = category_selection
+    if arg_folder_name == '.\presets':
+        arg_folder_name = ''
     presets_in_folder = []
     if os.path.exists(arg_folder_name):
         folder_name = Path(f'.\presets\{arg_folder_name}') 
