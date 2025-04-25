@@ -9,7 +9,7 @@ def get_presets_in_folder(arg_folder_name):
     if not arg_folder_name:
         arg_folder_name = category_selection
     presets_in_folder = []
-    if os.path.exists(folder_name):
+    if os.path.exists(arg_folder_name):
         folder_name = Path(f'.\presets\{arg_folder_name}') 
         presets_in_folder = list(folder_name.rglob('*.json'))
         if not presets_in_folder:
