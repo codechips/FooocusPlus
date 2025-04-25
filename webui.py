@@ -668,7 +668,7 @@ with common.GRADIO_ROOT:
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
-                if not args_manager.args.disable_preset_selection and PR.get_preset_foldernames():
+                if not args_manager.args.disable_preset_selection and PR.get_all_presetnames():
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_foldernames(),
@@ -1056,7 +1056,7 @@ with common.GRADIO_ROOT:
                     results += [gr.update(choices=['None'] + model_filenames)]
                     results += [gr.update(choices=[flags.default_vae] + vae_filenames)]
                     if not args_manager.args.disable_preset_selection:
-                        results += [gr.update(choices=PR.get_presets())]
+                        results += [gr.update(choices=PR.get_all_presetnames())]
                     for i in range(modules.config.default_max_lora_number):
                         results += [gr.update(interactive=True),
                                     gr.update(choices=['None'] + lora_filenames), gr.update()]
