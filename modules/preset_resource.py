@@ -6,6 +6,7 @@ from ldm_patched.modules import model_management
 from pathlib import Path
 
 category_selection = 'Favorite'
+current_preset = args_manager.args.preset
 
 def get_preset_paths():              # called by update_files() in modules.config
     preset_path = Path('.\presets')  # also used to check if preset files exist
@@ -28,8 +29,8 @@ def get_presets_in_folder(arg_folder_name):
     if arg_folder_name == '.\presets':
         arg_folder_name = ''
     presets_in_folder = []
-    if os.path.exists(arg_folder_name):
-        folder_name = Path(f'.\presets\{arg_folder_name}') 
+    folder_name = Path(f'.\presets\{arg_folder_name}') 
+    if os.path.exists(folder_name):
         presets_in_folder = list(folder_name.rglob('*.json'))
         if not presets_in_folder:
             print(f'Could not find presets in the {arg_folder_name} folder.')
