@@ -5,6 +5,23 @@ import args_manager
 from ldm_patched.modules import model_management
 from pathlib import Path
 
+category_selection = 'Favorite'
+
+def get_preset_paths():    # called by update_files() in modules.config
+    preset_path = Path('.\presets')
+    presets = list(preset_path.rglob('*.json'))
+    if not [presets]:
+        print('No presets found')
+        presets = ['initial']
+        return presets
+    return presets
+
+def get_random_preset():
+    presets = get_preset_paths()
+    random_preset = random.randint(0, (len(presets)-1))
+    print(f'Selected a random preset file: {presets[random_preset]}')
+    return presets[random_preset]
+
 def get_presets_in_folder(arg_folder_name):
     if not arg_folder_name:
         arg_folder_name = category_selection
@@ -21,16 +38,24 @@ def get_presets_in_folder(arg_folder_name):
     return presets_in_folder  
 
 def get_presetnames_in_folder(folder_name):
-    presets_in_folder = get_presets_in_folder(folder_name)
     presetnames_in_folder = []
-    for file in presets_in_folder:
-        presetname, ext = os.path.splitext(file)
-        presetnames_in_folder.append(presetname)
+    if folder_name == 'Random':
+        random_preset = get_random_preset()
+        presetnames_in_folder, ext = os.path.splitext(random_preset)
+    else:
+        presets_in_folder = get_presets_in_folder(folder_name)
+        for preset_file in presets_in_folder:
+            presetname, ext = os.path.splitext(preset_file)
+            presetnames_in_folder.append(presetname)
     return presetnames_in_folder
 
 def get_all_presetnames():
     get_presetnames_in_folder('.\presets')
     return all_presetnames
+
+def get_all_presets(): # used to check if preset files exist
+    get_presets_in_folder('.\presets')
+    return all_presets
 
 def find_preset_file(preset):
     preset_json = f'{preset}.json'
@@ -43,21 +68,6 @@ def find_preset_file(preset):
         return {}
     return preset_file
 
-def get_preset_paths():    # called by update_files() in modules.config
-    preset_path = Path('.\presets')
-    presets = list(preset_path.rglob('*.json'))
-    if not [presets]:
-        print('No presets found')
-        presets = ['initial']
-        return presets
-    return presets
-
-def get_random_preset():
-    presets = get_preset_paths()
-    preset_random = random.randint(0, (len(presets)-1))
-    return presets[preset_random]
-
-category_selection = 'Favorite'
 def get_category_selection(arg_category_selection):
     global category_selection
     if category_selection == '':
@@ -81,7 +91,8 @@ def get_preset_content(preset):
 
 def get_initial_preset_content():
     preset = args_manager.args.preset
-    if (preset=='initial' or preset.lower()=='default') and (int(model_management.get_vram())<6000)\
+    if (preset=='initial' or preset.lower()=='default')\
+    and (int(model_management.get_vram())<6000)\
     and (find_preset_file('4GB_Default')):
         preset='4GB_Default'
         args_manager.args.preset = preset
@@ -104,41 +115,10 @@ def get_preset_foldernames():
     if os.path.exists(preset_folder):
         preset_foldernames = [f.name for f in os.scandir('.\presets') if f.is_dir()]
     else:
-        print(f'Could not find the folder named {folder_name}.')
+        print(f'Could not find the {folder_name} folder')
         print() 
     return preset_foldernames.append('Random')
 
-'''
-def get_presets_in_folder(arg_folder_name):
-    if not arg_folder_name:
-        arg_folder_name = category_selection
-    presets_in_folder = []
-    if os.path.exists(folder_name):
-        folder_name = Path(f'.\presets\{arg_folder_name}') 
-        presets_in_folder = list(folder_name.rglob('*.json'))
-#        presets_in_folder = [f.name for f in os.scandir(folder_name) if f.is_file(): if f.endswith(".json")]
-        if not presets_in_folder:
-            print(f'Could not find presets in the {arg_folder_name} folder.')
-            print()
-    else:
-        print(f'Could not find the {arg_folder_name} folder.')
-        print()        
-    return presets_in_folder  
-
-def get_preset_names():
-    preset_folder = '.\presets'
-    preset_names = []
-    if os.path.exists(preset_folder):
-        preset_names = [f.name for f in os.scandir('.\presets') if f.is_file() and f.endswith(".json")]
-        if not presets_names:
-            print(f'Could not find presets in the {preset_folder} subfolders.')
-            print()
-    else:
-        print(f'Could not find the {folder_name} preset folder.')
-        print()
-    return preset_names
-'''
-  
 #def update_presets():
 #    global available_presets
 #    available_presets = get_presets()
