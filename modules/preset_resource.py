@@ -5,6 +5,20 @@ import args_manager
 from ldm_patched.modules import model_management
 from pathlib import Path
 
+def get_presets_in_folder(arg_folder_name):
+    if not arg_folder_name:
+        arg_folder_name = category_selection
+    presets_in_folder = []
+    if os.path.exists(folder_name):
+        folder_name = Path(f'.\presets\{arg_folder_name}') 
+        presets_in_folder = list(folder_name.rglob('*.json'))
+        if not presets_in_folder:
+            print(f'Could not find presets in the {arg_folder_name} folder.')
+            print()
+    else:
+        print(f'Could not find the {arg_folder_name} folder.')
+        print()        
+    return presets_in_folder  
 
 def get_presetnames_in_folder(folder_name):
     presets_in_folder = get_presets_in_folder(folder_name)
