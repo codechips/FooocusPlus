@@ -11,7 +11,6 @@ import modules.preset_resource as PR
 import tempfile
 
 from common import ROOT, CURRENT_ASPECT
-from ldm_patched.modules import model_management
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
 from modules.model_loader import load_file_from_url
