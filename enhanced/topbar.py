@@ -184,7 +184,7 @@ def init_nav_bars(state_params, request: gr.Request):
     if "__theme" not in state_params.keys():
         state_params.update({"__theme": args_manager.args.theme})
     if "__preset" not in state_params.keys():
-        state_params.update({"__preset": config.preset})
+        state_params.update({"__preset": PR.current_preset})
     if "__session" not in state_params.keys() and "cookie" in request.headers.keys():
         cookies = dict([(s.split('=')[0], s.split('=')[1]) for s in request.headers["cookie"].split('; ')])
         if "SESSION" in cookies.keys():
@@ -210,7 +210,7 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"note_box_state": ['',0,0]})
     state_params.update({"array_wildcards_mode": ''})
     state_params.update({"wildcard_in_wildcards": 'root'})
-    state_params.update({"bar_button": config.preset})
+    state_params.update({"bar_button": PR.current_preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
     file_welcome = get_welcome_image()
