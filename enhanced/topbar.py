@@ -24,6 +24,7 @@ import modules.util as util
 from args_manager import args
 from enhanced.backend import comfyd
 from enhanced.welcome import get_welcome_image
+from launch import download_models
 from modules.model_loader import load_file_from_url
 
 # hard-coded limit to topbar preset display
@@ -367,38 +368,6 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     results += meta_parser.load_parameter_button_click(preset_prepared, is_generating, inpaint_mode)
 
     return results
-
-
-def download_models(default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads, vae_downloads):
-
-    if args.disable_preset_download:
-        print('Skipped model download.')
-        return default_model, checkpoint_downloads
-
-    if not args.always_download_new_model:
-        if not os.path.isfile(common.MODELS_INFO.get_file_path_by_name('checkpoints', default_model)):
-            for alternative_model_name in previous_default_models:
-                if os.path.isfile(common.MODELS_INFO.get_file_path_by_name('checkpoints', alternative_model_name)):
-                    print(f'You do not have [{default_model}] but you have [{alternative_model_name}].')
-                    print(f'Fooocus will use [{alternative_model_name}] to avoid downloading new models.')
-                    print('Use --always-download-new-model to avoid fallback and always get new models.')
-                    checkpoint_downloads = {}
-                    default_model = alternative_model_name
-                    break
-
-    for file_name, url in checkpoint_downloads.items():
-        model_dir = os.path.dirname(common.MODELS_INFO.get_file_path_by_name('checkpoints', file_name))
-        load_file_from_url(url=url, model_dir=model_dir, file_name=os.path.basename(file_name))
-    for file_name, url in embeddings_downloads.items():
-        load_file_from_url(url=url, model_dir=config.path_embeddings, file_name=file_name)
-    for file_name, url in lora_downloads.items():
-        model_dir = os.path.dirname(common.MODELS_INFO.get_file_path_by_name('loras', file_name))
-        load_file_from_url(url=url, model_dir=model_dir, file_name=os.path.basename(file_name))
-    for file_name, url in vae_downloads.items():
-        load_file_from_url(url=url, model_dir=config.path_vae, file_name=file_name)
-
-    return default_model, checkpoint_downloads
-
 
 from transformers import CLIPTokenizer
 import shutil
