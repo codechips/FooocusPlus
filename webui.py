@@ -1073,8 +1073,6 @@ with common.GRADIO_ROOT:
                     queue=False, show_progress=False)
 
             with gr.Tab(label='Extras', elem_id="scrollable-box"):
-                with gr.Row(visible=False):
-                    binding_id_button = gr.Button(value='Binding Identity', visible=False)
                 with gr.Row():
                     language_ui=args_manager.args.language
                     # the language_ui Radio button was removed as being redundant. It was strange that
@@ -1192,8 +1190,9 @@ with common.GRADIO_ROOT:
                  load_parameter_button] + freeu_ctrls + lora_ctrls
 
         if not args_manager.args.disable_preset_selection:
-            def _change(preset, is_generating, inpaint_mode):
-                preset_content = PR.get_preset_content(preset) if preset != 'initial' else {}
+            def preset_selection_change(preset, is_generating, inpaint_mode):
+                PR.current_preset = preset    # updated the current preset tracker
+                preset_content = modules.config.try_get_preset_content(preset) if preset != 'initial' else {}
                 preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
 
                 default_model = preset_prepared.get('base_model')
@@ -1203,7 +1202,7 @@ with common.GRADIO_ROOT:
                 lora_downloads = preset_prepared.get('lora_downloads', {})
                 vae_downloads = preset_prepared.get('vae_downloads', {})
 
-                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = topbar.download_models(
+                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = launch.download_models(
                     default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads,
                     vae_downloads)
 
@@ -1225,6 +1224,13 @@ with common.GRADIO_ROOT:
                     result.append(gr.update())
 
             return result
+
+        preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating, inpaint_mode],\
+                    outputs=load_data_outputs, queue=False, show_progress=True) \
+                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+                .then(lambda: None, _js='()=>{refresh_style_localization();}') \
+                .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
+                    outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
         performance_selection.change(lambda x: [gr.update(interactive=not flags.Performance.has_restricted_features(x))] * 11 +
                                                [gr.update(visible=not flags.Performance.has_restricted_features(x))] * 1 +
