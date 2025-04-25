@@ -14,6 +14,7 @@ import modules.aspect_ratios as AR
 import modules.sdxl_styles
 from modules.flags import MetadataScheme, Performance, Steps, task_class_mapping, get_taskclass_by_fullname, default_class_params, scheduler_list, sampler_list
 from modules.flags import SAMPLERS, CIVITAI_NO_KARRAS
+from modules.preset_resource import current_preset
 from modules.util import quote, unquote, extract_styles_from_prompt, is_json, sha256
 import enhanced.all_parameters as ads
 from modules.hash_cache import sha256_from_cache
@@ -878,7 +879,7 @@ def get_exif(metadata: str | None, metadata_scheme: str):
     # 0x9286 = UserComment
     exif[0x9286] = metadata
     # 0x0131 = Software
-    exif[0x0131] = f'FooocusPlus {enhanced.version.get_fooocusplus_ver()}'
+    exif[0x0131] = f'FooocusPlus {enhanced.version.get_fooocusplus_ver()}, Preset: {current_preset}'
     # 0x927C = MakerNote
     exif[0x927C] = metadata_scheme
     return exif
