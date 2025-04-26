@@ -1355,7 +1355,9 @@ with common.GRADIO_ROOT:
                     return [gr.update(), gr.update(visible=True), gr.update(visible=False), gr.update()]
 
             return [json.dumps(loaded_json), gr.update(visible=False), gr.update(visible=True), gr.update()]
-
+        print()
+        print(f'Prompt: {prompt}')
+        print()
         prompt.input(parse_meta, inputs=[prompt, state_is_generating, state_topbar, prompt_panel_checkbox],\
             outputs=[prompt, generate_button, load_parameter_button, prompt_panel_checkbox], queue=False, show_progress=False)
         
@@ -1478,9 +1480,7 @@ with common.GRADIO_ROOT:
         .then(fn=lambda x: None, inputs=system_params, _js=topbar.refresh_topbar_status_js)
 
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
-# Do not clear prompt when loading preset?
-    reset_preset_inputs = [state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
-#    reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
+    reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
     for i in range(topbar.topbar_limit):
         bar_buttons[i].click(topbar.check_absent_model, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar]) \
