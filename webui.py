@@ -24,6 +24,7 @@ import ldm_patched
 import modules.user_structure
 
 from extras.inpaint_mask import SAMOptions
+from enhanced.welcome import get_welcome_image
 from launch import download_models
 from PIL import Image
 from modules.sdxl_styles import legal_style_names, fooocus_expansion
@@ -190,6 +191,9 @@ def enhance_inpaint_mode_change(mode, inpaint_engine_version):
 reload_javascript()
 
 title = f'FooocusPlus {version.get_fooocusplus_ver()}'
+file_welcome = get_welcome_image()
+print(f'Welcome image: {file_welcome}')
+print()
 
 common.GRADIO_ROOT = gr.Blocks(
     title=title,
@@ -1355,9 +1359,7 @@ with common.GRADIO_ROOT:
                     return [gr.update(), gr.update(visible=True), gr.update(visible=False), gr.update()]
 
             return [json.dumps(loaded_json), gr.update(visible=False), gr.update(visible=True), gr.update()]
-        print()
-        print(f'Prompt: {prompt}')
-        print()
+
         prompt.input(parse_meta, inputs=[prompt, state_is_generating, state_topbar, prompt_panel_checkbox],\
             outputs=[prompt, generate_button, load_parameter_button, prompt_panel_checkbox], queue=False, show_progress=False)
         
