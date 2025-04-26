@@ -1191,9 +1191,9 @@ with common.GRADIO_ROOT:
 
         if not args_manager.args.disable_preset_selection:
             def preset_selection_change(preset, is_generating, inpaint_mode):
-                if PR.current_preset == preset
+                if PR.current_preset == preset:
                     print(f'Continuing with the {preset} preset...')
-                else
+                else:
                     print(f'Changing the preset from {PR.current_preset} to {preset}...')
                     PR.current_preset = preset    # updated the current preset tracker
                 preset_content = PR.get_preset_content(preset) if preset != 'initial' else {}
