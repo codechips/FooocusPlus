@@ -66,13 +66,6 @@ def find_preset_file(preset):
         return {}
     return preset_file
 
-def get_category_selection(arg_category_selection):
-    global category_selection
-    if category_selection == '':
-        category_selection = 'Favorite'
-    category_selection = arg_category_selection
-    return category_selection
-
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
     if preset_file:
@@ -111,11 +104,22 @@ def get_preset_foldernames():
     preset_folder = '.\presets'
     preset_foldernames = []
     if os.path.exists(preset_folder):
-        preset_foldernames = [f.name for f in os.scandir('.\presets') if f.is_dir()]
+        preset_foldernames = [f.name for f in os.scandir(preset_folder) if f.is_dir()]
+        if not preset_foldernames:
+            print(f'Could not find any preset subfolders in {preset_folder}')
+            print()
+            return preset_foldernames
     else:
-        print(f'Could not find the {folder_name} folder')
-        print() 
+        print(f'Could not find the {preset_folder} folder')
+        print()    
     return preset_foldernames.append('Random')
+
+def set_category_selection(arg_category_selection):
+    global category_selection
+    if arg_category_selection == '':
+        category_selection = 'Favorite'
+    category_selection = arg_category_selection
+    return category_selection
 
 #def update_presets():
 #    global available_presets
