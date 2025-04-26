@@ -115,19 +115,13 @@ def get_preset_foldernames():
     else:
         print(f'Could not find the {preset_folder} folder')
         print()
-    print(f'preset_foldernames {preset_foldernames}')
     return preset_foldernames.append('Random')
 
 def set_category_selection(arg_category_selection):
-    global category_selection
-    print(f'arg_category_selection {arg_category_selection}')
-    print(f'category_selection {category_selection}')
+#    global category_selection
     if arg_category_selection == '':
         category_selection = 'Favorite'
     category_selection = arg_category_selection
+    print(f'arg_category_selection {arg_category_selection}')
+    print(f'category_selection {category_selection}')
     return category_selection
-
-#def update_presets():
-#    global available_presets
-#    available_presets = get_presets()
-#    return
