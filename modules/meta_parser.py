@@ -400,6 +400,7 @@ def parse_meta_from_preset(preset_content):
                     default_aspect_ratio = common.CURRENT_ASPECT
                 else:
                     default_aspect_ratio = modules.config.default_std_aspect_ratio
+                print(f'default_aspect_ratio {default_aspect_ratio}')
                 width, height = default_aspect_ratio.split('×')
                 height = height[:height.index(" ")]
             preset_prepared[meta_key] = (width, height)
