@@ -31,7 +31,7 @@ available_aspect_ratios = [
      '1280*768', '1344*768', '1344*756', '1408*704', '1536*640'],
 ]
 
-def AR_split(x)
+def AR_split(x):
     x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
     x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
     width, height = x.replace('*', ' ').split(' ')[:2]
