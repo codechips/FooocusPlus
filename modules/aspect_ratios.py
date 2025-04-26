@@ -32,6 +32,8 @@ available_aspect_ratios = [
 ]
 
 def add_ratio(x):
+    x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
+    x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
     a, b = x.replace('*', ' ').split(' ')[:2]
     a, b = int(a), int(b)
     g = math.gcd(a, b)
