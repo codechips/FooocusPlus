@@ -23,7 +23,6 @@ import modules.util as util
 
 from args_manager import args
 from enhanced.backend import comfyd
-from enhanced.welcome import get_welcome_image
 from launch import download_models
 from modules.model_loader import load_file_from_url
 
@@ -214,9 +213,6 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"bar_button": PR.current_preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
-    file_welcome = get_welcome_image()
-    print(f'Welcome image: {file_welcome}')
-    print()
     results += [gr.update(value=f'{file_welcome}')]    
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
@@ -294,7 +290,8 @@ def process_after_generation(state_params):
     # gallery_index, index_radio
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     # prompt, random_button, translator_button, super_prompter, background_theme, image_tools_checkbox, bar0_button, bar1_button, bar2_button, bar3_button, bar4_button, bar5_button, bar6_button, bar7_button, bar8_button
-    preset_nums = len(state_params["__nav_name_list"].split(','))
+# REM the next line to avoid errors
+#    preset_nums = len(state_params["__nav_name_list"].split(','))
     results += [gr.update(interactive=True)] * (preset_nums + 6)
     results += [gr.update()] * (topbar_limit-preset_nums)
     
