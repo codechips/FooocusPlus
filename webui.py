@@ -681,7 +681,7 @@ with common.GRADIO_ROOT:
                             visible=True, interactive=True)
 
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
-                            outputs=category_selection, show_progress=False, queue=False)
+                            outputs=preset_selection, show_progress=False, queue=False)
                         print(f'PR.Category_selection: {PR.category_selection}')
                         print()
                         
