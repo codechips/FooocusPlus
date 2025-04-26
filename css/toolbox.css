@@ -1,0 +1,106 @@
+.toolbox {
+    height: auto;
+    position: absolute;
+    top: 210px;
+    left: 86%;
+    width: 100px !important;
+    z-index: 20;
+    text-align: center;
+}
+
+.infobox {
+    height: auto;
+    position: absolute;
+    top: -15rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28rem !important;
+    z-index: 20;
+    text-align: left;
+    opacity: 0.85;
+    border-radius: 8px;
+    padding: 6px;
+    line-height: 120%;
+    border: groove;
+    color: var(--neutral-800);
+}
+
+.infobox_mobi {
+    height: auto;
+    position: absolute;
+    top: -16rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22rem !important;
+    z-index: 20;
+    text-align: left;
+    opacity: 0.85;
+    border-radius: 8px;
+    padding: 6px;
+    line-height: 120%;
+    border: groove;
+}
+
+.toolbox_note {
+    height: auto;
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px !important;
+    z-index: 21;
+    text-align: left;
+    opacity: 1;
+    border-radius: 8px;
+    padding: 0px;
+    border: groove;
+}
+
+.identity_note {
+    height: auto;
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px !important;
+    z-index: 21;
+    text-align: left;
+    opacity: 1;
+    border-radius: 8px;
+    padding: 0px;
+    border: groove;
+}
+
+.note_info {
+    padding: 8px;
+}
+
+.note_text {
+    padding: 2px;
+    text-align: center;
+}
+.preset_input textarea {
+    width: 120px;
+}
+
+.tag_array {
+    height: auto;
+    position: absolute;
+    top: 180px;
+    left: 15%;
+    width: 580px !important;
+    z-index: 22;
+}
+
+.taglib_button {
+    height: 35px;
+    transform: translate(5%, 35%);
+}
+
+.min_pad0 {
+    padding: 0px !important;
+}
+
+.min_pad {
+    padding: 2px !important;
+}
