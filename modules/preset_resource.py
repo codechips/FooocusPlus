@@ -44,12 +44,15 @@ def get_presetnames_in_folder(folder_name):
     presetnames_in_folder = []
     if folder_name == 'Random':
         random_preset = get_random_preset()
-        presetnames_in_folder, ext = os.path.splitext(random_preset)
+        presetname = Path(random_preset)
+        presetnames_in_folder = [presetname.stem]
+#        presetnames_in_folder, ext = os.path.splitext(random_preset)
     else:
         presets_in_folder = get_presets_in_folder(folder_name)
         for preset_file in presets_in_folder:
-            presetname, ext = os.path.splitext(preset_file)
-            presetnames_in_folder.append(presetname)
+#            presetname, ext = os.path.splitext(preset_file)
+            presetname = Path(preset_file)
+            presetnames_in_folder.append(presetname.stem)
     return presetnames_in_folder
 
 def get_all_presetnames():    
