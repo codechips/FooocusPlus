@@ -24,7 +24,6 @@ import ldm_patched
 import modules.user_structure
 
 from extras.inpaint_mask import SAMOptions
-from enhanced.welcome import get_welcome_image
 from launch import download_models
 from PIL import Image
 from modules.sdxl_styles import legal_style_names, fooocus_expansion
@@ -191,10 +190,6 @@ def enhance_inpaint_mode_change(mode, inpaint_engine_version):
 reload_javascript()
 
 title = f'FooocusPlus {version.get_fooocusplus_ver()}'
-file_welcome = get_welcome_image()
-print(f'Welcome image: {file_welcome}')
-print()
-
 common.GRADIO_ROOT = gr.Blocks(
     title=title,
     css=topbar.css + toolbox.css).queue()
@@ -687,8 +682,6 @@ with common.GRADIO_ROOT:
 
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
                             show_progress=False, queue=False)
-                        print(f'PR.Category_selection: {PR.category_selection}')
-                        print()
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
