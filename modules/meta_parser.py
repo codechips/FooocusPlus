@@ -400,7 +400,7 @@ def parse_meta_from_preset(preset_content):
                     default_aspect_ratio = modules.config.default_std_aspect_ratio
                 print(f'default_aspect_ratio {default_aspect_ratio}')
                 width, height = AR.AR_split(default_aspect_ratio)
-                height = height[:height.index(" ")]
+#                height = height[:height.index(" ")]
             preset_prepared[meta_key] = (width, height)
         elif settings_key not in items and settings_key in modules.config.allow_missing_preset_key:
             continue
