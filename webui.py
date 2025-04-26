@@ -682,7 +682,7 @@ with common.GRADIO_ROOT:
                             visible=True, interactive=True)
 
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
-                            outputs=preset_selection, show_progress=False, queue=False)
+                            show_progress=False, queue=False)
                         print(f'PR.Category_selection: {PR.category_selection}')
                         print()
                         
@@ -1191,7 +1191,11 @@ with common.GRADIO_ROOT:
 
         if not args_manager.args.disable_preset_selection:
             def preset_selection_change(preset, is_generating, inpaint_mode):
-                PR.current_preset = preset    # updated the current preset tracker
+                if PR.current_preset == preset
+                    print(f'Continuing with the {preset} preset...')
+                else
+                    print(f'Changing the preset from {PR.current_preset} to {preset}...')
+                    PR.current_preset = preset    # updated the current preset tracker
                 preset_content = PR.get_preset_content(preset) if preset != 'initial' else {}
                 preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
 
@@ -1352,11 +1356,14 @@ with common.GRADIO_ROOT:
 
             return [json.dumps(loaded_json), gr.update(visible=False), gr.update(visible=True), gr.update()]
 
-        prompt.input(parse_meta, inputs=[prompt, state_is_generating, state_topbar, prompt_panel_checkbox], outputs=[prompt, generate_button, load_parameter_button, prompt_panel_checkbox], queue=False, show_progress=False)
+        prompt.input(parse_meta, inputs=[prompt, state_is_generating, state_topbar, prompt_panel_checkbox],\
+            outputs=[prompt, generate_button, load_parameter_button, prompt_panel_checkbox], queue=False, show_progress=False)
         
-        translator_button.click(lambda x, y: translator.convert(x, y), inputs=[prompt, translation_methods], outputs=prompt, queue=False, show_progress=True)
+        translator_button.click(lambda x, y: translator.convert(x, y), inputs=[prompt, translation_methods],\
+            outputs=prompt, queue=False, show_progress=True)
 
-        load_parameter_button.click(modules.meta_parser.load_parameter_button_click, inputs=[prompt, state_is_generating, inpaint_mode], outputs=load_data_outputs, queue=False, show_progress=False)
+        load_parameter_button.click(modules.meta_parser.load_parameter_button_click,\
+            inputs=[prompt, state_is_generating, inpaint_mode], outputs=load_data_outputs, queue=False, show_progress=False)
 
         def trigger_metadata_import(file, state_is_generating, state_params):
             parameters, metadata_scheme = modules.meta_parser.read_info_from_image(file)
@@ -1367,13 +1374,17 @@ with common.GRADIO_ROOT:
         reset_preset_layout = [params_backend, performance_selection, scheduler_name, sampler_name, input_image_checkbox, enhance_checkbox, base_model, refiner_model, overwrite_step, guidance_scale, negative_prompt, preset_instruction] + lora_ctrls
         reset_preset_func = [output_format, inpaint_advanced_masking_checkbox, mixing_image_prompt_and_vary_upscale, mixing_image_prompt_and_inpaint, backfill_prompt, translation_methods, input_image_checkbox, state_topbar]
 
-        metadata_import_button.click(trigger_metadata_import, inputs=[metadata_input_image, state_is_generating, state_topbar], outputs=reset_preset_layout + reset_preset_func + load_data_outputs, queue=False, show_progress=True) \
+        metadata_import_button.click(trigger_metadata_import, inputs=[metadata_input_image, state_is_generating, state_topbar],\
+            outputs=reset_preset_layout + reset_preset_func + load_data_outputs, queue=False, show_progress=True) \
             .then(style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False)
 
         model_check = [prompt, negative_prompt, base_model, refiner_model] + lora_ctrls
         nav_bars = [bar_title] + bar_buttons
         protections = [random_button, translator_button, super_prompter, background_theme, image_tools_checkbox]
-        generate_button.click(topbar.process_before_generation, inputs=[state_topbar, params_backend] + ehps, outputs=[stop_button, skip_button, generate_button, gallery, state_is_generating, index_radio, image_toolbox, prompt_info_box] + protections + [params_backend], show_progress=False) \
+        generate_button.click(topbar.process_before_generation,\
+            inputs=[state_topbar, params_backend] + ehps,\
+            outputs=[stop_button, skip_button, generate_button, gallery, state_is_generating, index_radio,\
+                image_toolbox, prompt_info_box] + protections + [params_backend], show_progress=False) \
             .then(fn=refresh_seed, inputs=[seed_random, image_seed], outputs=image_seed) \
             .then(fn=get_task, inputs=ctrls, outputs=currentTask) \
             .then(fn=enhanced_parameters.set_all_enhanced_parameters, inputs=ehps) \
@@ -1467,7 +1478,9 @@ with common.GRADIO_ROOT:
         .then(fn=lambda x: None, inputs=system_params, _js=topbar.refresh_topbar_status_js)
 
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
-    reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
+# Do not clear prompt when loading preset?
+    reset_preset_inputs = [state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
+#    reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
     for i in range(topbar.topbar_limit):
         bar_buttons[i].click(topbar.check_absent_model, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar]) \
