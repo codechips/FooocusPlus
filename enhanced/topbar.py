@@ -23,6 +23,7 @@ import modules.util as util
 
 from args_manager import args
 from enhanced.backend import comfyd
+from enhanced.welcome import get_welcome_image
 from launch import download_models
 from modules.model_loader import load_file_from_url
 
@@ -213,8 +214,10 @@ def init_nav_bars(state_params, request: gr.Request):
     state_params.update({"bar_button": PR.current_preset})
     state_params.update({"init_process": 'finished'})
     results = refresh_nav_bars(state_params)
-#    results += [gr.update(value=f'{file_welcome}')]
-    results += [gr.update(value='')]  # add dummy value
+    file_welcome = get_welcome_image()
+    print(f'Welcome image: {file_welcome}')
+    print()
+    results += [gr.update(value=f'{file_welcome}')]
     results += [gr.update(value=modules.flags.language_radio(state_params["__lang"])), gr.update(value=state_params["__theme"])]
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
