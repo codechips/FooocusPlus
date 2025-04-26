@@ -120,6 +120,8 @@ def get_preset_foldernames():
 
 def set_category_selection(arg_category_selection):
     global category_selection
+    print(f'arg_category_selection {arg_category_selection}')
+    print(f'category_selection {category_selection}')
     if arg_category_selection == '':
         category_selection = 'Favorite'
     category_selection = arg_category_selection
