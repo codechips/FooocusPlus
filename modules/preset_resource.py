@@ -111,7 +111,8 @@ def get_preset_foldernames():
             return preset_foldernames
     else:
         print(f'Could not find the {preset_folder} folder')
-        print()    
+        print()
+    print(f'preset_foldernames {preset_foldernames}')
     return preset_foldernames.append('Random')
 
 def set_category_selection(arg_category_selection):
