@@ -1217,7 +1217,6 @@ update_files()
 
 
 # Additional aspect ratio support
-CURRENT_ASPECT = f'{default_std_aspect_ratio}'
 
 default_aspect_ratio_values = [default_std_aspect_ratio, default_sd1_5_aspect_ratio,\
     default_pixart_aspect_ratio, default_custom_aspect_ratio]
@@ -1229,4 +1228,6 @@ config_aspect_ratio_labels = AR.aspect_ratio_labels(config_aspect_ratios)
 
 def assign_default_by_template(template):
     ar_index = AR.aspect_ratios_templates.index(template)
+    CURRENT_ASPECT = default_aspect_ratio_values[ar_index]
+    print(f'CURRENT_ASPECT in config: {CURRENT_ASPECT}')
     return default_aspect_ratio_values[ar_index]
