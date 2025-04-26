@@ -241,11 +241,9 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         if (width == '0') or (height == '0') or (h == ''):
             if common.CURRENT_ASPECT == '':
                 common.CURRENT_ASPECT = modules.config.assign_default_by_template(template)
-            # accept manual entries in config.txt that use "x" instead of "*"
-            h = (f'{common.CURRENT_ASPECT}').replace("*","x") # modules.config format
-            h = h.replace("×","x") # webui aspect ratio selector uses the raised "×"
-            width, height = h.split("x")
-        common.CURRENT_ASPECT = f'{h}'
+            h = common.CURRENT_ASPECT
+            width, height = AR.AR_split(h)
+        common.CURRENT_ASPECT = h
 
         formatted = AR.add_ratio(f'{width}*{height}') 
         if formatted in modules.config.config_aspect_ratio_labels[template]:
@@ -393,7 +391,7 @@ def parse_meta_from_preset(preset_content):
         elif settings_key == "default_aspect_ratio":
             if settings_key in items and (items[settings_key] is not None or items[settings_key] != '0*0'):
                 default_aspect_ratio = items[settings_key]
-                width, height = default_aspect_ratio.split('*')
+                width, height = AR.AR_split(default_aspect_ratio)
             else:
 #                default_aspect_ratio = getattr(modules.config, settings_key)
                 if common.CURRENT_ASPECT:
@@ -401,7 +399,7 @@ def parse_meta_from_preset(preset_content):
                 else:
                     default_aspect_ratio = modules.config.default_std_aspect_ratio
                 print(f'default_aspect_ratio {default_aspect_ratio}')
-                width, height = default_aspect_ratio.split('×')
+                width, height = AR.AR_split(default_aspect_ratio)
                 height = height[:height.index(" ")]
             preset_prepared[meta_key] = (width, height)
         elif settings_key not in items and settings_key in modules.config.allow_missing_preset_key:
