@@ -46,11 +46,9 @@ def get_presetnames_in_folder(folder_name):
         random_preset = get_random_preset()
         presetname = Path(random_preset)
         presetnames_in_folder = [presetname.stem]
-#        presetnames_in_folder, ext = os.path.splitext(random_preset)
     else:
         presets_in_folder = get_presets_in_folder(folder_name)
         for preset_file in presets_in_folder:
-#            presetname, ext = os.path.splitext(preset_file)
             presetname = Path(preset_file)
             presetnames_in_folder.append(presetname.stem)
     return presetnames_in_folder
@@ -118,7 +116,7 @@ def get_preset_foldernames():
     return preset_foldernames.append('Random')
 
 def set_category_selection(arg_category_selection):
-#    global category_selection
+    global category_selection
     if arg_category_selection == '':
         category_selection = 'Favorite'
     category_selection = arg_category_selection
