@@ -1260,7 +1260,7 @@ def worker():
         denoising_strength = 1.0
         tiled = False
         
-        width, height = AR_split(async_task.aspect_ratios_selection)
+        width, height = AR.AR_split(async_task.aspect_ratios_selection)
         width, height = int(width), int(height)
 
         skip_prompt_processing = False
