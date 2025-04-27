@@ -27,10 +27,9 @@ from enhanced.welcome import get_welcome_image
 from launch import download_models
 from modules.model_loader import load_file_from_url
 
-# hard-coded limit to topbar preset display
-# the value inherited from SimpeSDXL2 was 14
-# use preset dropdown for no limits
-topbar_limit = 30
+# the preset dropdown has no limits
+# and neither does the hidden topbar
+topbar_limit = len(PR.get_preset_paths())
 
 
 # app context
