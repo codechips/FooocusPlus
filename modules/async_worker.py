@@ -487,7 +487,7 @@ def worker():
                 metadata_temp = 'A1111'
             d.append(('Metadata Scheme', 'metadata_scheme',
                       metadata_temp if async_task.save_metadata_to_images else async_task.save_metadata_to_images))
-            d.append(('Preset', 'preset', current_preset))
+            d.append(('Preset', 'current_preset', current_preset))
             d.append(('Version', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}'))
             img_paths.append(log(x, d, metadata_parser, async_task.output_format, task, persist_image))
 
@@ -738,13 +738,14 @@ def worker():
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
-        negative_prompt = negative_prompts[0]
-        print()
-        print(f'Prompt: {prompts[0]}')
-        print(f'Negative Prompt: {negative_prompts[0]}')
         if prompt == '':
             # disable expansion when empty since it is not meaningful and influences image prompt
             use_expansion = False
+        else:
+            common.POSITIVE = prompt
+        negative_prompt = negative_prompts[0]
+        if negative_prompt != '':
+            common.NEGATIVE = negative_prompt
         extra_positive_prompts = prompts[1:] if len(prompts) > 1 else []
         extra_negative_prompts = negative_prompts[1:] if len(negative_prompts) > 1 else []
         
