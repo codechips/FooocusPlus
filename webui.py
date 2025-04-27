@@ -1221,16 +1221,15 @@ with common.GRADIO_ROOT:
         def inpaint_engine_state_change(inpaint_engine_version, *args):
             if inpaint_engine_version == 'empty':
                 inpaint_engine_version = modules.config.default_inpaint_engine_version
-
             result = []
             for inpaint_mode in args:
                 if inpaint_mode != modules.flags.inpaint_option_detail:
                     result.append(gr.update(value=inpaint_engine_version))
                 else:
                     result.append(gr.update())
-
             return result
 
+        
         preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating, inpaint_mode],\
                     outputs=load_data_outputs, queue=False, show_progress=True) \
                 .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
@@ -1253,11 +1252,11 @@ with common.GRADIO_ROOT:
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
-                if template=='SD1.5':
+                if template=='Custom':
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
-                elif template=='PixArt':
+                elif template=='SD1.5':
                     results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
-                elif template=='Custom':
+                elif template=='PixArt':
                     results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
                 else:        # Std. template
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
