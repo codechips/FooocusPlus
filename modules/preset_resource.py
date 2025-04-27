@@ -114,7 +114,7 @@ def get_preset_foldernames():
         print(f'Could not find the {preset_folder} folder')
         print()
     print(f'preset_foldernames 1: {preset_foldernames}')        
-    preset_foldernames = preset_foldernames.append('Random')
+    preset_foldernames.append('Random')
     print(f'preset_foldernames 2: {preset_foldernames}')
     return preset_foldernames
 
