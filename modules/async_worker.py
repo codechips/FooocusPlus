@@ -488,7 +488,7 @@ def worker():
                 metadata_temp = 'A1111'
             d.append(('Metadata Scheme', 'metadata_scheme',
                       metadata_temp if async_task.save_metadata_to_images else async_task.save_metadata_to_images))
-            d.append(('Version', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}))
+            d.append(('Version', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}'))
             img_paths.append(log(x, d, metadata_parser, async_task.output_format, task, persist_image))
 
         return img_paths
