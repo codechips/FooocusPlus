@@ -55,6 +55,8 @@ def javascript_html():
 def css_html():
     style_css_path = webpath('css/style.css')
     head = f'<link rel="stylesheet" property="stylesheet" href="{style_css_path}">'
+    toolbox_css_path = webpath('css/toolbox.css')
+    head = f'<link rel="stylesheet" property="stylesheet" href="{toolbox_css_path}">'
     return head
 
 
