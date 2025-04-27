@@ -191,8 +191,7 @@ reload_javascript()
 
 title = f'FooocusPlus {version.get_fooocusplus_ver()}'
 common.GRADIO_ROOT = gr.Blocks(
-    title=title,
-    css=topbar.css + toolbox.css).queue()
+    title=title, css=toolbox.css).queue()
 
 
 with common.GRADIO_ROOT:
