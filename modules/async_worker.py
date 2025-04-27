@@ -428,8 +428,7 @@ def worker():
     def save_and_log(async_task, height, imgs, task, use_expansion, width, loras, persist_image=True) -> list:
         img_paths = []
         for x in imgs:
-            d = [('Preset', 'preset', current_preset)]
-            d.append(('Prompt', 'prompt', task['log_positive_prompt']),
+            d = [('Prompt', 'prompt', task['log_positive_prompt']),
                  ('Negative Prompt', 'negative_prompt', task['log_negative_prompt']),
                  ('Fooocus V2 Expansion', 'prompt_expansion', task['expansion']),
                  ('Styles', 'styles',
@@ -445,7 +444,7 @@ def worker():
                      modules.patch.patch_settings[pid].adm_scaler_end))),
                  ('Base Model', 'base_model', async_task.base_model_name),
                  ('Refiner Model', 'refiner_model', async_task.refiner_model_name),
-                 ('Refiner Switch', 'refiner_switch', async_task.refiner_switch))
+                 ('Refiner Switch', 'refiner_switch', async_task.refiner_switch)]
 
             if async_task.refiner_model_name != 'None':
                 if async_task.overwrite_switch > 0:
@@ -488,6 +487,7 @@ def worker():
                 metadata_temp = 'A1111'
             d.append(('Metadata Scheme', 'metadata_scheme',
                       metadata_temp if async_task.save_metadata_to_images else async_task.save_metadata_to_images))
+            d.append(('Preset', 'preset', current_preset))
             d.append(('Version', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}'))
             img_paths.append(log(x, d, metadata_parser, async_task.output_format, task, persist_image))
 
