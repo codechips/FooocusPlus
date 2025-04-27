@@ -679,8 +679,8 @@ with common.GRADIO_ROOT:
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
 
-                        category_selection.change(PR.set_category_selection, inputs=category_selection,
-                            show_progress=False, queue=False)
+                      #  category_selection.change(PR.set_category_selection, inputs=category_selection,
+                      #      show_progress=False, queue=False)
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
@@ -1208,8 +1208,13 @@ with common.GRADIO_ROOT:
                     vae_downloads)
 
                 if 'prompt' in preset_prepared and preset_prepared.get('prompt') == '':
-                    del preset_prepared['prompt']
+                    preset_prepared.update({'prompt': common.POSITIVE})
+                    prompt = common.POSITIVE
 
+                if 'negative_prompt' in preset_prepared and preset_prepared.get('negative_prompt') == '':
+                    preset_prepared.update({'negative_prompt': common.NEGATIVE})
+                    negative_prompt = common.NEGATIVE
+                
                 return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating, inpaint_mode)
 
 
