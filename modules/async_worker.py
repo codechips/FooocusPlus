@@ -428,7 +428,8 @@ def worker():
     def save_and_log(async_task, height, imgs, task, use_expansion, width, loras, persist_image=True) -> list:
         img_paths = []
         for x in imgs:
-            d = [('Prompt', 'prompt', task['log_positive_prompt']),
+            d = d.append(('Preset', 'preset', current_preset))
+                 [('Prompt', 'prompt', task['log_positive_prompt']),
                  ('Negative Prompt', 'negative_prompt', task['log_negative_prompt']),
                  ('Fooocus V2 Expansion', 'prompt_expansion', task['expansion']),
                  ('Styles', 'styles',
@@ -487,7 +488,7 @@ def worker():
                 metadata_temp = 'A1111'
             d.append(('Metadata Scheme', 'metadata_scheme',
                       metadata_temp if async_task.save_metadata_to_images else async_task.save_metadata_to_images))
-            d.append(('Version & Preset', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}, Preset: {current_preset}'))
+            d.append(('Version', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}))
             img_paths.append(log(x, d, metadata_parser, async_task.output_format, task, persist_image))
 
         return img_paths
@@ -737,6 +738,8 @@ def worker():
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
+        print()
+        print(Prompts: {prompts})
         negative_prompt = negative_prompts[0]
         if prompt == '':
             # disable expansion when empty since it is not meaningful and influences image prompt
