@@ -32,8 +32,6 @@ from modules.model_loader import load_file_from_url
 # use preset dropdown for no limits
 topbar_limit = 30
 
-css = '''
-'''
 
 # app context
 nav_name_list = ''
