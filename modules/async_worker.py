@@ -226,6 +226,7 @@ def worker():
     import copy
     import cv2
     import common
+    import modules.aspect_ratios as AR
     import modules.default_pipeline as pipeline
     import modules.core as core
     import modules.flags as flags
@@ -1258,8 +1259,8 @@ def worker():
         initial_latent = None
         denoising_strength = 1.0
         tiled = False
-
-        width, height = async_task.aspect_ratios_selection.replace('×', ' ').split(' ')[:2]
+        
+        width, height = AR_split(async_task.aspect_ratios_selection)
         width, height = int(width), int(height)
 
         skip_prompt_processing = False
