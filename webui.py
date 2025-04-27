@@ -21,6 +21,7 @@ import modules.preset_resource as PR
 import args_manager
 import copy
 import ldm_patched
+import modules.ui_support as UIS
 import modules.user_structure
 
 from extras.inpaint_mask import SAMOptions
@@ -33,7 +34,6 @@ from modules.auth import auth_enabled, check_auth
 from modules.util import is_json
 
 import enhanced.gallery as gallery_util
-import enhanced.topbar as topbar
 import enhanced.toolbox as toolbox
 import enhanced.translator as translator
 import enhanced.enhanced_parameters as enhanced_parameters
@@ -206,11 +206,11 @@ with common.GRADIO_ROOT:
                     # obsolete preset code, all hidden:
                     if not args_manager.args.disable_preset_selection:
                         # disable the iFrame display of help for preset selections:
-                        preset_instruction = gr.HTML(visible=False, value=topbar.preset_no_instruction())
+                        preset_instruction = gr.HTML(visible=False, value=UIS.preset_no_instruction())
                         
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
-                        for i in range(topbar.topbar_limit):
+                        for i in range(PR.preset_count()):
                             bar_buttons.append(gr.Button(value='Default' if i==0 else '', size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
                         #bar_dropdown = gr.Dropdown(show_label=False, choices=['self','preset1','preset2','preset3'], value='self')
 
@@ -245,7 +245,7 @@ with common.GRADIO_ROOT:
                         def calculateTokenCounter(text, style_selections):
                             if len(text) < 1:
                                 return 0
-                            num=topbar.prompt_token_prediction(text, style_selections)
+                            num = UIS.prompt_token_prediction(text, style_selections)
                             return str(num)
                         prompt_token_counter = gr.HTML(
                             visible=True,
@@ -1382,7 +1382,7 @@ with common.GRADIO_ROOT:
         model_check = [prompt, negative_prompt, base_model, refiner_model] + lora_ctrls
         nav_bars = [bar_title] + bar_buttons
         protections = [random_button, translator_button, super_prompter, background_theme, image_tools_checkbox]
-        generate_button.click(topbar.process_before_generation,\
+        generate_button.click(UIS.process_before_generation,\
             inputs=[state_topbar, params_backend] + ehps,\
             outputs=[stop_button, skip_button, generate_button, gallery, state_is_generating, index_radio,\
                 image_toolbox, prompt_info_box] + protections + [params_backend], show_progress=False) \
@@ -1390,7 +1390,7 @@ with common.GRADIO_ROOT:
             .then(fn=get_task, inputs=ctrls, outputs=currentTask) \
             .then(fn=enhanced_parameters.set_all_enhanced_parameters, inputs=ehps) \
             .then(fn=generate_clicked, inputs=currentTask, outputs=[progress_html, progress_window, progress_gallery, gallery]) \
-            .then(topbar.process_after_generation, inputs=state_topbar, outputs=[generate_button, stop_button, skip_button, state_is_generating, gallery_index, index_radio] + protections, show_progress=False) \
+            .then(UIS.process_after_generation, inputs=state_topbar, outputs=[generate_button, stop_button, skip_button, state_is_generating, gallery_index, index_radio] + protections, show_progress=False) \
             .then(fn=update_history_link, outputs=history_link) \
             .then(lambda x: x['__finished_nums_pages'], inputs=state_topbar, outputs=gallery_index_stat, queue=False, show_progress=False) \
             .then(lambda x: None, inputs=gallery_index_stat, queue=False, show_progress=False, _js='(x)=>{refresh_finished_images_catalog_label(x);}') \
@@ -1476,26 +1476,26 @@ with common.GRADIO_ROOT:
     prompt_preset_button.click(toolbox.toggle_note_box_preset, inputs=model_check + [state_topbar], outputs=[params_note_info, params_note_input_name, params_note_preset_button, params_note_box, state_topbar], show_progress=False)
     params_note_preset_button.click(toolbox.save_preset, inputs=[params_note_input_name, params_backend] + reset_preset_func + load_data_outputs, outputs=[params_note_input_name, params_note_preset_button, params_note_box, state_topbar] + nav_bars, show_progress=False) \
         .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, queue=False, show_progress=False) \
-        .then(fn=lambda x: None, inputs=system_params, _js=topbar.refresh_topbar_status_js)
+        .then(fn=lambda x: None, inputs=system_params, _js=UIS.refresh_topbar_status_js)
 
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
-    for i in range(topbar.topbar_limit):
-        bar_buttons[i].click(topbar.check_absent_model, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar]) \
-               .then(topbar.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
+    for i in range(PR.preset_count()):
+        bar_buttons[i].click(UIS.check_absent_model, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar]) \
+               .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
                .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
-               .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=topbar.refresh_topbar_status_js) \
+               .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
                .then(lambda: None, _js='()=>{refresh_style_localization();}') \
                .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls, outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
 
-    common.GRADIO_ROOT.load(fn=lambda x: x, inputs=system_params, outputs=state_topbar, _js=topbar.get_system_params_js, queue=False, show_progress=False) \
-              .then(topbar.init_nav_bars, inputs=state_topbar, outputs=nav_bars + [progress_window, language_ui, background_theme, gallery_index, index_radio, inpaint_advanced_masking_checkbox, preset_instruction], show_progress=False) \
-              .then(topbar.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
+    common.GRADIO_ROOT.load(fn=lambda x: x, inputs=system_params, outputs=state_topbar, _js=UIS.get_system_params_js, queue=False, show_progress=False) \
+              .then(UIS.init_nav_bars, inputs=state_topbar, outputs=nav_bars + [progress_window, language_ui, background_theme, gallery_index, index_radio, inpaint_advanced_masking_checkbox, preset_instruction], show_progress=False) \
+              .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
               .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
-              .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=topbar.refresh_topbar_status_js) \
-              .then(topbar.sync_message, inputs=state_topbar, outputs=[state_topbar]) \
+              .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
+              .then(UIS.sync_message, inputs=state_topbar, outputs=[state_topbar]) \
               .then(lambda x: x, inputs=aspect_ratios_selections[0], outputs=aspect_ratios_selection, queue=False, show_progress=False) \
               .then(lambda x: None, inputs=aspect_ratios_selections[0], queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}') \
               .then(lambda x: x['__finished_nums_pages'], inputs=state_topbar, outputs=gallery_index_stat, queue=False, show_progress=False) \
