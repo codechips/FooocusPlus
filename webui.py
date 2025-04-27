@@ -672,7 +672,7 @@ with common.GRADIO_ROOT:
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_foldernames(),
-                            value='Favorite', visible=True, interactive=True)
+                            value='Random', visible=True, interactive=True)
                         
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presetnames_in_folder(PR.category_selection),
@@ -1187,10 +1187,11 @@ with common.GRADIO_ROOT:
 
         if not args_manager.args.disable_preset_selection:
             def preset_selection_change(preset, is_generating, inpaint_mode):
+                print()
                 if PR.current_preset == preset:
                     print(f'Continuing with the {preset} preset...')
                 else:
-                    print(f'Changing the preset from {PR.current_preset} to {preset}...')
+                    print(f'Changed the preset from {PR.current_preset} to {preset}')
                     PR.current_preset = preset    # updated the current preset tracker
                 preset_content = PR.get_preset_content(preset) if preset != 'initial' else {}
                 preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
