@@ -8,8 +8,8 @@ import time
 import gradio as gr
 import modules.config as config
 import modules.sdxl_styles as sdxl_styles
+import modules.ui_support as UIS
 import enhanced.all_parameters as ads
-import enhanced.topbar as topbar
 import enhanced.gallery as gallery
 import enhanced.version as version
 import modules.flags as flags
@@ -478,5 +478,5 @@ def save_preset(*args):
         state_params.update({"__preset": save_name})
     state_params.update({"note_box_state": ['',0,0]})
     results = [gr.update(visible=False)] * 3 + [state_params]
-    results += topbar.refresh_nav_bars(state_params)
+    results += UIS.refresh_nav_bars(state_params)
     return results
