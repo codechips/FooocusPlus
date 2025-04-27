@@ -429,7 +429,7 @@ def worker():
         img_paths = []
         for x in imgs:
             d = d.append(('Preset', 'preset', current_preset))
-                 [('Prompt', 'prompt', task['log_positive_prompt']),
+                [('Prompt', 'prompt', task['log_positive_prompt']),
                  ('Negative Prompt', 'negative_prompt', task['log_negative_prompt']),
                  ('Fooocus V2 Expansion', 'prompt_expansion', task['expansion']),
                  ('Styles', 'styles',
