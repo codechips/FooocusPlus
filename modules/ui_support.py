@@ -27,10 +27,6 @@ from enhanced.welcome import get_welcome_image
 from launch import download_models
 from modules.model_loader import load_file_from_url
 
-# the preset dropdown has no limits
-# and neither does the hidden topbar
-topbar_limit = len(PR.get_preset_paths())
-
 
 # app context
 nav_name_list = ''
@@ -237,14 +233,14 @@ def get_preset_inc_url(preset_name='blank'):
 def refresh_nav_bars(state_params):
     state_params.update({"__nav_name_list": PR.get_all_presetnames()})
     preset_name_list = PR.get_all_presetnames()
-    for i in range(len(preset_name_list)):
+    for i in range(PR.preset_count()):
         preset_name_list.append('')
     results = []
     if state_params["__is_mobile"]:
         results += [gr.update(visible=False)]
     else:
         results += [gr.update(visible=True)]
-    for i in range(len(preset_name_list)):
+    for i in range(PR.preset_count()):
         name = preset_name_list[i]
         if name=='default': name='Default'
         name += '\u2B07' if is_models_file_absent(name) else ''
@@ -271,7 +267,7 @@ def process_before_generation(state_params, backend_params, backfill_prompt, tra
     results = [gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True), gr.update(visible=False, interactive=False), [], True, gr.update(visible=False, open=False), gr.update(visible=False), gr.update(visible=False)]
     # prompt, random_button, translator_button, super_prompter, background_theme, image_tools_checkbox, bar0_button, bar1_button, bar2_button, bar3_button, bar4_button, bar5_button, bar6_button, bar7_button, bar8_button
     # preset_nums = len(state_params["__nav_name_list"].split(','))
-    preset_nums = len(PR.get_preset_paths())
+    preset_nums = PR.preset_count()
     results += [gr.update(interactive=False)] * (preset_nums + 6)
     results += [gr.update()] * (preset_nums)
     results += [backend_params]
@@ -294,7 +290,7 @@ def process_after_generation(state_params):
     # prompt, random_button, translator_button, super_prompter, background_theme, image_tools_checkbox, bar0_button, bar1_button, bar2_button, bar3_button, bar4_button, bar5_button, bar6_button, bar7_button, bar8_button
 # REM the next line to avoid errors
 #    preset_nums = len(state_params["__nav_name_list"].split(','))
-    preset_nums = len(PR.get_preset_paths())
+    preset_nums = PR.preset_count()
     results += [gr.update(interactive=True)] * (preset_nums + 6)
     results += [gr.update()] * (preset_nums)
     
