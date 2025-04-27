@@ -739,7 +739,7 @@ def worker():
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
         print()
-        print(Prompts: {prompts})
+        print(f'Prompts: {prompts}')
         negative_prompt = negative_prompts[0]
         if prompt == '':
             # disable expansion when empty since it is not meaningful and influences image prompt
