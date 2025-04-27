@@ -2,25 +2,25 @@ import gradio as gr
 import os
 import sys
 import platform
+import copy
 import json
 import random
 import re
 import time
-import common
-import modules.config
+import args_manager
 import comfy.comfy_version
-import modules.html
-import modules.async_worker as worker
-import modules.constants as constants
+import common
+import ldm_patched.modules.model_management as model_management
 import modules.aspect_ratios as AR
+import modules.async_worker as worker
+import modules.config
+import modules.constants as constants
 import modules.flags as flags
 import modules.gradio_hijack as grh
-import modules.style_sorter as style_sorter
+import modules.html
 import modules.meta_parser
 import modules.preset_resource as PR
-import args_manager
-import copy
-import ldm_patched
+import modules.style_sorter as style_sorter
 import modules.ui_support as UIS
 import modules.user_structure
 
@@ -52,8 +52,6 @@ def get_task(*args):
     return worker.AsyncTask(args=args)
 
 def generate_clicked(task: worker.AsyncTask):
-    import ldm_patched.modules.model_management as model_management
-
     with model_management.interrupt_processing_mutex:
         model_management.interrupt_processing = False
     # outputs=[progress_html, progress_window, progress_gallery, gallery]
@@ -274,7 +272,6 @@ with common.GRADIO_ROOT:
                         stop_button = gr.Button(label="Stop", value="Stop", elem_classes='type_row_half', elem_id='stop_button', visible=False, min_width = 75)
 
                         def stop_clicked(currentTask):
-                            import ldm_patched.modules.model_management as model_management
                             currentTask.last_stop = 'stop'
                             if (currentTask.processing):
                                 comfyd.interrupt()
@@ -282,7 +279,6 @@ with common.GRADIO_ROOT:
                             return currentTask
 
                         def skip_clicked(currentTask):
-                            import ldm_patched.modules.model_management as model_management
                             currentTask.last_stop = 'skip'
                             if (currentTask.processing):
                                 comfyd.interrupt()
@@ -1109,12 +1105,12 @@ with common.GRADIO_ROOT:
                         smart_memory = "Disabled (VRAM unloaded whenever possible)"
                     else:
                         smart_memory = "Enabled (VRAM unloaded only when necessary)"
-                    video_system = ldm_patched.modules.model_management.get_torch_device_name\
-                        (ldm_patched.modules.model_management.get_torch_device())
+                    video_system = model_management.get_torch_device_name\
+                        (model_management.get_torch_device())
                     torch_ver, xformers_ver, cuda_ver = torch_info()
                     gr.Markdown(value=f'<h3>System Information</h3>\
-                    System RAM: {int(ldm_patched.modules.model_management.get_sysram())} MB,\
-                    Video RAM: {int(ldm_patched.modules.model_management.get_vram())} MB<br>\
+                    System RAM: {int(model_management.get_sysram())} MB,\
+                    Video RAM: {int(model_management.get_vram())} MB<br>\
                     Smart Memory: {smart_memory}<br>\
                     Video System: {video_system}<br>\
                     Python {platform.python_version()}, Library {version.get_library_ver()}, \
