@@ -185,8 +185,8 @@ class VAE:
         if len(m) > 0:
             print("Missing VAE keys", m)
 
-        if len(u) > 0:
-            print("Leftover VAE keys", u)
+#        if len(u) > 0:
+#            print("Leftover VAE keys", u)
 
         if device is None:
             device = model_management.vae_device()
@@ -481,8 +481,8 @@ def load_checkpoint_guess_config(ckpt_path, output_vae=True, output_clip=True, o
             load_model_weights(w, sd)
 
     left_over = sd.keys()
-    if len(left_over) > 0:
-        print("left over keys:", left_over)
+#    if len(left_over) > 0:
+#        print("left over keys:", left_over)
 
     if output_model:
         model_patcher = ldm_patched.modules.model_patcher.ModelPatcher(model, load_device=load_device, offload_device=model_management.unet_offload_device(), current_device=inital_load_device)
@@ -524,8 +524,8 @@ def load_unet_state_dict(sd): #load unet in diffusers format
     model = model.to(offload_device)
     model.load_model_weights(new_sd, "")
     left_over = sd.keys()
-    if len(left_over) > 0:
-        print("left over keys in unet:", left_over)
+#    if len(left_over) > 0:
+#        print("left over keys in unet:", left_over)
     return ldm_patched.modules.model_patcher.ModelPatcher(model, load_device=load_device, offload_device=offload_device)
 
 def load_unet(unet_path):
