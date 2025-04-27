@@ -244,7 +244,7 @@ def refresh_nav_bars(state_params):
         name = preset_name_list[i]
         if name=='default': name='Default'
         name += '\u2B07' if is_models_file_absent(name) else ''
-        visible_flag = i<(7 if state_params["__is_mobile"] else topbar_limit)
+        visible_flag = i<(7 if state_params["__is_mobile"] else PR.preset_count())
         if name:
             results += [gr.update(value=name, visible=visible_flag)]
         else: 
@@ -323,7 +323,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     state_params.update({"__message": system_message})
     system_message = 'system message was displayed!'
     if '__preset' not in state_params.keys() or 'bar_button' not in state_params.keys() or state_params["__preset"]==state_params['bar_button']:
-        return [gr.update()] * (35 + topbar_limit) + [state_params] + [gr.update()] * 55
+        return [gr.update()] * (35 + PR.preset_count()) + [state_params] + [gr.update()] * 55
     if '\u2B07' in state_params["bar_button"]:
         gr.Info(preset_down_note_info)
     preset = state_params["bar_button"] if '\u2B07' not in state_params["bar_button"] else state_params["bar_button"].replace('\u2B07', '')
