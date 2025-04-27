@@ -190,8 +190,7 @@ def enhance_inpaint_mode_change(mode, inpaint_engine_version):
 reload_javascript()
 
 title = f'FooocusPlus {version.get_fooocusplus_ver()}'
-common.GRADIO_ROOT = gr.Blocks(
-    title=title,
+common.GRADIO_ROOT = gr.Blocks(title=title).queue()
 #    css=topbar.css + toolbox.css).queue()
 
 
