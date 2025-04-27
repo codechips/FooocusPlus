@@ -5,8 +5,8 @@ import args_manager
 from ldm_patched.modules import model_management
 from pathlib import Path
 
-category_selection = ''
-current_preset = ''
+category_selection = 'Favorite'
+current_preset = 'Default'
 
 def get_preset_paths():              # called by update_files() in modules.config
     preset_path = Path('.\presets')  # also used to check if preset files exist
