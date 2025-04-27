@@ -125,3 +125,7 @@ def set_category_selection(arg_category_selection):
     print(f'arg_category_selection {arg_category_selection}')
     print(f'category_selection {category_selection}')
     return category_selection
+
+def preset_count():
+    return len(get_preset_paths())
+    
