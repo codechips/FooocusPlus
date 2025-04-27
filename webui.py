@@ -679,8 +679,8 @@ with common.GRADIO_ROOT:
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
 
-                      #  category_selection.change(PR.set_category_selection, inputs=category_selection,
-                      #      show_progress=False, queue=False)
+                        category_selection.change(PR.set_category_selection, inputs=category_selection,
+                            show_progress=False, queue=False)
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
