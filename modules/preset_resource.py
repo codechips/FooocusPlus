@@ -113,7 +113,8 @@ def get_preset_foldernames():
     else:
         print(f'Could not find the {preset_folder} folder')
         print()
-    return preset_foldernames.append('Random')
+    preset_foldernames = preset_foldernames.append('Random')
+    return preset_foldernames
 
 def set_category_selection(arg_category_selection):
     global category_selection
