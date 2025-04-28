@@ -96,14 +96,14 @@ def get_config_path(config_file):
         config_path = user_dir
     config_path = os.path.abspath(f'{config_path}/{config_file}')
     return config_path
-
+'''
 try:
     with open(os.path.abspath(f'./presets/Favorite/Default.json'), "r", encoding="utf-8") as json_file:
         config_dict.update(json.load(json_file))
 except Exception as e:
     print(f'Loading Default preset failed.')
     print(e)
-
+'''
 config_dict.update(PR.get_initial_preset_content())
 theme = args_manager.args.theme
 
