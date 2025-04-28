@@ -124,9 +124,14 @@ def set_category_selection(arg_category_selection):
     category_selection = arg_category_selection
     if category_selection == 'Random':
         random_preset = get_random_preset()
-        return gr.update(choices=category_selection, value=random_preset)
-    return gr.update(choices=get_presetnames_in_folder(category_selection),\
-        value=category_selection[0])
+        category_selection == 'Favorite'
+        return gr.update(choices='', value=random_preset)
+    preset_choices = get_presetnames_in_folder(category_selection)
+    if current_preset in preset_choices:
+        preset_value = current_preset
+    else:
+        preset_value = preset_choices[0]
+    return gr.update(choices=preset_choices, value=preset_value)
 
 def preset_count():
     return len(get_preset_paths())   
