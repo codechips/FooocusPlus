@@ -112,10 +112,8 @@ def get_preset_foldernames():
             return preset_foldernames
     else:
         print(f'Could not find the {preset_folder} folder')
-        print()
-    print(f'preset_foldernames 1: {preset_foldernames}')        
+        print()    
     preset_foldernames.append('Random')
-    print(f'preset_foldernames 2: {preset_foldernames}')
     return preset_foldernames
 
 def set_category_selection(arg_category_selection):
@@ -123,10 +121,7 @@ def set_category_selection(arg_category_selection):
     if arg_category_selection == '':
         category_selection = 'Favorite'
     category_selection = arg_category_selection
-    print(f'arg_category_selection {arg_category_selection}')
-    print(f'category_selection {category_selection}')
-    return category_selection
+    return gr.update()
 
 def preset_count():
-    return len(get_preset_paths())
-    
+    return len(get_preset_paths())   
