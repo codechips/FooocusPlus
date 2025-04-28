@@ -1,6 +1,7 @@
 import os
 import json
 import random
+import gradio as gr
 import args_manager
 from ldm_patched.modules import model_management
 from pathlib import Path
