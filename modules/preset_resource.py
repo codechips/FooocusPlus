@@ -6,8 +6,7 @@ import args_manager
 from ldm_patched.modules import model_management
 from pathlib import Path
 
-category_selection = 'Favorite'
-current_preset = 'Default'
+current_preset = args_manager.args.preset
 
 def get_preset_paths():              # called by update_files() in modules.config
     preset_path = Path('.\presets')  # also used to check if preset files exist
@@ -78,6 +77,8 @@ def find_preset_folder(preset):
     preset_file = find_preset_file(preset)
     return os.path.dirname(preset_file)
 
+category_selection = find_preset_folder(current_preset)
+
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
     if preset_file:
@@ -93,12 +94,12 @@ def get_preset_content(preset):
     return {}
 
 def get_initial_preset_content():
+    global current_preset
     preset = args_manager.args.preset
     if (preset=='initial' or preset.lower()=='default')\
     and (int(model_management.get_vram())<6000)\
     and (find_preset_file('4GB_Default')):
         preset='4GB_Default'
-        args_manager.args.preset = preset
         print('Loading the "4GB_Default" preset, the default for low VRAM systems')
     if not find_preset_file(preset):
         if find_preset_file('Default'):
@@ -109,7 +110,10 @@ def get_initial_preset_content():
             if not preset:
                 print('Could not find any presets')
                 preset = 'initial'
-    json_content = get_preset_content(preset)
+    args_manager.args.preset = preset
+    current_preset = preset
+    if preset != 'initial':
+        json_content = get_preset_content(preset)
     return json_content
 
 def get_preset_foldernames():
