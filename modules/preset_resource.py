@@ -131,7 +131,7 @@ def set_category_selection(arg_category_selection):
         preset_value = current_preset
     else:
         preset_value = preset_choices[0]
-    return gr.update(category_selection), gr.update(choices=preset_choices, value=preset_value)
+    return [gr.update(category_selection), gr.update(choices=preset_choices], value=preset_value)
 
 def preset_count():
     return len(get_preset_paths())   
