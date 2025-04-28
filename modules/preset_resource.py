@@ -122,7 +122,7 @@ def set_category_selection(arg_category_selection):
     if arg_category_selection == '':
         category_selection = 'Favorite'
     category_selection = arg_category_selection
-    return gr.update()
+    return gr.update(value=category_selection)
 
 def preset_count():
     return len(get_preset_paths())   
