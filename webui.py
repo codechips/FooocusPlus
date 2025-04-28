@@ -210,7 +210,6 @@ with common.GRADIO_ROOT:
                         bar_buttons = []
                         for i in range(PR.preset_count()):
                             bar_buttons.append(gr.Button(value='Default' if i==0 else '', size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
-                        #bar_dropdown = gr.Dropdown(show_label=False, choices=['self','preset1','preset2','preset3'], value='self')
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -667,7 +666,7 @@ with common.GRADIO_ROOT:
                 if not args_manager.args.disable_preset_selection and PR.get_preset_paths():
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
-                            choices=PR.get_preset_foldernames(),
+                            choices=PR.get_preset_categories(),
                             value='Favorite', visible=True, interactive=True)
                         
                         preset_selection = gr.Dropdown(label='Presets',
