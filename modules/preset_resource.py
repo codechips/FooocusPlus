@@ -48,11 +48,17 @@ def get_presetnames_in_folder(folder_name):
         presetname = Path(random_preset)
         presetnames_in_folder = [presetname.stem]
     else:
+        if folder_name == 'All'
+            folder_name = '.\presets'
         presets_in_folder = get_presets_in_folder(folder_name)
-        for preset_file in presets_in_folder:
-            presetname = Path(preset_file)
-            presetnames_in_folder.append(presetname.stem)
-    return presetnames_in_folder
+        if presets_in_folder:
+            for preset_file in presets_in_folder:
+                presetname = Path(preset_file)
+                presetnames_in_folder.append(presetname.stem)
+            if folder_name == '.\presets': # if we are listing files in all folders
+                temp_set = set(presetnames_in_folder) # then remove duplicates
+                presetnames_in_folder = list(temp_set)
+    return presetnames_in_folder.sort()
 
 def get_all_presetnames():    
     return get_presetnames_in_folder('.\presets')
@@ -67,6 +73,10 @@ def find_preset_file(preset):
         print()
         return {}
     return preset_file
+
+def find_preset_folder(preset):
+    preset_file = find_preset_file(preset)
+    return os.path.dirname(preset_file)
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
@@ -113,9 +123,16 @@ def get_preset_foldernames():
             return preset_foldernames
     else:
         print(f'Could not find the {preset_folder} folder')
-        print()    
-    preset_foldernames.append('Random')
+        print()
     return preset_foldernames
+
+def get_preset_categories():
+    preset_categories = get_preset_foldernames()
+    if preset_categories:
+        preset_categories.append('All')    
+        preset_categories.append('Random')
+        preset_categories.sort()
+    return preset_categories
 
 def set_category_selection(arg_category_selection):
     global category_selection
@@ -123,16 +140,15 @@ def set_category_selection(arg_category_selection):
         category_selection = 'Favorite'
     category_selection = arg_category_selection
     if category_selection == 'Random':
-        random_preset = get_random_preset()
-        category_selection = 'Favorite'
+        preset_value = get_random_preset()
+        category_selection = find_preset_folder(preset_value)
         preset_choices = get_presetnames_in_folder(category_selection)
-        return gr.update(value=category_selection),\
-            gr.update(choices=preset_choices, value=random_preset)
-    preset_choices = get_presetnames_in_folder(category_selection)
-    if current_preset in preset_choices:
-        preset_value = current_preset
     else:
-        preset_value = preset_choices[0]
+        preset_choices = get_presetnames_in_folder(category_selection)
+        if current_preset in preset_choices:
+            preset_value = current_preset
+        else:
+            preset_value = preset_choices[0]
     return gr.update(value=category_selection),\
         gr.update(choices=preset_choices, value=preset_value)
 
