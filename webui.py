@@ -668,7 +668,7 @@ with common.GRADIO_ROOT:
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_foldernames(),
-                            value='Random', visible=True, interactive=True)
+                            value='Favorite', visible=True, interactive=True)
                         
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presetnames_in_folder(PR.category_selection),
@@ -680,10 +680,11 @@ with common.GRADIO_ROOT:
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
-                         choices=flags.Performance.values(),
-                         value=modules.config.default_performance,
-                         elem_classes=['performance_selection'])
-                    image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number, step=1, value=modules.config.default_image_number)
+                        choices=flags.Performance.values(),
+                        value=modules.config.default_performance,
+                        elem_classes=['performance_selection'])
+                    image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
+                        step=1, value=modules.config.default_image_number)
                     
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=False)
