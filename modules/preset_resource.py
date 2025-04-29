@@ -42,21 +42,21 @@ def get_presets_in_folder(arg_folder_name):
 
 def get_presetnames_in_folder(folder_name):
     presetnames_in_folder = []
-    if folder_name == 'Random':
-        random_preset = get_random_preset()
-        presetname = Path(random_preset)
-        presetnames_in_folder = [presetname.stem]
-    else:
-        if folder_name == 'All':
-            folder_name = '.\presets'
-        presets_in_folder = get_presets_in_folder(folder_name)
-        if presets_in_folder:
-            for preset_file in presets_in_folder:
-                presetname = Path(preset_file)
-                presetnames_in_folder.append(presetname.stem)
-            if folder_name == '.\presets': # if we are listing files in all folders
-                temp_set = set(presetnames_in_folder)  # then remove duplicates
-                presetnames_in_folder = sorted(temp_set) # now convert back to a list
+#    if folder_name == 'Random':
+#        random_preset = get_random_preset()
+#        presetname = Path(random_preset)
+#        presetnames_in_folder = [presetname.stem]
+#    else:
+    if folder_name == 'All':
+        folder_name = '.\presets'
+    presets_in_folder = get_presets_in_folder(folder_name)
+    if presets_in_folder:
+        for preset_file in presets_in_folder:
+            presetname = Path(preset_file)
+            presetnames_in_folder.append(presetname.stem)
+        if folder_name == '.\presets': # if we are listing files in all folders
+            temp_set = set(presetnames_in_folder)  # then remove duplicates
+            presetnames_in_folder = sorted(temp_set) # now convert back to a list
     return presetnames_in_folder
 
 def get_all_presetnames():
