@@ -66,11 +66,13 @@ def find_preset_file(preset):
     preset_json = f'{preset}.json'
     preset_file = ''
     preset_path = Path('.\presets')
+    print(f'preset_path {preset_path}')
     for preset_file in preset_path.rglob(preset_json):
       if not preset_file:
         print(f'Could not find the {preset} preset')
         print()
         return {}
+    print(f'preset_file {preset_file}')
     return preset_file
 
 def find_preset_folder(preset):
