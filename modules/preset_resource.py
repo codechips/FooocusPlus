@@ -75,7 +75,9 @@ def find_preset_file(preset):
 
 def find_preset_folder(preset):
     preset_file = find_preset_file(preset)
-    return os.path.dirname(preset_file)
+    preset_folder = os.path.dirname(preset_file)
+    print(f'preset_folder {preset_folder}')
+    return preset_folder
 
 category_selection = find_preset_folder(current_preset)
 print(f'Default category_selection {category_selection}')
