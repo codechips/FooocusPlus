@@ -446,5 +446,3 @@ def prompt_token_prediction(text, style_selections):
 
 nav_name_list = PR.get_all_presetnames()
 system_message = get_system_message()
-print()
-print(f'System Message: {system_message}')
