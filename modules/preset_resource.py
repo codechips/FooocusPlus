@@ -58,7 +58,7 @@ def get_presetnames_in_folder(folder_name):
                 temp_set = set(presetnames_in_folder)  # then remove duplicates
                 print()
                 print(f'temp_set {temp_set}')
-                presetnames_in_folder = list(temp_set) # now convert back to a list
+                presetnames_in_folder = sorted(temp_set) # now convert back to a list
                 print()
                 print(f'presetnames_in_folder {presetnames_in_folder}')
     return presetnames_in_folder.sort()
