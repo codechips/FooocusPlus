@@ -78,6 +78,7 @@ def find_preset_folder(preset):
     return os.path.dirname(preset_file)
 
 category_selection = find_preset_folder(current_preset)
+print(f'Default category_selection {category_selection}')
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
@@ -146,6 +147,8 @@ def set_category_selection(arg_category_selection):
     if category_selection == 'Random':
         preset_value = get_random_preset()
         category_selection = find_preset_folder(preset_value)
+        print()
+        print(f'Random category selection: {category_selection}')
         preset_choices = get_presetnames_in_folder(category_selection)
     else:
         preset_choices = get_presetnames_in_folder(category_selection)
