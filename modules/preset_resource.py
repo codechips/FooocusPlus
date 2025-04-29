@@ -61,7 +61,7 @@ def get_presetnames_in_folder(folder_name):
                 presetnames_in_folder = sorted(temp_set) # now convert back to a list
                 print()
                 print(f'presetnames_in_folder {presetnames_in_folder}')
-    return presetnames_in_folder.sort()
+    return presetnames_in_folder
 
 def get_all_presetnames():
     all_presetnames = get_presetnames_in_folder('.\presets')
