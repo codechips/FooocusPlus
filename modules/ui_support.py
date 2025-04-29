@@ -233,6 +233,7 @@ def get_preset_inc_url(preset_name='blank'):
 def refresh_nav_bars(state_params):
     state_params.update({"__nav_name_list": PR.get_all_presetnames()})
     preset_name_list = PR.get_all_presetnames()
+    print(f'preset_name_list {preset_name_list}')
 #    for i in range(PR.preset_count()):
 #        preset_name_list.append('')
     results = []
