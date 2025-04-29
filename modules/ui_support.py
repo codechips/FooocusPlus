@@ -24,7 +24,6 @@ import modules.util as util
 from args_manager import args
 from enhanced.backend import comfyd
 from enhanced.welcome import get_welcome_image
-from launch import download_models
 from modules.model_loader import load_file_from_url
 
 
@@ -40,20 +39,7 @@ else:
     config_ext.update({'fooocus_line': '# 2.1.852', 'simplesdxl_line': '# 2023-12-20'})
  
 
-def is_models_file_absent(preset_name):
-    preset_path = PR.find_preset_file(preset_name)
-    if os.path.exists(preset_path):
-        with open(preset_path, "r", encoding="utf-8") as json_file:
-            config_preset = json.load(json_file)
-        if config_preset["default_model"] and config_preset["default_model"] != 'None':
-            model_key = f'checkpoints/{config_preset["default_model"]}'
-            return not common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=config_preset["default_model"])
-        if config_preset["default_refiner"] and config_preset["default_refiner"] != 'None':
-           return not common.MODELS_INFO.exists_model(catalog="checkpoints", model_path=config_preset["default_refiner"])
-    return False
-
-
-def get_system_message():
+def get_():
     global config_ext
 
     fooocus_log = os.path.abspath(f'./fooocusplus_log.md')
@@ -110,9 +96,9 @@ function(system_params) {
 
     return system_params;
 }
+
+
 '''
-
-
 refresh_topbar_status_js = '''
 function(system_params) {
     const preset=system_params["__preset"];
@@ -217,8 +203,7 @@ def init_nav_bars(state_params, request: gr.Request):
     preset = 'default'
     preset_url = get_preset_inc_url(preset)
     state_params.update({"__preset_url":preset_url})
-    results += [gr.update(visible=True if 'blank.inc.html' not in preset_url else False)]
-    
+    results += [gr.update(visible=True if 'blank.inc.html' not in preset_url else False)]   
     return results
 
 def get_preset_inc_url(preset_name='blank'):
@@ -233,19 +218,13 @@ def get_preset_inc_url(preset_name='blank'):
 def refresh_nav_bars(state_params):
     state_params.update({"__nav_name_list": PR.get_all_presetnames()})
     preset_name_list = PR.get_all_presetnames()
-    print(f'preset_name_list {preset_name_list}')
-#    for i in range(PR.preset_count()):
-#        preset_name_list.append('')
     results = []
     if state_params["__is_mobile"]:
         results += [gr.update(visible=False)]
     else:
         results += [gr.update(visible=True)]
     for i in range(PR.preset_count()):
-        print(f'i {i}')
         name = preset_name_list[i]
-        print(f'name: {name}')
-#        name += '\u2B07' if is_models_file_absent(name) else ''
         visible_flag = PR.preset_count()
         if name:
             results += [gr.update(value=name, visible=visible_flag)]
@@ -366,6 +345,36 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     results += meta_parser.load_parameter_button_click(preset_prepared, is_generating, inpaint_mode)
 
     return results
+
+
+def download_models(default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads, vae_downloads):
+    if args.disable_preset_download:
+        print('Skipped model download.')
+        return default_model, checkpoint_downloads
+
+    if not args.always_download_new_model:
+        if not os.path.isfile(common.MODELS_INFO.get_file_path_by_name('checkpoints', default_model)):
+            for alternative_model_name in previous_default_models:
+                if os.path.isfile(common.MODELS_INFO.get_file_path_by_name('checkpoints', alternative_model_name)):
+                    print(f'You do not have [{default_model}] but you have [{alternative_model_name}].')
+                    print(f'Fooocus will use [{alternative_model_name}] to avoid downloading new models.')
+                    print('Use --always-download-new-model to avoid fallback and always get new models.')
+                    checkpoint_downloads = {}
+                    default_model = alternative_model_name
+                    break
+
+    for file_name, url in checkpoint_downloads.items():
+        model_dir = os.path.dirname(common.MODELS_INFO.get_file_path_by_name('checkpoints', file_name))
+        load_file_from_url(url=url, model_dir=model_dir, file_name=os.path.basename(file_name))
+    for file_name, url in embeddings_downloads.items():
+        load_file_from_url(url=url, model_dir=config.path_embeddings, file_name=file_name)
+    for file_name, url in lora_downloads.items():
+        model_dir = os.path.dirname(common.MODELS_INFO.get_file_path_by_name('loras', file_name))
+        load_file_from_url(url=url, model_dir=model_dir, file_name=os.path.basename(file_name))
+    for file_name, url in vae_downloads.items():
+        load_file_from_url(url=url, model_dir=config.path_vae, file_name=file_name)
+    return default_model, checkpoint_downloads
+
 
 from transformers import CLIPTokenizer
 import shutil
