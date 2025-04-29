@@ -241,10 +241,11 @@ def refresh_nav_bars(state_params):
     else:
         results += [gr.update(visible=True)]
     for i in range(PR.preset_count()):
+        print(f'i {i}')
         name = preset_name_list[i]
-        if name=='default': name='Default'
-        name += '\u2B07' if is_models_file_absent(name) else ''
-        visible_flag = i<(7 if state_params["__is_mobile"] else PR.preset_count())
+        print(f'name: {name}')
+#        name += '\u2B07' if is_models_file_absent(name) else ''
+        visible_flag = PR.preset_count())
         if name:
             results += [gr.update(value=name, visible=visible_flag)]
         else: 
