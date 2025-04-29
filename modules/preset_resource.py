@@ -63,8 +63,10 @@ def get_presetnames_in_folder(folder_name):
                 print(f'presetnames_in_folder {presetnames_in_folder}')
     return presetnames_in_folder.sort()
 
-def get_all_presetnames():    
-    return get_presetnames_in_folder('.\presets')
+def get_all_presetnames():
+    all_presetnames = get_presetnames_in_folder('.\presets')
+    print(f'all_presetnames {all_presetnames}')
+    return all_presetnames
 
 def find_preset_file(preset):
     preset_json = f'{preset}.json'
