@@ -245,7 +245,7 @@ def refresh_nav_bars(state_params):
         name = preset_name_list[i]
         print(f'name: {name}')
 #        name += '\u2B07' if is_models_file_absent(name) else ''
-        visible_flag = PR.preset_count())
+        visible_flag = PR.preset_count()
         if name:
             results += [gr.update(value=name, visible=visible_flag)]
         else: 
