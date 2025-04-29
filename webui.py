@@ -25,7 +25,6 @@ import modules.ui_support as UIS
 import modules.user_structure
 
 from extras.inpaint_mask import SAMOptions
-from launch import download_models
 from PIL import Image
 from modules.sdxl_styles import legal_style_names, fooocus_expansion
 from modules.private_logger import get_current_html_path
@@ -1199,7 +1198,7 @@ with common.GRADIO_ROOT:
                 lora_downloads = preset_prepared.get('lora_downloads', {})
                 vae_downloads = preset_prepared.get('vae_downloads', {})
 
-                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = download_models(
+                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = UIS.download_models(
                     default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads,
                     vae_downloads)
 
