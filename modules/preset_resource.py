@@ -56,17 +56,11 @@ def get_presetnames_in_folder(folder_name):
                 presetnames_in_folder.append(presetname.stem)
             if folder_name == '.\presets': # if we are listing files in all folders
                 temp_set = set(presetnames_in_folder)  # then remove duplicates
-                print()
-                print(f'temp_set {temp_set}')
                 presetnames_in_folder = sorted(temp_set) # now convert back to a list
-                print()
-                print(f'presetnames_in_folder {presetnames_in_folder}')
     return presetnames_in_folder
 
 def get_all_presetnames():
-    all_presetnames = get_presetnames_in_folder('.\presets')
-    print(f'all_presetnames {all_presetnames}')
-    return all_presetnames
+    return get_presetnames_in_folder('.\presets')
 
 def find_preset_file(preset):
     preset_json = f'{preset}.json'
