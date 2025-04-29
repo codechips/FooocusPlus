@@ -39,9 +39,8 @@ else:
     config_ext.update({'fooocus_line': '# 2.1.852', 'simplesdxl_line': '# 2023-12-20'})
  
 
-def get_():
+def get_system_message():
     global config_ext
-
     fooocus_log = os.path.abspath(f'./fooocusplus_log.md')
     update_msg_f = ''
     first_line_f = None
@@ -447,3 +446,5 @@ def prompt_token_prediction(text, style_selections):
 
 nav_name_list = PR.get_all_presetnames()
 system_message = get_system_message()
+print()
+print(f'System Message: {system_message}')
