@@ -23,6 +23,12 @@ def get_random_preset():
     print(f'Selected a random preset file: {presets[random_preset]}')
     return presets[random_preset]
 
+def get_random_preset_and_category():
+    random_preset = get_random_preset()
+    preset_path = Path(random_preset)
+    random_category = preset_path.parent
+    return random_category, random_preset
+
 def get_presets_in_folder(arg_folder_name):
     if not arg_folder_name:
         arg_folder_name = category_selection
@@ -55,7 +61,7 @@ def get_presetnames_in_folder(folder_name):
             presetname = Path(preset_file)
             presetnames_in_folder.append(presetname.stem)
         if folder_name == '.\presets': # if we are listing files in all folders
-            temp_set = set(presetnames_in_folder)  # then remove duplicates
+            temp_set = set(presetnames_in_folder)    # then remove duplicates
             presetnames_in_folder = sorted(temp_set) # now convert back to a list
     return presetnames_in_folder
 
@@ -64,7 +70,10 @@ def get_all_presetnames():
 
 def find_preset_file(preset):
     print(f'preset arg at find_preset_file(): {preset}')
-    preset_json = f'{preset}.json'
+    if preset.endswith('.json'):
+        preset_json = preset
+    else:
+        preset_json = f'{preset}.json'
     preset_file = ''
     preset_path = Path('.\presets')
     print(f'preset_path {preset_path}')
@@ -83,7 +92,25 @@ def find_preset_folder(preset):
     return preset_folder
 
 category_selection = find_preset_folder(current_preset)
-print(f'Default category_selection {category_selection}')
+
+def set_category_selection(arg_category_selection):
+    global category_selection
+    if arg_category_selection == '':
+        category_selection = 'Favorite'
+    category_selection = arg_category_selection
+    if category_selection == 'Random':
+        category_selection, preset_value = get_random_preset_and_category()
+        print()
+        print(f'Random category selection: {category_selection}')
+        preset_choices = get_presetnames_in_folder(category_selection)
+    else:
+        preset_choices = get_presetnames_in_folder(category_selection)
+        if current_preset in preset_choices:
+            preset_value = current_preset
+        else:
+            preset_value = preset_choices[0]
+    return gr.update(value=category_selection),\
+        gr.update(choices=preset_choices, value=preset_value)
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
@@ -91,16 +118,17 @@ def get_preset_content(preset):
         try:
           with open(preset_file, "r", encoding="utf-8") as json_file:
               json_content = json.load(json_file)
-              print(f'Loaded the {preset} preset from {preset_file}')
+              print(f'Loaded the {preset} preset content from {preset_file}')
               return json_content
         except Exception as e:
-            print(f'Could not load the {preset} preset from {preset_file}')
+            print(f'Could not load the {preset} preset content from {preset_file}')
             print(e)
         print()
     return {}
 
 def get_initial_preset_content():
-    global current_preset
+    global current_preset, category_selection
+    json_content = ''
     preset = args_manager.args.preset
     if (preset=='initial' or preset.lower()=='default')\
     and (int(model_management.get_vram())<6000)\
@@ -112,14 +140,17 @@ def get_initial_preset_content():
             preset = 'Default'
         else:
             print('Could not find the startup preset')
-            preset = get_random_preset()
+            category_selection = 'Random'
             if not preset:
                 print('Could not find any presets')
-                preset = 'initial'
-    args_manager.args.preset = preset
-    current_preset = preset
-    if preset != 'initial':
-        json_content = get_preset_content(preset)
+                current_preset = 'initial'
+    if category_selection != 'Random' and current_preset != 'initial':
+        args_manager.args.preset = preset
+        current_preset = preset
+        category_selection = find_preset_folder(preset)
+    if current_preset != 'initial':
+        set_category_selection(category_selection)
+        json_content = get_preset_content(current_preset)
     return json_content
 
 def get_preset_foldernames():
@@ -143,26 +174,6 @@ def get_preset_categories():
         preset_categories.append('Random')
         preset_categories.sort()
     return preset_categories
-
-def set_category_selection(arg_category_selection):
-    global category_selection
-    if arg_category_selection == '':
-        category_selection = 'Favorite'
-    category_selection = arg_category_selection
-    if category_selection == 'Random':
-        preset_value = get_random_preset()
-        category_selection = find_preset_folder(preset_value)
-        print()
-        print(f'Random category selection: {category_selection}')
-        preset_choices = get_presetnames_in_folder(category_selection)
-    else:
-        preset_choices = get_presetnames_in_folder(category_selection)
-        if current_preset in preset_choices:
-            preset_value = current_preset
-        else:
-            preset_value = preset_choices[0]
-    return gr.update(value=category_selection),\
-        gr.update(choices=preset_choices, value=preset_value)
 
 def preset_count():
     return len(get_preset_paths())   
