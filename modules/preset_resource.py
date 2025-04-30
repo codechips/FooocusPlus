@@ -63,6 +63,7 @@ def get_all_presetnames():
     return get_presetnames_in_folder('.\presets')
 
 def find_preset_file(preset):
+    print(f'preset arg at find_preset_file(): {preset}')
     preset_json = f'{preset}.json'
     preset_file = ''
     preset_path = Path('.\presets')
