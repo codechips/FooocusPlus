@@ -47,12 +47,13 @@ def get_random_preset_and_category():
     random_index = random.randint(0, (len(presets)-1))
     random_preset = presets[random_index]
     file_path = os.path.abspath(random_preset)
+    random_category = os.path.basename(os.path.dirname(file_path))
     file_path = Path(file_path)
-    random_category = file_path.parent
+#    random_category = file_path.parent
     random_preset = file_path.stem
     print()
     print(f'Selected the {random_preset} preset at random')
-    print(f'The {random_preset} is in the {random_category} category')
+    print(f'This random preset is in the {random_category} category')
     return random_category, random_preset
 
 def get_presets_in_folder(arg_folder_name):
