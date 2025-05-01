@@ -42,19 +42,16 @@ def get_preset_paths():              # called by update_files() in modules.confi
         return presets
     return presets
 
-def get_random_preset():
+def get_random_preset_and_category():
     presets = get_preset_paths()
     random_preset = random.randint(0, (len(presets)-1))
-    print()
-    print(f'Selected a random preset file: {presets[random_preset]}')
-    return presets[random_preset]
-
-def get_random_preset_and_category():
-    random_preset = get_random_preset()
-#    random_category = os.path.dirname(random_preset)
-    file_path = Path(random_preset)
+    file_path = os.path.abspath(random_preset)
+    file_path = Path(file_path)
     random_category = file_path.parent
-    print(f'Random category selection: {random_category}')
+    random_preset = file_path.stem
+    print()
+    print(f'Selected the {random_preset} preset at random')
+    print(f'The {random_preset} is in the {random_category} category')
     return random_category, random_preset
 
 def get_presets_in_folder(arg_folder_name):
@@ -79,11 +76,6 @@ def get_presets_in_folder(arg_folder_name):
 
 def get_presetnames_in_folder(folder_name):
     presetnames_in_folder = []
-#    if folder_name == 'Random':
-#        random_preset = get_random_preset()
-#        presetname = Path(random_preset)
-#        presetnames_in_folder = [presetname.stem]
-#    else:
     if folder_name == 'All':
         folder_name = '.\presets'
     presets_in_folder = get_presets_in_folder(folder_name)
