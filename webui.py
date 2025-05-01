@@ -208,7 +208,7 @@ with common.GRADIO_ROOT:
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
                         for i in range(PR.preset_count()):
-                            bar_buttons.append(gr.Button(value='Default' if i==0 else '', size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                            bar_buttons.append(gr.Button(value='', size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -301,7 +301,9 @@ with common.GRADIO_ROOT:
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                 prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
-                advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')            
+                advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check') 
+                preset_textbox = gr.Textbox(label='Preset', value=PR.current_preset, interactive=False, visible=True)
+
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
                 prompt_info_button = gr.Button(value='View Info', size='sm', visible=True)
@@ -674,7 +676,7 @@ with common.GRADIO_ROOT:
                             visible=True, interactive=True)
 
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
-                            outputs=[category_selection, preset_selection], show_progress=False, queue=False)
+                            outputs=[category_selection, preset_selection, preset_textbox], show_progress=False, queue=False)
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
