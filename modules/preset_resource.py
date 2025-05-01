@@ -51,7 +51,10 @@ def get_random_preset():
 
 def get_random_preset_and_category():
     random_preset = get_random_preset()
-    random_category = os.path.dirname(random_preset)
+#    random_category = os.path.dirname(random_preset)
+    file_path = Path(random_preset)
+    random_category = file_path.parent
+    print(f'Random category selection: {random_category}')
     return random_category, random_preset
 
 def get_presets_in_folder(arg_folder_name):
@@ -103,8 +106,6 @@ def set_category_selection(arg_category_selection):
     category_selection = arg_category_selection
     if category_selection == 'Random':
         category_selection, preset_value = get_random_preset_and_category()
-        print()
-        print(f'Random category selection: {category_selection}')
         preset_choices = get_presetnames_in_folder(category_selection)
     else:
         preset_choices = get_presetnames_in_folder(category_selection)
