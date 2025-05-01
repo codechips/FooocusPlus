@@ -10,7 +10,7 @@ current_preset = args_manager.args.preset
 
 def find_preset_file(preset):
     print(f'preset arg at find_preset_file(): {preset}')
-    if os.path.splitext(filename)[1] == 'json':
+    if os.path.splitext(preset)[1] == 'json':
         preset_json = preset
     else:
         preset_json = f'{preset}.json'
