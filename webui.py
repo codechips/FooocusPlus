@@ -1212,8 +1212,9 @@ with common.GRADIO_ROOT:
                     preset_prepared.update({'negative_prompt': common.NEGATIVE})
                     negative_prompt = common.NEGATIVE
                 
-                return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating, inpaint_mode),\
-                    gr.update(value=preset_value)
+                return gr.update(value=PR.current_preset),\
+                    modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating, inpaint_mode)
+
 
         def inpaint_engine_state_change(inpaint_engine_version, *args):
             if inpaint_engine_version == 'empty':
@@ -1228,7 +1229,7 @@ with common.GRADIO_ROOT:
 
         
         preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating, inpaint_mode],\
-                    outputs=[load_data_outputs, preset_textbox], queue=False, show_progress=True) \
+                    outputs=[preset_textbox, load_data_outputs], queue=False, show_progress=True) \
                 .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
                 .then(lambda: None, _js='()=>{refresh_style_localization();}') \
                 .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
