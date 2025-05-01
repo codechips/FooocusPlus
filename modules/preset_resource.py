@@ -35,7 +35,7 @@ def get_presets_in_folder(arg_folder_name):
     if arg_folder_name == '.\presets':
         arg_folder_name = ''
     presets_in_folder = []
-    if 'presets' in arg_folder_name:
+    if 'presets' in (str(arg_folder_name)).lower:
         folder_name = Path(arg_folder_name)
     else:
         folder_name = Path(f'.\presets\{arg_folder_name}')
