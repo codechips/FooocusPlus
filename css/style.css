@@ -386,11 +386,9 @@ div:has(> #positive_prompt) {
 .contain .tabs .tabitem.style_selections_tab {
   height: 100%;
 }
-
 .contain .tabs .tabitem.style_selections_tab > div:first-child {
   height: 100%;
 }
-
 .contain .tabs .tabitem.style_selections_tab .style_selections {
   min-height: 200px;
   height: 100%;
@@ -415,7 +413,6 @@ div:has(> #positive_prompt) {
   /* max-width: calc(35% - 15px) !important; /* 添加此选项以启用3列布局 */
   flex: calc(50% - 5px) !important;
 }
-
 .contain .tabs .tabitem.style_selections_tab .style_selections .wrap[data-testid="checkbox-group"] label span {
   /* white-space:nowrap; */ /* 添加此功能以禁用文本换行 (3列布局的更好选择) */
   overflow: hidden;
@@ -434,7 +431,6 @@ div:has(> #positive_prompt) {
 #inpaint_canvas .canvas-tooltip-info {
   top: 2px;
 }
-
 #inpaint_brush_color input[type=color]{
   background: none;
 }
@@ -450,7 +446,6 @@ div:has(> #positive_prompt) {
     user-select: none;
     -webkit-user-select: none;
 }
-
 .systemMsgBox {
     position: absolute;
     left: 24px;
@@ -461,7 +456,6 @@ div:has(> #positive_prompt) {
 .systemMsgBox::-webkit-scrollbar {
     border: 1px !important;
 }
-
 .systemMsgClose {
     position: absolute;
     top: 0px;
@@ -473,13 +467,25 @@ iframe::-webkit-scrollbar {
 }
 
 .preset_bar {
-    display: none !important;
+/* display: none !important; */
+    text-align: center;
+    padding: 0px;
 }
 .bar_title {
-    display: none !important;
+/* display: none !important; */
+    min-width: 50px !important;
+    position: absolute;
+    left: 8px;
+    top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .bar_button {
-    display: none !important;
+/* display: none !important; */
+    max-width: 90px !important;  
+    padding-bottom: 5px !important;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #presetPreviewOverlay {
@@ -499,7 +505,6 @@ iframe::-webkit-scrollbar {
     z-index: 100;
     transition: transform 0.1s ease, opacity 0.3s ease;
 }
-
 .preset-tooltip {
   background-color: #fff8;
   font-family: monospace;
@@ -522,11 +527,9 @@ div.block.tokenCounter {
   background-color: var(--secondary-400);
   border-radius: var(--radius-md);
 }
-
 div.block.tokenCounter div.wrap.center.full {
   display: none !important;
 }
-
 div.prose.tokenCounter {
   min-height: auto;
 }
@@ -563,7 +566,6 @@ div.prose.tokenCounter {
 #scrollable-box::-webkit-scrollbar-track {
     background-color: transparent;
 }
-
 #scrollable-box-hidden {
   max-height: 100vh;  /* 设定最大高度 */
   overflow-y: auto;   /* 启用垂直滚动条 */
