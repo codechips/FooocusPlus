@@ -106,6 +106,24 @@ def set_category_selection(arg_category_selection):
         gr.update(choices=preset_choices, value=preset_value),\
         gr.update(value=preset_value)
 
+def set_preset_selection(arg_category_selection):
+    global category_selection
+    if arg_category_selection == '':
+        category_selection = 'Favorite'
+    category_selection = arg_category_selection
+    if category_selection == 'Random':
+        category_selection, preset_value = get_random_preset_and_category()
+        preset_choices = get_presetnames_in_folder(category_selection)
+    else:
+        preset_choices = get_presetnames_in_folder(category_selection)
+        if current_preset in preset_choices:
+            preset_value = current_preset
+        else:
+            preset_value = preset_choices[0]
+    return gr.update(value=category_selection),\
+        gr.update(choices=preset_choices, value=preset_value),\
+        gr.update(value=preset_value)
+
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
     if preset_file:
@@ -175,3 +193,44 @@ def preset_count():
 def favorite_count():
     preset_favorites = get_presets_in_folder('Favorite')
     return len(preset_favorites)
+
+
+if not args_manager.args.disable_preset_selection:
+    def preset_selection_change(preset, is_generating, inpaint_mode):
+        print()
+        if PR.current_preset == preset:
+            print(f'Continuing with the {preset} preset...')
+        else:
+            print(f'Changed the preset from {PR.current_preset} to {preset}')
+            PR.current_preset = preset    # updated the current preset tracker
+        preset_content = PR.get_preset_content(preset) if preset != 'initial' else {}
+        preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
+
+        default_model = preset_prepared.get('base_model')
+        previous_default_models = preset_prepared.get('previous_default_models', [])
+        checkpoint_downloads = preset_prepared.get('checkpoint_downloads', {})
+        embeddings_downloads = preset_prepared.get('embeddings_downloads', {})
+        lora_downloads = preset_prepared.get('lora_downloads', {})
+        vae_downloads = preset_prepared.get('vae_downloads', {})
+
+        preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = UIS.download_models(
+            default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads,
+            vae_downloads)
+
+        if 'prompt' in preset_prepared and preset_prepared.get('prompt') == '':
+            preset_prepared.update({'prompt': common.POSITIVE})
+            prompt = common.POSITIVE
+
+        if 'negative_prompt' in preset_prepared and preset_prepared.get('negative_prompt') == '':
+            preset_prepared.update({'negative_prompt': common.NEGATIVE})
+            negative_prompt = common.NEGATIVE
+        
+        return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating, inpaint_mode)
+
+
+preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating, inpaint_mode],\
+            outputs=[preset_textbox, load_data_outputs], queue=False, show_progress=True) \
+        .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
+        .then(lambda: None, _js='()=>{refresh_style_localization();}') \
+        .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
+            outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
