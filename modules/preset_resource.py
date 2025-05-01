@@ -103,7 +103,8 @@ def set_category_selection(arg_category_selection):
         else:
             preset_value = preset_choices[0]
     return gr.update(value=category_selection),\
-        gr.update(choices=preset_choices, value=preset_value)
+        gr.update(choices=preset_choices, value=preset_value),\
+        gr.update(value=preset_value)
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
