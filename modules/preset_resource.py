@@ -45,12 +45,13 @@ def get_preset_paths():              # called by update_files() in modules.confi
 def get_random_preset():
     presets = get_preset_paths()
     random_preset = random.randint(0, (len(presets)-1))
+    print()
     print(f'Selected a random preset file: {presets[random_preset]}')
     return presets[random_preset]
 
 def get_random_preset_and_category():
     random_preset = get_random_preset()
-    random_category = find_preset_folder(random_preset)
+    random_category = os.path.dirname(random_preset)
     return random_category, random_preset
 
 def get_presets_in_folder(arg_folder_name):
