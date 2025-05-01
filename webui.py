@@ -208,7 +208,7 @@ with common.GRADIO_ROOT:
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
                         for i in range(PR.preset_count()):
-                            bar_buttons.append(gr.Button(value='', size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                            bar_buttons.append(gr.Button(value=PR.get_all_presetnames[i], size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -666,17 +666,20 @@ with common.GRADIO_ROOT:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
                 if not args_manager.args.disable_preset_selection and PR.get_preset_paths():
                     with gr.Group():
-                        category_selection = gr.Dropdown(label='Preset Categories',
+                        category_dropdown = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_categories(),
                             value='Favorite', visible=True, interactive=True)
                         
-                        preset_selection = gr.Dropdown(label='Presets',
+                        preset_dropdown = gr.Dropdown(label='Presets',
                             choices=PR.get_presetnames_in_folder(PR.category_selection),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
 
-                        category_selection.change(PR.set_category_selection, inputs=category_selection,
-                            outputs=[category_selection, preset_selection, preset_textbox], show_progress=False, queue=False)
+                        category_dropdown.change(PR.set_category_selection, inputs=category_dropdown,
+                            outputs=[category_dropdown, preset_dropdown, preset_textbox], show_progress=False, queue=False)
+
+                        preset_dropdown.change(PR.set_preset_selection, inputs= preset_dropdown,
+                            outputs=[preset_dropdown, preset_dropdown, preset_textbox], show_progress=False, queue=False)
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
@@ -1183,14 +1186,8 @@ with common.GRADIO_ROOT:
                  load_parameter_button] + freeu_ctrls + lora_ctrls
 
         if not args_manager.args.disable_preset_selection:
-            def preset_selection_change(preset, is_generating, inpaint_mode):
-                print()
-                if PR.current_preset == preset:
-                    print(f'Continuing with the {preset} preset...')
-                else:
-                    print(f'Changed the preset from {PR.current_preset} to {preset}')
-                    PR.current_preset = preset    # updated the current preset tracker
-                preset_content = PR.get_preset_content(preset) if preset != 'initial' else {}
+            def _change(preset, is_generating, inpaint_mode):
+                preset_content = modules.config.try_get_preset_content(preset) if preset != 'initial' else {}
                 preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
 
                 default_model = preset_prepared.get('base_model')
@@ -1200,20 +1197,14 @@ with common.GRADIO_ROOT:
                 lora_downloads = preset_prepared.get('lora_downloads', {})
                 vae_downloads = preset_prepared.get('vae_downloads', {})
 
-                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = UIS.download_models(
+                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = topbar.download_models(
                     default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads,
                     vae_downloads)
 
                 if 'prompt' in preset_prepared and preset_prepared.get('prompt') == '':
-                    preset_prepared.update({'prompt': common.POSITIVE})
-                    prompt = common.POSITIVE
+                    del preset_prepared['prompt']
 
-                if 'negative_prompt' in preset_prepared and preset_prepared.get('negative_prompt') == '':
-                    preset_prepared.update({'negative_prompt': common.NEGATIVE})
-                    negative_prompt = common.NEGATIVE
-                
-                return gr.update(value=PR.current_preset),\
-                    modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating, inpaint_mode)
+                return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating, inpaint_mode)
 
 
         def inpaint_engine_state_change(inpaint_engine_version, *args):
@@ -1226,14 +1217,6 @@ with common.GRADIO_ROOT:
                 else:
                     result.append(gr.update())
             return result
-
-        
-        preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating, inpaint_mode],\
-                    outputs=[preset_textbox, load_data_outputs], queue=False, show_progress=True) \
-                .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False, show_progress=False) \
-                .then(lambda: None, _js='()=>{refresh_style_localization();}') \
-                .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
-                    outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
         performance_selection.change(lambda x: [gr.update(interactive=not flags.Performance.has_restricted_features(x))] * 11 +
                                                [gr.update(visible=not flags.Performance.has_restricted_features(x))] * 1 +
