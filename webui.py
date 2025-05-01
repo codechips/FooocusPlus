@@ -207,9 +207,9 @@ with common.GRADIO_ROOT:
                         
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
-#                        presetnames = PR.get_all_presetnames()
+                        presetnames = PR.get_all_presetnames()
                         for i in range(PR.preset_count()):
-                            bar_buttons.append(gr.Button(value=(PR.get_all_presetnames)[i], size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                            bar_buttons.append(gr.Button(value=presetnames[i], size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
