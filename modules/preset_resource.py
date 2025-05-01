@@ -10,7 +10,7 @@ current_preset = args_manager.args.preset
 
 def find_preset_file(preset):
     print(f'preset arg at find_preset_file(): {preset}')
-    if preset.endswith('.json'):
+    if str(preset).endswith('.json'):
         preset_json = preset
     else:
         preset_json = f'{preset}.json'
