@@ -8,6 +8,31 @@ from pathlib import Path
 
 current_preset = args_manager.args.preset
 
+def find_preset_file(preset):
+    print(f'preset arg at find_preset_file(): {preset}')
+    if preset.endswith('.json'):
+        preset_json = preset
+    else:
+        preset_json = f'{preset}.json'
+    preset_file = ''
+    preset_path = Path('.\presets')
+    print(f'preset_path {preset_path}')
+    for preset_file in preset_path.rglob(preset_json):
+      if not preset_file:
+        print(f'Could not find the {preset} preset')
+        print()
+        return {}
+    print(f'preset_file {preset_file}')
+    return preset_file
+
+def find_preset_folder(preset):
+    preset_file = find_preset_file(preset)
+    preset_folder = os.path.dirname(preset_file)
+    print(f'preset_folder {preset_folder}')
+    return preset_folder
+
+category_selection = find_preset_folder(current_preset)
+
 def get_preset_paths():              # called by update_files() in modules.config
     preset_path = Path('.\presets')  # also used to check if preset files exist
     presets = list(preset_path.rglob('*.json'))
@@ -25,8 +50,7 @@ def get_random_preset():
 
 def get_random_preset_and_category():
     random_preset = get_random_preset()
-    preset_path = Path(random_preset)
-    random_category = preset_path.parent
+    random_category = find_preset_folder(random_preset)
     return random_category, random_preset
 
 def get_presets_in_folder(arg_folder_name):
@@ -70,31 +94,6 @@ def get_presetnames_in_folder(folder_name):
 
 def get_all_presetnames():
     return get_presetnames_in_folder('.\presets')
-
-def find_preset_file(preset):
-    print(f'preset arg at find_preset_file(): {preset}')
-    if preset.endswith('.json'):
-        preset_json = preset
-    else:
-        preset_json = f'{preset}.json'
-    preset_file = ''
-    preset_path = Path('.\presets')
-    print(f'preset_path {preset_path}')
-    for preset_file in preset_path.rglob(preset_json):
-      if not preset_file:
-        print(f'Could not find the {preset} preset')
-        print()
-        return {}
-    print(f'preset_file {preset_file}')
-    return preset_file
-
-def find_preset_folder(preset):
-    preset_file = find_preset_file(preset)
-    preset_folder = os.path.dirname(preset_file)
-    print(f'preset_folder {preset_folder}')
-    return preset_folder
-
-category_selection = find_preset_folder(current_preset)
 
 def set_category_selection(arg_category_selection):
     global category_selection
