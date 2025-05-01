@@ -35,7 +35,10 @@ def get_presets_in_folder(arg_folder_name):
     if arg_folder_name == '.\presets':
         arg_folder_name = ''
     presets_in_folder = []
-    folder_name = Path(f'.\presets\{arg_folder_name}') 
+    if 'presets\' in arg_folder_name.lower():
+        folder_name = Path(arg_folder_name)
+    else:
+        folder_name = Path(f'.\presets\{arg_folder_name}')
     if os.path.exists(folder_name):
         presets_in_folder = list(folder_name.rglob('*.json'))
         if not presets_in_folder:
