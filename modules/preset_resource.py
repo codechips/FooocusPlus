@@ -194,7 +194,7 @@ def favorite_count():
     preset_favorites = get_presets_in_folder('Favorite')
     return len(preset_favorites)
 
-
+'''
 if not args_manager.args.disable_preset_selection:
     def preset_selection_change(preset, is_generating, inpaint_mode):
         print()
@@ -234,3 +234,4 @@ preset_selection.change(preset_selection_change, inputs=[preset_selection, state
         .then(lambda: None, _js='()=>{refresh_style_localization();}') \
         .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
             outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
+'''
