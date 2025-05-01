@@ -44,7 +44,8 @@ def get_preset_paths():              # called by update_files() in modules.confi
 
 def get_random_preset_and_category():
     presets = get_preset_paths()
-    random_preset = random.randint(0, (len(presets)-1))
+    random_index = random.randint(0, (len(presets)-1))
+    random_preset = presets[random_index]
     file_path = os.path.abspath(random_preset)
     file_path = Path(file_path)
     random_category = file_path.parent
