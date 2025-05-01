@@ -9,26 +9,22 @@ from pathlib import Path
 current_preset = args_manager.args.preset
 
 def find_preset_file(preset):
-    print(f'preset arg at find_preset_file(): {preset}')
     if os.path.splitext(preset)[1] == 'json':
         preset_json = preset
     else:
         preset_json = f'{preset}.json'
     preset_file = ''
     preset_path = Path('.\presets')
-    print(f'preset_path {preset_path}')
     for preset_file in preset_path.rglob(preset_json):
       if not preset_file:
         print(f'Could not find the {preset} preset')
         print()
         return {}
-    print(f'preset_file {preset_file}')
     return preset_file
 
 def find_preset_folder(preset):
     preset_file = find_preset_file(preset)
     preset_folder = os.path.dirname(preset_file)
-    print(f'preset_folder {preset_folder}')
     return preset_folder
 
 category_selection = find_preset_folder(current_preset)
@@ -45,16 +41,14 @@ def get_preset_paths():              # called by update_files() in modules.confi
 def get_random_preset_and_category():
     presets = get_preset_paths()
     random_index = random.randint(0, (len(presets)-1))
-    random_preset = presets[random_index]
-    file_path = os.path.abspath(random_preset)
+    file_path = presets[random_index]
+#    file_path = os.path.abspath(file_path)
     random_category = os.path.basename(os.path.dirname(file_path))
     file_path = Path(file_path)
-    test_random_category = file_path.parent
-    print(f'test_random_category {test_random_category}')
     random_preset = file_path.stem
     print()
     print(f'Selected the {random_preset} preset at random')
-    print(f'This random preset is in the {random_category} category')
+    print(f'{random_preset} is in the {random_category} category')
     return random_category, random_preset
 
 def get_presets_in_folder(arg_folder_name):
@@ -63,7 +57,7 @@ def get_presets_in_folder(arg_folder_name):
     if arg_folder_name == '.\presets':
         arg_folder_name = ''
     presets_in_folder = []
-    if os.path.basename(os.path.dirname(arg_folder_name)) == 'presets': #in str(arg_folder_name)
+    if os.path.basename(os.path.dirname(arg_folder_name)) == 'presets':
         folder_name = Path(arg_folder_name)
     else:
         folder_name = Path(f'.\presets\{arg_folder_name}')
@@ -175,4 +169,8 @@ def get_preset_categories():
     return preset_categories
 
 def preset_count():
-    return len(get_preset_paths())   
+    return len(get_preset_paths())
+
+def favorite_count():
+    preset_favorites = get_presets_in_folder('Favorite')
+    return len(preset_favorites)
