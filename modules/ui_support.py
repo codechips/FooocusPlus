@@ -97,7 +97,6 @@ function(system_params) {
 }
 
 
-'''
 refresh_topbar_status_js = '''
 function(system_params) {
     const preset=system_params["__preset"];
@@ -144,16 +143,8 @@ function(system_params) {
     if (lang!=null) {
         set_language(lang);
     }
-    if (lang=="cn") {
-        _js=initPresetPreviewOverlay(lang);
-        let preset_url = system_params["__preset_url"];
-        if (preset_url!=null) {
-            set_iframe_src(theme,lang,preset_url);
-        }
-    }
     return {}
 }
-'''
 
 
 def init_nav_bars(state_params, request: gr.Request):
