@@ -92,10 +92,9 @@ function(system_params) {
         system_params["__theme"]=theme;
     }
     setObserver();
-
     return system_params;
 }
-
+'''
 
 refresh_topbar_status_js = '''
 function(system_params) {
@@ -145,7 +144,7 @@ function(system_params) {
     }
     return {}
 }
-
+'''
 
 def init_nav_bars(state_params, request: gr.Request):
 #   print(f'request.headers:{request.headers}')
@@ -268,8 +267,7 @@ def process_after_generation(state_params):
     if len(state_params["__output_list"]) > 0:
         output_index = state_params["__output_list"][0].split('/')[0]
         gallery_util.refresh_images_catalog(output_index, True)
-        gallery_util.parse_html_log(output_index, True)
-    
+        gallery_util.parse_html_log(output_index, True)  
     return results
 
 
