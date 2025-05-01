@@ -10,7 +10,7 @@ current_preset = args_manager.args.preset
 
 def find_preset_file(preset):
     print(f'preset arg at find_preset_file(): {preset}')
-    if str(preset).endswith('.json'):
+    if os.path.splitext(filename)[1] == 'json':
         preset_json = preset
     else:
         preset_json = f'{preset}.json'
@@ -49,7 +49,8 @@ def get_random_preset_and_category():
     file_path = os.path.abspath(random_preset)
     random_category = os.path.basename(os.path.dirname(file_path))
     file_path = Path(file_path)
-#    random_category = file_path.parent
+    test_random_category = file_path.parent
+    print(f'test_random_category {test_random_category}')
     random_preset = file_path.stem
     print()
     print(f'Selected the {random_preset} preset at random')
@@ -62,7 +63,7 @@ def get_presets_in_folder(arg_folder_name):
     if arg_folder_name == '.\presets':
         arg_folder_name = ''
     presets_in_folder = []
-    if 'presets' in str(arg_folder_name):
+    if os.path.basename(os.path.dirname(arg_folder_name)) == 'presets': #in str(arg_folder_name)
         folder_name = Path(arg_folder_name)
     else:
         folder_name = Path(f'.\presets\{arg_folder_name}')
