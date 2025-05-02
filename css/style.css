@@ -471,10 +471,11 @@ iframe::-webkit-scrollbar {
     padding: 0px;
 }
 .bar_title {
-    overflow: hidden;
-    position: absolute;
     left: 8px;
     top: 2px;
+    max-width: 100px !important;
+    overflow: hidden;
+    position: absolute;
     white-space: nowrap;
     width: 100px !important;
 }
