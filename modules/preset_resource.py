@@ -42,7 +42,6 @@ def get_random_preset_and_category():
     presets = get_preset_paths()
     random_index = random.randint(0, (len(presets)-1))
     file_path = presets[random_index]
-#    file_path = os.path.abspath(file_path)
     random_category = os.path.basename(os.path.dirname(file_path))
     file_path = Path(file_path)
     random_preset = file_path.stem
@@ -106,23 +105,20 @@ def set_category_selection(arg_category_selection):
         gr.update(choices=preset_choices, value=preset_value),\
         gr.update(value=preset_value)
 
-def set_preset_selection(arg_category_selection):
-    global category_selection
-    if arg_category_selection == '':
-        category_selection = 'Favorite'
-    category_selection = arg_category_selection
-    if category_selection == 'Random':
-        category_selection, preset_value = get_random_preset_and_category()
-        preset_choices = get_presetnames_in_folder(category_selection)
+def set_preset_selection(arg_preset_selection):
+    global current_preset
+    print()
+    if arg_preset_selection == '':
+        if current_preset == '':
+            current_preset = args_manager.args.preset
+        print(f'Using the {current_preset} preset...')
+    elif current_preset == arg_preset_selection:
+        print(f'Continuing with the {current_preset} preset...')
     else:
-        preset_choices = get_presetnames_in_folder(category_selection)
-        if current_preset in preset_choices:
-            preset_value = current_preset
-        else:
-            preset_value = preset_choices[0]
-    return gr.update(value=category_selection),\
-        gr.update(choices=preset_choices, value=preset_value),\
-        gr.update(value=preset_value)
+        print(f'Changed the preset from {current_preset} to {arg_preset_selection}')
+        current_preset = arg_preset_selection  # updated the current preset tracker
+    return gr.update(value=current_preset),\
+        gr.update(value=current_preset)
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
