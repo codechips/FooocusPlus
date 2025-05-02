@@ -208,7 +208,7 @@ with common.GRADIO_ROOT:
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
                         presetnames = PR.get_presetnames_in_folder('Favorite')
-                        for i in range(PR.preset_count()):
+                        for i in range(PR.favorite_count()):
                             bar_buttons.append(gr.Button(value=presetnames[i], size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
                 
                 with gr.Row():
@@ -1468,7 +1468,7 @@ with common.GRADIO_ROOT:
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
-    for i in range(PR.preset_count()):
+    for i in range(PR.favorite_count()):
         bar_buttons[i].click(UIS.check_absent_model, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar]) \
                .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
                .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
