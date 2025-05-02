@@ -120,8 +120,9 @@ def set_preset_selection(arg_preset_selection):
     preset_names = get_all_presetnames()
     preset_index = preset_names.index(current_preset)
     return gr.update(value=current_preset),\
-        gr.update(value = preset_names[preset_index]),\
+        gr.update(value=current_preset),\
         gr.update(value=current_preset)
+    #gr.update(value = preset_names[preset_index]),\
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
