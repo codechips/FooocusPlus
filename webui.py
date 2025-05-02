@@ -679,7 +679,7 @@ with common.GRADIO_ROOT:
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
                             outputs=[category_selection, preset_selection, preset_textbox], show_progress=False, queue=False)
 
-                        preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar] \
+                        preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
                             outputs=[preset_selection, preset_textbox, state_topbar], show_progress=False, queue=False) \
                                .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
                                .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
