@@ -972,7 +972,8 @@ with common.GRADIO_ROOT:
                                             info='Use "Fooocus" to regenerate images and "A1111" for Civitai',
                                             visible=True)
 
-                            save_metadata_to_images.change(lambda x: [gr.update(visible=x)], inputs=[save_metadata_to_images], outputs=[metadata_scheme], queue=False, show_progress=False)
+                            save_metadata_to_images.change(lambda x: [gr.update(visible=x)], inputs=[save_metadata_to_images],\
+                                outputs=[metadata_scheme], queue=False, show_progress=False)
 
                     with gr.Tab(label='Control'):
                         debugging_cn_preprocessor = gr.Checkbox(label='Debug Preprocessors', value=False,
@@ -1120,7 +1121,9 @@ with common.GRADIO_ROOT:
                     Torch {torch_ver}{cuda_ver}, Xformers {xformers_ver}<br>\
                     FooocusPlus {version.get_fooocusplus_ver()}<br><br>')
 
-            iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]), gr.update(value=module.config.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)], inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
+            iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]),\
+                    gr.update(value=module.config.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)],\
+                    inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
             layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
             def toggle_image_tab(tab, styles):
                 result = []
@@ -1267,9 +1270,9 @@ with common.GRADIO_ROOT:
             ], show_progress=False, queue=False)
 
         for mode, disable_initial_latent, engine, strength, respective_field in enhance_inpaint_update_ctrls:
-            common.GRADIO_ROOT.load(enhance_inpaint_mode_change, inputs=[mode, inpaint_engine_state], outputs=[
-                disable_initial_latent, engine, strength, respective_field
-            ], show_progress=False, queue=False)
+            common.GRADIO_ROOT.load(enhance_inpaint_mode_change, inputs=[mode, inpaint_engine_state],\
+                outputs=[disable_initial_latent, engine, strength, respective_field],\
+                show_progress=False, queue=False)
 
         generate_mask_button.click(fn=generate_mask,
                inputs=[inpaint_input_image, inpaint_mask_model, inpaint_mask_cloth_category,
@@ -1351,8 +1354,11 @@ with common.GRADIO_ROOT:
                 print('Could not find metadata in the image!')
             return toolbox.reset_params_by_image_meta(parameters, state_params, state_is_generating, inpaint_mode)
 
-        reset_preset_layout = [params_backend, performance_selection, scheduler_name, sampler_name, input_image_checkbox, enhance_checkbox, base_model, refiner_model, overwrite_step, guidance_scale, negative_prompt, preset_instruction] + lora_ctrls
-        reset_preset_func = [output_format, inpaint_advanced_masking_checkbox, mixing_image_prompt_and_vary_upscale, mixing_image_prompt_and_inpaint, backfill_prompt, translation_methods, input_image_checkbox, state_topbar]
+        reset_preset_layout = [params_backend, performance_selection, scheduler_name, sampler_name,\
+            input_image_checkbox, enhance_checkbox, base_model, refiner_model, overwrite_step,\
+            guidance_scale, negative_prompt, preset_instruction] + lora_ctrls
+        reset_preset_func = [output_format, inpaint_advanced_masking_checkbox, mixing_image_prompt_and_vary_upscale,\
+            mixing_image_prompt_and_inpaint, backfill_prompt, translation_methods, input_image_checkbox, state_topbar]
 
         metadata_import_button.click(trigger_metadata_import, inputs=[metadata_input_image, state_is_generating, state_topbar],\
             outputs=reset_preset_layout + reset_preset_func + load_data_outputs, queue=False, show_progress=True) \
@@ -1369,7 +1375,8 @@ with common.GRADIO_ROOT:
             .then(fn=get_task, inputs=ctrls, outputs=currentTask) \
             .then(fn=enhanced_parameters.set_all_enhanced_parameters, inputs=ehps) \
             .then(fn=generate_clicked, inputs=currentTask, outputs=[progress_html, progress_window, progress_gallery, gallery]) \
-            .then(UIS.process_after_generation, inputs=state_topbar, outputs=[generate_button, stop_button, skip_button, state_is_generating, gallery_index, index_radio] + protections, show_progress=False) \
+            .then(UIS.process_after_generation, inputs=state_topbar, outputs=[generate_button, stop_button, skip_button,\
+                state_is_generating, gallery_index, index_radio] + protections, show_progress=False) \
             .then(fn=update_history_link, outputs=history_link) \
             .then(lambda x: x['__finished_nums_pages'], inputs=state_topbar, outputs=gallery_index_stat, queue=False, show_progress=False) \
             .then(lambda x: None, inputs=gallery_index_stat, queue=False, show_progress=False, _js='(x)=>{refresh_finished_images_catalog_label(x);}') \
