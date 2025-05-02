@@ -107,17 +107,20 @@ def set_category_selection(arg_category_selection):
 
 def set_preset_selection(arg_preset_selection):
     global current_preset
-    print()
     if arg_preset_selection == '':
         if current_preset == '':
             current_preset = args_manager.args.preset
         print(f'Using the {current_preset} preset...')
     elif current_preset == arg_preset_selection:
+        print()
         print(f'Continuing with the {current_preset} preset...')
     else:
         print(f'Changed the preset from {current_preset} to {arg_preset_selection}')
         current_preset = arg_preset_selection  # updated the current preset tracker
+    preset_names = get_all_presetnames()
+    preset_index = preset_names.index(current_preset)
     return gr.update(value=current_preset),\
+        gr.update(value = preset_index),\
         gr.update(value=current_preset)
 
 def get_preset_content(preset):
