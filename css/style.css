@@ -471,19 +471,18 @@ iframe::-webkit-scrollbar {
     padding: 0px;
 }
 .bar_title {
-    max-width: 50px !important;
-    min-width: 50px !important;
+    overflow: hidden;
     position: absolute;
     left: 8px;
     top: 2px;
     white-space: nowrap;
-    overflow: hidden;
+    width: 100px !important;
 }
 .bar_button {
     max-width: 90px !important;
+    overflow: hidden;
     padding-bottom: 5px !important;
     white-space: nowrap;
-    overflow: hidden;
 }
 
 #presetPreviewOverlay {
