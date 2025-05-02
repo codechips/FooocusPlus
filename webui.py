@@ -667,20 +667,20 @@ with common.GRADIO_ROOT:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
                 if not args_manager.args.disable_preset_selection and PR.get_preset_paths():
                     with gr.Group():
-                        category_dropdown = gr.Dropdown(label='Preset Categories',
+                        category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_categories(),
                             value='Favorite', visible=True, interactive=True)
                         
-                        preset_dropdown = gr.Dropdown(label='Presets',
+                        preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presetnames_in_folder(PR.category_selection),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
                             visible=True, interactive=True)
 
-                        category_dropdown.change(PR.set_category_selection, inputs=category_dropdown,
-                            outputs=[category_dropdown, preset_dropdown, preset_textbox], show_progress=False, queue=False)
+                        category_selection.change(PR.set_category_selection, inputs=category_selection,
+                            outputs=[category_selection, preset_selection, preset_textbox], show_progress=False, queue=False)
 
-                        preset_dropdown.change(PR.set_preset_selection, inputs= preset_dropdown,
-                            outputs=[preset_dropdown, preset_dropdown, preset_textbox], show_progress=False, queue=False)
+                        preset_selection.change(PR.set_preset_selection, inputs= preset_selection,
+                            outputs=[preset_selection, preset_textbox], show_progress=False, queue=False)
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
