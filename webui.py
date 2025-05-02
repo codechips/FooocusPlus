@@ -207,10 +207,10 @@ with common.GRADIO_ROOT:
                         
                         bar_title = gr.Markdown('<b>Presets:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
-                        presetnames = PR.get_all_presetnames()
+                        presetnames = PR.get_presetnames_in_folder('Favorite')
                         for i in range(PR.preset_count()):
                             bar_buttons.append(gr.Button(value=presetnames[i], size='sm', visible=False, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
-
+                
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
                                             elem_classes=['main_view'], value="masters/master_welcome_images/welcome.png")
@@ -679,8 +679,13 @@ with common.GRADIO_ROOT:
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
                             outputs=[category_selection, preset_selection, preset_textbox], show_progress=False, queue=False)
 
-                        preset_selection.change(PR.set_preset_selection, inputs= preset_selection,
-                            outputs=[preset_selection, bar_buttons, preset_textbox], show_progress=False, queue=False)
+                        preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar] \
+                            outputs=[preset_selection, preset_textbox, state_topbar], show_progress=False, queue=False) \
+                               .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
+                               .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
+                               .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
+                               .then(lambda: None, _js='()=>{refresh_style_localization();}') \
+                               .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls, outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
@@ -1470,7 +1475,6 @@ with common.GRADIO_ROOT:
                .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
                .then(lambda: None, _js='()=>{refresh_style_localization();}') \
                .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls, outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
-
 
     common.GRADIO_ROOT.load(fn=lambda x: x, inputs=system_params, outputs=state_topbar, _js=UIS.get_system_params_js, queue=False, show_progress=False) \
               .then(UIS.init_nav_bars, inputs=state_topbar, outputs=nav_bars + [progress_window, language_ui, background_theme, gallery_index, index_radio, inpaint_advanced_masking_checkbox, preset_instruction], show_progress=False) \
