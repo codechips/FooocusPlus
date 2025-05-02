@@ -119,7 +119,7 @@ def set_preset_selection(arg_preset_selection, state_params):
         current_preset = arg_preset_selection  # updated the current preset tracker
     state_params.update({'bar_button': current_preset})    
     return gr.update(value=current_preset),\
-        gr.update(value=state_params)\
+        gr.update(value=state_params),\
         gr.update(value=current_preset)
     #gr.update(value = preset_names[preset_index]),
 
