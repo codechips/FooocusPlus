@@ -207,9 +207,9 @@ with common.GRADIO_ROOT:
                         
                         bar_title = gr.Markdown('<b>Favorites:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
-                        presetnames = PR.get_presetnames_in_folder('Favorite')
+                        preset_favs = PR.get_presetnames_in_folder('Favorite')
                         for i in range(PR.favorite_count()):
-                            bar_buttons.append(gr.Button(value=presetnames[i], size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                            bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
                 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -303,7 +303,7 @@ with common.GRADIO_ROOT:
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                 prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check') 
-                preset_textbox = gr.Textbox(label='Preset', value=PR.current_preset,  container=False, interactive=False, visible=True)
+                preset_button = gr.Button(label='Preset', value=PR.current_preset, container=False, interactive=False, visible=True)
 
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
@@ -677,7 +677,7 @@ with common.GRADIO_ROOT:
                             visible=True, interactive=True)
 
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
-                            outputs=[category_selection, preset_selection, preset_textbox], show_progress=False, queue=False)
+                            outputs=[category_selection, preset_selection, preset_button], show_progress=False, queue=False)
 
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
@@ -1124,6 +1124,7 @@ with common.GRADIO_ROOT:
             iclight_enable.change(lambda x: [gr.update(interactive=x, value='' if not x else comfy_task.iclight_source_names[0]),\
                     gr.update(value=module.config.add_ratio('1024*1024') if not x else modules.config.default_aspect_ratio)],\
                     inputs=iclight_enable, outputs=[iclight_source_radio, aspect_ratios_selections[0]], queue=False, show_progress=False)
+            
             layout_image_tab = [performance_selection, style_selections, freeu_enabled, refiner_model, refiner_switch] + lora_ctrls
             def toggle_image_tab(tab, styles):
                 result = []
@@ -1476,7 +1477,7 @@ with common.GRADIO_ROOT:
                .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls, outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
         preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
-            outputs=[preset_selection, preset_textbox, state_topbar], show_progress=False, queue=False) \
+            outputs=[preset_selection, state_topbar, preset_button], show_progress=False, queue=False) \
                .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
                .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
                .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
