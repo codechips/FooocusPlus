@@ -467,12 +467,11 @@ iframe::-webkit-scrollbar {
 }
 
 .preset_bar {
-/* display: none !important; */
     text-align: center;
     padding: 0px;
 }
 .bar_title {
-/* display: none !important; */
+    max-width: 50px !important;
     min-width: 50px !important;
     position: absolute;
     left: 8px;
@@ -481,8 +480,7 @@ iframe::-webkit-scrollbar {
     overflow: hidden;
 }
 .bar_button {
-/* display: none !important; */
-    max-width: 90px !important;  
+    max-width: 90px !important;
     padding-bottom: 5px !important;
     white-space: nowrap;
     overflow: hidden;
