@@ -295,7 +295,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
         return [gr.update()] * (35 + PR.preset_count()) + [state_params] + [gr.update()] * 55
     if '\u2B07' in state_params["bar_button"]:
         gr.Info(preset_down_note_info)
-    preset = state_params["bar_button"] if '\u2B07' not in state_params["bar_button"] else state_params["bar_button"].replace('\u2B07', '')
+    preset = state_params["bar_button"] #if '\u2B07' not in state_params["bar_button"] else state_params["bar_button"].replace('\u2B07', '')
     print(f'[UI_Support] Reset_context: preset={state_params["__preset"]}-->{preset}, theme={state_params["__theme"]}, lang={state_params["__lang"]}')
     state_params.update({"__preset": preset})
     #state_params.update({"__prompt": prompt})
@@ -375,7 +375,6 @@ tokenizer = CLIPTokenizer.from_pretrained(cur_clip_path)
  
 def remove_tokenizer():
     global tokenizer
-
     if 'tokenizer' in globals():
         del tokenizer
     return
