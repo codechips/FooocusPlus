@@ -303,7 +303,8 @@ with common.GRADIO_ROOT:
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                 prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check') 
-                preset_button = gr.Button(label='Preset', value=PR.current_preset, container=False, interactive=False, visible=True)
+                with gr.Col():
+                    preset_radio = gr.Radio(label=f'Current Preset: {PR.current_preset}', choices='', value='', container=False, visible=True)
 
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
@@ -677,7 +678,7 @@ with common.GRADIO_ROOT:
                             visible=True, interactive=True)
 
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
-                            outputs=[category_selection, preset_selection, preset_button], show_progress=False, queue=False)
+                            outputs=[category_selection, preset_selection, preset_radio], show_progress=False, queue=False)
 
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
@@ -1477,7 +1478,7 @@ with common.GRADIO_ROOT:
                .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls, outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
         preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
-            outputs=[preset_selection, state_topbar, preset_button], show_progress=False, queue=False) \
+            outputs=[preset_selection, state_topbar, preset_radio], show_progress=False, queue=False) \
                .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
                .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
                .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
