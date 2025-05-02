@@ -117,13 +117,11 @@ def set_preset_selection(arg_preset_selection, state_params):
     else:
         print(f'Changed the preset from {current_preset} to {arg_preset_selection}')
         current_preset = arg_preset_selection  # updated the current preset tracker
-#    preset_names = get_all_presetnames()
-#    preset_index = preset_names.index(current_preset)
     state_params.update({'bar_button': current_preset})    
     return gr.update(value=current_preset),\
-        gr.update(value=current_preset),\
-        gr.update(value=state_params)
-    #gr.update(value = preset_names[preset_index]),\
+        gr.update(value=state_params)\
+        gr.update(value=current_preset)
+    #gr.update(value = preset_names[preset_index]),
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
