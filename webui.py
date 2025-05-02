@@ -680,7 +680,7 @@ with common.GRADIO_ROOT:
                             outputs=[category_selection, preset_selection, preset_textbox], show_progress=False, queue=False)
 
                         preset_selection.change(PR.set_preset_selection, inputs= preset_selection,
-                            outputs=[preset_selection, preset_textbox], show_progress=False, queue=False)
+                            outputs=[preset_selection, bar_buttons, preset_textbox], show_progress=False, queue=False)
                         
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
