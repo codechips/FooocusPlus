@@ -104,6 +104,7 @@ div:has(> #positive_prompt) {
 
 .align_right{
   text-align: right !important;
+  margin-right: 10px !important;
 }
 
 .advanced_check_row{
