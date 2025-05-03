@@ -276,16 +276,10 @@ def sync_message(state_params):
     return state_params
 
 preset_down_note_info = 'Loading model files...'
-def bar_button_change(bar_button, state_params):
-    #print(f'check_absent_model,state_params:{state_params}')
-    state_params.update({'bar_button': bar_button})
-    refresh_topbar_status_js
-    return state_params
 
 def down_absent_model(state_params):
     state_params.update({'bar_button': state_params["bar_button"].replace('\u2B07', '')})
     return gr.update(visible=False), state_params
-
 
 def reset_layout_params(prompt, negative_prompt, state_params, is_generating, inpaint_mode, comfyd_active_checkbox):
     global system_message, preset_down_note_info
