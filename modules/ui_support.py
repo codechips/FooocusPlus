@@ -190,29 +190,29 @@ def init_nav_bars(state_params, request: gr.Request):
     results += [gr.update(choices=state_params["__output_list"], value=None), gr.update(visible=len(state_params["__output_list"])>0, open=False)]
     results += [gr.update(value=False if state_params["__is_mobile"] else config.default_inpaint_advanced_masking_checkbox)]
     preset = PR.current_preset
-#    preset_url = get_preset_inc_url(preset)
-#   state_params.update({"__preset_url":preset_url})
-#    results += [gr.update(visible=True if 'blank.inc.html' not in preset_url else False)]   
+    preset_url = get_preset_inc_url(preset)
+    state_params.update({"__preset_url":preset_url})
+    results += [gr.update(visible=True if 'blank.inc.html' not in preset_url else False)]   
     return results
 
-#def get_preset_inc_url(preset_name='blank'):
-#    preset_name = f'{preset_name}.inc'
-#    preset_inc_path = os.path.abspath(f'./presets/html/{preset_name}.html')
-#    blank_inc_path = os.path.abspath(f'./presets/html/blank.inc.html')
-#    if os.path.exists(preset_inc_path):
-#        return f'{args_manager.args.webroot}/file={preset_inc_path}'
-#    else:
-#        return f'{args_manager.args.webroot}/file={blank_inc_path}'
+def get_preset_inc_url(preset_name='blank'):
+    preset_name = f'{preset_name}.inc'
+    preset_inc_path = os.path.abspath(f'./presets/html/{preset_name}.html')
+    blank_inc_path = os.path.abspath(f'./presets/html/blank.inc.html')
+    if os.path.exists(preset_inc_path):
+        return f'{args_manager.args.webroot}/file={preset_inc_path}'
+    else:
+        return f'{args_manager.args.webroot}/file={blank_inc_path}'
 
 def refresh_nav_bars(state_params):
     state_params.update({"__nav_name_list": PR.get_all_presetnames()})
-    preset_name_list = PR.get_all_presetnames()
+    preset_name_list = PR.get_presets_in_folder('Favorite')
     results = []
     if state_params["__is_mobile"]:
         results += [gr.update(visible=False)]
     else:
         results += [gr.update(visible=True)]
-    for i in range(PR.preset_count()):
+    for i in range(PR.favorite_count()):
         name = preset_name_list[i]
         visible_flag = PR.preset_count()
         if name:
@@ -325,8 +325,8 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
 
     download_models(default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads, vae_downloads)
 
-#    preset_url = preset_prepared.get('reference', get_preset_inc_url(preset))
-#    state_params.update({"__preset_url":preset_url})
+    preset_url = preset_prepared.get('reference', get_preset_inc_url(preset))
+    state_params.update({"__preset_url":preset_url})
 
     results = refresh_nav_bars(state_params)
     results += meta_parser.switch_layout_template(preset_prepared, state_params, preset_url)
