@@ -473,11 +473,11 @@ iframe::-webkit-scrollbar {
 .bar_title {
     left: 8px;
     top: 2px;
-    max-width: 100px !important;
+    max-width: 90px !important;
     overflow: hidden;
     position: absolute;
     white-space: nowrap;
-    width: 100px !important;
+    width: 90px !important;
 }
 .bar_button {
     max-width: 90px !important;
