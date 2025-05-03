@@ -650,13 +650,18 @@ with common.GRADIO_ROOT:
                             with gr.Column():
                                 with gr.Group():
                                     iclight_enable = gr.Checkbox(label='Enable IC-Light', value=True)
-                                    iclight_source_radio = gr.Radio(show_label=False, choices=comfy_task.iclight_source_names, value=comfy_task.iclight_source_names[0], elem_classes='iclight_source', elem_id='iclight_source')
-                                gr.HTML('* The module derived from <a href="https://github.com/lllyasviel/IC-Light" target="_blank">IC-Light</a> <a href="https://github.com/layerdiffusion/LayerDiffuse" target="_blank">LayerDiffuse</a>')
+                                    iclight_source_radio = gr.Radio(show_label=False, choices=comfy_task.iclight_source_names,\
+                                        value=comfy_task.iclight_source_names[0], elem_classes='iclight_source', elem_id='iclight_source')
+                                gr.HTML('* The module derived from <a href="https://github.com/lllyasviel/IC-Light" target="_blank">IC-Light</a>\
+                                    <a href="https://github.com/layerdiffusion/LayerDiffuse" target="_blank">LayerDiffuse</a>')
                         with gr.Row():
-                            example_quick_subjects = gr.Dataset(samples=comfy_task.quick_subjects, label='Subject Quick List', samples_per_page=1000, components=[prompt])
+                            example_quick_subjects = gr.Dataset(samples=comfy_task.quick_subjects, label='Subject Quick List',\
+                                samples_per_page=1000, components=[prompt])
                         with gr.Row():
-                            example_quick_prompts = gr.Dataset(samples=comfy_task.quick_prompts, label='Lighting Quick List', samples_per_page=1000, components=[prompt])
-                    example_quick_prompts.click(lambda x, y: ', '.join(y.split(', ')[:2] + [x[0]]), inputs=[example_quick_prompts, prompt], outputs=prompt, show_progress=False, queue=False)
+                            example_quick_prompts = gr.Dataset(samples=comfy_task.quick_prompts, label='Lighting Quick List',\
+                                samples_per_page=1000, components=[prompt])
+                    example_quick_prompts.click(lambda x, y: ', '.join(y.split(', ')[:2] + [x[0]]), inputs=[example_quick_prompts, prompt],\
+                        outputs=prompt, show_progress=False, queue=False)
                     example_quick_subjects.click(lambda x: x[0], inputs=example_quick_subjects, outputs=prompt, show_progress=False, queue=False)
 
             switch_js = "(x) => {if(x){viewer_to_bottom(100);viewer_to_bottom(500);}else{viewer_to_top();} return x;}"
@@ -1509,7 +1514,7 @@ with common.GRADIO_ROOT:
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
     for i in range(PR.favorite_count()):
-        bar_buttons[i].click(UIS.check_absent_model, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar]) \
+        bar_buttons[i].click(UIS.bar_button_change, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar]) \
                .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
                .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
                .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
