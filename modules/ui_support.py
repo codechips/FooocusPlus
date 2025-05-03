@@ -118,11 +118,11 @@ function(system_params) {
                 }
             } else {
                 if (theme == 'light') {
-                    nav_item.style.color = 'var(--neutral-800)';
-                    nav_item.style.background= 'var(--secondary-200)';
+                    nav_item.style.color = 'var(--secondary-700)';
+                    nav_item.style.background= 'var(--neutral-300)';
                 } else {
                     nav_item.style.color = 'white';
-                    nav_item.style.background= 'var(--secondary-400)';
+                    nav_item.style.background= 'var(--secondary-600)';
                 }
             }
         }
@@ -205,7 +205,7 @@ def get_preset_inc_url(preset_name='blank'):
         return f'{args_manager.args.webroot}/file={blank_inc_path}'
 
 def refresh_nav_bars(state_params):
-    state_params.update({"__nav_name_list": PR.get_all_presetnames()})
+    state_params.update({"__nav_name_list": PR.get_presetnames_in_folder('Favorite')})
     preset_name_list = PR.get_presetnames_in_folder('Favorite')
     results = []
     if state_params["__is_mobile"]:
@@ -301,7 +301,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     state_params.update({"__preset": preset})
     #state_params.update({"__prompt": prompt})
     #state_params.update({"__negative_prompt": negative_prompt})
-
+    PR.current_preset = preset
     config_preset = PR.get_preset_content(preset)
     preset_prepared = meta_parser.parse_meta_from_preset(config_preset)
     #print(f'preset_prepared:{preset_prepared}')
