@@ -102,6 +102,10 @@ div:has(> #positive_prompt) {
   overflow: hidden;
 }
 
+.align_right{
+  text-align: right !important;
+}
+
 .advanced_check_row{
   width: 400px !important;
 }
