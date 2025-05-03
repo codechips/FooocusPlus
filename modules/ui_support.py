@@ -276,9 +276,10 @@ def sync_message(state_params):
     return state_params
 
 preset_down_note_info = 'Loading model files...'
-def check_absent_model(bar_button, state_params):
+def bar_button_change(bar_button, state_params):
     #print(f'check_absent_model,state_params:{state_params}')
     state_params.update({'bar_button': bar_button})
+    refresh_topbar_status_js
     return state_params
 
 def down_absent_model(state_params):
