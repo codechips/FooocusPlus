@@ -102,11 +102,6 @@ div:has(> #positive_prompt) {
   overflow: hidden;
 }
 
-.align_right{
-  text-align: right !important;
-  margin-right: 10px !important;
-}
-
 .advanced_check_row{
   width: 400px !important;
 }
@@ -489,6 +484,13 @@ iframe::-webkit-scrollbar {
     overflow: hidden;
     padding-bottom: 5px !important;
     white-space: nowrap;
+}
+
+.preset_info{
+  color: blue;
+  font-size: 1.5em;
+  margin-right: 10px !important;
+  text-align: right !important;
 }
 
 #presetPreviewOverlay {
