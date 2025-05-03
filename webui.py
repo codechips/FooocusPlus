@@ -301,7 +301,7 @@ with common.GRADIO_ROOT:
             
             with gr.Row():
                 with gr.Column():
-                    with gr.Row(elem_classes='advanced_check_col'):
+                    with gr.Row(elem_classes='advanced_check_row'):
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check') 
