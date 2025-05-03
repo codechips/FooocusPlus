@@ -300,15 +300,14 @@ with common.GRADIO_ROOT:
                     wildcards_array_hold = [gr.update()] * 4
             
             with gr.Row():
-                with gr.Column(elem_classes='advanced_check_col'):
-                    with gr.Row():
+                with gr.Column():
+                    with gr.Row(elem_classes='advanced_check_col'):
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check') 
 
-
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
-                preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True)
+#                preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True)
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
                 prompt_info_button = gr.Button(value='View Info', size='sm', visible=True)
                 prompt_regen_button = gr.Button(value='Regenerate', size='sm', visible=True)
@@ -1077,8 +1076,10 @@ with common.GRADIO_ROOT:
                     # you could switch to Chinese but you could not switch to English. Language support
                     # is currently determined by the --language command line argument. If language
                     # selection is later restored to the UI it needs to be more universal.
-                    language_ui = gr.Radio(visible=False, label='Language of UI', choices=['En', '中文'], value=modules.flags.language_radio(args_manager.args.language), interactive=False)
-                    background_theme = gr.Radio(label='Background Theme', choices=['light', 'dark'], value=args_manager.args.theme, interactive=True)
+                    language_ui = gr.Radio(visible=False, label='Language of UI', choices=['En', '中文'],\
+                        value=modules.flags.language_radio(args_manager.args.language), interactive=False)
+                    background_theme = gr.Radio(label='Background Theme', choices=['light', 'dark'],\
+                        value=args_manager.args.theme, interactive=True)
                     prompt_preset_button = gr.Button(value='Make New Preset')
                     gr.Markdown(value='All current parameters will be saved. Clear the positive and negative prompts unless you want them to be part of the preset.')
                 with gr.Group():
@@ -1089,15 +1090,22 @@ with common.GRADIO_ROOT:
                     backfill_prompt = gr.Checkbox(label='Copy Prompts While Switching Images', value=modules.config.default_backfill_prompt,\
                         interactive=True, info='Fill the positive and and negative prompts from the gallery images.')
                     if (args_manager.args.language=='cn'):
-                        translation_methods = gr.Radio(visible=True, label='Translation Methods', choices=modules.flags.translation_methods, value=modules.config.default_translation_methods, info='\'Model\' requires more GPU/CPU and \'APIs\' rely on third parties.')
+                        translation_methods = gr.Radio(visible=True, label='Translation Methods',\
+                            choices=modules.flags.translation_methods, value=modules.config.default_translation_methods,\
+                            info='\'Model\' requires more GPU/CPU and \'APIs\' rely on third parties.')
                     else:
-                        translation_methods = gr.Radio(visible=False, label='Translation Methods', choices=modules.flags.translation_methods, value=modules.config.default_translation_methods, info='\'Model\' requires more GPU/CPU and \'APIs\' rely on third parties.')                    
-                    mobile_url = gr.Checkbox(label=f'http://{args_manager.args.listen}:{args_manager.args.port}{args_manager.args.webroot}/', value=True, info='Mobile phone access address within the LAN. If you want WAN access, consulting QQ group: 938075852.', interactive=False, visible=False)
+                        translation_methods = gr.Radio(visible=False, label='Translation Methods',\
+                            choices=modules.flags.translation_methods, value=modules.config.default_translation_methods,\
+                            info='\'Model\' requires more GPU/CPU and \'APIs\' rely on third parties.')                    
+                    mobile_url = gr.Checkbox(label=f'http://{args_manager.args.listen}:{args_manager.args.port}{args_manager.args.webroot}/',\
+                        value=True, info='Mobile phone access address within the LAN. If you want WAN access, consulting QQ group: 938075852.',\
+                        interactive=False, visible=False)
                     
                     def sync_params_backend(key, v, params):
                         params.update({key:v})
                         return params
-                    translation_methods.change(lambda x,y: sync_params_backend('translation_methods',x,y), inputs=[translation_methods, params_backend], outputs=params_backend)
+                    translation_methods.change(lambda x,y: sync_params_backend('translation_methods',x,y),\
+                        inputs=[translation_methods, params_backend], outputs=params_backend)
 
                 # custom plugin "OneButtonPrompt"
                 import custom.OneButtonPrompt.ui_onebutton as ui_onebutton
@@ -1140,11 +1148,21 @@ with common.GRADIO_ROOT:
                     result += [gr.update(interactive=True)] * 18
                 return result
             
-            uov_tab.select(lambda: 'uov', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            enhance_tab.select(lambda: 'enhance', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
-            layer_tab.select(lambda: 'layer', outputs=current_tab, queue=False, _js=down_js, show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections], outputs=layout_image_tab, show_progress=False, queue=False)
+            uov_tab.select(lambda: 'uov', outputs=current_tab, queue=False, _js=down_js,\
+                show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections],\
+                outputs=layout_image_tab, show_progress=False, queue=False)
+            ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js,\
+                show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections],\
+                outputs=layout_image_tab, show_progress=False, queue=False)
+            inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js,\
+                show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections],\
+                outputs=layout_image_tab, show_progress=False, queue=False)
+            enhance_tab.select(lambda: 'enhance', outputs=current_tab, queue=False, _js=down_js,\
+                show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections],\
+                outputs=layout_image_tab, show_progress=False, queue=False)
+            layer_tab.select(lambda: 'layer', outputs=current_tab, queue=False, _js=down_js,\
+                show_progress=False).then(toggle_image_tab,inputs=[current_tab, style_selections],\
+                outputs=layout_image_tab, show_progress=False, queue=False)
             
             input_image_checkbox.change(lambda x: [gr.update(visible=x), gr.update(choices=flags.Performance.list()), 
                 gr.update()] + [gr.update(interactive=True)]*18, inputs=input_image_checkbox,
@@ -1161,23 +1179,41 @@ with common.GRADIO_ROOT:
               return
             auto_describe_checkbox.change(lambda x: toggle_auto_describe(), inputs=auto_describe_checkbox)
             
-            prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True), inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False, _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards']) if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar], outputs=wildcards_array, queue=False, show_progress=False)
-            image_tools_checkbox.change(lambda x,y: gr.update(visible=x) if "gallery_state" in y and y["gallery_state"] == 'finished_index' else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar], outputs=image_toolbox, queue=False, show_progress=False)
-            comfyd_active_checkbox.change(lambda x: comfyd.active(x), inputs=comfyd_active_checkbox, queue=False, show_progress=False)
+            prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True),\
+                inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False,\
+                _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards'])\
+                if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar],\
+                outputs=wildcards_array, queue=False, show_progress=False)
+            image_tools_checkbox.change(lambda x,y: gr.update(visible=x)\
+                if "gallery_state" in y and y["gallery_state"] == 'finished_index'\
+                else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar],\
+                outputs=image_toolbox, queue=False, show_progress=False)
+            comfyd_active_checkbox.change(lambda x: comfyd.active(x), inputs=comfyd_active_checkbox,\
+                queue=False, show_progress=False)
             import enhanced.superprompter
-            super_prompter.click(lambda x, y, z: enhanced.superprompter.answer(input_text=translator.convert(f'{y}{x}', z), seed=image_seed), inputs=[prompt, super_prompter_prompt, translation_methods], outputs=prompt, queue=False, show_progress=True)
+            super_prompter.click(lambda x, y, z: enhanced.superprompter.answer(input_text=translator.convert(f'{y}{x}', z),\
+                seed=image_seed), inputs=[prompt, super_prompter_prompt, translation_methods], outputs=prompt,\
+                queue=False, show_progress=True)
             ehps = [backfill_prompt, translation_methods, comfyd_active_checkbox]
             
             def update_state_topbar(name, value, state):
                 state.update({name: value})
                 return state
 
-           # language_ui.select(lambda x,y: update_state_topbar('__lang',x,y), inputs=[language_ui, state_topbar], outputs=state_topbar).then(None, inputs=language_ui, _js="(x) => set_language_by_ui(x)")
-            background_theme.select(lambda x,y: update_state_topbar('__theme',x,y), inputs=[background_theme, state_topbar], outputs=state_topbar).then(None, inputs=background_theme, _js="(x) => set_theme_by_ui(x)")
+           # language_ui.select(lambda x,y: update_state_topbar('__lang',x,y), inputs=[language_ui, state_topbar],\
+           #     outputs=state_topbar).then(None, inputs=language_ui, _js="(x) => set_language_by_ui(x)")
+            background_theme.select(lambda x,y: update_state_topbar('__theme',x,y), inputs=[background_theme, state_topbar],\
+                outputs=state_topbar).then(None, inputs=background_theme, _js="(x) => set_theme_by_ui(x)")
 
-            gallery_index.select(gallery_util.select_index, inputs=[gallery_index, image_tools_checkbox, state_topbar], outputs=[gallery, image_toolbox, progress_window, progress_gallery, prompt_info_box, params_note_box, params_note_info, params_note_input_name, params_note_regen_button, params_note_preset_button, state_topbar], show_progress=False)
-            gallery.select(gallery_util.select_gallery, inputs=[gallery_index, state_topbar, backfill_prompt], outputs=[prompt_info_box, prompt, negative_prompt, params_note_info, params_note_input_name, params_note_regen_button, params_note_preset_button, state_topbar], show_progress=False)
-            progress_gallery.select(gallery_util.select_gallery_progress, inputs=state_topbar, outputs=[prompt_info_box, params_note_info, params_note_input_name, params_note_regen_button, params_note_preset_button, state_topbar], show_progress=False)
+            gallery_index.select(gallery_util.select_index, inputs=[gallery_index, image_tools_checkbox, state_topbar],\
+                outputs=[gallery, image_toolbox, progress_window, progress_gallery, prompt_info_box, params_note_box,\
+                params_note_info, params_note_input_name, params_note_regen_button, params_note_preset_button, state_topbar], show_progress=False)
+            gallery.select(gallery_util.select_gallery, inputs=[gallery_index, state_topbar, backfill_prompt],\
+                outputs=[prompt_info_box, prompt, negative_prompt, params_note_info, params_note_input_name,\
+                params_note_regen_button, params_note_preset_button, state_topbar], show_progress=False)
+            progress_gallery.select(gallery_util.select_gallery_progress, inputs=state_topbar,\
+                outputs=[prompt_info_box, params_note_info, params_note_input_name, params_note_regen_button,\
+                params_note_preset_button, state_topbar], show_progress=False)
 
         state_is_generating = gr.State(False)
 
