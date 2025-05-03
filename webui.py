@@ -301,13 +301,15 @@ with common.GRADIO_ROOT:
             
             with gr.Row():
                 with gr.Column(elem_classes='advanced_check_col'):
-                    input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
-                    prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
-                    advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check') 
+                    with gr.Row():
+                        input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
+                        prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
+                        advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check') 
                 with gr.Column():
-                    preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True)
+
 
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
+                preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True)
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
                 prompt_info_button = gr.Button(value='View Info', size='sm', visible=True)
                 prompt_regen_button = gr.Button(value='Regenerate', size='sm', visible=True)
