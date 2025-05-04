@@ -22,12 +22,17 @@ def find_preset_file(preset):
         return {}
     return preset_file
 
-def find_preset_folder(preset):
-    preset_file = find_preset_file(preset)
-    preset_folder = os.path.dirname(preset_file)
-    return preset_folder
+#def find_preset_folder(preset):
+#    preset_file = find_preset_file(preset)
+#    preset_folder = os.path.dirname(preset_file)
+#    return preset_folder
 
-category_selection = find_preset_folder(current_preset)
+def find_preset_category(preset):
+    preset_file = find_preset_file(preset)
+    preset_category = os.path.basename(os.path.dirname(preset_file))
+    return preset_category
+
+category_selection = find_preset_category(current_preset)
 
 def get_preset_paths():              # called by update_files() in modules.config
     preset_path = Path('.\presets')  # also used to check if preset files exist
@@ -122,8 +127,9 @@ def bar_button_change(bar_button, state_params):
     global category_selection, current_preset
     state_params.update({'bar_button': bar_button})
     current_preset = bar_button
-    category_selection = find_preset_folder(current_preset)
-    return state_params, gr.update(value=category_selection)
+    category_selection = find_preset_category(current_preset)
+    return state_params, gr.update(value=category_selection),\
+        gr.update(value=current_preset)
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
@@ -160,7 +166,7 @@ def get_initial_preset_content():
     if category_selection != 'Random' and current_preset != 'initial':
         args_manager.args.preset = preset
         current_preset = preset
-        category_selection = find_preset_folder(preset)
+        category_selection = find_preset_category(preset)
     if current_preset != 'initial':
         set_category_selection(category_selection)
         json_content = get_preset_content(current_preset)
