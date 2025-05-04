@@ -685,12 +685,12 @@ with common.GRADIO_ROOT:
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_categories(),
-                            value='Favorite', visible=True, interactive=True, elem_classes='invisible')
+                            value='Favorite', visible=True, interactive=True)
                         
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presetnames_in_folder(PR.category_selection),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
-                            visible=True, interactive=True, elem_classes='invisible')
+                            visible=True, interactive=True)
 
                         category_selection.change(PR.set_category_selection, inputs=category_selection,
                             outputs=[category_selection, preset_selection, preset_info], show_progress=False, queue=False)
@@ -1230,8 +1230,8 @@ with common.GRADIO_ROOT:
                 params_note_preset_button, state_topbar], show_progress=False)
 
         state_is_generating = gr.State(False)
-
-        load_data_outputs = [advanced_checkbox, image_number, prompt, negative_prompt, style_selections,
+#advanced_checkbox
+        load_data_outputs = [image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg,
