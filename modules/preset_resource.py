@@ -119,8 +119,11 @@ def set_preset_selection(arg_preset_selection, state_params):
         gr.update(value=f'Current Preset: {current_preset}')
 
 def bar_button_change(bar_button, state_params):
+    global category_selection, current_preset
     state_params.update({'bar_button': bar_button})
-    return state_params, gr.update(value=bar_button)
+    current_preset = bar_button
+    category_selection = find_preset_folder(current_preset)
+    return state_params, gr.update(value=category_selection)
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
