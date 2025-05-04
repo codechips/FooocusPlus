@@ -316,6 +316,7 @@ with common.GRADIO_ROOT:
                         favorites_checkbox = gr.Checkbox(label='Favorites', value=modules.config.enable_favorites_menu, container=False, elem_classes='min_check')
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
+                        spare_checkbox = gr.Checkbox(label='Spare', value=False, visible = False, container=False, elem_classes='invisible')
                 with gr.Column():
                     preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
 
@@ -1236,7 +1237,7 @@ with common.GRADIO_ROOT:
         state_is_generating = gr.State(False)
         
         #substituted favorites_checkbox for advanced_checkbox to avoid toggling Advanced when Favourites activated
-        load_data_outputs = [favorites_checkbox, image_number, prompt, negative_prompt, style_selections,
+        load_data_outputs = [spare_checkbox, image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg,
