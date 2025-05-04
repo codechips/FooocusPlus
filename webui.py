@@ -207,16 +207,21 @@ with common.GRADIO_ROOT:
                         
                         bar_buttons = []
                         preset_favs = PR.get_presetnames_in_folder('Favorite')
-                        if modules.config.enable_favorites_menu:
-                            bar_title = gr.Markdown('<b>Favorites:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
-                            for i in range(PR.favorite_count()):
-                                bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=True, min_width=90,\
-                                    elem_id=f'bar{i}', elem_classes='bar_button'))
-                        else:
-                            bar_title = gr.Markdown('<b>Favorites:</b>', visible=False, elem_id='bar_title', elem_classes='invisible')
-                            for i in range(PR.favorite_count()):
-                                bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=False, min_width=90,\
-                                    elem_id=f'bar{i}', elem_classes='invisible'))
+#                        if modules.config.enable_favorites_menu:
+                        bar_title = gr.Markdown('<b>Favorites:</b>', visible=enable_favorites_menu,\
+                            elem_id='bar_title', elem_classes='bar_title')
+                        for i in range(PR.favorite_count()):
+                            bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
+                                visible=enable_favorites_menu, min_width=90,\
+                                elem_id=f'bar{i}', elem_classes='bar_button'))
+ #                       else:
+ #                           bar_title = gr.Markdown('<b>Favorites:</b>', visible=False, elem_id='bar_title', elem_classes='invisible')
+ #                           for i in range(PR.favorite_count()):
+ #                               bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=False, min_width=90,\
+ #                                   elem_id=f'bar{i}', elem_classes='invisible'))
+                                
+                        enable_favorites_checkbox.change(PR.enable_favorites_menu_change, inputs=enable_favorites_checkbox,\
+                            outputs=[enable_favorites_checkbox, bar_title, bar_buttons], queue=False, show_progress=False)
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -293,16 +298,6 @@ with common.GRADIO_ROOT:
 
                         stop_button.click(stop_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False, _js='cancelGenerateForever')
                         skip_button.click(skip_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False)
-
- #           with gr.Row():
-            with gr.Column():
-                with gr.Row(elem_classes='advanced_check_row'):
-                    input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
-                    prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
-                    advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-            with gr.Column():
-                preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
-                spare_checkbox = gr.Checkbox(label='Spare', value=modules.config.default_advanced_checkbox, container=False, visible=False, elem_classes='min_check')
                 
             with gr.Accordion(label='Wildcards', visible=False, open=True) as prompt_wildcards:
                 wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcard Filenames', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
@@ -315,9 +310,18 @@ with common.GRADIO_ROOT:
                 wildcards_array_show =lambda x: [gr.update(visible=True)] * 2 + [gr.Dataset.update(visible=True, samples=wildcards.get_wildcards_samples()), gr.Dataset.update(visible=True, samples=wildcards.get_words_of_wildcard_samples(x))]
                 wildcards_array_hidden = [gr.update(visible=False)] * 2 + [gr.Dataset.update(visible=False, samples=wildcards.get_wildcards_samples()), gr.Dataset.update(visible=False, samples=wildcards.get_words_of_wildcard_samples())]
                 wildcards_array_hold = [gr.update()] * 4
+                
+            with gr.Row():
+                with gr.Column():
+                    with gr.Row(elem_classes='advanced_check_row'):
+                        advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
+                        enable_favorites_checkbox = gr.Checkbox(label='Favorites', value=modules.config.enable_favorites_menu, container=False, visible=True, elem_classes='min_check')
+                        input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
+                        prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
+                with gr.Column():
+                    preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
 
-            ## Old location of advanced_check_row            
-
+            
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
                 prompt_info_button = gr.Button(value='View Info', size='sm', visible=True)
@@ -1233,8 +1237,8 @@ with common.GRADIO_ROOT:
 
         state_is_generating = gr.State(False)
         
-        #substituted spare_checkbox for advanced_checkbox to avoid toggling it on when Favourites activated
-        load_data_outputs = [spare_checkbox, image_number, prompt, negative_prompt, style_selections,
+        #substituted favorites_checkbox for advanced_checkbox to avoid toggling Advanced when Favourites activated
+        load_data_outputs = [favorites, image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg,
