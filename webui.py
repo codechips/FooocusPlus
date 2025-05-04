@@ -205,12 +205,19 @@ with common.GRADIO_ROOT:
                         # disable the iFrame display of help for preset selections:
                         preset_instruction = gr.HTML(visible=False, value=UIS.preset_no_instruction())
                         
-                        bar_title = gr.Markdown('<b>Favorites:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
                         bar_buttons = []
                         preset_favs = PR.get_presetnames_in_folder('Favorite')
-                        for i in range(PR.favorite_count()):
-                            bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=True, min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
-                
+                        if modules.config.enable_favorites_menu:
+                            bar_title = gr.Markdown('<b>Favorites:</b>', visible=True, elem_id='bar_title', elem_classes='bar_title')
+                            for i in range(PR.favorite_count()):
+                                bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=True, min_width=90,\
+                                    elem_id=f'bar{i}', elem_classes='bar_button'))
+                        else:
+                            bar_title = gr.Markdown('<b>Favorites:</b>', visible=False, elem_id='bar_title', elem_classes='bar_title')
+                            for i in range(PR.favorite_count()):
+                                bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=False, min_width=90,\
+                                    elem_id=f'bar{i}', elem_classes='bar_button'))
+
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
                                             elem_classes=['main_view'], value="masters/master_welcome_images/welcome.png")
@@ -778,7 +785,7 @@ with common.GRADIO_ROOT:
                     if args_manager.args.disable_image_log:
                         return gr.update(value='')
 
-                    return gr.update(value=f'<a href="file={get_current_html_path(output_format)}" target="_blank">\U0001F4DA History Log</a>')
+                    return gr.update(value=f'<a href="file={get_current_html_path(output_format)}" target="_blank">\U0001F4DA Image Log</a>')
 
                 history_link = gr.HTML()
                 common.GRADIO_ROOT.load(update_history_link, outputs=history_link, queue=False, show_progress=False)
@@ -1497,16 +1504,22 @@ with common.GRADIO_ROOT:
             .then(lambda: None, _js='()=>{refresh_style_localization();}')        
 
     
-    prompt_delete_button.click(toolbox.toggle_note_box_delete, inputs=state_topbar, outputs=[params_note_info, params_note_delete_button, params_note_box, state_topbar], show_progress=False)
-    params_note_delete_button.click(toolbox.delete_image, inputs=state_topbar, outputs=[gallery, gallery_index, params_note_delete_button, params_note_box, state_topbar], show_progress=False) \
-            .then(lambda x: x['__finished_nums_pages'], inputs=state_topbar, outputs=gallery_index_stat, queue=False, show_progress=False) \
-            .then(lambda x: None, inputs=gallery_index_stat, queue=False, show_progress=False, _js='(x)=>{refresh_finished_images_catalog_label(x);}')
+    prompt_delete_button.click(toolbox.toggle_note_box_delete, inputs=state_topbar,\
+        outputs=[params_note_info, params_note_delete_button, params_note_box, state_topbar], show_progress=False)
+    params_note_delete_button.click(toolbox.delete_image, inputs=state_topbar,\
+        outputs=[gallery, gallery_index, params_note_delete_button, params_note_box, state_topbar], show_progress=False) \
+        .then(lambda x: x['__finished_nums_pages'], inputs=state_topbar, outputs=gallery_index_stat, queue=False, show_progress=False) \
+        .then(lambda x: None, inputs=gallery_index_stat, queue=False, show_progress=False, _js='(x)=>{refresh_finished_images_catalog_label(x);}')
     
-    prompt_regen_button.click(toolbox.toggle_note_box_regen, inputs=model_check + [state_topbar], outputs=[params_note_info, params_note_regen_button, params_note_box, state_topbar], show_progress=False)
-    params_note_regen_button.click(toolbox.reset_image_params, inputs=[state_topbar, state_is_generating, inpaint_mode], outputs=reset_preset_layout + reset_preset_func + load_data_outputs + [params_note_regen_button, params_note_box], show_progress=False)
+    prompt_regen_button.click(toolbox.toggle_note_box_regen, inputs=model_check + [state_topbar],\
+        outputs=[params_note_info, params_note_regen_button, params_note_box, state_topbar], show_progress=False)
+    params_note_regen_button.click(toolbox.reset_image_params, inputs=[state_topbar, state_is_generating, inpaint_mode],\
+        outputs=reset_preset_layout + reset_preset_func + load_data_outputs + [params_note_regen_button, params_note_box], show_progress=False)
 
-    prompt_preset_button.click(toolbox.toggle_note_box_preset, inputs=model_check + [state_topbar], outputs=[params_note_info, params_note_input_name, params_note_preset_button, params_note_box, state_topbar], show_progress=False)
-    params_note_preset_button.click(toolbox.save_preset, inputs=[params_note_input_name, params_backend] + reset_preset_func + load_data_outputs, outputs=[params_note_input_name, params_note_preset_button, params_note_box, state_topbar] + nav_bars, show_progress=False) \
+    prompt_preset_button.click(toolbox.toggle_note_box_preset, inputs=model_check + [state_topbar],\
+        outputs=[params_note_info, params_note_input_name, params_note_preset_button, params_note_box, state_topbar], show_progress=False)
+    params_note_preset_button.click(toolbox.save_preset, inputs=[params_note_input_name, params_backend] + reset_preset_func + load_data_outputs,\
+        outputs=[params_note_input_name, params_note_preset_button, params_note_box, state_topbar] + nav_bars, show_progress=False) \
         .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, queue=False, show_progress=False) \
         .then(fn=lambda x: None, inputs=system_params, _js=UIS.refresh_topbar_status_js)
 
@@ -1514,20 +1527,23 @@ with common.GRADIO_ROOT:
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
     for i in range(PR.favorite_count()):
-        bar_buttons[i].click(PR.bar_button_change, inputs=[bar_buttons[i], state_topbar], outputs=[state_topbar, preset_selection]) \
-               .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
-               .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
-               .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
-               .then(lambda: None, _js='()=>{refresh_style_localization();}') \
-               .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls, outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
+        bar_buttons[i].click(PR.bar_button_change, inputs=[bar_buttons[i],\
+            state_topbar], outputs=[state_topbar, category_selection]) \
+           .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
+           .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
+           .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
+           .then(lambda: None, _js='()=>{refresh_style_localization();}') \
+           .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
+               outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
         preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
             outputs=[preset_selection, state_topbar, preset_info], show_progress=False, queue=False) \
-               .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
-               .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
-               .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
-               .then(lambda: None, _js='()=>{refresh_style_localization();}') \
-               .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls, outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
+           .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
+           .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
+           .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
+           .then(lambda: None, _js='()=>{refresh_style_localization();}') \
+           .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
+               outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
                         
     
     common.GRADIO_ROOT.load(fn=lambda x: x, inputs=system_params, outputs=state_topbar, _js=UIS.get_system_params_js, queue=False, show_progress=False) \
