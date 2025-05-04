@@ -313,11 +313,11 @@ with common.GRADIO_ROOT:
                 with gr.Column():
                     with gr.Row(elem_classes='advanced_check_row'):
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-                        favorites_checkbox = gr.Checkbox(label='Favorites', value=modules.config.enable_favorites_menu, container=False, elem_classes='min_check')
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
-                        spare_checkbox = gr.Checkbox(label='Spare', value=False, visible = False, container=False, elem_classes='invisible')
                 with gr.Column():
+                    favorites_checkbox = gr.Checkbox(label='Favorites', value=modules.config.enable_favorites_menu, container=False, elem_classes='min_check')
+                    spare_checkbox = gr.Checkbox(label='Spare', value=False, visible = False, container=False, elem_classes='invisible')
                     preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
 
             
@@ -1316,7 +1316,7 @@ with common.GRADIO_ROOT:
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
-        favorites_checkbox.change(PR.favorites_menu_change,\
+        favorites_checkbox.change(lambda x: PR.favorites_menu_change,\
             inputs=favorites_checkbox,\
             outputs=[favorites_checkbox, bar_title, bar_buttons],\
             queue=False, show_progress=False)
