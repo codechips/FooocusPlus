@@ -1,5 +1,6 @@
 import os
 import shutil
+import modules.preset_resource as PR
 from modules import config
 
 def create_model_structure():
@@ -66,6 +67,9 @@ def create_user_structure():
 
   user_presets = f'{config.user_dir}/user_presets'
   os.makedirs(user_presets, exist_ok = True)
+  preset_foldernames = PR.get_preset_foldernames()
+  for i in preset_foldernames:
+    os.makedirs(os.path.join(user_presets, preset_foldernames[i]), exist_ok = True)
   if os.path.exists(user_presets):
     shutil.copytree(user_presets, working_presets, dirs_exist_ok = True)
   print(f'Updated the working preset folder: {working_presets}')
