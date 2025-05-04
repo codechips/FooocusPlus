@@ -464,8 +464,8 @@ iframe::-webkit-scrollbar {
     white-space: nowrap;
 }
 .preset_info{
-  color: blue; !important;
-  font-size: 3.0em; !important;
+  color: blue !important;
+  font-size: 3.0em !important;
   font-weight: bold;
   margin-right: 10px !important;
   text-align: right !important;
