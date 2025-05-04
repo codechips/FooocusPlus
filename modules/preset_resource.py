@@ -3,6 +3,7 @@ import json
 import random
 import gradio as gr
 import args_manager
+import modules.config
 from ldm_patched.modules import model_management
 from pathlib import Path
 
@@ -21,11 +22,6 @@ def find_preset_file(preset):
         print()
         return {}
     return preset_file
-
-#def find_preset_folder(preset):
-#    preset_file = find_preset_file(preset)
-#    preset_folder = os.path.dirname(preset_file)
-#    return preset_folder
 
 def find_preset_category(preset):
     preset_file = find_preset_file(preset)
@@ -130,6 +126,11 @@ def bar_button_change(bar_button, state_params):
     category_selection = find_preset_category(current_preset)
     return state_params, gr.update(value=category_selection),\
         gr.update(value=current_preset)
+
+def enable_favorites_menu_change(enable_favorites):
+    modules.config.enable_favorites_menu = enable_favorites
+    return enable_favorites, gr.update(visible=enable_favorites),\
+        gr.update(visible=enable_favorites)
 
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
