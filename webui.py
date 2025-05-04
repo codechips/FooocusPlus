@@ -1317,7 +1317,7 @@ with common.GRADIO_ROOT:
 
         favorites_checkbox.change(PR.favorites_menu_change,\
             inputs=favorites_checkbox,\
-            outputs=[bar_title, bar_buttons],\
+            outputs=[favorites_checkbox, bar_title, bar_buttons],\
             queue=False, show_progress=False)
 
         inpaint_mode.change(inpaint_mode_change, inputs=[inpaint_mode, inpaint_engine_state], outputs=[
