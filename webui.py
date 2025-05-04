@@ -312,7 +312,10 @@ with common.GRADIO_ROOT:
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-##preset_info            
+                with gr.Column():
+                    preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
+                    spare_checkbox = gr.Checkbox(label='Spare', value=modules.config.default_advanced_checkbox, container=False, visible=False, elem_classes='min_check')
+
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
                 prompt_info_button = gr.Button(value='View Info', size='sm', visible=True)
@@ -321,9 +324,6 @@ with common.GRADIO_ROOT:
                 prompt_info_button.click(toolbox.toggle_prompt_info, inputs=state_topbar, outputs=[prompt_info_box, state_topbar], show_progress=False)
             
             with gr.Row(visible=modules.config.default_image_prompt_checkbox) as image_input_panel:
-                with gr.Column():
-                    preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True,  elem_classes='preset_info')
-
                 with gr.Tabs(selected=modules.config.default_selected_image_input_tab_id):
                     with gr.Tab(label='Upscale or Variation', id='uov_tab') as uov_tab:
                         with gr.Row():
@@ -1230,8 +1230,9 @@ with common.GRADIO_ROOT:
                 params_note_preset_button, state_topbar], show_progress=False)
 
         state_is_generating = gr.State(False)
-#advanced_checkbox
-        load_data_outputs = [image_number, prompt, negative_prompt, style_selections,
+        
+        #substituted spare_checkbox for advanced_checkbox to avoid toggling it on when Favourites activated
+        load_data_outputs = [spare_checkbox, image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg,
