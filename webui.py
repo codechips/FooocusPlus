@@ -208,11 +208,12 @@ with common.GRADIO_ROOT:
                         bar_buttons = []
                         preset_favs = PR.get_presetnames_in_folder('Favorite')
 #                        if modules.config.enable_favorites_menu:
-                        bar_title = gr.Markdown('<b>Favorites:</b>', visible=enable_favorites_menu,\
+                        bar_title = gr.Markdown('<b>Favorites:</b>',\
+                            visible=modules.config.enable_favorites_menu,\
                             elem_id='bar_title', elem_classes='bar_title')
                         for i in range(PR.favorite_count()):
                             bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
-                                visible=enable_favorites_menu, min_width=90,\
+                                visible=modules.config.enable_favorites_menu, min_width=90,\
                                 elem_id=f'bar{i}', elem_classes='bar_button'))
  #                       else:
  #                           bar_title = gr.Markdown('<b>Favorites:</b>', visible=False, elem_id='bar_title', elem_classes='invisible')
