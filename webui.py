@@ -1315,7 +1315,7 @@ with common.GRADIO_ROOT:
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
-        favorites_checkbox.change(lambda x: PR.favorites_menu_change,\
+        favorites_checkbox.change(PR.favorites_menu_change,\
             inputs=favorites_checkbox,\
             outputs=[bar_title, bar_buttons],\
             queue=False, show_progress=False)
