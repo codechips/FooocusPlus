@@ -294,15 +294,15 @@ with common.GRADIO_ROOT:
                         stop_button.click(stop_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False, _js='cancelGenerateForever')
                         skip_button.click(skip_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False)
 
-            with gr.Row():
-                with gr.Column():
-                    with gr.Row(elem_classes='advanced_check_row'):
-                        input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
-                        prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
-                        advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-                with gr.Column():
-                    preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
-                    spare_checkbox = gr.Checkbox(label='Spare', value=modules.config.default_advanced_checkbox, container=False, visible=False, elem_classes='min_check')
+ #           with gr.Row():
+            with gr.Column():
+                with gr.Row(elem_classes='advanced_check_row'):
+                    input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
+                    prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
+                    advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
+            with gr.Column():
+                preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
+                spare_checkbox = gr.Checkbox(label='Spare', value=modules.config.default_advanced_checkbox, container=False, visible=False, elem_classes='min_check')
                 
             with gr.Accordion(label='Wildcards', visible=False, open=True) as prompt_wildcards:
                 wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcard Filenames', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
