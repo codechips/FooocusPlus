@@ -235,6 +235,7 @@ def worker():
     import extras.preprocessors as preprocessors
     import modules.inpaint_worker as inpaint_worker
     import modules.constants as constants
+    import modules.preset_resource as PR
     import extras.ip_adapter as ip_adapter
     import extras.face_crop
     import enhanced.version as version
@@ -242,7 +243,6 @@ def worker():
     from datetime import datetime
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
-    from modules.preset_resource import current_preset
     from modules.private_logger import log
     from extras.expansion import safe_str
     from modules.util import (remove_empty_str, HWC3, resize_image, get_image_shape_ceil, set_image_shape_ceil,
@@ -488,7 +488,7 @@ def worker():
                 metadata_temp = 'A1111'
             d.append(('Metadata Scheme', 'metadata_scheme',
                       metadata_temp if async_task.save_metadata_to_images else async_task.save_metadata_to_images))
-            d.append(('Preset', 'current_preset', current_preset))
+            d.append(('Preset', 'current_preset', PR.current_preset))
             d.append(('Version', 'version', f'FooocusPlus {version.get_fooocusplus_ver()}'))
             img_paths.append(log(x, d, metadata_parser, async_task.output_format, task, persist_image))
 
@@ -1681,6 +1681,5 @@ def worker():
                 if pid in modules.patch.patch_settings:
                     del modules.patch.patch_settings[pid]
     pass
-
 
 threading.Thread(target=worker, daemon=True).start()
