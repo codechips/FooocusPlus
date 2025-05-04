@@ -221,8 +221,10 @@ with common.GRADIO_ROOT:
  #                               bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=False, min_width=90,\
  #                                   elem_id=f'bar{i}', elem_classes='invisible'))
                                 
-                        enable_favorites_checkbox.change(PR.enable_favorites_menu_change, inputs=enable_favorites_checkbox,\
-                            outputs=[bar_title, bar_buttons], queue=False, show_progress=False)
+                        enable_favorites_checkbox.change(lambda x: PR.enable_favorites_menu_change,\
+                            inputs=enable_favorites_checkbox,\
+                            outputs=[bar_title, bar_buttons],\
+                            queue=False, show_progress=False)
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -316,7 +318,7 @@ with common.GRADIO_ROOT:
                 with gr.Column():
                     with gr.Row(elem_classes='advanced_check_row'):
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-                        enable_favorites_checkbox = gr.Checkbox(label='Favorites', value=modules.config.enable_favorites_menu, container=False, visible=True, elem_classes='min_check')
+                        enable_favorites_checkbox = gr.Checkbox(label='Favorites', value=modules.config.enable_favorites_menu, container=False, elem_classes='min_check')
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                 with gr.Column():
