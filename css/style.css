@@ -99,7 +99,7 @@ div:has(> #positive_prompt) {
 }
 
 .advanced_check_row{
-  width: 600px !important;
+  width: 550px !important;
 }
 
 .min_check {
