@@ -129,7 +129,7 @@ def bar_button_change(bar_button, state_params):
 
 def enable_favorites_menu_change(enable_favorites):
     modules.config.enable_favorites_menu = enable_favorites
-    return enable_favorites, gr.update(visible=enable_favorites),\
+    return gr.update(visible=enable_favorites),\
         gr.update(visible=enable_favorites)
 
 def get_preset_content(preset):
