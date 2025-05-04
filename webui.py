@@ -238,8 +238,8 @@ with common.GRADIO_ROOT:
             with gr.Group():
                 with gr.Row():
                     with gr.Column(scale=12):
-                        prompt = gr.Textbox(show_label=False, placeholder="Type prompt here or paste parameters.", elem_id='positive_prompt',
-                                        container=False, autofocus=False, lines=4)
+                        prompt = gr.Textbox(show_label=False, placeholder="Type prompt here or paste parameters.",\
+                            value=common.POSITIVE, elem_id='positive_prompt', container=False, autofocus=False, lines=4)
 
                         def calculateTokenCounter(text, style_selections):
                             if len(text) < 1:
