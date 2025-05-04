@@ -7,6 +7,7 @@ import shutil
 import time
 import gradio as gr
 import modules.config as config
+import modules.preset_resource as PR
 import modules.sdxl_styles as sdxl_styles
 import modules.ui_support as UIS
 import enhanced.all_parameters as ads
@@ -477,6 +478,8 @@ def save_preset(*args):
         print(f'[ToolBox] Saved the current parameters to {os.path.abspath(user_path)}')
         state_params.update({"__preset": save_name})
     state_params.update({"note_box_state": ['',0,0]})
+    PR.current_preset = save_name
+    PR.set_preset_selection(save_name, state_params)
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += UIS.refresh_nav_bars(state_params)
     return results
