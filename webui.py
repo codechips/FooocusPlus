@@ -219,12 +219,7 @@ with common.GRADIO_ROOT:
  #                           bar_title = gr.Markdown('<b>Favorites:</b>', visible=False, elem_id='bar_title', elem_classes='invisible')
  #                           for i in range(PR.favorite_count()):
  #                               bar_buttons.append(gr.Button(value=preset_favs[i], size='sm', visible=False, min_width=90,\
- #                                   elem_id=f'bar{i}', elem_classes='invisible'))
-                                
-                        favorites_checkbox.change(lambda x: PR.favorites_menu_change,\
-                            inputs=favorites_checkbox,\
-                            outputs=[bar_title, bar_buttons],\
-                            queue=False, show_progress=False)
+ #                                   elem_id=f'bar{i}', elem_classes='invisible'))                          
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
@@ -1319,6 +1314,11 @@ with common.GRADIO_ROOT:
         advanced_checkbox.change(lambda x: gr.update(visible=x), advanced_checkbox, advanced_column,
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
+
+        favorites_checkbox.change(lambda x: PR.favorites_menu_change,\
+            inputs=favorites_checkbox,\
+            outputs=[bar_title, bar_buttons],\
+            queue=False, show_progress=False)
 
         inpaint_mode.change(inpaint_mode_change, inputs=[inpaint_mode, inpaint_engine_state], outputs=[
             inpaint_additional_prompt, outpaint_selections, example_inpaint_prompts,
