@@ -199,7 +199,7 @@ with common.GRADIO_ROOT:
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Group():
-                with gr.Row(visible=modules.config.enable_favorites_menu) as favorite_row:
+                with gr.Row(visible=modules.config.enable_favorites_menu) as favorites_row:
                     # obsolete preset code, all hidden:
                     if not args_manager.args.disable_preset_selection:
                         # disable the iFrame display of help for preset selections:
@@ -1315,9 +1315,8 @@ with common.GRADIO_ROOT:
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
-        favorites_checkbox.change(lambda x: PR.favorites_menu_change,\
-            inputs=favorites_checkbox,\
-            outputs=[favorites_checkbox, favorite_row],\
+        favorites_checkbox.change(PR.favorites_menu_change,\
+            inputs=favorites_checkbox, outputs=favorites_row,\
             queue=False, show_progress=False)
 
         inpaint_mode.change(inpaint_mode_change, inputs=[inpaint_mode, inpaint_engine_state], outputs=[
