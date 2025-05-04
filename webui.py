@@ -222,7 +222,7 @@ with common.GRADIO_ROOT:
  #                                   elem_id=f'bar{i}', elem_classes='invisible'))
                                 
                         enable_favorites_checkbox.change(PR.enable_favorites_menu_change, inputs=enable_favorites_checkbox,\
-                            outputs=[enable_favorites_checkbox, bar_title, bar_buttons], queue=False, show_progress=False)
+                            outputs=[bar_title, bar_buttons], queue=False, show_progress=False)
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
