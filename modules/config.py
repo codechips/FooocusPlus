@@ -96,14 +96,7 @@ def get_config_path(config_file):
         config_path = user_dir
     config_path = os.path.abspath(f'{config_path}/{config_file}')
     return config_path
-'''
-try:
-    with open(os.path.abspath(f'./presets/Favorite/Default.json'), "r", encoding="utf-8") as json_file:
-        config_dict.update(json.load(json_file))
-except Exception as e:
-    print(f'Loading Default preset failed.')
-    print(e)
-'''
+
 config_dict.update(PR.get_initial_preset_content())
 theme = args_manager.args.theme
 
@@ -242,6 +235,12 @@ temp_path_cleanup_on_launch = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
+enable_favorites_menu = get_config_item_or_set_default(
+    key='enable_favorites_menu',
+    default_value=True,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
 
 default_image_catalog_max_number = get_config_item_or_set_default(
     key='default_image_catalog_max_number',
@@ -249,7 +248,6 @@ default_image_catalog_max_number = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, int),
     expected_type=int
 )
-
 default_image_prompt_checkbox = get_config_item_or_set_default(
     key='default_image_prompt_checkbox',
     default_value=False,
@@ -312,6 +310,12 @@ default_std_aspect_ratio = get_config_item_or_set_default(
     default_value='1024*1024',
     validator=lambda x: x in available_std_aspect_ratios,
     expected_type=str
+)
+enable_shortlist_aspect_ratios = get_config_item_or_set_default(
+    key='enable_shortlist_aspect_ratios',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
 )
 available_custom_aspect_ratios = get_config_item_or_set_default(
     key='available_custom_aspect_ratios',
@@ -536,7 +540,6 @@ default_vae = get_config_item_or_set_default(
     expected_type=str
 )
 
-
 checkpoint_downloads = get_config_item_or_set_default(
     key='checkpoint_downloads',
     default_value={},
@@ -736,6 +739,12 @@ metadata_created_by = get_config_item_or_set_default(
     default_value='FooocusPlus',
     validator=lambda x: isinstance(x, str),
     expected_type=str
+)
+reverse_log_order = get_config_item_or_set_default(
+    key='reverse_log_order',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
 )
 
 example_inpaint_prompts = [[x] for x in example_inpaint_prompts]
