@@ -136,10 +136,10 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
     item += "</td>"
     item += "</tr></table></div>\n\n"
 
-    if modules.config.reverse_log_order: # thanks to iwr-redmond
-        middle_part = middle_part + item
-    else:
+    if modules.config.show_newest_image_first: # thanks to iwr-redmond
         middle_part = item + middle_part
+    else:
+        middle_part = middle_part + item
 
     with open(html_name, 'w', encoding='utf-8') as f:
         f.write(begin_part + middle_part + end_part)
