@@ -740,9 +740,9 @@ metadata_created_by = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, str),
     expected_type=str
 )
-reverse_log_order = get_config_item_or_set_default(
-    key='reverse_log_order',
-    default_value=False,
+show_newest_image_first = get_config_item_or_set_default(
+    key='show_newest_image_first',
+    default_value=True,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
