@@ -762,15 +762,15 @@ with common.GRADIO_ROOT:
                         info='Make similar images while processing an array or wildcards', value=False)
 
                     if not args_manager.args.disable_image_log:
-                        newest_image_first_checkbox = gr.Checkbox(label='Show Newest Image First',\
-                            info='Review the image log', value=modules.config.show_newest_image_first)
+                        newest_images_first_checkbox = gr.Checkbox(label='Show Newest Images First',\
+                            info='Review the image log', value=modules.config.show_newest_images_first)
     
-                        def newest_image_first_change(newest_image_first):
-                            modules.config.show_newest_image_first = newest_image_first
-                            return gr.update(value=modules.config.show_newest_image_first)
+                        def newest_images_first_change(newest_images_first):
+                            modules.config.show_newest_images_first = newest_images_first
+                            return gr.update(value=modules.config.show_newest_images_first)
     
-                        newest_image_first_checkbox.change(newest_image_first_change,\
-                        inputs=newest_image_first_checkbox, outputs=newest_image_first_checkbox,\
+                        newest_images_first_checkbox.change(newest_images_first_change,\
+                        inputs=newest_images_first_checkbox, outputs=newest_images_first_checkbox,\
                         queue=False, show_progress=False)
                     
                 def update_history_link():
