@@ -803,7 +803,7 @@ with common.GRADIO_ROOT:
                     outputs=[image_seed], queue=False, show_progress=False)
 
                 def image_seed_change(image_seed_arg):
-                    print('Image Seed Update: {image_seed_arg}')
+                    print(f'Image Seed Update: {image_seed_arg}')
                     return image_seed_arg
                 
                 image_seed.change(image_seed_change, inputs=[image_seed],\
