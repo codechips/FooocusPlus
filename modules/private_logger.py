@@ -147,7 +147,7 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
     print(f'Image generated with private log at: {html_name}')
     if modules.config.show_newest_image_first:
         print('Image log shows newest image first')
-    else
+    else:
         print('Image log shows newest image last')
         
     log_cache[html_name] = middle_part
