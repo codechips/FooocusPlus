@@ -5,6 +5,7 @@
 * like mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label is gone
 * if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
 * added Torch, CUDA and xformers data to System Information, under the Extras tab
+* fixed a bug that prevented reinstallation of Torch if its folder was not found
 * the master folders are now subfolders of the new "masters" folder
 * by default, all presets except for SD1.5 now use a 0*0 aspect ratio, meaning that it does not have any effect
 * but as before, if a valid aspect ratio is set in a preset it overrides all other settings
@@ -29,8 +30,7 @@
 * the current preset is now stored in the log
 * added a config.txt option and checkbox to "Show Newest Images First" in the log. If this is off the newest images are last
 * the Flux base models are recategorized into the FluxDev and FluxSchnell folders
-* fixed a bug that prevented reinstallation of Torch if its folder was not found
-* fixed a bug with Superprompt
+* fixed a bug with SuperPrompter
 
 # 0.9.8 Dev
 
