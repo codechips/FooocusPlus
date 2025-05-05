@@ -776,7 +776,7 @@ with common.GRADIO_ROOT:
                 def update_history_link():
                     if args_manager.args.disable_image_log:
                         return gr.update(value='')                  
-                    return gr.update(value=f'&emsp;&emsp;<a href="file={get_current_html_path(output_format)}"\
+                    return gr.update(value=f'&emsp;&emsp;&nbsp;<a href="file={get_current_html_path(output_format)}"\
                         target="_blank">\U0001F4DA Image Log</a>')
 
                 history_link = gr.HTML()
