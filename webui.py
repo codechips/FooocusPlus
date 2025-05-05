@@ -750,7 +750,7 @@ with common.GRADIO_ROOT:
                     image_seed = gr.Textbox(label='Specific Seed',\
                         info='Reuse a particular seed value to recreate images',\
                         value=0, max_lines=1, visible=False)
-                    print(f'image_seed #1: {image_seed}')
+                    print(f'image_seed #1: {image_seed.value}')
                     
                     def toggle_extra_variation():
                         modules.config.default_extra_variation = not modules.config.default_extra_variation
@@ -786,7 +786,7 @@ with common.GRADIO_ROOT:
     
     
                 def random_checked(r):
-                    print(f'image_seed #3: {image_seed}')
+                    print(f'image_seed #3: {image_seed.value}')
                     return gr.update(visible=not r)
 
                 def refresh_seed(r, seed_string):
@@ -804,7 +804,7 @@ with common.GRADIO_ROOT:
                 seed_random.change(random_checked, inputs=[seed_random],\
                     outputs=[image_seed], queue=False, show_progress=False)
 
-                print(f'image_seed #2: {image_seed}')
+                print(f'image_seed #2: {image_seed.value}')
                 with gr.Tabs():
                     with gr.Tab(label='Describe Image', id='describe_tab', visible=True) as image_describe:
                         with gr.Row():
@@ -1227,7 +1227,7 @@ with common.GRADIO_ROOT:
             def update_state_topbar(name, value, state):
                 state.update({name: value})
                 return state
-            print(f'image_seed #4: {image_seed}')
+            print(f'image_seed #4: {image_seed.value}')
            # language_ui.select(lambda x,y: update_state_topbar('__lang',x,y), inputs=[language_ui, state_topbar],\
            #     outputs=state_topbar).then(None, inputs=language_ui, _js="(x) => set_language_by_ui(x)")
             background_theme.select(lambda x,y: update_state_topbar('__theme',x,y), inputs=[background_theme, state_topbar],\
@@ -1254,7 +1254,7 @@ with common.GRADIO_ROOT:
                  vae_name, seed_random, image_seed, inpaint_engine, inpaint_engine_state,
                  inpaint_mode] + enhance_inpaint_mode_ctrls + [generate_button,
                  load_parameter_button] + freeu_ctrls + lora_ctrls
-        print(f'image_seed #5: {image_seed}')
+        print(f'image_seed #5: {image_seed.value}')
         if not args_manager.args.disable_preset_selection:
             def _change(preset, is_generating, inpaint_mode):
                 preset_content = modules.config.try_get_preset_content(preset) if preset != 'initial' else {}
@@ -1360,7 +1360,7 @@ with common.GRADIO_ROOT:
             performance_selection, aspect_ratios_selection, image_number, output_format, image_seed,
             read_wildcards_in_order, sharpness, guidance_scale
         ]
-        print(f'image_seed #6: {image_seed}')
+        print(f'image_seed #6: {image_seed.value}')
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
         ctrls += [uov_method, uov_input_image]
