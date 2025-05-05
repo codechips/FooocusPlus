@@ -14,7 +14,6 @@ from modules.util import generate_temp_filename
 
 log_cache = {}
 
-
 def get_current_html_path(output_format=None):
     output_format = output_format if output_format else modules.config.default_output_format
     date_string, local_temp_filename, only_name = generate_temp_filename(folder=modules.config.path_outputs,
@@ -144,11 +143,11 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
     with open(html_name, 'w', encoding='utf-8') as f:
         f.write(begin_part + middle_part + end_part)
 
-    print(f'Image generated with private log at: {html_name}')
+    print(f'Image saved to the log file: {html_name}')
     if modules.config.show_newest_image_first:
-        print('Image log shows newest image first')
+        print('The image log shows the newest image first')
     else:
-        print('Image log shows newest image last')
+        print('The image log shows the newest image last')
         
     log_cache[html_name] = middle_part
     
