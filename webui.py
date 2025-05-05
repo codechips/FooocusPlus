@@ -744,9 +744,13 @@ with common.GRADIO_ROOT:
                         info='Describe what you do not want to see.', lines=2,
                         elem_id='negative_prompt',
                         value=modules.config.default_prompt_negative)
-                    seed_random = gr.Checkbox(label='Random Seed', 
+                    
+                    seed_random = gr.Checkbox(label='Random Seed',
                         info='Generate a random series of images', value=True)
-
+                    image_seed = gr.Textbox(label='Specific Seed',\
+                        info='Reuse a particular seed value to recreate images',\
+                        value=0, max_lines=1, visible=False)
+                    
                     def toggle_extra_variation():
                         modules.config.default_extra_variation = not modules.config.default_extra_variation
                         return                
@@ -756,9 +760,6 @@ with common.GRADIO_ROOT:
                     
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
                         info='Make similar images while processing an array or wildcards', value=False)
-                    image_seed = gr.Textbox(label='Specific Seed',\
-                        info='Reuse a particular seed value to recreate images',\
-                        value=0, max_lines=1, visible=False)
 
                     if not args_manager.args.disable_image_log:
                         newest_image_first_checkbox = gr.Checkbox(label='Show Newest Image First',\
