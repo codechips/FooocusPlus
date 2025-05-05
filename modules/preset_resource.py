@@ -114,7 +114,6 @@ def set_preset_selection(arg_preset_selection):
         print(f'Using the {current_preset} preset...')
     elif current_preset != arg_preset_selection:
         current_preset = arg_preset_selection  # update the current preset tracker
-    state_params.update({'bar_button': current_preset})    
     return gr.update(value=current_preset),\
         gr.update(value=f'Current Preset: {current_preset}')
 
