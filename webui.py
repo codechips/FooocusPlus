@@ -780,12 +780,25 @@ with common.GRADIO_ROOT:
 
                 def update_history_link():
                     if args_manager.args.disable_image_log:
-                        return gr.update(value='')
-
-                    return gr.update(value=f'<a href="file={get_current_html_path(output_format)}" target="_blank">\U0001F4DA Image Log</a>')
+                        return gr.update(value='')                  
+                    return gr.update(value=f'<a href="file={get_current_html_path(output_format)}"\
+                        target="_blank">\U0001F4DA Image Log</a>')
 
                 history_link = gr.HTML()
                 common.GRADIO_ROOT.load(update_history_link, outputs=history_link, queue=False, show_progress=False)
+
+                if not args_manager.args.disable_image_log:
+                    reverse_log_checkbox = gr.Checkbox(label='Reverse Log',\
+                        value=modules.config.reverse_log_order,\
+                        container=False, elem_classes='min_check')
+
+                    def reverse_log_change(reverse_log):
+                        modules.config.reverse_log_order = reverse_log
+                        return gr.update(value=modules.config.reverse_log_order)
+
+                    reverse_log_checkbox.change(reverse_log_change,\
+                    inputs=reverse_log_checkbox, outputs=reverse_log_checkbox,\
+                    queue=False, show_progress=False)
                 
                 with gr.Tabs():
                     with gr.Tab(label='Describe Image', id='describe_tab', visible=True) as image_describe:
