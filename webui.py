@@ -759,18 +759,9 @@ with common.GRADIO_ROOT:
                     image_seed = gr.Textbox(label='Specific Seed',
                         info='Reuse a particular seed value to recreate images',
                         value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
-                    
-                    def update_history_link():
-                        if args_manager.args.disable_image_log:
-                            return gr.update(value='')                  
-                        return gr.update(value=f'<a href="file={get_current_html_path(output_format)}"\
-                            target="_blank">\U0001F4DA Image Log</a>')
-    
-                    history_link = gr.HTML()
-                    common.GRADIO_ROOT.load(update_history_link, outputs=history_link, queue=False, show_progress=False)
-    
+
                     if not args_manager.args.disable_image_log:
-                        reverse_log_checkbox = gr.Checkbox(label='C',\
+                        reverse_log_checkbox = gr.Checkbox(label='Reverse Log Order',\
                             value=modules.config.reverse_log_order,\
                             container=False, elem_classes='min_check')
     
@@ -781,6 +772,15 @@ with common.GRADIO_ROOT:
                         reverse_log_checkbox.change(reverse_log_change,\
                         inputs=reverse_log_checkbox, outputs=reverse_log_checkbox,\
                         queue=False, show_progress=False)
+                    
+                    def update_history_link():
+                        if args_manager.args.disable_image_log:
+                            return gr.update(value='')                  
+                        return gr.update(value=f'<a href="file={get_current_html_path(output_format)}"\
+                            target="_blank">\U0001F4DA Image Log</a>')
+    
+                    history_link = gr.HTML()
+                    common.GRADIO_ROOT.load(update_history_link, outputs=history_link, queue=False, show_progress=False)
     
     
                 def random_checked(r):
