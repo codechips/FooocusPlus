@@ -756,26 +756,26 @@ with common.GRADIO_ROOT:
                     
                     disable_seed_increment = gr.Checkbox(label='Freeze Seed',
                         info='Make similar images while processing an array or wildcards', value=False)
-                    image_seed = gr.Textbox(label='Specific Seed',
-                        info='Reuse a particular seed value to recreate images',
-                        value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
+                    image_seed = gr.Textbox(label='Specific Seed',\
+                        info='Reuse a particular seed value to recreate images',\
+                        value=0, max_lines=1, visible=False)
 
                     if not args_manager.args.disable_image_log:
-                        reverse_log_checkbox = gr.Checkbox(label='Reverse Log Order',\
-                            info='Review the image log', value=modules.config.reverse_log_order)
+                        newest_image_first_checkbox = gr.Checkbox(label='Show Newest Image First',\
+                            info='Review the image log', value=modules.config.show_newest_image_first)
     
-                        def reverse_log_change(reverse_log):
-                            modules.config.reverse_log_order = reverse_log
-                            return gr.update(value=modules.config.reverse_log_order)
+                        def newest_image_first_change(newest_image_first):
+                            modules.config.show_newest_image_first = newest_image_first
+                            return gr.update(value=modules.config.show_newest_image_first)
     
-                        reverse_log_checkbox.change(reverse_log_change,\
-                        inputs=reverse_log_checkbox, outputs=reverse_log_checkbox,\
+                        newest_image_first_checkbox.change(newest_image_first_change,\
+                        inputs=newest_image_first_checkbox, outputs=newest_image_first_checkbox,\
                         queue=False, show_progress=False)
                     
                 def update_history_link():
                     if args_manager.args.disable_image_log:
                         return gr.update(value='')                  
-                    return gr.update(value=f'&emsp;&emsp;&emsp;&emsp;<a href="file={get_current_html_path(output_format)}"\
+                    return gr.update(value=f'&emsp;&emsp;<a href="file={get_current_html_path(output_format)}"\
                         target="_blank">\U0001F4DA Image Log</a>')
 
                 history_link = gr.HTML()
