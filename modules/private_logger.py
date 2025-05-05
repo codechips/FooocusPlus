@@ -102,7 +102,7 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
     )
 
     begin_part = f"<!DOCTYPE html><html><head><title>FooocusPlus Log {date_string}</title>{css_styles}</head>\
-    <body>{js}<p>FooocusPlus Log {date_string}</p>\n<p>To save text data in an image, adjust the "metadata" settings in config.txt or at the bottom of the Expert Tools pane found under the Advanced tab.</p><!--fooocus-log-split-->\n\n"
+    <body>{js}<p>FooocusPlus Log {date_string}</p>\n<p>To save text data in an image, adjust the "metadata" settings in config.txt or at the bottom of the Expert Tools pane found under the Advanced tab.</p><!--fooocusplus-log-split-->\n\n"
     end_part = f'\n<!--fooocusplus-log-split--></body></html>'
 
     middle_part = log_cache.get(html_name, "")
