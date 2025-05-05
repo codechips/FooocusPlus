@@ -135,7 +135,7 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
     item += "</td>"
     item += "</tr></table></div>\n\n"
 
-    if modules.config.show_newest_image_first: # thanks to iwr-redmond
+    if modules.config.show_newest_images_first: # thanks to iwr-redmond
         middle_part = item + middle_part
     else:
         middle_part = middle_part + item
@@ -144,10 +144,10 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
         f.write(begin_part + middle_part + end_part)
 
     print(f'Image saved to the log file: {html_name}')
-    if modules.config.show_newest_image_first:
-        print('The image log shows the newest image first')
+    if modules.config.show_newest_images_first:
+        print('The image log shows the newest images first')
     else:
-        print('The image log shows the newest image last')
+        print('The image log shows the newest images last')
         
     log_cache[html_name] = middle_part
     
