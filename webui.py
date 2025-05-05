@@ -772,14 +772,15 @@ with common.GRADIO_ROOT:
                         inputs=reverse_log_checkbox, outputs=reverse_log_checkbox,\
                         queue=False, show_progress=False)
                     
-                    def update_history_link():
-                        if args_manager.args.disable_image_log:
-                            return gr.update(value='')                  
-                        return gr.update(value=f'     <a href="file={get_current_html_path(output_format)}"\
-                            target="_blank">\U0001F4DA Image Log</a>')
-    
-                    history_link = gr.HTML()
-                    common.GRADIO_ROOT.load(update_history_link, outputs=history_link, queue=False, show_progress=False)
+                def update_history_link():
+                    if args_manager.args.disable_image_log:
+                        return gr.update(value='')                  
+                    return gr.update(value=f'<a href="file={get_current_html_path(output_format)}"\
+                        target="_blank">\U0001F4DA Image Log</a>')
+
+                history_link = gr.HTML()
+                common.GRADIO_ROOT.load(update_history_link, outputs=history_link,\
+                    queue=False, show_progress=False, elem_classes='centre')
     
     
                 def random_checked(r):
