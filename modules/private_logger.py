@@ -145,9 +145,11 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
         f.write(begin_part + middle_part + end_part)
 
     print(f'Image generated with private log at: {html_name}')
-    if modules.config.reverse_log_order:
-        print('Image log saved in reverse order')
-
+    if modules.config.show_newest_image_first:
+        print('Image log shows newest image first')
+    else
+        print('Image log shows newest image last')
+        
     log_cache[html_name] = middle_part
     
     log_ext(local_temp_filename)
