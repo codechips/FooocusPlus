@@ -55,6 +55,9 @@ progress::after {
 
 /* Style other texts */
 
+.centre{
+  text-align: center;
+}
 .invisible{
   display: none !important;
 }
