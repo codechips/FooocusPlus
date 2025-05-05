@@ -1544,8 +1544,8 @@ with common.GRADIO_ROOT:
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
     for i in range(PR.favorite_count()):
-        bar_buttons[i].click(PR.bar_button_change, inputs=[bar_buttons[i],\
-            state_topbar], outputs=[state_topbar, category_selection, preset_selection]) \
+        bar_buttons[i].click(PR.bar_button_change, inputs=bar_buttons[i],\
+            outputs=[category_selection, preset_selection]) \
            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
            .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
            .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
