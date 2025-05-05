@@ -759,7 +759,30 @@ with common.GRADIO_ROOT:
                     image_seed = gr.Textbox(label='Specific Seed',
                         info='Reuse a particular seed value to recreate images',
                         value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
-
+                    
+                    def update_history_link():
+                        if args_manager.args.disable_image_log:
+                            return gr.update(value='')                  
+                        return gr.update(value=f'<a href="file={get_current_html_path(output_format)}"\
+                            target="_blank">\U0001F4DA Image Log</a>')
+    
+                    history_link = gr.HTML()
+                    common.GRADIO_ROOT.load(update_history_link, outputs=history_link, queue=False, show_progress=False)
+    
+                    if not args_manager.args.disable_image_log:
+                        reverse_log_checkbox = gr.Checkbox(label='C',\
+                            value=modules.config.reverse_log_order,\
+                            container=False, elem_classes='min_check')
+    
+                        def reverse_log_change(reverse_log):
+                            modules.config.reverse_log_order = reverse_log
+                            return gr.update(value=modules.config.reverse_log_order)
+    
+                        reverse_log_checkbox.change(reverse_log_change,\
+                        inputs=reverse_log_checkbox, outputs=reverse_log_checkbox,\
+                        queue=False, show_progress=False)
+    
+    
                 def random_checked(r):
                     return gr.update(visible=not r)
 
@@ -775,30 +798,8 @@ with common.GRADIO_ROOT:
                             pass
                         return random.randint(constants.MIN_SEED, constants.MAX_SEED)
 
-                seed_random.change(random_checked, inputs=[seed_random], outputs=[image_seed],
-                                   queue=False, show_progress=False)
-
-                def update_history_link():
-                    if args_manager.args.disable_image_log:
-                        return gr.update(value='')                  
-                    return gr.update(value=f'<a href="file={get_current_html_path(output_format)}"\
-                        target="_blank">\U0001F4DA Image Log</a>')
-
-                history_link = gr.HTML()
-                common.GRADIO_ROOT.load(update_history_link, outputs=history_link, queue=False, show_progress=False)
-
-                if not args_manager.args.disable_image_log:
-                    reverse_log_checkbox = gr.Checkbox(label='Reverse Log',\
-                        value=modules.config.reverse_log_order,\
-                        container=False, elem_classes='min_check')
-
-                    def reverse_log_change(reverse_log):
-                        modules.config.reverse_log_order = reverse_log
-                        return gr.update(value=modules.config.reverse_log_order)
-
-                    reverse_log_checkbox.change(reverse_log_change,\
-                    inputs=reverse_log_checkbox, outputs=reverse_log_checkbox,\
-                    queue=False, show_progress=False)
+                seed_random.change(random_checked, inputs=[seed_random],\
+                    outputs=[image_seed], queue=False, show_progress=False)
                 
                 with gr.Tabs():
                     with gr.Tab(label='Describe Image', id='describe_tab', visible=True) as image_describe:
