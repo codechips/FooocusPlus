@@ -1544,8 +1544,8 @@ with common.GRADIO_ROOT:
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
     for i in range(PR.favorite_count()):
-        bar_buttons[i].click(PR.bar_button_change, inputs=bar_buttons[i],\
-            outputs=[category_selection, preset_selection]) \
+        bar_buttons[i].click(PR.bar_button_change, inputs=[bar_buttons[i],\
+            state_topbar], outputs=[state_topbar, category_selection, preset_selection]) \
            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
            .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
            .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
@@ -1553,8 +1553,8 @@ with common.GRADIO_ROOT:
            .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
                outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
-        preset_selection.change(PR.set_preset_selection, inputs=preset_selection, \
-            outputs=[preset_selection, preset_info], show_progress=False, queue=False) \
+        preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
+            outputs=[preset_selection, state_topbar, preset_info], show_progress=False, queue=False) \
            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
            .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
            .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
