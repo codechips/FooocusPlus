@@ -120,7 +120,6 @@ def set_preset_selection(arg_preset_selection):
 
 def bar_button_change(bar_button):
     global category_selection, current_preset
-    state_params.update({'bar_button': bar_button})
     current_preset = bar_button
     category_selection = find_preset_category(current_preset)
     return gr.update(value=category_selection),\
