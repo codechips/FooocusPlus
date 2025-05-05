@@ -762,8 +762,7 @@ with common.GRADIO_ROOT:
 
                     if not args_manager.args.disable_image_log:
                         reverse_log_checkbox = gr.Checkbox(label='Reverse Log Order',\
-                            value=modules.config.reverse_log_order,\
-                            container=False, elem_classes='min_check')
+                            info='Review the image log', value=modules.config.reverse_log_order)
     
                         def reverse_log_change(reverse_log):
                             modules.config.reverse_log_order = reverse_log
