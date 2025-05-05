@@ -1,22 +1,36 @@
 # 1.0.0
 
 * removed the irrelevant Fooocus and Simple version information. FooocusPlus does not synchronize with either of them
+* removed legacy upstream references and moved the master subfolders to a new masters parent folder
+* like mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label is gone
+* if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
 * added Torch, CUDA and xformers data to System Information, under the Extras tab
 * the master folders are now subfolders of the new "masters" folder
 * by default, all presets except for SD1.5 now use a 0*0 aspect ratio, meaning that it does not have any effect
 * but as before, if a valid aspect ratio is set in a preset it overrides all other settings
+* introduced and tested the "experimental" SDXL 1280*1280 aspect ratio
 * the four default aspect ratios in config.txt are only used for initial values, they do not override setting changes in the UI
 * as Std. presets such SDXL or Flux are changed, by default the UI setting for aspect ratio does not change
-* there are now four sets of aspect ratios defined in config.txt, the Std., SD1.5, PixArt and Custom templates
+* there are now four sets of aspect ratios defined in config.txt, the Std., Shortlist, SD1.5, and PixArt templates
 * FooocusPlus starts up with the Std. template. It is switched to the other templates by the appropriate preset
-* Custom is a Std. template that is simplified to only 15 values, toggled on and off by the Custom preset
+* Shortlist is a Std. template that is simplified to only 15 values, toggled on and off by the Custom preset
 * the SD1.5_RealVis preset sets the UI to the SD1.5 default value and aspect ratio set
 * when PixArt Sigma is introduced, a preset will select the appropriate aspect ratio set
-* introduced and tested the "experimental" SDXL 1280*1280 aspect ratio
+* introduced both Preset Categories and Presets dropdowns under the Settings tab
+* the Preset Categories are: Alternative, Fantasy, Favorite, Flux1D, Flux1S, Illustrative, LowVRAM, Pony, Realistic & SD1.5
+* the Category structure is duplicated into the User Directory. Changes or additions automatically update the working preset folder
+* the Categories are actually folders. If a preset file is located in a folder it will show up in that category
+* presets can be stored in more than one category if desired
+* the Make New Preset button, under the Extras tab, saves the current settings to a new preset, located in the User Directory
+* if the Random category is selected a random preset is chosen
+* all presets may be displayed at once if the All category is selected
+* the Current Preset is now listed just below the Generate button
+* if Favorites is checked (the default) the favorite presets are shown in a horizontal menu bar located above the main canvas
+* the current preset is now stored in the log
+* added a config.txt option and checkbox to "Show Newest Images First" in the log. If this is off the newest images are last
 * the Flux base models are recategorized into the FluxDev and FluxSchnell folders
 * fixed a bug that prevented reinstallation of Torch if its folder was not found
-* like mainline Fooocus, there are now two metadata schemes: "Fooocus" and "A1111". The confusing "Simple" label is gone
-* if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
+* fixed a bug with Superprompt
 
 # 0.9.8 Dev
 
