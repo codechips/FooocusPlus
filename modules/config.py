@@ -740,8 +740,8 @@ metadata_created_by = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, str),
     expected_type=str
 )
-show_newest_image_first = get_config_item_or_set_default(
-    key='show_newest_image_first',
+show_newest_images_first = get_config_item_or_set_default(
+    key='show_newest_images_first',
     default_value=True,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
