@@ -106,7 +106,7 @@ def set_category_selection(arg_category_selection):
         gr.update(choices=preset_choices, value=preset_value),\
         gr.update(value=f'Current Preset: {current_preset}')
 
-def set_preset_selection(arg_preset_selection, state_params):
+def set_preset_selection(arg_preset_selection):
     global current_preset
     if arg_preset_selection == '':
         if current_preset == '':
@@ -116,15 +116,14 @@ def set_preset_selection(arg_preset_selection, state_params):
         current_preset = arg_preset_selection  # update the current preset tracker
     state_params.update({'bar_button': current_preset})    
     return gr.update(value=current_preset),\
-        gr.update(value=state_params),\
         gr.update(value=f'Current Preset: {current_preset}')
 
-def bar_button_change(bar_button, state_params):
+def bar_button_change(bar_button):
     global category_selection, current_preset
     state_params.update({'bar_button': bar_button})
     current_preset = bar_button
     category_selection = find_preset_category(current_preset)
-    return state_params, gr.update(value=category_selection),\
+    return gr.update(value=category_selection),\
         gr.update(value=current_preset)
 
 def favorites_menu_change(enable_favorites):
