@@ -804,12 +804,10 @@ with common.GRADIO_ROOT:
 
                 def image_seed_change(image_seed_arg):
                     global saved_seed, image_seed
-                    print(f'Image Seed Update: {image_seed_arg}')
                     if image_seed_arg.isdigit():
                         saved_seed = image_seed_arg
                     else:
                         image_seed = saved_seed
-                        print(f'Restore from saved_seed: {image_seed}')
                     return saved_seed
 
                 def random_checked(r):
