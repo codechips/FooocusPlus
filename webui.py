@@ -750,7 +750,7 @@ with common.GRADIO_ROOT:
                     
                     seed_random = gr.Checkbox(label='Random Seed',
                         info='Generate a random series of images', value=True)
-                    image_seed = gr.Textbox(label='Specific Seed',\
+                    image_seed = gr.Number(label='Specific Seed',\
                         info='Reuse a particular seed value to recreate images',\
                         value=0, max_lines=1, visible=False)
                     
