@@ -787,16 +787,20 @@ with common.GRADIO_ROOT:
                     queue=False, show_progress=False, elem_classes='centre')  
 
                 def refresh_seed(r, seed_string):
+                    global saved_seed
                     if r:
-                        return random.randint(constants.MIN_SEED, constants.MAX_SEED)
+                        saved_seed = random.randint(constants.MIN_SEED, constants.MAX_SEED)
+                        return saved_seed
                     else:
                         try:
                             seed_value = int(seed_string)
                             if constants.MIN_SEED <= seed_value <= constants.MAX_SEED:
-                                return seed_value
+                                saved_seed = seed_value
+                                return saved_seed
                         except:
                             pass
-                        return random.randint(constants.MIN_SEED, constants.MAX_SEED)
+                        saved_seed = random.randint(constants.MIN_SEED, constants.MAX_SEED)
+                        return saved_seed
 
                 def image_seed_change(image_seed_arg):
                     global saved_seed, image_seed
@@ -806,10 +810,11 @@ with common.GRADIO_ROOT:
                     else:
                         image_seed = saved_seed
                         print(f'Restore from saved_seed: {image_seed}')
-                    return image_seed_arg
+                    return saved_seed
 
                 def random_checked(r):
-                    return gr.update(visible=not r), gr.update(value=image_seed)
+                    global saved_seed
+                    return gr.update(visible=not r), gr.update(value=saved_seed)
                 
                 seed_random.change(random_checked, inputs=[seed_random],\
                     outputs=[image_seed, image_seed], queue=False, show_progress=False)
