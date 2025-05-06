@@ -78,7 +78,7 @@ def dependency_resolver():
     elif sys.platform == "linux": # Linux also defaults to "2.5.1" 
         if arch_version == 12:    # Blackwell (NVIDIA 5xxx)
             torch_ver = "special"
-        elif: (arch_version > 3.7 and arch_version < 7.5)
+        elif: (arch_version > 3.7 and arch_version < 7.5):
             torch_ver = "2.4.1"   # older NVIDIA cards such as the 10xx series, cu124
         elif torchruntime_platform == "rocm5.7":
             torch_ver = "2.3.1"
