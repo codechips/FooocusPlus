@@ -810,7 +810,7 @@ with common.GRADIO_ROOT:
                     print(f'Image Seed Update: {image_seed_arg}')
                     if image_seed_arg.isdigit():
                         saved_seed = image_seed_arg
-                    else
+                    else:
                         image_seed = saved_seed
                         print(f'Restore from saved_seed: {image_seed}')
                     return image_seed_arg
