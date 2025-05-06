@@ -56,8 +56,8 @@ def dependency_resolver():
     lightningfabric_default = "2.5.1"
 
     torch_ver = torch_default # initialize torch to the default
-    gpus = get_gpus()
-    torchruntime_platform = get_torch_platform(gpus)
+    gpu_infos = get_gpus()
+    torchruntime_platform = get_torch_platform(gpu_infos)
 
     device_names = set(gpu.device_name for gpu in gpu_infos)
     arch_version = get_nvidia_arch(device_names)
