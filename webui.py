@@ -45,8 +45,8 @@ from backend_base.__init__ import get_torch_xformers_cuda_version as torch_info
 print()
 print('Initializing the user interface...')
 
-saved_seed = '0'    initialize seed saver
-image_seed = '0'    initialize working seed
+saved_seed = '0'    # initialize seed saver
+image_seed = '0'    # initialize working seed
 
 def get_task(*args):
     args = list(args)
