@@ -6,7 +6,7 @@ import sys
 import args_manager
 import torchruntime
 from torchruntime.device_db import get_gpus
-from torchruntime.platform_detection import get_torch_platform
+from torchruntime.platform_detection import get_torch_platform, get_nvidia_arch
 
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
