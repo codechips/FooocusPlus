@@ -745,7 +745,9 @@ def worker():
 
         extra_positive_prompts = prompts[1:] if len(prompts) > 1 else []
         print()
+        print(f'Main prompt: {prompt}')
         print(f'extra_positive_prompts: {extra_positive_prompts}')
+        print()
         extra_negative_prompts = negative_prompts[1:] if len(negative_prompts) > 1 else []
         
         lora_filenames = modules.util.remove_performance_lora(modules.config.lora_filenames,
