@@ -52,13 +52,16 @@ def dependency_resolver():
     torchvision_default = "0.20.1"
     torchaudio_default = "2.5.1"
     xformers_default = "0.0.29.post1"
-    pytorchlightning_default = "2.5.1"
+    pytorchlightning_default = "2.5.1.post0"
     lightningfabric_default = "2.5.1"
 
     torch_ver = torch_default # initialize torch to the default
     gpus = get_gpus()
     torchruntime_platform = get_torch_platform(gpus)
 
+    device_names = set(gpu.device_name for gpu in gpu_infos)
+    arch_version = get_nvidia_arch(device_names)
+    
     # First, take care of special cases
     # Note, torchruntime/torchruntime/platform_detection.py
     # suggests "directml" should be used for Intel
@@ -67,14 +70,16 @@ def dependency_resolver():
         args_manager.directml = True # switch on AMD/Intel support
     
     # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
-    if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
+    if (sys.platform == "win32") and (arch_version == 12): # Blackwell (NVIDIA 5xxx)
         torch_ver = "special"
-    #elif sys.platform == "win32": # fallback code if torch = "2.5.1" fails
-    #    torch_ver = "2.4.1"
+    elif (sys.platform == "win32") and (arch_version > 3.7 and arch_version < 7.5):
+        torch_ver = "2.4.1"    # older NVIDIA cards such as the 10xx series, cu124
 
     elif sys.platform == "linux": # Linux also defaults to "2.5.1" 
-        if torchruntime_platform == "nightly/cu128":
+        if arch_version == 12:    # Blackwell (NVIDIA 5xxx)
             torch_ver = "special"
+        elif: (arch_version > 3.7 and arch_version < 7.5)
+            torch_ver = "2.4.1"   # older NVIDIA cards such as the 10xx series, cu124
         elif torchruntime_platform == "rocm5.7":
             torch_ver = "2.3.1"
         elif torchruntime_platform == "rocm5.2":
@@ -95,7 +100,7 @@ def dependency_resolver():
             torchvision_ver = "0.19.1",
             torchaudio_ver = "2.4.1",
             xformers_ver = "0.0.28.post1",
-            pytorchlightning_ver = "2.5.1", # will be compatible with slightly older versions
+            pytorchlightning_ver = "2.5.1.post0", # will be compatible with slightly older versions
             lightningfabric_ver = "2.5.1",
         )
     
