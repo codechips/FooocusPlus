@@ -809,12 +809,10 @@ with common.GRADIO_ROOT:
                     return image_seed_arg
 
                 def random_checked(r):
-                    if not r:
-                        image_seed_change(image_seed)
-                    return gr.update(visible=not r)
+                    return gr.update(visible=not r), gr.update(value=image_seed)
                 
                 seed_random.change(random_checked, inputs=[seed_random],\
-                    outputs=[image_seed], queue=False, show_progress=False)
+                    outputs=[image_seed, image_seed], queue=False, show_progress=False)
                 
                 image_seed.change(image_seed_change, inputs=[image_seed],\
                     outputs=[image_seed], queue=False, show_progress=False)
