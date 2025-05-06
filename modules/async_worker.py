@@ -261,10 +261,6 @@ def worker():
 
     try:
         async_gradio_app = common.GRADIO_ROOT
-#        flag = f'''App started successful. Use the app with {str(async_gradio_app.local_url)} or {str(async_gradio_app.server_name)}:{str(async_gradio_app.server_port)}'''
-#        if async_gradio_app.share:
-#            flag += f''' or {async_gradio_app.share_url}'''
-#        print(flag)
     except Exception as e:
         print(e)
     ldm_patched.modules.model_management.print_memory_info()
@@ -739,15 +735,11 @@ def worker():
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]
-        if prompt == '':
-            # disable expansion when empty since it is not meaningful and influences image prompt
+        if (prompt == '') and (async_task.current_tab == 'ip'):
+            # disable Fooocus V2 expansion when the prompt is empty and Image Prompt is in use
             use_expansion = False
 
         extra_positive_prompts = prompts[1:] if len(prompts) > 1 else []
-        print()
-        print(f'Main prompt: {prompt}')
-        print(f'extra_positive_prompts: {extra_positive_prompts}')
-        print()
         extra_negative_prompts = negative_prompts[1:] if len(negative_prompts) > 1 else []
         
         lora_filenames = modules.util.remove_performance_lora(modules.config.lora_filenames,
