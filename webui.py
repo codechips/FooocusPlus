@@ -750,7 +750,7 @@ with common.GRADIO_ROOT:
                     
                     seed_random = gr.Checkbox(label='Random Seed',
                         info='Generate a random series of images', value=True)
-                    image_seed = gr.Number(label='Specific Seed',\
+                    image_seed = gr.Textbox(label='Specific Seed',\
                         info='Reuse a particular seed value to recreate images',\
                         value=0, max_lines=1, visible=False)
                     
@@ -784,11 +784,7 @@ with common.GRADIO_ROOT:
 
                 history_link = gr.HTML()
                 common.GRADIO_ROOT.load(update_history_link, outputs=history_link,\
-                    queue=False, show_progress=False, elem_classes='centre')
-    
-    
-                def random_checked(r):
-                    return gr.update(visible=not r)
+                    queue=False, show_progress=False, elem_classes='centre')  
 
                 def refresh_seed(r, seed_string):
                     if r:
@@ -802,9 +798,6 @@ with common.GRADIO_ROOT:
                             pass
                         return random.randint(constants.MIN_SEED, constants.MAX_SEED)
 
-                seed_random.change(random_checked, inputs=[seed_random],\
-                    outputs=[image_seed], queue=False, show_progress=False)
-
                 def image_seed_change(image_seed_arg):
                     global saved_seed, image_seed
                     print(f'Image Seed Update: {image_seed_arg}')
@@ -815,9 +808,17 @@ with common.GRADIO_ROOT:
                         print(f'Restore from saved_seed: {image_seed}')
                     return image_seed_arg
 
+                def random_checked(r):
+                    if not r:
+                        image_seed_change(image_seed)
+                    return gr.update(visible=not r)
+                
+                seed_random.change(random_checked, inputs=[seed_random],\
+                    outputs=[image_seed], queue=False, show_progress=False)
+                
                 image_seed.change(image_seed_change, inputs=[image_seed],\
                     outputs=[image_seed], queue=False, show_progress=False)
-
+                
                 with gr.Tabs():
                     with gr.Tab(label='Describe Image', id='describe_tab', visible=True) as image_describe:
                         with gr.Row():
