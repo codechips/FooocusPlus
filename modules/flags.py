@@ -143,7 +143,7 @@ default_class_params = {
     'Fooocus': {
         'disvisible': [],
         'disinteractive': [],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': sampler_list,
         'available_scheduler_name': scheduler_list,
         'backend_params': {},
@@ -151,7 +151,7 @@ default_class_params = {
     'Comfy': {
         'disvisible': [],
         'disinteractive': [],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': comfy_sampler_list,
         'available_scheduler_name': comfy_scheduler_list,
         'backend_params': {},
@@ -159,7 +159,7 @@ default_class_params = {
     'Kolors': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "base_model", "overwrite_step", "refiner_model"],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': comfy_sampler_list,
         'available_scheduler_name': comfy_scheduler_list,
         'backend_params': {
@@ -170,7 +170,7 @@ default_class_params = {
     'Kolors+': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "base_model", "overwrite_step", "refiner_model"],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': comfy_sampler_list,
         'available_scheduler_name': comfy_scheduler_list,
         'backend_params': {
@@ -181,7 +181,7 @@ default_class_params = {
     'SD3x': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "loras", "refiner_model"],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': comfy_sampler_list,
         'available_scheduler_name': comfy_scheduler_list,
         'backend_params': {
@@ -191,7 +191,7 @@ default_class_params = {
     'HyDiT': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "base_model", "loras", "refiner_model", "scheduler_name"],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': ["ddpm", "ddim", "dpmms"],
         'backend_params': {
             "task_method": "hydit_base",
@@ -200,7 +200,7 @@ default_class_params = {
     'HyDiT+': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "base_model", "loras", "refiner_model", "scheduler_name"],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': comfy_sampler_list,
         'available_scheduler_name': comfy_scheduler_list,
         'backend_params': {
@@ -210,7 +210,7 @@ default_class_params = {
     'Flux': {
         'disvisible': ["backend_selection", "performance_selection"],
         'disinteractive': ["input_image_checkbox", "enhance_checkbox", "performance_selection", "loras-4", "refiner_model"],
-        'available_aspect_ratios_selection': 'Std.',
+        'available_aspect_ratios_selection': 'Standard',
         'available_sampler_name': comfy_sampler_list,
         'available_scheduler_name': comfy_scheduler_list,
         'backend_params': {
