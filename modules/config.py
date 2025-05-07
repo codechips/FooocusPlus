@@ -10,7 +10,7 @@ import modules.sdxl_styles
 import modules.preset_resource as PR
 import tempfile
 
-from common import ROOT, CURRENT_ASPECT
+from common import ROOT
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
 from modules.model_loader import load_file_from_url
@@ -1225,7 +1225,6 @@ update_files()
 
 
 # Additional aspect ratio support
-CURRENT_ASPECT = default_standard_aspect_ratio
 
 default_aspect_ratio_values = [default_standard_aspect_ratio, default_shortlist_aspect_ratio,\
     default_sd1_5_aspect_ratio, default_pixart_aspect_ratio,]
