@@ -228,11 +228,11 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
 
         if h != '':
             width, height = eval(h)
-        if common.AR_TEMPLATE == 'Custom' and template == 'Custom':
-            template = 'Std.'
+        if common.AR_TEMPLATE == 'Shortlist' and template == 'Shortlist':
+            template = 'Standard'
         elif common.AR_TEMPLATE != template:    # i.e. the template has changed
-            if common.AR_TEMPLATE == 'Custom' and template == 'Std.':
-                template = 'Custom'
+            if common.AR_TEMPLATE == 'Shortlist' and template == 'Standard':
+                template = 'Shortlist'
             else:
                 common.CURRENT_ASPECT = ''
                 h = ''
@@ -397,7 +397,7 @@ def parse_meta_from_preset(preset_content):
                 if common.CURRENT_ASPECT:
                     default_aspect_ratio = common.CURRENT_ASPECT
                 else:
-                    default_aspect_ratio = modules.config.default_std_aspect_ratio
+                    default_aspect_ratio = modules.config.default_standard_aspect_ratio
                 print(f'default_aspect_ratio {default_aspect_ratio}')
                 width, height = AR.AR_split(default_aspect_ratio)
 #                height = height[:height.index(" ")]
