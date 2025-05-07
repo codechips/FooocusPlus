@@ -1,5 +1,5 @@
 {
-    "default_engine": {"available_aspect_ratios_selection": "Custom"},
+    "default_engine": {"available_aspect_ratios_selection": "Shortlist"},
     "default_model": "elsewhereXL_v10.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.6,
