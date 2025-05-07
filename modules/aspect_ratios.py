@@ -1,6 +1,6 @@
 import math
 
-aspect_ratios_templates = ['Std.', 'Custom', 'SD1.5', 'PixArt']
+aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
      '832*1248', '832*1216', '832*1152', '864*1152', '896*1152',
