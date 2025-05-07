@@ -299,14 +299,14 @@ default_image_number = get_config_item_or_set_default(
     expected_type=int
 )
 
-available_std_aspect_ratios = get_config_item_or_set_default(
-    key='available_std_aspect_ratios',
+available_standard_aspect_ratios = get_config_item_or_set_default(
+    key='available_standard_aspect_ratios',
     default_value=AR.available_aspect_ratios[0],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
-default_std_aspect_ratio = get_config_item_or_set_default(
-    key='default_std_aspect_ratio',
+default_standard_aspect_ratio = get_config_item_or_set_default(
+    key='default_standard_aspect_ratio',
     default_value='1024*1024',
     validator=lambda x: x in available_std_aspect_ratios,
     expected_type=str
@@ -317,14 +317,14 @@ enable_shortlist_aspect_ratios = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
-available_custom_aspect_ratios = get_config_item_or_set_default(
-    key='available_custom_aspect_ratios',
+available_shortlist_aspect_ratios = get_config_item_or_set_default(
+    key='available_shortlist_aspect_ratios',
     default_value=AR.available_aspect_ratios[1],
     validator=lambda x: isinstance(x, list) and all('*' in v for v in x) and len(x) > 1,
     expected_type=list
 )
-default_custom_aspect_ratio = get_config_item_or_set_default(
-    key='default_custom_aspect_ratio',
+default_shortlist_aspect_ratio = get_config_item_or_set_default(
+    key='default_shortlist_aspect_ratio',
     default_value='1024*1024',
     validator=lambda x: x in available_custom_aspect_ratios,
     expected_type=str
@@ -1225,13 +1225,13 @@ update_files()
 
 
 # Additional aspect ratio support
-CURRENT_ASPECT = f'{default_std_aspect_ratio}'
+CURRENT_ASPECT = f'{default_standard_aspect_ratio}'
 
-default_aspect_ratio_values = [default_std_aspect_ratio, default_custom_aspect_ratio,\
+default_aspect_ratio_values = [default_standard_aspect_ratio, default_shortlist_aspect_ratio,\
     default_sd1_5_aspect_ratio, default_pixart_aspect_ratio,]
 config_aspect_ratio_title = AR.aspect_ratio_title(default_aspect_ratio_values)
 
-config_aspect_ratios = [available_std_aspect_ratios, available_custom_aspect_ratios,\
+config_aspect_ratios = [available_standard_aspect_ratios, available_shortlist_aspect_ratios,\
     available_sd1_5_aspect_ratios, available_pixart_aspect_ratios,]
 config_aspect_ratio_labels = AR.aspect_ratio_labels(config_aspect_ratios)
 
