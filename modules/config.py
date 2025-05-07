@@ -1225,7 +1225,7 @@ update_files()
 
 
 # Additional aspect ratio support
-CURRENT_ASPECT = f'{default_standard_aspect_ratio}'
+CURRENT_ASPECT = default_standard_aspect_ratio
 
 default_aspect_ratio_values = [default_standard_aspect_ratio, default_shortlist_aspect_ratio,\
     default_sd1_5_aspect_ratio, default_pixart_aspect_ratio,]
