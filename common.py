@@ -8,7 +8,7 @@ MODELS_INFO = None
 # Store current aspect ratio selection from webui
 CURRENT_ASPECT = ''
 # Store the aspect ratio selection from the current preset
-AR_TEMPLATE = 'Std.'
+AR_TEMPLATE = 'Standard'
 
 # Store prompts from async_worker
 # used to restore prompts after preset change clears them
