@@ -705,7 +705,7 @@ with common.GRADIO_ROOT:
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='', visible=True)
                         print()
-                        print(f'aspect_ratios_selection {aspect_ratios_selection}')
+                        print(f'aspect_ratios_selection {aspect_ratios_selection.value}')
                         print(f'common.CURRENT_ASPECT {common.CURRENT_ASPECT}')
                         print(f'common.AR_TEMPLATE {common.AR_TEMPLATE}')
                         print()
