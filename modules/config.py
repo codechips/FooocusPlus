@@ -308,7 +308,7 @@ available_standard_aspect_ratios = get_config_item_or_set_default(
 default_standard_aspect_ratio = get_config_item_or_set_default(
     key='default_standard_aspect_ratio',
     default_value='1024*1024',
-    validator=lambda x: x in available_std_aspect_ratios,
+    validator=lambda x: x in available_standard_aspect_ratios,
     expected_type=str
 )
 enable_shortlist_aspect_ratios = get_config_item_or_set_default(
@@ -326,7 +326,7 @@ available_shortlist_aspect_ratios = get_config_item_or_set_default(
 default_shortlist_aspect_ratio = get_config_item_or_set_default(
     key='default_shortlist_aspect_ratio',
     default_value='1024*1024',
-    validator=lambda x: x in available_custom_aspect_ratios,
+    validator=lambda x: x in available_shortlist_aspect_ratios,
     expected_type=str
 )
 available_sd1_5_aspect_ratios = get_config_item_or_set_default(
