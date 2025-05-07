@@ -45,8 +45,10 @@ from backend_base.__init__ import get_torch_xformers_cuda_version as torch_info
 print()
 print('Initializing the user interface...')
 
-saved_seed = '0'    # initialize seed saver
+# Store current aspect ratio selection from webui
+current_aspect = modules.config.default_standard_aspect_ratio
 image_seed = '0'    # initialize working seed
+saved_seed = '0'    # initialize seed saver
 
 def get_task(*args):
     args = list(args)
@@ -706,7 +708,7 @@ with common.GRADIO_ROOT:
                         aspect_ratios_selection = gr.Textbox(value='1024×1024 <span style="color: grey;"> ∣ 1:1</span>', visible=True)
                         print()
                         print(f'aspect_ratios_selection {aspect_ratios_selection.value}')
-                        print(f'common.CURRENT_ASPECT {common.CURRENT_ASPECT}')
+                        print(f'current_aspect {current_aspect}')
                         print(f'common.AR_TEMPLATE {common.AR_TEMPLATE}')
                         print()
                         aspect_ratios_selections = []
@@ -717,8 +719,9 @@ with common.GRADIO_ROOT:
                             elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
+                            global current_aspect
                             if x != '':
-                                common.CURRENT_ASPECT = f'{x.split("<")[0]}'
+                                current_aspect = f'{x.split("<")[0]}'
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
