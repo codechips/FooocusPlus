@@ -703,7 +703,12 @@ with common.GRADIO_ROOT:
                         step=1, value=modules.config.default_image_number)
                     
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='', visible=False)
+                        aspect_ratios_selection = gr.Textbox(value='', visible=True)
+                        print()
+                        print(f'aspect_ratios_selection {aspect_ratios_selection}')
+                        print(f'common.CURRENT_ASPECT {common.CURRENT_ASPECT}')
+                        print(f'common.AR_TEMPLATE {common.AR_TEMPLATE}')
+                        print()
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -1318,13 +1323,13 @@ with common.GRADIO_ROOT:
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
-                if template=='Custom':
+                if template=='Shortlist':
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
                 elif template=='SD1.5':
                     results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
                 elif template=='PixArt':
                     results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-                else:        # Std. template
+                else:        # Standard template
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
             else:
                 results = [gr.update()] * 4
