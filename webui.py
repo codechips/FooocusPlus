@@ -703,7 +703,7 @@ with common.GRADIO_ROOT:
                         step=1, value=modules.config.default_image_number)
                     
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='', visible=True)
+                        aspect_ratios_selection = gr.Textbox(value='1024×1024 <span style="color: grey;"> ∣ 1:1</span>', visible=True)
                         print()
                         print(f'aspect_ratios_selection {aspect_ratios_selection.value}')
                         print(f'common.CURRENT_ASPECT {common.CURRENT_ASPECT}')
