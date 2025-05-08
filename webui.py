@@ -1315,10 +1315,10 @@ with common.GRADIO_ROOT:
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)
         
-        def reset_aspect_ratios(aspect_ratios):
+        def reset_aspect_ratios(arg_aspect_ratios):
             if len(aspect_ratios.split(','))>1:
-                template = aspect_ratios.split(',')[1]
-                aspect_ratios = aspect_ratios.split(',')[0]
+                template = arg_aspect_ratios.split(',')[1]
+                aspect_ratios = arg_aspect_ratios.split(',')[0]
                 if template=='Shortlist':
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
                 elif template=='SD1.5':
@@ -1332,11 +1332,12 @@ with common.GRADIO_ROOT:
                 results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
             AR.AR_template = template
             AR_label = f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}'
+            _js='(arg_aspect_ratios)=>{refresh_aspect_ratios_label(arg_aspect_ratios));}' #,dumps(AR.AR_template
             return results
             
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
-            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x,dumps(AR.AR_template));}')
+            show_progress=False)
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
