@@ -237,7 +237,8 @@ with common.GRADIO_ROOT:
                 with gr.Accordion("Generated Images Catalog", open=False, visible=False, elem_id='finished_images_catalog') as index_radio:
                     gallery_index_stat = gr.Textbox(value='', visible=False)
                     gallery_index = gr.Radio(choices=None, label="Gallery Index", value=None, show_label=False)
-                    gallery_index.change(gallery_util.images_list_update, inputs=[gallery_index, state_topbar], outputs=[gallery, index_radio, state_topbar], show_progress=False)
+                    gallery_index.change(gallery_util.images_list_update, inputs=[gallery_index, state_topbar],\
+                        outputs=[gallery, index_radio, state_topbar], show_progress=False)
             with gr.Group():
                 with gr.Row():
                     with gr.Column(scale=12):
@@ -1332,11 +1333,11 @@ with common.GRADIO_ROOT:
             AR_label = f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}'
             return results, gr.update(label=AR_label)
 
-        aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection,\
-            outputs=[aspect_ratios_selections, aspect_ratios_accordion], queue=False, show_progress=False)\
-            .then(lambda x: None, inputs=aspect_ratios_selection, queue=False, show_progress=False)
+             aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
+            queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
+            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x,AR.AR_template);}')
 
-        #, _js='(x,AR.AR_template)=>{refresh_aspect_ratios_label(x,AR.AR_template);}'
+        #, _js='(x)=>{refresh_aspect_ratios_label(x,AR.AR_template);}'
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
