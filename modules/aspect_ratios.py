@@ -80,6 +80,7 @@ def aspect_ratio_labels(config_aspect_ratios):
 def reset_aspect_ratios(arg_AR):
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
+        AR_template = template
         aspect_ratios = arg_AR.split(',')[0]
         if template=='Shortlist':
             _js='(arg_AR)=>{refresh_shortlist_AR_label(arg_AR));}'
@@ -95,7 +96,7 @@ def reset_aspect_ratios(arg_AR):
            results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
     else:            # fallback to Standard template if undefined
         template = 'Standard'
+        AR_template = template
         _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
         results = [gr.update(value=arg_AR, visible=True)] + [gr.update(visible=False)] * 3
-    AR_template = template
     return results
