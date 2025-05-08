@@ -78,6 +78,8 @@ def aspect_ratio_labels(config_aspect_ratios):
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
 def reset_aspect_ratios(arg_AR):
+    print()
+    print(f'reset_aspect_rations arg_AR: {arg_AR}')
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
