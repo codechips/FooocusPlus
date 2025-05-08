@@ -44,16 +44,23 @@ def AR_split(x):
     width, height = x.replace('*', ' ').split(' ')[:2]
     return width, height
 
+def add_template_ratio(x):
+    a, b = AR_split(x)
+    a, b = int(a), int(b)
+    g = math.gcd(a, b)
+    c, d = a // g, b // g
+    return f'{AR_template} {a}×{b} \U00002223 {c}:{d}'
+
+def aspect_ratio_title(default_aspect_ratio_values):
+    return {template: add_template_ratio(ratio)
+        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
+
 def add_ratio(x):
     a, b = AR_split(x)
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'{AR_template} {a}×{b} \U00002223 {c}:{d}</span>'
-
-def aspect_ratio_title(default_aspect_ratio_values):
-    return {template: add_ratio(ratio)
-        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
+    return f'{a}×{b} \U00002223 {c}:{d}'
 
 def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
