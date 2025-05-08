@@ -1,9 +1,10 @@
 import math
 
 # Store the current aspect ratio selection as updated by webui & modules.meta_parser
+# the initial value is set to default_standard_aspect_ratio by modules.config
 current_AR = '1024*1024'
 
-# Store the aspect ratio template for the current preset
+# Store the aspect ratio template for the current preset or Shortlist selector
 AR_template = 'Standard'
 
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
