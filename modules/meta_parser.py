@@ -228,22 +228,22 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
 
         if h != '':
             width, height = eval(h)
-        if common.AR_TEMPLATE == 'Shortlist' and template == 'Shortlist':
+        if AR.AR_template == 'Shortlist' and template == 'Shortlist':
             template = 'Standard'
-        elif common.AR_TEMPLATE != template:    # i.e. the template has changed
-            if common.AR_TEMPLATE == 'Shortlist' and template == 'Standard':
+        elif AR.AR_template != template:    # i.e. the template has changed
+            if AR.AR_template == 'Shortlist' and template == 'Standard':
                 template = 'Shortlist'
             else:
-                common.CURRENT_ASPECT = ''
+                AR.current_AR = ''
                 h = ''
-        common.AR_TEMPLATE = template
+        AR.AR_template = template
 
         if (width == '0') or (height == '0') or (h == ''):
-            if common.CURRENT_ASPECT == '':
-                common.CURRENT_ASPECT = modules.config.assign_default_by_template(template)
-            h = common.CURRENT_ASPECT
+            if AR.current_AR == '':
+                AR.current_AR = modules.config.assign_default_by_template(template)
+            h = AR.current_AR
             width, height = AR.AR_split(h)
-        common.CURRENT_ASPECT = h
+        AR.current_AR = h
 
         formatted = AR.add_ratio(f'{width}*{height}') 
         if formatted in modules.config.config_aspect_ratio_labels[template]:
