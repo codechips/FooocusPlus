@@ -702,9 +702,8 @@ with common.GRADIO_ROOT:
                         value=modules.config.default_performance,
                         elem_classes=['performance_selection'])
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
-                        step=1, value=modules.config.default_image_number)
-                    
- #                   with gr.Accordion(label=f'{AR.AR_template} Aspect Ratios: {AR.add_ratio(AR.current_AR)}', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                        step=1, value=modules.config.default_image_number)                    
+ 
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value=f'{AR.current_AR}, Standard', visible=True)
                         aspect_ratios_selections = []
@@ -1314,29 +1313,9 @@ with common.GRADIO_ROOT:
                                          guidance_scale, sharpness, adm_scaler_end, adm_scaler_positive,
                                          adm_scaler_negative, refiner_switch, refiner_model, sampler_name,
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
-                                     ], queue=False, show_progress=False)
-        
-        def reset_aspect_ratios(arg_aspect_ratios):
-            if len(arg_aspect_ratios.split(','))>1:
-                template = arg_aspect_ratios.split(',')[1]
-                aspect_ratios = arg_aspect_ratios.split(',')[0]
-                if template=='Shortlist':
-                    results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
-                elif template=='SD1.5':
-                    results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
-                elif template=='PixArt':
-                    results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-                else:        # Standard template
-                   results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
-            else:            # fallback to Standard template if undefined
-                template = 'Standard'    
-                results = [gr.update(value=arg_aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
-            AR.AR_template = template
-            AR_label = f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}'
-            _js='(AR_label)=>{refresh_aspect_ratios_label(AR_label));}'
-            return results
+                                     ], queue=False, show_progress=False)     
             
-        aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
+        aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
             show_progress=False)
 
