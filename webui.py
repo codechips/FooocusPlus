@@ -3,7 +3,6 @@ import os
 import sys
 import platform
 import copy
-import js2py
 import json
 import random
 import re
@@ -26,6 +25,7 @@ import modules.ui_support as UIS
 import modules.user_structure
 
 from extras.inpaint_mask import SAMOptions
+from json import dumps
 from PIL import Image
 from modules.sdxl_styles import legal_style_names, fooocus_expansion
 from modules.private_logger import get_current_html_path
@@ -1336,7 +1336,7 @@ with common.GRADIO_ROOT:
             
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
-            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x,AR.AR_template);}')
+            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x,dumps(AR.AR_template));}')
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
