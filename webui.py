@@ -1331,9 +1331,9 @@ with common.GRADIO_ROOT:
                 results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
             AR.AR_template = template
             AR_label = f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}'
-            return results, gr.update(label=AR_label)
-
-             aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
+            return results
+            
+        aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
             show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x,AR.AR_template);}')
 
