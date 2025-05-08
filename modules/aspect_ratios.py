@@ -46,11 +46,10 @@ def do_the_split(x):
 
 def AR_split(x):
     width, height = do_the_split(x)
-    if (width = '') or (height = ''):
+    if (width == '') or (height == ''):
+        print()
+        print(f'Adjusting aspect ratio value to {current_AR}')
         width, height = do_the_split(current_AR)
-    x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
-    x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
-    width, height = x.replace('*', ' ').split(' ')[:2]
     return width, height
 
 def add_template_ratio(x):
@@ -94,5 +93,6 @@ def reset_aspect_ratios(arg_AR):
     else:            # fallback to Standard template if undefined
         template = 'Standard'
         _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
-        results = [gr.update(value=arg_AR, visible=True)] + [gr.update(visible=False)] * 3 
+        results = [gr.update(value=arg_AR, visible=True)] + [gr.update(visible=False)] * 3
+    AR_template = template
     return results
