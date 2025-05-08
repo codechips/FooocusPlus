@@ -1,7 +1,7 @@
 import math
 
 # Store the current aspect ratio selection as updated by webui & modules.meta_parser
-current_AR = modules.config.default_standard_aspect_ratio
+current_AR = '1024*1024'
 
 # Store the aspect ratio template for the current preset
 AR_template = 'Standard'
