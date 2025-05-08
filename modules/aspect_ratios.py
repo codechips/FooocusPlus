@@ -49,7 +49,7 @@ def add_ratio(x):
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'{a}×{b} <span style="color: grey;"> \U00002223 {c}:{d}</span>'
+    return f'{AR_template} {a}×{b} \U00002223 {c}:{d}</span>'
 
 def aspect_ratio_title(default_aspect_ratio_values):
     return {template: add_ratio(ratio)
