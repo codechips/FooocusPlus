@@ -5,9 +5,6 @@ import os
 GRADIO_ROOT = None
 MODELS_INFO = None
 
-# Store the aspect ratio selection from the current preset
-AR_TEMPLATE = 'Standard'
-
 # Store prompts from async_worker
 # used to restore prompts after preset change clears them
 POSITIVE = ''
