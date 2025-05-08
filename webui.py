@@ -1316,7 +1316,7 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)
         
         def reset_aspect_ratios(arg_aspect_ratios):
-            if len(aspect_ratios.split(','))>1:
+            if len(arg_aspect_ratios.split(','))>1:
                 template = arg_aspect_ratios.split(',')[1]
                 aspect_ratios = arg_aspect_ratios.split(',')[0]
                 if template=='Shortlist':
@@ -1329,10 +1329,10 @@ with common.GRADIO_ROOT:
                    results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
             else:            # fallback to Standard template if undefined
                 template = 'Standard'    
-                results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
+                results = [gr.update(value=arg_aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
             AR.AR_template = template
             AR_label = f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}'
-            _js='(arg_aspect_ratios)=>{refresh_aspect_ratios_label(arg_aspect_ratios));}' #,dumps(AR.AR_template
+            _js='(AR_label)=>{refresh_aspect_ratios_label(AR_label));}' #,dumps(AR.AR_template
             return results
             
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
