@@ -715,6 +715,8 @@ with common.GRADIO_ROOT:
 
                         def save_current_aspect(x):
                             if x != '':
+                                print()
+                                print(f'save_current_aspect template: {template}, AR.AR_template {AR.AR_template}')
                                 AR.current_AR = f'{x.split("<")[0]}'
                             return x
 
