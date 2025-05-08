@@ -704,7 +704,8 @@ with common.GRADIO_ROOT:
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
                         step=1, value=modules.config.default_image_number)
                     
-                    with gr.Accordion(label=f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+ #                   with gr.Accordion(label=f'{AR.AR_template} Aspect Ratios: {AR.add_ratio(AR.current_AR)}', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                    with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value=f'{AR.current_AR}, Standard', visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
@@ -1332,7 +1333,7 @@ with common.GRADIO_ROOT:
                 results = [gr.update(value=arg_aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
             AR.AR_template = template
             AR_label = f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}'
-            _js='(AR_label)=>{refresh_aspect_ratios_label(AR_label));}' #,dumps(AR.AR_template
+            _js='(AR_label)=>{refresh_aspect_ratios_label(AR_label));}'
             return results
             
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
