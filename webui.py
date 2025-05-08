@@ -702,7 +702,7 @@ with common.GRADIO_ROOT:
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
                         step=1, value=modules.config.default_image_number)
                     
-                    with gr.Accordion(label='Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                    with gr.Accordion(label=f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value='{AR.current_AR} <span style="color: grey;"></span>, Standard', visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
