@@ -1,3 +1,4 @@
+import gradio as gr
 import math
 
 # Store the current aspect ratio selection as updated by webui & modules.meta_parser
@@ -46,6 +47,8 @@ def do_the_split(x):
 
 def AR_split(x):
     width, height = do_the_split(x)
+    print()
+    print(f'AR_split width, height: {width}, {height})
     if (width == '') or (height == ''):
         print()
         print(f'Adjusting aspect ratio value to {current_AR}')
