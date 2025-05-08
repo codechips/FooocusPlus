@@ -1332,7 +1332,7 @@ with common.GRADIO_ROOT:
 
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
-            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(f'({AR.AR_template}) - {x});}')
+            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(f"({AR.AR_template}) - {x}");}')
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
