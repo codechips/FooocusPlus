@@ -87,7 +87,7 @@ function refresh_aspect_ratios_label(value, template) {
         translation = "Aspect Ratios";
     }
     value = value.split(",")[0]
-    label.textContent = translation + " (" + htmlDecode(template) + ") - " + htmlDecode(value);
+    label.textContent = translation + " (" + template + ") - " + htmlDecode(value);
 }
 
 function refresh_finished_images_catalog_label(value) {
