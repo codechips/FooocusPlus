@@ -38,7 +38,16 @@ available_aspect_ratios = [
      '2048*512'],
 ]
 
+def do_the_split(x):
+    x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
+    x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
+    width, height = x.replace('*', ' ').split(' ')[:2]
+    return width, height
+
 def AR_split(x):
+    width, height = do_the_split(x)
+    if (width = '') or (height = ''):
+        width, height = do_the_split(current_AR)
     x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
     x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
     width, height = x.replace('*', ' ').split(' ')[:2]
@@ -65,3 +74,25 @@ def add_ratio(x):
 def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
+
+def reset_aspect_ratios(arg_AR):
+    if len(arg_AR.split(','))>1:
+        template = arg_AR.split(',')[1]
+        aspect_ratios = arg_AR.split(',')[0]
+        if template=='Shortlist':
+            _js='(arg_AR)=>{refresh_shortlist_AR_label(arg_AR));}'
+            results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
+        elif template=='SD1.5':
+            _js='(arg_AR)=>{refresh_sd1_5_AR_label(arg_AR));}'
+            results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
+        elif template=='PixArt':
+            _js='(arg_AR)=>{refresh_pixart_AR_label(arg_AR));}'
+            results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
+        else:        # Standard template
+           _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
+           results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
+    else:            # fallback to Standard template if undefined
+        template = 'Standard'
+        _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
+        results = [gr.update(value=arg_AR, visible=True)] + [gr.update(visible=False)] * 3 
+    return results
