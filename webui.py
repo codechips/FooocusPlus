@@ -1316,7 +1316,6 @@ with common.GRADIO_ROOT:
         def reset_aspect_ratios(aspect_ratios):
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
-                AR.AR_template = template
                 aspect_ratios = aspect_ratios.split(',')[0]
                 if template=='Shortlist':
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
@@ -1324,10 +1323,13 @@ with common.GRADIO_ROOT:
                     results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
                 elif template=='PixArt':
                     results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-                return results
-            else:                # Standard template & fallback if undefined
+                else:        # Standard template
+                   results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
+            else:            # fallback to Standard template if undefined
+                template = 'Standard'    
                 results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
 #                results = [gr.update()] * 4  # old fallback if the template is undefined
+            AR.AR_template = template            
             return results
 
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
