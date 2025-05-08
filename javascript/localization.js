@@ -80,14 +80,44 @@ function refresh_style_localization() {
     processNode(document.querySelector('.style_selections'));
 }
 
-function refresh_aspect_ratios_label(value) {
+function refresh_standard_AR_label(value) {
     label = document.querySelector('#aspect_ratios_accordion div span');
-    translation = getTranslation("Aspect Ratios");
+    translation = getTranslation("Standard Aspect Ratio");
     if (typeof translation == "undefined") {
-        translation = "Aspect Ratios";
+        translation = "Standard Aspect Ratio";
     }
     value = value.split(",")[0]
-    label.textContent = translation + " - " + htmlDecode(value);
+    label.textContent = translation + ": " + htmlDecode(value);
+}
+
+function refresh_shortlist_AR_label(value) {
+    label = document.querySelector('#aspect_ratios_accordion div span');
+    translation = getTranslation("Shortlist Aspect Ratio");
+    if (typeof translation == "undefined") {
+        translation = "Shortlist Aspect Ratio";
+    }
+    value = value.split(",")[0]
+    label.textContent = translation + ": " + htmlDecode(value);
+}
+
+function refresh_sd1_5_AR_label(value) {
+    label = document.querySelector('#aspect_ratios_accordion div span');
+    translation = getTranslation("SD1.5 Aspect Ratio");
+    if (typeof translation == "undefined") {
+        translation = "SD1.5 Aspect Ratio";
+    }
+    value = value.split(",")[0]
+    label.textContent = translation + ": " + htmlDecode(value);
+}
+
+function refresh_pixart_AR_label(value) {
+    label = document.querySelector('#aspect_ratios_accordion div span');
+    translation = getTranslation("PixArt Aspect Ratio");
+    if (typeof translation == "undefined") {
+        translation = "PixArt Aspect Ratio";
+    }
+    value = value.split(",")[0]
+    label.textContent = translation + ": " + htmlDecode(value);
 }
 
 function refresh_finished_images_catalog_label(value) {
