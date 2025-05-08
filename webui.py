@@ -3,6 +3,7 @@ import os
 import sys
 import platform
 import copy
+import js2py
 import json
 import random
 import re
@@ -704,7 +705,7 @@ with common.GRADIO_ROOT:
                         step=1, value=modules.config.default_image_number)
                     
                     with gr.Accordion(label=f'Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='{AR.current_AR}, Standard', visible=True)
+                        aspect_ratios_selection = gr.Textbox(value=f'{AR.current_AR}, Standard', visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -1336,8 +1337,6 @@ with common.GRADIO_ROOT:
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
             show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x,AR.AR_template);}')
-
-        #, _js='(x)=>{refresh_aspect_ratios_label(x,AR.AR_template);}'
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
