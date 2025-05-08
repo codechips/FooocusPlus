@@ -702,13 +702,8 @@ with common.GRADIO_ROOT:
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
                         step=1, value=modules.config.default_image_number)
                     
-                    with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='1024×1024 <span style="color: grey;"> ∣ 1:1</span>, Standard', visible=True)
-                        print()
-                        print(f'aspect_ratios_selection {aspect_ratios_selection.value}')
-                        print(f'AR.current_AR {AR.current_AR}')
-                        print(f'AR.AR_template {AR.AR_template}')
-                        print()
+                    with gr.Accordion(label='Aspect Ratios ({AR.AR_template}) - {AR.add_ratio(AR.current_AR)}', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                        aspect_ratios_selection = gr.Textbox(value='{AR.current_AR} <span style="color: grey;"></span>, Standard', visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -843,7 +838,7 @@ with common.GRADIO_ROOT:
                                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/1363" target="_blank">\U0001F4D4 Documentation</a>')
 
                                 def trigger_show_image_properties(image):
-                                    image_size = modules.util.get_image_size_info(image, modules.flags.available_aspect_ratios[0])
+                                    image_size = modules.util.get_image_size_info(image, AR.available_aspect_ratios[0])
                                     return gr.update(value=image_size, visible=True)
 
                                 describe_input_image.upload(trigger_show_image_properties, inputs=describe_input_image,
@@ -1319,9 +1314,9 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)
         
         def reset_aspect_ratios(aspect_ratios):
-#            global aspect_ratios_selection
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
+                AR.AR_template = template
                 aspect_ratios = aspect_ratios.split(',')[0]
                 if template=='Shortlist':
                     results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
@@ -1329,15 +1324,15 @@ with common.GRADIO_ROOT:
                     results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
                 elif template=='PixArt':
                     results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-                else:        # Standard template
-                    results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
-            else:
-                results = [gr.update()] * 4  # fallback if the template is undefined
+                return results
+            else:                # fallback to Standard template
+                results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3    
+#                results = [gr.update()] * 4  # old fallback if the template is undefined
             return results
 
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
-            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+            show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(f'({AR.AR_template}) - {x});}')
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
