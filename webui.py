@@ -45,8 +45,6 @@ from backend_base.__init__ import get_torch_xformers_cuda_version as torch_info
 print()
 print('Initializing the user interface...')
 
-# Store current aspect ratio selection from webui
-current_aspect = modules.config.default_standard_aspect_ratio
 image_seed = '0'    # initialize working seed
 saved_seed = '0'    # initialize seed saver
 
@@ -705,11 +703,11 @@ with common.GRADIO_ROOT:
                         step=1, value=modules.config.default_image_number)
                     
                     with gr.Accordion(label='Aspect Ratios', open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value='1024×1024 <span style="color: grey;"> ∣ 1:1</span>', visible=True)
+                        aspect_ratios_selection = gr.Textbox(value='1024×1024 <span style="color: grey;"> ∣ 1:1</span>, Standard', visible=True)
                         print()
                         print(f'aspect_ratios_selection {aspect_ratios_selection.value}')
-                        print(f'current_aspect {current_aspect}')
-                        print(f'common.AR_TEMPLATE {common.AR_TEMPLATE}')
+                        print(f'AR.current_AR {AR.current_AR}')
+                        print(f'AR.AR_template {AR.AR_template}')
                         print()
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
@@ -719,9 +717,8 @@ with common.GRADIO_ROOT:
                             elem_classes='aspect_ratios'))
 
                         def save_current_aspect(x):
-                            global current_aspect
                             if x != '':
-                                current_aspect = f'{x.split("<")[0]}'
+                                AR.current_AR = f'{x.split("<")[0]}'
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
@@ -731,7 +728,7 @@ with common.GRADIO_ROOT:
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
                             info='Set to -1 to disable. '
-                            'Results will be worse for non-standard numbers that the model is not trained on.')
+                            'Results may be worse for non-standard numbers that the model is not trained on.')
                         overwrite_height = gr.Slider(label='Forced Overwrite of Generating Height',
                                             minimum=-1, maximum=2048, step=1, value=-1)
 
@@ -1322,7 +1319,7 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)
         
         def reset_aspect_ratios(aspect_ratios):
-            global aspect_ratios_selection
+#            global aspect_ratios_selection
             if len(aspect_ratios.split(','))>1:
                 template = aspect_ratios.split(',')[1]
                 aspect_ratios = aspect_ratios.split(',')[0]
@@ -1335,7 +1332,7 @@ with common.GRADIO_ROOT:
                 else:        # Standard template
                     results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
             else:
-                results = [gr.update()] * 4
+                results = [gr.update()] * 4  # fallback if the template is undefined
             return results
 
         aspect_ratios_selection.change(reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
