@@ -103,16 +103,18 @@ def reset_aspect_ratios(arg_AR):
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
-        refresh_AR_label()
-        aspect_ratios = arg_AR.split(',')[0]
-        if template=='Shortlist':
-            results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
-        elif template=='SD1.5':
-            results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
-        elif template=='PixArt':
-            results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-        else:        # Standard template           
-           results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
-    else:            # fallback is template is undefined
+    elif not AR_template:
+        # fallback if template & AR_template are undefined
         results = [gr.update()] * 4
-    return results
+        return
+    refresh_AR_label()
+    aspect_ratios = arg_AR.split(',')[0]
+    if template=='Shortlist':
+        results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
+    elif template=='SD1.5':
+        results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
+    elif template=='PixArt':
+        results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
+    else:        # Standard template           
+       results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
+return results
