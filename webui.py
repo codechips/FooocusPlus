@@ -716,14 +716,16 @@ with common.GRADIO_ROOT:
                         def save_current_aspect(x):
                             if x != '':
                                 print()
-                                print(f'save_current_aspect template: {template}, AR.AR_template {AR.AR_template}')
+                                print(f'save_current_aspect x: {x}'
+                                print(f'save_current_aspect AR.AR_template {AR.AR_template}')
+                                AR.refresh_AR_label()
                                 AR.current_AR = f'{x.split("<")[0]}'
                             return x
 
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
                                 queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
-                                show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+                                show_progress=False)
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
                             info='Set to -1 to disable. '
