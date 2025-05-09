@@ -86,7 +86,6 @@ function refresh_standard_AR_label(value) {
     if (typeof translation == "undefined") {
         translation = "Standard Aspect Ratio";
     }
-    value = value.split(",")[0]
     label.textContent = translation + ": " + htmlDecode(value);
 }
 
@@ -96,7 +95,6 @@ function refresh_shortlist_AR_label(value) {
     if (typeof translation == "undefined") {
         translation = "Shortlist Aspect Ratio";
     }
-    value = value.split(",")[0]
     label.textContent = translation + ": " + htmlDecode(value);
 }
 
@@ -106,7 +104,6 @@ function refresh_sd1_5_AR_label(value) {
     if (typeof translation == "undefined") {
         translation = "SD1.5 Aspect Ratio";
     }
-    value = value.split(",")[0]
     label.textContent = translation + ": " + htmlDecode(value);
 }
 
@@ -116,7 +113,6 @@ function refresh_pixart_AR_label(value) {
     if (typeof translation == "undefined") {
         translation = "PixArt Aspect Ratio";
     }
-    value = value.split(",")[0]
     label.textContent = translation + ": " + htmlDecode(value);
 }
 
