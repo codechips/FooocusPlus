@@ -80,11 +80,12 @@ function refresh_style_localization() {
     processNode(document.querySelector('.style_selections'));
 }
 
-function refresh_aspect_ratios_label(value) {
+function refresh_aspect_ratios_label(value, template) {
     label = document.querySelector('#aspect_ratios_accordion div span');
-    translation = getTranslation("Standard Aspect Ratio");
+    title = template + " Aspect Ratio"
+    translation = getTranslation(title);
     if (typeof translation == "undefined") {
-        translation = "Standard Aspect Ratio";
+        translation = title;
     }
     label.textContent = translation + ": " + htmlDecode(value);
 }
