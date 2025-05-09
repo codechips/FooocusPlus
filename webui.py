@@ -713,17 +713,8 @@ with common.GRADIO_ROOT:
                             info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). For SDXL, 1280*1280 is experimental.',
                             elem_classes='aspect_ratios'))
 
-                        def save_current_aspect(x):
-                            if x != '':
-                                print()
-                                print(f'save_current_aspect x: {x}')
-                                print(f'save_current_aspect AR.AR_template {AR.AR_template}')
-                                AR.refresh_AR_label()
-                                AR.current_AR = f'{x.split("<")[0]}'
-                            return x
-
                         for aspect_ratios_select in aspect_ratios_selections:
-                            aspect_ratios_select.change(save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
+                            aspect_ratios_select.change(AR.save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
                                 queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
                                 show_progress=False)
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
