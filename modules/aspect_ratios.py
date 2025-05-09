@@ -92,7 +92,7 @@ def save_current_aspect(x):
     if x != '':
         print()
         print(f'save_current_aspect x: {x}')
-        print(f'save_current_aspect AR.AR_template {AR.AR_template}')
+        print(f'save_current_aspect AR_template {AR_template}')
         refresh_AR_label()
         current_AR = f'{x.split(",")[0]}'
     return x
