@@ -706,6 +706,7 @@ with common.GRADIO_ROOT:
  
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(value=f'{AR.add_ratio(AR.current_AR)},Standard', visible=True)
+                        template_selection = gr.Textbox(value=AR.AR_template, visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -714,9 +715,9 @@ with common.GRADIO_ROOT:
                             elem_classes='aspect_ratios'))
 
                         for aspect_ratios_select in aspect_ratios_selections:
-                            aspect_ratios_select.change(AR.save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
-                                queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
-                                show_progress=False)
+                            aspect_ratios_select.change(AR.save_current_aspect, inputs=[aspect_ratios_select, template_selection], outputs=aspect_ratios_selection,\
+                                queue=False, show_progress=False).then(lambda x: None, inputs=[aspect_ratios_select, template_selection], queue=False,\
+                                show_progress=False _js='(x,y)=>{refresh_aspect_ratios_label(x,y);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
                             info='Set to -1 to disable. '
@@ -1310,7 +1311,7 @@ with common.GRADIO_ROOT:
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)     
             
-        aspect_ratios_selection.change(AR.reset_aspect_ratios , inputs=[aspect_ratios_selection, AR.AR_template], outputs=aspect_ratios_selections,\
+        aspect_ratios_selection.change(AR.reset_aspect_ratios , inputs=[aspect_ratios_selection, template_selection], outputs=aspect_ratios_selections,\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
             show_progress=False, _js='(x,y)=>{refresh_aspect_ratios_label(x,y);}')
 
