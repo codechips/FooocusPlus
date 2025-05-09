@@ -97,6 +97,7 @@ def save_current_aspect(x):
         print(f'save_current_aspect AR_template {AR_template}')
         current_AR = f'{x.split(",")[0]}'
         refresh_AR_label(current_AR)
+        x = f'{x} ({AR_template}) 
     return x
 
 def reset_aspect_ratios(arg_AR):
