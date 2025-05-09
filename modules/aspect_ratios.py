@@ -77,15 +77,15 @@ def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
-def refresh_AR_label(arg_AR):
+def refresh_AR_label(ar):
     if AR_template == 'Shortlist':
-        _js='(arg_AR)=>{refresh_shortlist_AR_label(arg_AR);}'
+        _js='(ar)=>{refresh_shortlist_AR_label(ar);}'
     elif AR_template == 'SD1.5':
-        _js='(arg_AR)=>{refresh_sd1_5_AR_label(arg_AR);}'
+        _js='(ar)=>{refresh_sd1_5_AR_label(ar);}'
     elif AR_template == 'PixArt':
-        _js='(arg_AR)=>{refresh_pixart_AR_label(arg_AR);}'
+        _js='(ar)=>{refresh_pixart_AR_label(ar);}'
     else:
-        _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR);}'
+        _js='(ar)=>{refresh_standard_AR_label(ar);}'
     return
 
 def save_current_aspect(x):
