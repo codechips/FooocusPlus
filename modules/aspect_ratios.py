@@ -110,11 +110,11 @@ def reset_aspect_ratios(arg_AR):
         return
     refresh_AR_label()
     aspect_ratios = arg_AR.split(',')[0]
-    if template=='Shortlist':
+    if AR_template=='Shortlist':
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
-    elif template=='SD1.5':
+    elif AR_template=='SD1.5':
         results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
-    elif template=='PixArt':
+    elif AR_template=='PixArt':
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template           
        results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
