@@ -717,7 +717,7 @@ with common.GRADIO_ROOT:
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(AR.save_current_aspect, inputs=[aspect_ratios_select, template_selection], outputs=aspect_ratios_selection,\
                                 queue=False, show_progress=False).then(lambda x: None, inputs=[aspect_ratios_select, template_selection], queue=False,\
-                                show_progress=False _js='(x,y)=>{refresh_aspect_ratios_label(x,y);}')
+                                show_progress=False, _js='(x,y)=>{refresh_aspect_ratios_label(x,y);}')
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
                             info='Set to -1 to disable. '
