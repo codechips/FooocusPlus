@@ -85,7 +85,8 @@ def refresh_AR_label(ar):
     elif AR_template == 'PixArt':
         _js='(ar)=>{refresh_pixart_AR_label(ar);}'
     else:
-        _js='(ar)=>{refresh_standard_AR_label(ar);}'
+        _js='(ar)=>{refresh_aspect_ratios_label(ar);}'
+#        _js='(ar)=>{refresh_standard_AR_label(ar);}'
     return
 
 def save_current_aspect(x):
