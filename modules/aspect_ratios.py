@@ -77,18 +77,6 @@ def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
-def refresh_AR_label(ar):
-    if AR_template == 'Shortlist':
-        _js='(ar)=>{refresh_shortlist_AR_label(ar);}'
-    elif AR_template == 'SD1.5':
-        _js='(ar)=>{refresh_sd1_5_AR_label(ar);}'
-    elif AR_template == 'PixArt':
-        _js='(ar)=>{refresh_pixart_AR_label(ar);}'
-    else:
-        _js='(ar)=>{refresh_aspect_ratios_label(ar);}'
-#        _js='(ar)=>{refresh_standard_AR_label(ar);}'
-    return
-
 def save_current_aspect(x):
     global current_AR
     if x != '':
@@ -96,8 +84,6 @@ def save_current_aspect(x):
         print(f'save_current_aspect x: {x}')
         print(f'save_current_aspect AR_template {AR_template}')
         current_AR = f'{x.split(",")[0]}'
-        refresh_AR_label(current_AR)
-        x = f'{x} ({AR_template})' 
     return x
 
 def reset_aspect_ratios(arg_AR):
@@ -110,11 +96,10 @@ def reset_aspect_ratios(arg_AR):
     elif not AR_template:
         # fallback if template & AR_template are undefined
         results = [gr.update()] * 4
-        return
+        return results
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
-        current_AR = aspect_ratios
-        refresh_AR_label(current_AR)        
+        current_AR = aspect_ratios    
     if AR_template=='Shortlist':
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
     elif AR_template=='SD1.5':
@@ -123,5 +108,4 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template           
        results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
-    arg_AR = f'{AR_template} {arg_AR}'
     return results
