@@ -1310,7 +1310,8 @@ with common.GRADIO_ROOT:
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)     
             
-        aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
+        aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
+            outputs=[aspect_ratios_selection, aspect_ratios_selections],\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
             show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
