@@ -77,28 +77,37 @@ def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
+def refresh_AR_label():
+    if AR_template == 'Shortlist':
+        _js='(arg_AR)=>{refresh_shortlist_AR_label(arg_AR));}'
+    elif AR_template == 'SD1.5':
+        _js='(arg_AR)=>{refresh_sd1_5_AR_label(arg_AR));}'
+    elif template == 'PixArt':
+        _js='(arg_AR)=>{refresh_pixart_AR_label(arg_AR));}'
+    else:
+        _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
+    return
+
 def reset_aspect_ratios(arg_AR):
     print()
     print(f'reset_aspect_rations arg_AR: {arg_AR}')
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
+        refresh_AR_label()
         aspect_ratios = arg_AR.split(',')[0]
         if template=='Shortlist':
-            _js='(arg_AR)=>{refresh_shortlist_AR_label(arg_AR));}'
             results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
         elif template=='SD1.5':
-            _js='(arg_AR)=>{refresh_sd1_5_AR_label(arg_AR));}'
             results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
         elif template=='PixArt':
-            _js='(arg_AR)=>{refresh_pixart_AR_label(arg_AR));}'
             results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-        else:        # Standard template
-           _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
+        else:        # Standard template           
            results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
     else:            # fallback to Standard template if undefined
         template = 'Standard'
         AR_template = template
+        refresh_AR_label()
         _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
         results = [gr.update(value=arg_AR, visible=True)] + [gr.update(visible=False)] * 3
     return results
