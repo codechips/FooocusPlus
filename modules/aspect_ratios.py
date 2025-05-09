@@ -88,6 +88,15 @@ def refresh_AR_label():
         _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
     return
 
+def save_current_aspect(x):
+    if x != '':
+        print()
+        print(f'save_current_aspect x: {x}')
+        print(f'save_current_aspect AR.AR_template {AR.AR_template}')
+        refresh_AR_label()
+        current_AR = f'{x.split(",")[0]}'
+    return x
+
 def reset_aspect_ratios(arg_AR):
     print()
     print(f'reset_aspect_rations arg_AR: {arg_AR}')
@@ -104,10 +113,6 @@ def reset_aspect_ratios(arg_AR):
             results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
         else:        # Standard template           
            results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3 
-    else:            # fallback to Standard template if undefined
-        template = 'Standard'
-        AR_template = template
-        refresh_AR_label()
-        _js='(arg_AR)=>{refresh_standard_AR_label(arg_AR));}'
-        results = [gr.update(value=arg_AR, visible=True)] + [gr.update(visible=False)] * 3
+    else:            # fallback is template is undefined
+        results = [gr.update()] * 4
     return results
