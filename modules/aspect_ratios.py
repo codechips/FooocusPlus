@@ -98,6 +98,7 @@ def save_current_aspect(x):
     return x
 
 def reset_aspect_ratios(arg_AR):
+    global AR_template
     print()
     print(f'reset_aspect_rations arg_AR: {arg_AR}')
     if len(arg_AR.split(','))>1:
