@@ -2,7 +2,7 @@ import gradio as gr
 import os
 import sys
 import platform
-import copy
+import copyf
 import json
 import random
 import re
