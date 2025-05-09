@@ -89,33 +89,6 @@ function refresh_standard_AR_label(value) {
     label.textContent = translation + ": " + htmlDecode(value);
 }
 
-function refresh_shortlist_AR_label(value) {
-    label = document.querySelector('#aspect_ratios_accordion div span');
-    translation = getTranslation("Shortlist Aspect Ratio");
-    if (typeof translation == "undefined") {
-        translation = "Shortlist Aspect Ratio";
-    }
-    label.textContent = translation + ": " + htmlDecode(value);
-}
-
-function refresh_sd1_5_AR_label(value) {
-    label = document.querySelector('#aspect_ratios_accordion div span');
-    translation = getTranslation("SD1.5 Aspect Ratio");
-    if (typeof translation == "undefined") {
-        translation = "SD1.5 Aspect Ratio";
-    }
-    label.textContent = translation + ": " + htmlDecode(value);
-}
-
-function refresh_pixart_AR_label(value) {
-    label = document.querySelector('#aspect_ratios_accordion div span');
-    translation = getTranslation("PixArt Aspect Ratio");
-    if (typeof translation == "undefined") {
-        translation = "PixArt Aspect Ratio";
-    }
-    label.textContent = translation + ": " + htmlDecode(value);
-}
-
 function refresh_finished_images_catalog_label(value) {
     label = document.querySelector('#finished_images_catalog div span');
     translation = getTranslation("Finished Images Catalog");
