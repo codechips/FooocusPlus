@@ -80,13 +80,13 @@ function refresh_style_localization() {
     processNode(document.querySelector('.style_selections'));
 }
 
-function refresh_aspect_ratios_label(template, value) {
+function refresh_aspect_ratios_label(value) {
     label = document.querySelector('#aspect_ratios_accordion div span');
     translation = getTranslation("Standard Aspect Ratio");
     if (typeof translation == "undefined") {
         translation = "Standard Aspect Ratio";
     }
-    label.textContent = template + translation + ": " + htmlDecode(value);
+    label.textContent = translation + ": " + htmlDecode(value);
 }
 
 function refresh_finished_images_catalog_label(value) {
