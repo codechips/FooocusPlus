@@ -709,7 +709,7 @@ with common.GRADIO_ROOT:
                             elem_id='AR_selection', visible=True)
                         enable_shortlist_checkbox = gr.Checkbox(label='Use the Aspect Ratio Shortlist',\
                             info='List the most popular aspect ratios only', value=modules.config.enable_shortlist_aspect_ratios,\
-                            visible = (AR.AR_Template=="Standard") or (AR.AR_Template=="Shortlist"))
+                            visible = (AR.AR_template=="Standard") or (AR.AR_template=="Shortlist"))
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
