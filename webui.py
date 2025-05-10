@@ -707,6 +707,9 @@ with common.GRADIO_ROOT:
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(label='Standard', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
                             elem_id='AR_selection', visible=True)
+                        enable_shortlist_checkbox = gr.Checkbox(label='Use the Aspect Ratio Shortlist',\
+                            info='List the most popular aspect ratios only', value=modules.config.enable_shortlist_aspect_ratios,\
+                            visible = (AR_Template=="Standard") or (AR_Template=="Shortlist"))
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -1308,8 +1311,11 @@ with common.GRADIO_ROOT:
                                          guidance_scale, sharpness, adm_scaler_end, adm_scaler_positive,
                                          adm_scaler_negative, refiner_switch, refiner_model, sampler_name,
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
-                                     ], queue=False, show_progress=False)     
-            
+                                     ], queue=False, show_progress=False)
+        
+        enable_shortlist_checkbox.change(AR.toggle_shortlist, inputs=enable_shortlist_checkbox,\
+            outputs=enable_shortlist_checkbox, queue=False, show_progress=False)
+        
         aspect_ratios_selection.change(AR.reset_aspect_ratios , inputs=aspect_ratios_selection,\
             outputs=aspect_ratios_selections, queue=False, show_progress=False)\
             .then(AR.save_AR_template, inputs=aspect_ratios_selection,\
