@@ -705,8 +705,8 @@ with common.GRADIO_ROOT:
                         step=1, value=modules.config.default_image_number)                    
  
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_ratios_selection = gr.Textbox(value=f'{AR.add_ratio(AR.current_AR)}, Standard', visible=True)
-                        template_selection = gr.Textbox(label='Standard', value=AR.AR_template, elem_id='template_selection', visible=True) 
+                        aspect_ratios_selection = gr.Textbox(label='Standard', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
+                            elem_id='AR_selection', visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -718,6 +718,7 @@ with common.GRADIO_ROOT:
                             aspect_ratios_select.change(AR.save_current_aspect, inputs=aspect_ratios_select, outputs=aspect_ratios_selection,\
                                 queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
                                 show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+                        
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
                             info='Set to -1 to disable. '
@@ -725,14 +726,10 @@ with common.GRADIO_ROOT:
                         overwrite_height = gr.Slider(label='Forced Overwrite of Generating Height',
                                             minimum=-1, maximum=2048, step=1, value=-1)
 
-                        def overwrite_aspect_ratios(width, height):
-                            if width>0 and height>0:
-                                return AR.add_ratio(f'{width}*{height}')
-                            return gr.update()
-                        overwrite_width.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
+                        overwrite_width.change(AR.overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
-                        overwrite_height.change(overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
+                        overwrite_height.change(AR.overwrite_aspect_ratios, inputs=[overwrite_width, overwrite_height],\
                             outputs=aspect_ratios_selection, queue=False, show_progress=False).then(lambda x: None,\
                             inputs=aspect_ratios_select, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
@@ -1311,7 +1308,8 @@ with common.GRADIO_ROOT:
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)     
             
-        aspect_ratios_selection.change(AR.reset_aspect_ratios , inputs=aspect_ratios_selection, outputs=aspect_ratios_selections,\
+        aspect_ratios_selection.change(AR.reset_aspect_ratios , inputs=aspect_ratios_selection,\
+            outputs=[aspect_ratios_selections, aspect_ratios_selection]\
             queue=False, show_progress=False).then(lambda x: None, inputs=aspect_ratios_selection, queue=False,\
             show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
