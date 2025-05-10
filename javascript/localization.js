@@ -82,13 +82,14 @@ function refresh_style_localization() {
 
 function refresh_aspect_ratios_label(value) {
     label = document.querySelector('#aspect_ratios_accordion div span');
-    templateObj = document.querySelector('#AR_selection');
-    template = templateObj.textContent
+    template = document.querySelector('#AR_selection').textContent;
+    template = template.split("s ")[1];
     title = template + " Aspect Ratio";
     translation = getTranslation(title);
     if (typeof translation == "undefined") {
         translation = title;
     }
+    value = value.split(",")[0];
     label.textContent = translation + ": " + htmlDecode(value);
 }
 
