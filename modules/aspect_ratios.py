@@ -114,6 +114,12 @@ def reset_aspect_ratios(arg_AR):
     return results
 
 def toggle_shortlist(x):
+    if AR_template == 'Standard':
+        AR_template = 'Shortlist'
+    elif AR_template == 'Shortlist':
+        AR_template = 'Standard'
+    else:
+        return gr.update()        
     reset_aspect_ratios(current_AR)
     return gr.update()
 
