@@ -228,14 +228,9 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
 
         if h != '':
             width, height = eval(h)
-        if AR.AR_template == 'Shortlist' and template == 'Shortlist':
-            template = 'Standard'
-        elif AR.AR_template != template:    # i.e. the template has changed
-            if AR.AR_template == 'Shortlist' and template == 'Standard':
-                template = 'Shortlist'
-            else:
-                AR.current_AR = ''
-                h = ''
+        if AR.AR_template != template:    # i.e. the template has changed
+            AR.current_AR = ''
+            h = ''
         AR.AR_template = template
 
         if (width == '0') or (height == '0') or (h == ''):
