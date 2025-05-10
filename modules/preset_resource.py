@@ -3,6 +3,7 @@ import json
 import random
 import gradio as gr
 import args_manager
+import modules.aspect_ratios as AR
 import modules.config
 from ldm_patched.modules import model_management
 from pathlib import Path
@@ -117,7 +118,8 @@ def set_preset_selection(arg_preset_selection, state_params):
     state_params.update({'bar_button': current_preset})    
     return gr.update(value=current_preset),\
         gr.update(value=state_params),\
-        gr.update(value=f'Current Preset: {current_preset}')
+        gr.update(value=f'Current Preset: {current_preset}')\
+        gr.update(value=AR.current_AR)
 
 def bar_button_change(bar_button, state_params):
     global category_selection, current_preset
