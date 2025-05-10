@@ -53,17 +53,6 @@ def AR_split(x):
         width, height = do_the_split(current_AR)
     return width, height
 
-def add_template_ratio(x):    # used to initialize the AR Accordion 
-    a, b = AR_split(x)
-    a, b = int(a), int(b)
-    g = math.gcd(a, b)
-    c, d = a // g, b // g
-    return f'{AR_template} Aspect Ratio: {a}×{b} \U00002223 {c}:{d}'
-
-def aspect_ratio_title(default_aspect_ratio_values):
-    return {template: add_template_ratio(ratio)
-        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
-
 def add_ratio(x):
     a, b = AR_split(x)
     a, b = int(a), int(b)
@@ -71,9 +60,20 @@ def add_ratio(x):
     c, d = a // g, b // g
     return f'{a}×{b} \U00002223 {c}:{d}'
 
+def aspect_ratio_title(default_aspect_ratio_values):
+    return {template: add_ratio(ratio)
+        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
+
 def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
+
+def add_template_ratio(x):    # only used to initialize the AR Accordion 
+    a, b = AR_split(x)
+    a, b = int(a), int(b)
+    g = math.gcd(a, b)
+    c, d = a // g, b // g
+    return f'{AR_template} Aspect Ratio: {a}×{b} \U00002223 {c}:{d}'
 
 def save_current_aspect(x):
     global current_AR, AR_template
