@@ -79,6 +79,8 @@ def save_current_aspect(x):
     global current_AR, AR_template
     if x != '':
         current_AR = f'{x.split(",")[0]}'
+    print(f'*{AR_template} Aspect Ratio: {current_AR}')
+    print()
     return gr.update(), gr.update(label=AR_template)
 
 def overwrite_aspect_ratios(width, height):
@@ -107,9 +109,13 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template           
        results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
-    print()
     print(f'{AR_template} Aspect Ratio: {current_AR}')
+    print()
     return results
+
+def toggle_shortlist(x):
+    reset_aspect_ratios(current_AR)
+    return gr.update()
 
 def save_AR_template(x):
     global AR_template
