@@ -82,7 +82,7 @@ def save_current_aspect(x):
         print(f'save_current_aspect x: {x}')
         print(f'save_current_aspect AR_template {AR_template}')
         current_AR = f'{x.split(",")[0]}'
-    return gr.update(x), gr.update(label=AR_template)
+    return gr.update(), gr.update(label=AR_template)
 
 def overwrite_aspect_ratios(width, height):
     if width>0 and height>0:
@@ -116,4 +116,4 @@ def reset_aspect_ratios(arg_AR):
 
 def save_AR_template(x):
     global AR_template
-    return gr.update(x), gr.update(label=AR_template)
+    return gr.update(), gr.update(label=AR_template)
