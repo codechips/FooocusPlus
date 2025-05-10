@@ -76,13 +76,13 @@ def aspect_ratio_labels(config_aspect_ratios):
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
 def save_current_aspect(x):
-    global current_AR
+    global current_AR, AR_template
     if x != '':
         print()
         print(f'save_current_aspect x: {x}')
         print(f'save_current_aspect AR_template {AR_template}')
         current_AR = f'{x.split(",")[0]}'
-    return x, gr.update(label=AR_template)
+    return gr.update(label=AR_template)
 
 def overwrite_aspect_ratios(width, height):
     if width>0 and height>0:
