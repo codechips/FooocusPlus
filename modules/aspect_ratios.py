@@ -115,4 +115,5 @@ def reset_aspect_ratios(arg_AR):
     return results
 
 def save_AR_template(x):
+    global AR_template
     return gr.update(label=AR_template)
