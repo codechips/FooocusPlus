@@ -109,7 +109,7 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template           
        results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
-    print(f'{AR_template} Aspect Ratio: {current_AR}')
+    print(f'Selected the {AR_template} template with the Aspect Ratio: {current_AR}')
     print()
     return results
 
