@@ -241,6 +241,12 @@ enable_favorites_menu = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
+default_list_all_presets = get_config_item_or_set_default(
+    key='default_list_all_presets',
+    default_value=True,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
 
 default_image_catalog_max_number = get_config_item_or_set_default(
     key='default_image_catalog_max_number',
@@ -299,6 +305,18 @@ default_image_number = get_config_item_or_set_default(
     expected_type=int
 )
 
+enable_random_aspect_ratios = get_config_item_or_set_default(
+    key='enable_random_aspect_ratios',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+enable_shortlist_aspect_ratios = get_config_item_or_set_default(
+    key='enable_shortlist_aspect_ratios',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
 available_standard_aspect_ratios = get_config_item_or_set_default(
     key='available_standard_aspect_ratios',
     default_value=AR.available_aspect_ratios[0],
@@ -310,12 +328,6 @@ default_standard_aspect_ratio = get_config_item_or_set_default(
     default_value='1024*1024',
     validator=lambda x: x in available_standard_aspect_ratios,
     expected_type=str
-)
-enable_shortlist_aspect_ratios = get_config_item_or_set_default(
-    key='enable_shortlist_aspect_ratios',
-    default_value=False,
-    validator=lambda x: isinstance(x, bool),
-    expected_type=bool
 )
 available_shortlist_aspect_ratios = get_config_item_or_set_default(
     key='available_shortlist_aspect_ratios',
