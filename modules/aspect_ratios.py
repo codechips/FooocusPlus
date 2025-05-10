@@ -78,9 +78,6 @@ def add_template_ratio(x):    # only used to initialize the AR Accordion
 def save_current_aspect(x):
     global current_AR, AR_template
     if x != '':
-        print()
-        print(f'save_current_aspect x: {x}')
-        print(f'save_current_aspect AR_template {AR_template}')
         current_AR = f'{x.split(",")[0]}'
     return gr.update(), gr.update(label=AR_template)
 
@@ -92,8 +89,6 @@ def overwrite_aspect_ratios(width, height):
 
 def reset_aspect_ratios(arg_AR):
     global AR_template, current_AR
-    print()
-    print(f'reset_aspect_rations arg_AR: {arg_AR}')
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
@@ -112,6 +107,8 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template           
        results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
+    print()
+    print(f'{AR_template} Aspect Ratio: {current_AR}')
     return results
 
 def save_AR_template(x):
