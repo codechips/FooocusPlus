@@ -125,7 +125,7 @@ def toggle_shortlist(x):
 
 def save_AR_template(x):
     global AR_template
-    if (AR_template == 'Standard') or AR_template == ('Shortlist):
+    if (AR_template == 'Standard') or (AR_template == 'Shortlist'):
         return gr.update(), gr.update(label=AR_template), gr.update(visible=True)
     else:
         return gr.update(), gr.update(label=AR_template), gr.update(visible=False)
