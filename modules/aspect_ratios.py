@@ -47,15 +47,13 @@ def do_the_split(x):
 
 def AR_split(x):
     width, height = do_the_split(x)
-    print()
-    print(f'AR_split width, height: {width} {height}')
     if (width == '') or (height == ''):
         print()
         print(f'Adjusting aspect ratio value to {current_AR}')
         width, height = do_the_split(current_AR)
     return width, height
 
-def add_template_ratio(x):
+def add_template_ratio(x):    # used to initialize the AR Accordion 
     a, b = AR_split(x)
     a, b = int(a), int(b)
     g = math.gcd(a, b)
@@ -84,7 +82,13 @@ def save_current_aspect(x):
         print(f'save_current_aspect x: {x}')
         print(f'save_current_aspect AR_template {AR_template}')
         current_AR = f'{x.split(",")[0]}'
-    return x
+    return x, gr.update(label=AR_template)
+
+def overwrite_aspect_ratios(width, height):
+    if width>0 and height>0:
+        current_AR = f'{x.split(",")[0]}'
+        return AR.add_ratio(f'{width}*{height}')
+    return gr.update()
 
 def reset_aspect_ratios(arg_AR):
     global AR_template, current_AR
@@ -108,4 +112,4 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template           
        results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
-    return results
+    return results, gr.update(label=AR_template)
