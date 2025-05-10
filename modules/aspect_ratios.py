@@ -76,7 +76,7 @@ def add_template_ratio(x):    # only used to initialize the AR Accordion
     return f'{AR_template} Aspect Ratio: {a}×{b} \U00002223 {c}:{d}'
 
 def save_current_aspect(x):
-    global current_AR, AR_template
+    global AR_template, current_AR
     if x != '':
         current_AR = f'{x.split(",")[0]}'
     print(f'*{AR_template} Aspect Ratio: {current_AR}')
@@ -114,16 +114,18 @@ def reset_aspect_ratios(arg_AR):
     return results
 
 def toggle_shortlist(x):
-    global AR_template
+    global AR_template, current_AR
     if AR_template == 'Standard':
         AR_template = 'Shortlist'
     elif AR_template == 'Shortlist':
         AR_template = 'Standard'
     else:
-        return gr.update()        
-    reset_aspect_ratios(current_AR)
-    return gr.update()
+        return gr.update()
+    return gr.update(), gr.update(value=current_AR)
 
 def save_AR_template(x):
     global AR_template
-    return gr.update(), gr.update(label=AR_template)
+    if (AR_template == 'Standard') or AR_template == ('Shortlist):
+        return gr.update(), gr.update(label=AR_template), gr.update(visible=True)
+    else:
+        return gr.update(), gr.update(label=AR_template), gr.update(visible=False)
