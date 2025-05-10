@@ -79,7 +79,7 @@ def save_current_aspect(x):
     global AR_template, current_AR
     if x != '':
         current_AR = f'{x.split(",")[0]}'
-    print(f'*{AR_template} Aspect Ratio: {current_AR}')
+    print(f'{AR_template} Aspect Ratio: {current_AR}')
     print()
     return gr.update(), gr.update(label=AR_template)
 
