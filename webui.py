@@ -706,7 +706,7 @@ with common.GRADIO_ROOT:
  
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(label='Standard', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
-                            elem_id='AR_selection', visible=True)
+                            elem_id='AR_selection', visible=False)
                         enable_shortlist_checkbox = gr.Checkbox(label='Use the Aspect Ratio Shortlist',\
                             info='List the most popular aspect ratios only', value=modules.config.enable_shortlist_aspect_ratios,\
                             visible = (AR.AR_template=="Standard") or (AR.AR_template=="Shortlist"))
