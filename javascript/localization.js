@@ -85,8 +85,8 @@ function refresh_aspect_ratios_label(value) {
     templateObj = document.querySelector('#AR_selection');
     template = templateObj.textContent;
     temp = template.split("s ")[1];
-    if temp != '' {
-	template = temp
+    if (Boolean(temp)) {
+	template = temp;
     }
     title = template + " Aspect Ratio";
     translation = getTranslation(title);
