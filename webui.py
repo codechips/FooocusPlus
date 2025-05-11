@@ -1312,8 +1312,20 @@ with common.GRADIO_ROOT:
                                          adm_scaler_negative, refiner_switch, refiner_model, sampler_name,
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)
+
+        def toggle_shortlist(arg_shortlist):
+            global AR_shortlist, AR_template, current_AR, shortlist_default
+            AR.AR_shortlist = arg_shortlist
+            if AR.AR_template == 'Standard' and AR.AR_shortlist:
+                AR.AR_template = 'Shortlist'
+                # this ensures that Shortlist does not start with an invalid value:
+                AR.current_AR = AR.shortlist_default
+                aspect_ratios_selection = AR.current_AR
+            elif AR.AR_template == 'Shortlist' and not AR.AR_shortlist:
+                AR.AR_template = 'Standard'
+            return gr.update(), gr.update(value=aspect_ratios_selection)
         
-        enable_shortlist_checkbox.change(AR.toggle_shortlist, inputs=enable_shortlist_checkbox,\
+        enable_shortlist_checkbox.change(toggle_shortlist, inputs=enable_shortlist_checkbox,\
             outputs=[enable_shortlist_checkbox, aspect_ratios_selection], queue=False, show_progress=False)
         
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
