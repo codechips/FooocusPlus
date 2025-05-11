@@ -1245,7 +1245,7 @@ def assign_default_by_template(template):
 # initialize AR globals
 AR.current_AR = default_standard_aspect_ratio
 AR.AR_shortlist = enable_shortlist_aspect_ratios
-AR.shortlist_default = modules.config.assign_default_by_template('Shortlist')
+AR.shortlist_default = assign_default_by_template('Shortlist')
 
 default_aspect_ratio_values = [default_standard_aspect_ratio, default_shortlist_aspect_ratio,\
     default_sd1_5_aspect_ratio, default_pixart_aspect_ratio,]
