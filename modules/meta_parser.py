@@ -230,9 +230,9 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
                 default_class_params['Fooocus']['available_aspect_ratios_selection'])
             print('Template without engine: {engine}')
 
-        if template == 'Standard' and AR_shortlist:
+        if template == 'Standard' and AR.AR_shortlist:
             template = 'Shortlist'
-        elif template == 'Shortlist' and not AR_shortlist:
+        elif template == 'Shortlist' and not AR.AR_shortlist:
             template = 'Standard'
 
         if h != '':
