@@ -1314,7 +1314,7 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)
 
         def toggle_shortlist(arg_shortlist):
-            global AR_shortlist, AR_template, current_AR, shortlist_default
+            global aspect_ratios_selection
             AR.AR_shortlist = arg_shortlist
             if AR.AR_template == 'Standard' and AR.AR_shortlist:
                 AR.AR_template = 'Shortlist'
