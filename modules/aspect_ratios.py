@@ -99,6 +99,10 @@ def overwrite_aspect_ratios(width, height):
 
 def reset_aspect_ratios(arg_AR):
     global AR_shortlist, AR_template, current_AR
+    print()
+    print(f'AR_shortlist: {AR_shortlist}')
+    print(f'AR_template: {AR_template}')
+    print(f'current_AR: {current_AR}')
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
