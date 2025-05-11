@@ -105,15 +105,15 @@ def reset_aspect_ratios(arg_AR):
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
         current_AR = aspect_ratios
+    if AR_shortlist == True and AR_template=='Standard': # i.e. the preset was changed
+        AR_template='Shortlist'
     if AR_template=='Shortlist':
-        AR_shortlist = True
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
     elif AR_template=='SD1.5':
         results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
     elif AR_template=='PixArt':
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template
-        AR_shortlist = False
         results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
     print(f'Selected the {AR_template} template with the Aspect Ratio: {current_AR}')
     print()
