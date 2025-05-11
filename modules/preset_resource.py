@@ -118,7 +118,7 @@ def set_preset_selection(arg_preset_selection, state_params):
     state_params.update({'bar_button': current_preset})    
     return gr.update(value=current_preset),\
         gr.update(value=state_params),\
-        gr.update(value=f'Current Preset: {current_preset}')\
+        gr.update(value=f'Current Preset: {current_preset}'),\
         gr.update(value=AR.current_AR)
 
 def bar_button_change(bar_button, state_params):
