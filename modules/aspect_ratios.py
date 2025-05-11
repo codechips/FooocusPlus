@@ -130,12 +130,10 @@ def toggle_shortlist(arg_shortlist):
     AR_shortlist = arg_shortlist
     if AR_template == 'Standard' and AR_shortlist:
         AR_template = 'Shortlist'
-        # this ensures that Shortlist does not start with invalid value:
+        # this ensures that Shortlist does not start with an invalid value:
         current_AR = shortlist_default
-        reset_aspect_ratios(current_AR)
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
-        reset_aspect_ratios(current_AR)
     return gr.update(), gr.update(value=current_AR)
 
 def save_AR_template(x):
