@@ -12,6 +12,10 @@ AR_template = 'Standard'
 # the initial value is set to "enable_shortlist_aspect_ratios" by modules.config
 AR_shortlist = False
 
+# Store the default shortlist aspect ratio selection
+# set by assign_default_by_template('Shortlist') in modules.config
+shortlist_default = '1024*1024'
+
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
@@ -122,12 +126,16 @@ def reset_aspect_ratios(arg_AR):
     return results
 
 def toggle_shortlist(arg_shortlist):
-    global AR_shortlist, AR_template, current_AR
+    global AR_shortlist, AR_template, current_AR, shortlist_default
     AR_shortlist = arg_shortlist
     if AR_template == 'Standard' and AR_shortlist:
         AR_template = 'Shortlist'
+        # this ensures that Shortlist does not start with invalid value:
+        current_AR = shortlist_default
+        reset_aspect_ratios(current_AR)
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
+        reset_aspect_ratios(current_AR)
     return gr.update(), gr.update(value=current_AR)
 
 def save_AR_template(x):
