@@ -1314,8 +1314,7 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)
         
         enable_shortlist_checkbox.change(AR.toggle_shortlist, inputs=enable_shortlist_checkbox,\
-            outputs=[enable_shortlist_checkbox, aspect_ratios_selection], queue=False, show_progress=False,\
-            _js='(x)=>{refresh_aspect_ratios_label(x);}')
+            outputs=[enable_shortlist_checkbox, aspect_ratios_selection], queue=False, show_progress=False)
         
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
             outputs=aspect_ratios_selections, queue=False, show_progress=False)\
