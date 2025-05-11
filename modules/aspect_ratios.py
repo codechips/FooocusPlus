@@ -105,10 +105,10 @@ def reset_aspect_ratios(arg_AR):
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
         current_AR = aspect_ratios
-#    if (AR_shortlist == True) and (AR_template == 'Standard'):
-#        AR_template = 'Shortlist'
-#    elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
-#        AR_template = 'Standard'
+    if (AR_shortlist == True) and (AR_template == 'Standard'):
+        AR_template = 'Shortlist'
+    elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
+        AR_template = 'Standard'
     if AR_template == 'Shortlist':
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
     elif AR_template=='SD1.5':
