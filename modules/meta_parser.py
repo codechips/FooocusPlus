@@ -217,14 +217,23 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
     try:
         width, height = 0, 0
         h = source_dict.get(key, source_dict.get(fallback, default))
-        engine = get_taskclass_by_fullname(source_dict.get('Backend Engine', source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
+        engine = get_taskclass_by_fullname(source_dict.get('Backend Engine',\
+                source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
         if 'engine' in source_dict:
             engine = source_dict['engine'].get('backend_engine', engine)
-            template = source_dict['engine'].get('available_aspect_ratios_selection', default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection']))
+            template = source_dict['engine'].get('available_aspect_ratios_selection',\
+                default_class_params[engine].get('available_aspect_ratios_selection',\
+                default_class_params['Fooocus']['available_aspect_ratios_selection']))
             print('Template from engine: {engine}')
         else:
-            template = default_class_params[engine].get('available_aspect_ratios_selection', default_class_params['Fooocus']['available_aspect_ratios_selection'])
-            print('Template without engine: {engine}')            
+            template = default_class_params[engine].get('available_aspect_ratios_selection',\
+                default_class_params['Fooocus']['available_aspect_ratios_selection'])
+            print('Template without engine: {engine}')
+
+        if template == 'Standard' and AR_shortlist:
+            template = 'Shortlist'
+        elif template == 'Shortlist' and not AR_shortlist:
+            template = 'Standard'
 
         if h != '':
             width, height = eval(h)
