@@ -2,11 +2,15 @@ import gradio as gr
 import math
 
 # Store the current aspect ratio selection as updated by webui & modules.meta_parser
-# the initial value is set to default_standard_aspect_ratio by modules.config
+# the initial value is set to "default_standard_aspect_ratio" by modules.config
 current_AR = '1024*1024'
 
 # Store the aspect ratio template for the current preset or Shortlist selector
 AR_template = 'Standard'
+
+# Store the status of the Shortlist control
+# the initial value is set to "enable_shortlist_aspect_ratios" by modules.config
+AR_shortlist = False
 
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
@@ -90,7 +94,7 @@ def overwrite_aspect_ratios(width, height):
     return gr.update()
 
 def reset_aspect_ratios(arg_AR):
-    global AR_template, current_AR
+    global AR_shortlist, AR_template, current_AR
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
@@ -100,15 +104,17 @@ def reset_aspect_ratios(arg_AR):
         return results
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
-        current_AR = aspect_ratios    
+        current_AR = aspect_ratios
     if AR_template=='Shortlist':
+        AR_shortlist = True
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
     elif AR_template=='SD1.5':
         results = [gr.update(visible=False)] * 2 + [gr.update(value=aspect_ratios, visible=True), gr.update(visible=False)]
     elif AR_template=='PixArt':
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
-    else:        # Standard template           
-       results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
+    else:        # Standard template
+        AR_shortlist = False
+        results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
     print(f'Selected the {AR_template} template with the Aspect Ratio: {current_AR}')
     print()
     return results
@@ -117,8 +123,10 @@ def toggle_shortlist(x):
     global AR_template, current_AR
     if AR_template == 'Standard' and x:
         AR_template = 'Shortlist'
+        AR_shortlist = True
     elif AR_template == 'Shortlist' and not x:
         AR_template = 'Standard'
+        AR_shortlist = False
     else:
         return gr.update()
     return gr.update(), gr.update(value=current_AR)
