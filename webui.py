@@ -1321,8 +1321,12 @@ with common.GRADIO_ROOT:
                 # this ensures that Shortlist does not start with an invalid value:
                 AR.current_AR = AR.shortlist_default
                 aspect_ratios_selection = AR.current_AR
+                print(f'TS AR.AR_template {AR.AR_template}')
+                print(f'TS AR.AR_shortlist {AR.AR_shortlist}')
             elif AR.AR_template == 'Shortlist' and not AR.AR_shortlist:
                 AR.AR_template = 'Standard'
+                print(f'TS AR.AR_template {AR.AR_template}')
+                print(f'TS AR.AR_shortlist {AR.AR_shortlist}')
             return gr.update(), gr.update(value=aspect_ratios_selection)
         
         enable_shortlist_checkbox.change(toggle_shortlist, inputs=enable_shortlist_checkbox,\
