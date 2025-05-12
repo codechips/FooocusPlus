@@ -1327,10 +1327,11 @@ with common.GRADIO_ROOT:
                 AR.AR_template = 'Standard'
                 print(f'TS AR.AR_template {AR.AR_template}')
                 print(f'TS AR.AR_shortlist {AR.AR_shortlist}')
-            return gr.update(), gr.update(value=aspect_ratios_selection)
+            return gr.update(), gr.update(value=aspect_ratios_selection),\
+                gr.update(value=PR.current_preset)
         
         enable_shortlist_checkbox.change(toggle_shortlist, inputs=enable_shortlist_checkbox,\
-            outputs=[enable_shortlist_checkbox, aspect_ratios_selection], queue=False, show_progress=False)
+            outputs=[enable_shortlist_checkbox, aspect_ratios_selection, preset_selection], queue=False, show_progress=False)
         
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
             outputs=aspect_ratios_selections, queue=False, show_progress=False)\
@@ -1567,7 +1568,7 @@ with common.GRADIO_ROOT:
 
     for i in range(PR.favorite_count()):
         bar_buttons[i].click(PR.bar_button_change, inputs=[bar_buttons[i],\
-            state_topbar], outputs=[state_topbar, category_selection, preset_selection]) \
+            state_topbar], outputs=[state_topbar, category_selection, ]) \
            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
            .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
            .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
