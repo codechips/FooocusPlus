@@ -1,20 +1,24 @@
 import gradio as gr
 import math
 
-# Store the current aspect ratio selection as updated by webui & modules.meta_parser
-# the initial value is set to "default_standard_aspect_ratio" by modules.config
-current_AR = '1024*1024'
+# These variables are set to their actual values by config.txt
+default_standard_AR = '1024*1024'
+default_shortlist_AR = '1024*1024'
+default_sd1_5_AR = '768*768'
+default_pixart_AR = '3840*2160'
 
-# Store the aspect ratio template for the current preset or Shortlist selector
+# Store the current aspect ratio selection as updated by webui & modules.meta_parser
+current_AR = default_standard_AR
+
+# Store the aspect ratio template for the current preset
 AR_template = 'Standard'
 
 # Store the status of the Shortlist control
 # the initial value is set to "enable_shortlist_aspect_ratios" by modules.config
 AR_shortlist = False
 
-# Store the default shortlist aspect ratio selection
-# set by assign_default_by_template('Shortlist') in modules.config
-shortlist_default = '1024*1024'
+shortlist_icon = '▲➖'
+standard_icon = '▼🞦'
 
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
@@ -47,6 +51,18 @@ available_aspect_ratios = [
      '2048*512'],
 ]
 
+default_aspect_ratio_values = [default_standard_AR, default_shortlist_AR,\
+    default_sd1_5_AR, default_pixart_AR]
+
+def aspect_ratio_title(default_aspect_ratio_values):
+    return {template: add_ratio(ratio)
+        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
+aspect_ratio_title = aspect_ratio_title(default_aspect_ratio_values)
+
+def assign_default_by_template(template):
+    ar_index = AR.aspect_ratios_templates.index(template)
+    return default_aspect_ratio_values[ar_index]
+
 def do_the_split(x):
     x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
     x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
@@ -67,10 +83,6 @@ def add_ratio(x):
     g = math.gcd(a, b)
     c, d = a // g, b // g
     return f'{a}×{b} \U00002223 {c}:{d}'
-
-def aspect_ratio_title(default_aspect_ratio_values):
-    return {template: add_ratio(ratio)
-        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 
 def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
@@ -114,9 +126,15 @@ def reset_aspect_ratios(arg_AR):
     print(f'aspect_ratios: {aspect_ratios}')
     if aspect_ratios:
         current_AR = aspect_ratios
-    if (AR_shortlist == True or arg_AR == '▲➖') and (AR_template == 'Standard'):
+    if aspect_ratios == shortlist_icon:
+        AR_shortlist == True
+        current_AR = default_shortlist_AR
+    elif aspect_ratios == standard_icon:
+        AR_shortlist == False
+        current_AR = default_standard_AR
+    if (AR_shortlist == True) and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
-    elif (AR_shortlist == False or ) and (AR_template == 'Shortlist'):
+    elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
         AR_template = 'Standard'
     if AR_template == 'Shortlist':
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
