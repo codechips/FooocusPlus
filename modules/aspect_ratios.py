@@ -1,5 +1,6 @@
 import gradio as gr
 import math
+from args_manager import args.preset
 
 # These variables are set to their actual values by config.txt
 default_standard_AR = '1024*1024'
@@ -19,7 +20,7 @@ AR_shortlist = False
 
 # for use by toggle_shortlist()
 # this value is updated by PR.set_preset_selection()
-current_preset = args_manager.args.preset
+current_preset = args.preset
 
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
