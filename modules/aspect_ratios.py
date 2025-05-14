@@ -54,11 +54,6 @@ available_aspect_ratios = [
 default_aspect_ratio_values = [default_standard_AR, default_shortlist_AR,\
     default_sd1_5_AR, default_pixart_AR]
 
-def aspect_ratio_title(default_aspect_ratio_values):
-    return {template: add_ratio(ratio)
-        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
-aspect_ratio_title = aspect_ratio_title(default_aspect_ratio_values)
-
 def assign_default_by_template(template):
     ar_index = AR.aspect_ratios_templates.index(template)
     return default_aspect_ratio_values[ar_index]
@@ -94,6 +89,11 @@ def add_template_ratio(x):    # only used to initialize the AR Accordion
     g = math.gcd(a, b)
     c, d = a // g, b // g
     return f'{AR_template} Aspect Ratio: {a}×{b} \U00002223 {c}:{d}'
+
+def aspect_ratio_title(default_aspect_ratio_values):
+    return {template: add_ratio(ratio)
+        for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
+aspect_ratio_title = aspect_ratio_title(default_aspect_ratio_values)
 
 def save_current_aspect(x):
     global AR_template, current_AR
