@@ -73,6 +73,8 @@ def AR_split(x):
     return width, height
 
 def add_ratio(x):
+    if (x == shortlist_icon) or (x == standard_icon):
+        return x
     a, b = AR_split(x)
     a, b = int(a), int(b)
     g = math.gcd(a, b)
