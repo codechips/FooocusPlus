@@ -1238,24 +1238,16 @@ update_files()
 
 # Additional aspect ratio support
 
-always_save_keys.append(key)
-
-default_aspect_ratio_values = [default_standard_aspect_ratio, default_shortlist_aspect_ratio,\
-    default_sd1_5_aspect_ratio, default_pixart_aspect_ratio,]
-config_aspect_ratio_title = AR.aspect_ratio_title(default_aspect_ratio_values)
-
-available_standard_aspect_ratios.append('▲➖')
-default_shortlist_aspect_ratio.append('▼🞦')
+available_standard_aspect_ratios.append(AR.shortlist_icon)
+default_shortlist_aspect_ratio.append(AR.standard_icon)
 
 config_aspect_ratios = [available_standard_aspect_ratios, available_shortlist_aspect_ratios,\
     available_sd1_5_aspect_ratios, available_pixart_aspect_ratios,]
 config_aspect_ratio_labels = AR.aspect_ratio_labels(config_aspect_ratios) 
 
-def assign_default_by_template(template):
-    ar_index = AR.aspect_ratios_templates.index(template)
-    return default_aspect_ratio_values[ar_index]
-
 # initialize AR globals
-AR.current_AR = default_standard_aspect_ratio
+AR.default_standard_AR = default_standard_aspect_ratio
+AR.default_shortlist_AR = default_shortlist_aspect_ratio
+AR.default_sd1_5_AR = default_sd1_5_aspect_ratio
+AR.default_pixart_AR = default_pixart_aspect_ratio
 AR.AR_shortlist = enable_shortlist_aspect_ratios
-AR.shortlist_default = assign_default_by_template('Shortlist')
