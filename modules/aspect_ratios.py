@@ -114,10 +114,6 @@ def overwrite_aspect_ratios(width, height):
 
 def reset_aspect_ratios(arg_AR):
     global AR_shortlist, AR_template, current_AR
-    print()
-    print(f'AR_shortlist: {AR_shortlist}')
-    print(f'AR_template: {AR_template}')
-    print(f'current_AR: {current_AR}')
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
@@ -130,8 +126,12 @@ def reset_aspect_ratios(arg_AR):
         current_AR = aspect_ratios
     if (AR_shortlist == True) and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
+        print()
+        print('Switching to the Shortlist template requires a preset change')
     elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
         AR_template = 'Standard'
+        print()
+        print('Switching to the Standard template requires a preset change')
     if AR_template == 'Shortlist':
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
     elif AR_template=='SD1.5':
@@ -141,7 +141,6 @@ def reset_aspect_ratios(arg_AR):
     else:        # Standard template
         results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
     print(f'Selected the {AR_template} template with the Aspect Ratio: {current_AR}')
-    print()
     return results
 
 # a preset change is required to enable a reliable switch between Standard & Shortlist templates
