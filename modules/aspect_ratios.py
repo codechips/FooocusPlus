@@ -157,10 +157,12 @@ def toggle_shortlist(arg_shortlist):
         AR_template = 'Shortlist'
         # this ensures that Shortlist does not start with an invalid value:
         current_AR = default_shortlist_AR
+        print()
         print('Switching to the Shortlist template requires a preset change:')
         working_preset = reset_preset()
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
+        print()
         print('Switching to the Standard template requires a preset change:')
         working_preset = reset_preset()
     return gr.update(), gr.update(value=current_AR),\
