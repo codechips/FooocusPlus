@@ -17,9 +17,6 @@ AR_template = 'Standard'
 # the initial value is set to "enable_shortlist_aspect_ratios" by modules.config
 AR_shortlist = False
 
-shortlist_icon = '▲➖'
-standard_icon = '▼🞦'
-
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
@@ -73,8 +70,6 @@ def AR_split(x):
     return width, height
 
 def add_ratio(x):
-    if (x == shortlist_icon) or (x == standard_icon):
-        return x
     a, b = AR_split(x)
     a, b = int(a), int(b)
     g = math.gcd(a, b)
@@ -100,12 +95,6 @@ aspect_ratio_title = aspect_ratio_title(default_aspect_ratio_values)
 def save_current_aspect(x):
     global AR_template, current_AR
     if x != '':
-        if x == shortlist_icon:
-            AR_shortlist == True
-            x = default_shortlist_AR
-        elif x == standard_icon:
-            AR_shortlist == False
-            x = default_standard_AR
         current_AR = f'{x.split(",")[0]}'
         x = current_AR
     print(f'{AR_template} Aspect Ratio: {current_AR}')
@@ -120,6 +109,10 @@ def overwrite_aspect_ratios(width, height):
 
 def reset_aspect_ratios(arg_AR):
     global AR_shortlist, AR_template, current_AR
+    print()
+    print(f'AR_shortlist: {AR_shortlist}')
+    print(f'AR_template: {AR_template}')
+    print(f'current_AR: {current_AR}')
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
@@ -128,19 +121,8 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update()] * 4
         return results
     aspect_ratios = arg_AR.split(',')[0]
-    print()
-    print(f'AR_shortlist: {AR_shortlist}')
-    print(f'AR_template: {AR_template}')
-    print(f'current_AR: {current_AR}')
-    print(f'aspect_ratios: {aspect_ratios}')
     if aspect_ratios:
         current_AR = aspect_ratios
-    if aspect_ratios == shortlist_icon:
-        AR_shortlist == True
-        current_AR = default_shortlist_AR
-    elif aspect_ratios == standard_icon:
-        AR_shortlist == False
-        current_AR = default_standard_AR
     if (AR_shortlist == True) and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
     elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
@@ -157,6 +139,20 @@ def reset_aspect_ratios(arg_AR):
     print()
     return results
 
+def toggle_shortlist(arg_shortlist):
+    global AR_shortlist, AR_template, current_AR, shortlist_default
+    AR_shortlist = arg_shortlist
+    if AR_template == 'Standard' and AR_shortlist:
+        AR_template = 'Shortlist'
+        # this ensures that Shortlist does not start with an invalid value:
+        current_AR = shortlist_default
+    elif AR_template == 'Shortlist' and not AR_shortlist:
+        AR_template = 'Standard'
+    return gr.update(), gr.update(value=current_AR)
+
 def save_AR_template(x):
     global AR_template
-    return gr.update(), gr.update(label=AR_template)
+    if (AR_template == 'Standard') or (AR_template == 'Shortlist'):
+        return gr.update(), gr.update(label=AR_template), gr.update(visible=True)
+    else:
+        return gr.update(), gr.update(label=AR_template), gr.update(visible=False)
