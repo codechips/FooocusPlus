@@ -720,6 +720,10 @@ with common.GRADIO_ROOT:
                                 queue=False, show_progress=False)\
                                 .then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
                                 show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+
+                        enable_shortlist_checkbox = gr.Checkbox(label='Use the Aspect Ratio Shortlist',\
+                            info='List the most popular aspect ratios only', value=modules.config.enable_shortlist_aspect_ratios,\
+                            visible = (AR.AR_template=="Standard") or (AR.AR_template=="Shortlist"))
                         
                         overwrite_width = gr.Slider(label='Forced Overwrite of Generating Width',
                             minimum=-1, maximum=2048, step=1, value=-1,
@@ -1310,10 +1314,13 @@ with common.GRADIO_ROOT:
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)     
        
+        enable_shortlist_checkbox.change(toggle_shortlist, inputs=enable_shortlist_checkbox,\
+            outputs=[enable_shortlist_checkbox, aspect_ratios_selection, preset_selection], queue=False, show_progress=False)
+        
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
             outputs=aspect_ratios_selections, queue=False, show_progress=False)\
             .then(AR.save_AR_template, inputs=aspect_ratios_selection,\
-            outputs=[aspect_ratios_selection, aspect_ratios_selection],\
+            outputs=[aspect_ratios_selection, aspect_ratios_selection, enable_shortlist_checkbox],\
             queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
