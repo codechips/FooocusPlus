@@ -57,7 +57,7 @@ default_aspect_ratio_values = [default_standard_AR, default_shortlist_AR,\
     default_sd1_5_AR, default_pixart_AR]
 
 def assign_default_by_template(template):
-    ar_index = AR.aspect_ratios_templates.index(template)
+    ar_index = aspect_ratios_templates.index(template)
     return default_aspect_ratio_values[ar_index]
 
 def do_the_split(x):
@@ -114,7 +114,6 @@ def overwrite_aspect_ratios(width, height):
 
 def reset_aspect_ratios(arg_AR):
     global AR_shortlist, AR_template, current_AR
-    template_toggle = 'none'
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
@@ -127,10 +126,8 @@ def reset_aspect_ratios(arg_AR):
         current_AR = aspect_ratios
     if (AR_shortlist == True) and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
-        template_toggle = 'Shortlist'
     elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
         AR_template = 'Standard'
-        template_toggle = 'Standard'
     if AR_template == 'Shortlist':
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
     elif AR_template=='SD1.5':
@@ -139,10 +136,6 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template
         results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
-    if template_toggle == 'Shortlist':
-        print('Switching to the Shortlist template required a preset change')
-    elif template_toggle == 'Standard':
-        print('Switching to the Standard template required a preset change')
     print(f'Selected the {AR_template} template with the Aspect Ratio: {current_AR}')
     return results
 
@@ -165,9 +158,11 @@ def toggle_shortlist(arg_shortlist):
         AR_template = 'Shortlist'
         # this ensures that Shortlist does not start with an invalid value:
         current_AR = default_shortlist_AR
+        print('Switching to the Shortlist template requires a preset change')
         working_preset = reset_preset()
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
+        print('Switching to the Standard template requires a preset change')
         working_preset = reset_preset()
     return gr.update(), gr.update(value=current_AR),\
         gr.update(value=working_preset)
