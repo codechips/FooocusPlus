@@ -1238,9 +1238,14 @@ update_files()
 
 # Additional aspect ratio support
 
+always_save_keys.append(key)
+
 default_aspect_ratio_values = [default_standard_aspect_ratio, default_shortlist_aspect_ratio,\
     default_sd1_5_aspect_ratio, default_pixart_aspect_ratio,]
 config_aspect_ratio_title = AR.aspect_ratio_title(default_aspect_ratio_values)
+
+available_standard_aspect_ratios.append('▲➖')
+default_shortlist_aspect_ratio.append('▼🞦')
 
 config_aspect_ratios = [available_standard_aspect_ratios, available_shortlist_aspect_ratios,\
     available_sd1_5_aspect_ratios, available_pixart_aspect_ratios,]
