@@ -145,7 +145,7 @@ def toggle_shortlist(arg_shortlist):
     if AR_template == 'Standard' and AR_shortlist:
         AR_template = 'Shortlist'
         # this ensures that Shortlist does not start with an invalid value:
-        current_AR = shortlist_default
+        current_AR = default_shortlist_AR
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
     return gr.update(), gr.update(value=current_AR)
