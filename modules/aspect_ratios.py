@@ -114,7 +114,7 @@ def reset_aspect_ratios(arg_AR):
     print(f'aspect_ratios: {aspect_ratios}')
     if aspect_ratios:
         current_AR = aspect_ratios
-    if (AR_shortlist == True or arg_AR == ) and (AR_template == 'Standard'):
+    if (AR_shortlist == True or arg_AR == '▲➖') and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
     elif (AR_shortlist == False or ) and (AR_template == 'Shortlist'):
         AR_template = 'Standard'
