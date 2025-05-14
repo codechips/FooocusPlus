@@ -1311,32 +1311,12 @@ with common.GRADIO_ROOT:
                                          guidance_scale, sharpness, adm_scaler_end, adm_scaler_positive,
                                          adm_scaler_negative, refiner_switch, refiner_model, sampler_name,
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
-                                     ], queue=False, show_progress=False)
-
-        def toggle_shortlist(arg_shortlist):
-            global aspect_ratios_selection
-            AR.AR_shortlist = arg_shortlist
-            if AR.AR_template == 'Standard' and AR.AR_shortlist:
-                AR.AR_template = 'Shortlist'
-                # this ensures that Shortlist does not start with an invalid value:
-                AR.current_AR = AR.shortlist_default
-                aspect_ratios_selection = AR.current_AR
-                print(f'TS AR.AR_template {AR.AR_template}')
-                print(f'TS AR.AR_shortlist {AR.AR_shortlist}')
-            elif AR.AR_template == 'Shortlist' and not AR.AR_shortlist:
-                AR.AR_template = 'Standard'
-                print(f'TS AR.AR_template {AR.AR_template}')
-                print(f'TS AR.AR_shortlist {AR.AR_shortlist}')
-            return gr.update(), gr.update(value=aspect_ratios_selection),\
-                gr.update(value=PR.current_preset)
-        
-        enable_shortlist_checkbox.change(toggle_shortlist, inputs=enable_shortlist_checkbox,\
-            outputs=[enable_shortlist_checkbox, aspect_ratios_selection, preset_selection], queue=False, show_progress=False)
-        
+                                     ], queue=False, show_progress=False)     
+       
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
             outputs=aspect_ratios_selections, queue=False, show_progress=False)\
             .then(AR.save_AR_template, inputs=aspect_ratios_selection,\
-            outputs=[aspect_ratios_selection, aspect_ratios_selection, enable_shortlist_checkbox],\
+            outputs=[aspect_ratios_selection, aspect_ratios_selection],\
             queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
 
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
