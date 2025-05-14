@@ -1314,7 +1314,7 @@ with common.GRADIO_ROOT:
                                          scheduler_name, adaptive_cfg, refiner_swap_method, negative_prompt, disable_intermediate_results
                                      ], queue=False, show_progress=False)     
        
-        enable_shortlist_checkbox.change(toggle_shortlist, inputs=enable_shortlist_checkbox,\
+        enable_shortlist_checkbox.change(AR.toggle_shortlist, inputs=enable_shortlist_checkbox,\
             outputs=[enable_shortlist_checkbox, aspect_ratios_selection, preset_selection], queue=False, show_progress=False)
         
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
