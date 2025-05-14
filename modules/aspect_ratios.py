@@ -145,16 +145,21 @@ def reset_aspect_ratios(arg_AR):
     return results
 
 def toggle_shortlist(arg_shortlist):
-    global AR_shortlist, AR_template, current_AR, shortlist_default
+    global AR_shortlist, AR_template, current_AR, shortlist_default, current_preset
     AR_shortlist = arg_shortlist
+    working_preset = current_preset
     if AR_template == 'Standard' and AR_shortlist:
         AR_template = 'Shortlist'
         # this ensures that Shortlist does not start with an invalid value:
         current_AR = default_shortlist_AR
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
+        if current_preset == 'Default':
+            working_preset = 'Cheyenne'
+        else:
+            working_preset = 'Default'
     return gr.update(), gr.update(value=current_AR),\
-        gr.update(value=current_preset)
+        gr.update(value=working_preset)
 
 def save_AR_template(x):
     global AR_template
