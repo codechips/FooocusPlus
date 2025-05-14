@@ -244,7 +244,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
 
         if (width == '0') or (height == '0') or (h == ''):
             if AR.current_AR == '':
-                AR.current_AR = modules.config.assign_default_by_template(template)
+                AR.current_AR = AR.assign_default_by_template(template)
             h = AR.current_AR
             width, height = AR.AR_split(h)
         AR.current_AR = h
