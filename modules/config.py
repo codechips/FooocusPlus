@@ -1237,8 +1237,6 @@ update_files()
 
 
 # Additional aspect ratio support
-available_standard_aspect_ratios.append(AR.shortlist_icon)
-available_shortlist_aspect_ratios.append(AR.standard_icon)
 
 config_aspect_ratios = [available_standard_aspect_ratios, available_shortlist_aspect_ratios,\
     available_sd1_5_aspect_ratios, available_pixart_aspect_ratios,]
