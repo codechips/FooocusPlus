@@ -99,10 +99,6 @@ def overwrite_aspect_ratios(width, height):
 
 def reset_aspect_ratios(arg_AR):
     global AR_shortlist, AR_template, current_AR
-    print()
-    print(f'AR_shortlist: {AR_shortlist}')
-    print(f'AR_template: {AR_template}')
-    print(f'current_AR: {current_AR}')
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
@@ -111,11 +107,16 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update()] * 4
         return results
     aspect_ratios = arg_AR.split(',')[0]
+    print()
+    print(f'AR_shortlist: {AR_shortlist}')
+    print(f'AR_template: {AR_template}')
+    print(f'current_AR: {current_AR}')
+    print(f'aspect_ratios: {aspect_ratios}')
     if aspect_ratios:
         current_AR = aspect_ratios
-    if (AR_shortlist == True) and (AR_template == 'Standard'):
+    if (AR_shortlist == True or arg_AR == ) and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
-    elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
+    elif (AR_shortlist == False or ) and (AR_template == 'Shortlist'):
         AR_template = 'Standard'
     if AR_template == 'Shortlist':
         results = [gr.update(visible=False), gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 2
@@ -129,20 +130,6 @@ def reset_aspect_ratios(arg_AR):
     print()
     return results
 
-def toggle_shortlist(arg_shortlist):
-    global AR_shortlist, AR_template, current_AR, shortlist_default
-    AR_shortlist = arg_shortlist
-    if AR_template == 'Standard' and AR_shortlist:
-        AR_template = 'Shortlist'
-        # this ensures that Shortlist does not start with an invalid value:
-        current_AR = shortlist_default
-    elif AR_template == 'Shortlist' and not AR_shortlist:
-        AR_template = 'Standard'
-    return gr.update(), gr.update(value=current_AR)
-
 def save_AR_template(x):
     global AR_template
-    if (AR_template == 'Standard') or (AR_template == 'Shortlist'):
-        return gr.update(), gr.update(label=AR_template), gr.update(visible=True)
-    else:
-        return gr.update(), gr.update(label=AR_template), gr.update(visible=False)
+    return gr.update(), gr.update(label=AR_template)
