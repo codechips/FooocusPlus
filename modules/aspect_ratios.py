@@ -100,6 +100,12 @@ aspect_ratio_title = aspect_ratio_title(default_aspect_ratio_values)
 def save_current_aspect(x):
     global AR_template, current_AR
     if x != '':
+        if x == shortlist_icon:
+            AR_shortlist == True
+            x = default_shortlist_AR
+        elif x == standard_icon:
+            AR_shortlist == False
+            x = default_standard_AR
         current_AR = f'{x.split(",")[0]}'
     print(f'{AR_template} Aspect Ratio: {current_AR}')
     print()
