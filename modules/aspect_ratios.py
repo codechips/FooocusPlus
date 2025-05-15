@@ -140,7 +140,7 @@ def reset_aspect_ratios(arg_AR):
     else:        # Standard template
         results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
     print(f'Selected the {AR_template} template with the Aspect Ratio: {current_AR}')
-    return gr.update(label=AR_template), results
+    return results
 
 # a preset change is required to enable a reliable switch between Standard & Shortlist templates
 # switch to either the Default preset or Cheyenne when changing presets
@@ -176,6 +176,6 @@ def save_AR_template(x):
     global AR_template
     x = AR_template
     if (AR_template == 'Standard') or (AR_template == 'Shortlist'):
-        return gr.update(), gr.update(visible=True)
+        return gr.update(), gr.update(label=AR_template), gr.update(visible=True)
     else:
-        return gr.update(), gr.update(visible=False)
+        return gr.update(), gr.update(label=AR_template), gr.update(visible=False)
