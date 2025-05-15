@@ -306,6 +306,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     state_params.update({"task_method": task_method})
     print()
     print(f'task_method: {task_method}')
+    meta_parser.task_method = task_method
 
     if comfyd_active_checkbox:
         comfyd.stop()
