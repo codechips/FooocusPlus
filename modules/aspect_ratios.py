@@ -22,6 +22,10 @@ AR_shortlist = False
 # this value is updated by PR.set_preset_selection()
 current_preset = args_manager.args.preset
 
+# used to ensure template update to SD1.5 in get_resolution()
+# set by UIS.reset_layout_params
+task_method = 'Fooocus'
+
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
     ['704*1408', '704*1344', '756*1344', '768*1344', '768*1280',
@@ -112,7 +116,7 @@ def overwrite_aspect_ratios(width, height):
     return gr.update()
 
 def reset_aspect_ratios(arg_AR):
-    global AR_shortlist, AR_template, current_AR
+    global AR_shortlist, AR_template, current_AR, task_method
     if len(arg_AR.split(','))>1:
         template = arg_AR.split(',')[1]
         AR_template = template
@@ -123,6 +127,9 @@ def reset_aspect_ratios(arg_AR):
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
         current_AR = aspect_ratios
+    if AR.task_method == 'SD_SIMPLE':
+        template = 'SD1.5'
+        print(f'Set SD1.5 aspect ratio template from task method: {task_method}')
     if (AR_shortlist == True) and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
     elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
