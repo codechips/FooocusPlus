@@ -26,6 +26,7 @@ def find_preset_file(preset):
     return preset_file
 
 def find_preset_category(preset):
+    global preset_file
     preset_file = find_preset_file(preset)
     preset_category = os.path.basename(os.path.dirname(preset_file))
     return preset_category
