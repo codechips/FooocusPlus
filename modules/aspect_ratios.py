@@ -127,7 +127,7 @@ def reset_aspect_ratios(arg_AR):
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
         current_AR = aspect_ratios
-    if AR.task_method == 'SD_SIMPLE':
+    if task_method == 'SD_SIMPLE':
         template = 'SD1.5'
         print(f'Set SD1.5 aspect ratio template from task method: {task_method}')
     if (AR_shortlist == True) and (AR_template == 'Standard'):
