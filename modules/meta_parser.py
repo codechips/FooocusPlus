@@ -231,16 +231,15 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             print(f'Template without engine: {engine}')
 
         if 'SD_SIMPLE' in AR.task_method and template!='SD1.5':
-            AR.AR_template = 'SD1.5'
-            AR.current_AR = AR.default_sd1_5_AR
+            template = 'SD1.5'
+            h = ''
             print(f'Selected SD1.5 template from task method: {task_method}')
             return
 
         if 'SD1.5' in str(AR.preset_file) and template!='SD1.5':
-            AR.AR_template = 'SD1.5'
-            AR.current_AR = AR.default_sd1_5_AR
+            template = 'SD1.5'
+            h = ''
             print(f'Selected SD1.5 template for file: {AR.preset_file}')
-            return
 
         if template == 'Standard' and AR.AR_shortlist:
             template = 'Shortlist'
@@ -271,13 +270,12 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             results.append(gr.update())
             results.append(int(width))
             results.append(int(height))
-        return
     except e:
         print(f'in except:{e}')
         results.append(gr.update())
         results.append(gr.update())
         results.append(gr.update())
-        return
+    return
 
 def get_seed(key: str, fallback: str | None, source_dict: dict, results: list, default=None):
     try:
