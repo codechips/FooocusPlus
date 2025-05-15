@@ -236,6 +236,10 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
 #            h = ''
 #            print(f'Selected SD1.5 template for file: {AR.preset_file}')
 
+        if template != AR.AR_template: # if "available_aspect_ratios_selection" has caused a change
+            AR.current_AR = ''
+            h = ''          
+       
         if template == 'Standard' and AR.AR_shortlist:
             template = 'Shortlist'
         elif template == 'Shortlist' and not AR.AR_shortlist:
