@@ -224,11 +224,11 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             template = source_dict['engine'].get('available_aspect_ratios_selection',\
                 default_class_params[engine].get('available_aspect_ratios_selection',\
                 default_class_params['Fooocus']['available_aspect_ratios_selection']))
-            print(f'Template from engine: {engine}')
+            print(f'Set {template} template from engine: {engine}')
         else:
             template = default_class_params[engine].get('available_aspect_ratios_selection',\
                 default_class_params['Fooocus']['available_aspect_ratios_selection'])
-            print(f'Template without engine: {engine}')
+            print(f'Set {template} template without engine: {engine}')
 
 #        if 'SD1.5' in str(AR.preset_file) and template!='SD1.5':
 #            template = 'SD1.5'
@@ -238,7 +238,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
 
         if template != AR.AR_template: # if "available_aspect_ratios_selection" has caused a change
             AR.current_AR = ''
-            h = ''          
+            h = ''
        
         if template == 'Standard' and AR.AR_shortlist:
             template = 'Shortlist'
