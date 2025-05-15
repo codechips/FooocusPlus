@@ -107,8 +107,7 @@ def set_category_selection(arg_category_selection):
             preset_value = preset_choices[0]
     return gr.update(value=category_selection),\
         gr.update(choices=preset_choices, value=preset_value),\
-        gr.update(value=f'Current Preset: {current_preset}'),\
-        gr.update(value=AR.current_AR)
+        gr.update(value=f'Current Preset: {current_preset}')
 
 def set_preset_selection(arg_preset_selection, state_params):
     global current_preset
