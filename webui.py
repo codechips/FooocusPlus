@@ -703,7 +703,7 @@ with common.GRADIO_ROOT:
  
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                         aspect_ratios_selection = gr.Textbox(label='Standard', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
-                            elem_id='AR_selection', visible=False)
+                            elem_id='AR_selection', visible=True)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
@@ -1558,7 +1558,7 @@ with common.GRADIO_ROOT:
                outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
         category_selection.change(PR.set_category_selection, inputs=category_selection,\
-            outputs=[category_selection, preset_selection, preset_info, aspect_ratios_selection],\
+            outputs=[category_selection, preset_selection, preset_info],\
             show_progress=False, queue=False)
         
         preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
