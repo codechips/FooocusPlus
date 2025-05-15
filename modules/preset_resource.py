@@ -22,6 +22,7 @@ def find_preset_file(preset):
         print(f'Could not find the {preset} preset')
         print()
         return {}
+    AR.preset_file = preset_file # used to guarantee use of SD1.5 AR template
     return preset_file
 
 def find_preset_category(preset):
