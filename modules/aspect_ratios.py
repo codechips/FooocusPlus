@@ -128,7 +128,7 @@ def reset_aspect_ratios(arg_AR):
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
         current_AR = aspect_ratios
-    if preset_file.find('SD_SIMPLE'):
+    if str(preset_file).find('SD_SIMPLE'):
         template = 'SD1.5'
         print(f'Set the SD1.5 aspect ratio template from the preset file: {preset_file}')
     if task_method == 'SD_SIMPLE':
