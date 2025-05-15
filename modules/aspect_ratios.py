@@ -128,15 +128,14 @@ def reset_aspect_ratios(arg_AR):
     aspect_ratios = arg_AR.split(',')[0]
     if aspect_ratios:
         current_AR = aspect_ratios
-    print(f'preset_file: {preset_file}')
-    print(f'task_method: {task_method}')
-    check_preset = str(preset_file)
-    if 'SD1.5' in str(preset_file):
+    if 'SD_SIMPLE' in task_method and AR_template!='SD1.5':
         AR_template = 'SD1.5'
-        print(f'Set the SD1.5 aspect ratio template from the preset file: {preset_file}')
-    if 'SD_SIMPLE' in task_method:
-        AR_template = 'SD1.5'
+        current_AR = default_sd1_5_AR
         print(f'Set the SD1.5 aspect ratio template from task method: {task_method}')
+    if 'SD1.5' in str(preset_file) and AR_template!='SD1.5':
+        AR_template = 'SD1.5'
+        current_AR = default_sd1_5_AR
+        print(f'Set the SD1.5 aspect ratio template for the preset file: {preset_file}')
     if (AR_shortlist == True) and (AR_template == 'Standard'):
         AR_template = 'Shortlist'
     elif (AR_shortlist == False) and (AR_template == 'Shortlist'):
