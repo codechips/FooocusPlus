@@ -11,6 +11,7 @@ import enhanced.all_parameters as ads
 import enhanced.gallery as gallery_util
 import enhanced.superprompter as superprompter
 import enhanced.comfy_task as comfy_task
+import modules.aspect_ratios as AR
 import modules.config as config
 import modules.constants as constants
 import modules.flags
@@ -304,9 +305,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
 
     task_method = preset_prepared.get('engine', {}).get('backend_params', modules.flags.get_engine_default_backend_params(engine))
     state_params.update({"task_method": task_method})
-    print()
-    print(f'task_method: {task_method}')
-    meta_parser.task_method = task_method
+    AR.task_method = task_method
 
     if comfyd_active_checkbox:
         comfyd.stop()
