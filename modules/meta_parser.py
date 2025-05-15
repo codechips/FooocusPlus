@@ -21,7 +21,7 @@ from modules.hash_cache import sha256_from_cache
 
 # used to ensure template update to SD1.5 in get_resolution()
 # set by UIS.reset_layout_params
-task_method = ''
+task_method = 'Fooocus'
 
 re_param_code = r'\s*(\w[\w \-/]+):\s*("(?:\\.|[^\\"])+"|[^,]*)(?:,|$)'
 re_param = re.compile(re_param_code)
@@ -230,12 +230,14 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
                 default_class_params[engine].get('available_aspect_ratios_selection',\
                 default_class_params['Fooocus']['available_aspect_ratios_selection']))
             print(f'Template from engine: {engine}')
-        elif task_method == 'SD_SIMPLE':
-            template = 'SD1.5'
         else:
             template = default_class_params[engine].get('available_aspect_ratios_selection',\
                 default_class_params['Fooocus']['available_aspect_ratios_selection'])
             print(f'Template without engine: {engine}')
+
+        if task_method == 'SD_SIMPLE':
+            template = 'SD1.5'
+            print(f'Selected SD1.5 template from task method: {task_method}')
 
         if template == 'Standard' and AR.AR_shortlist:
             template = 'Shortlist'
