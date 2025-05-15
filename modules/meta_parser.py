@@ -229,6 +229,8 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             template = default_class_params[engine].get('available_aspect_ratios_selection',\
                 default_class_params['Fooocus']['available_aspect_ratios_selection'])
             print(f'Template without engine: {engine}')
+        if 'task_method' in source_dict:
+            print(f'task_method: {task_method}')
 
         if template == 'Standard' and AR.AR_shortlist:
             template = 'Shortlist'
