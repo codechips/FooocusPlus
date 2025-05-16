@@ -710,9 +710,10 @@ with common.GRADIO_ROOT:
                         
                         aspect_ratios_selection = gr.Textbox(label='', value=f'{AR.add_ratio(AR.current_AR)}, {AR.AR_template}',\
                             elem_id='AR_selection', visible=False)
+                            
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
-                            aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
+                            aspect_ratios_selections.append(gr.Radio(label='', choices=AR.config_aspect_ratio_labels[template],
                             value=AR.aspect_ratio_title[template], visible= template==AR.AR_template, elem_classes='aspect_ratios'))
 
                         for aspect_ratios_select in aspect_ratios_selections:
