@@ -99,7 +99,6 @@ default = {
     'image_catalog_max_number': 100,
     'clip_skip': 2,
     'vae': 'Default (model)',
-    'developer_debug_mode_checkbox': False,
     'presetmenu': ''
     }
 
@@ -161,7 +160,7 @@ def init_all_params_index(lora_number, disable_metadata):
         'overwrite_upscale_strength': 43+a,
         'mixing_image_prompt_and_vary_upscale': 44+a,
         'mixing_image_prompt_and_inpaint': 45+a,
-        'debugging_cn_preprocessor': 46+a,
+        'ging_cn_preprocessor': 46+a,
         'skipping_cn_preprocessor': 47+a,
         'canny_low_threshold': 48+a,
         'canny_high_threshold': 49+a,
@@ -172,7 +171,7 @@ def init_all_params_index(lora_number, disable_metadata):
         'freeu_b2': 54+a, 
         'freeu_s1': 55+a, 
         'freeu_s2': 56+a,
-        'debugging_inpaint_preprocessor': 57+a,
+        'ging_inpaint_preprocessor': 57+a,
         'inpaint_disable_initial_latent': 58+a, 
         'inpaint_engine': 59+a, 
         'inpaint_strength': 60+a, 
