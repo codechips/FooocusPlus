@@ -702,9 +702,9 @@ with common.GRADIO_ROOT:
                         step=1, value=modules.config.default_image_number)                    
  
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_info = gr.Markdown(info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). For SDXL, 1280*1280 is experimental.',\
-                        value=f'<b>{AR.AR_template} Template</b>',\
-                        container=False, visible=True)
+                        aspect_info = gr.Textbox(value=f'<b>{AR.AR_template} Template</b>',\
+                        info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). For SDXL, 1280*1280 is experimental.',\                            
+                        container=False, interactive = False, visible=True)
                         
                         aspect_ratios_selection = gr.Textbox(label='', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
                             elem_id='AR_selection', visible=False)
