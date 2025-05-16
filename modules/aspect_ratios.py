@@ -15,7 +15,7 @@ current_AR = default_standard_AR
 AR_template = 'Standard'
 
 # Used in the webui aspect_info textbox info field
-aspect_info_info = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
+aspect_info_help = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
 aspect_info_SDXL = ' For SDXL, 1280*1280 is experimental.'
 
 # Store the status of the Shortlist control
@@ -87,7 +87,7 @@ def add_ratio(x):
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'{a}×{b} \U00002223 {c}:{d}'
+    return f'{a}×{b} | {c}:{d}'
 
 def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
@@ -105,13 +105,22 @@ def aspect_ratio_title(default_aspect_ratio_values):
         for template, ratio in zip(aspect_ratios_templates, default_aspect_ratio_values)}
 aspect_ratio_title = aspect_ratio_title(default_aspect_ratio_values)
 
+def get_aspect_info_info():
+    if AR_template == 'Standard':
+        aspect_info_info = aspect_info_help + aspect_info_SDXL
+    else:
+        aspect_info_info = aspect_info_help
+    return aspect_info_info
+
 def save_current_aspect(x):
     global AR_template, current_AR
     if x != '':
         current_AR = f'{x.split(",")[0]}'
         x = current_AR
     print(f'{AR_template} Aspect Ratio: {current_AR}')
-    return gr.update(), gr.update(value=f'{AR_template} Template')
+    aspect_info_info = get_aspect_info_info()
+    return gr.update(), gr.update(value=f'{AR_template} Template'),\
+        gr.update(info=aspect_info_info)
 
 def overwrite_aspect_ratios(width, height):
     if width>0 and height>0:
@@ -173,13 +182,17 @@ def toggle_shortlist(arg_shortlist):
         print()
         print('Switching to the Standard template requires a preset change:')
         working_preset = reset_preset()
+    aspect_info_info = get_aspect_info_info()
     return gr.update(), gr.update(value=f'{AR_template} Template'),\
-        gr.update(value=working_preset)
+        gr.update(info=aspect_info_info), gr.update(value=working_preset)
 
 def save_AR_template(x):
     global AR_template
     x = AR_template
+    aspect_info_info = get_aspect_info_info()
     if (AR_template == 'Standard') or (AR_template == 'Shortlist'):
-        return gr.update(), gr.update(value=f'{AR_template} Template'), gr.update(visible=True)
+        return gr.update(), gr.update(value=f'{AR_template} Template'),\
+            gr.update(info=aspect_info_info), gr.update(visible=True)
     else:
-        return gr.update(), gr.update(value=f'{AR_template} Template'), gr.update(visible=False)
+        return gr.update(), gr.update(value=f'{AR_template} Template'),\
+            gr.update(info=aspect_info_info), gr.update(visible=False)
