@@ -88,12 +88,16 @@ function refresh_aspect_ratios_label(value) {
     if (Boolean(temp)) {
 	template = temp;
     }
+    value = value.split(",")[0];
+    templateAlt = value.split(",")[1];
+    if (Boolean(templateAlt)) {
+	template = templateAlt;
+    }
     title = template + " Aspect Ratio";
     translation = getTranslation(title);
     if (typeof translation == "undefined") {
         translation = title;
     }
-    value = value.split(",")[0];
     label.textContent = translation + ": " + htmlDecode(value);
 }
 
