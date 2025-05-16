@@ -243,7 +243,13 @@ enable_favorites_menu = get_config_item_or_set_default(
 )
 default_list_all_presets = get_config_item_or_set_default(
     key='default_list_all_presets',
-    default_value=True,
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
+default_low_vram_presets = get_config_item_or_set_default(
+    key='default_low_vram_presets',
+    default_value=False,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
@@ -272,9 +278,9 @@ default_advanced_checkbox = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
-default_developer_debug_mode_checkbox = get_config_item_or_set_default(
-    key='default_developer_debug_mode_checkbox',
-    default_value=ads.default['developer_debug_mode_checkbox'],
+default_expert_mode_checkbox = get_config_item_or_set_default(
+    key='default_expert_mode_checkbox',
+    default_value=False,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
@@ -313,7 +319,7 @@ enable_random_aspect_ratios = get_config_item_or_set_default(
 )
 enable_shortlist_aspect_ratios = get_config_item_or_set_default(
     key='enable_shortlist_aspect_ratios',
-    default_value=False,
+    default_value=True,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
