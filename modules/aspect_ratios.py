@@ -107,7 +107,7 @@ def save_current_aspect(x):
         current_AR = f'{x.split(",")[0]}'
         x = current_AR
     print(f'{AR_template} Aspect Ratio: {current_AR}')
-    return gr.update(), gr.update(label=AR_template)
+    return gr.update(), gr.update(value=f'{AR_template} Template')
 
 def overwrite_aspect_ratios(width, height):
     if width>0 and height>0:
@@ -169,13 +169,13 @@ def toggle_shortlist(arg_shortlist):
         print()
         print('Switching to the Standard template requires a preset change:')
         working_preset = reset_preset()
-    return gr.update(), gr.update(value=current_AR),\
+    return gr.update(), gr.update(value=f'{AR_template} Template'),\
         gr.update(value=working_preset)
 
 def save_AR_template(x):
     global AR_template
     x = AR_template
     if (AR_template == 'Standard') or (AR_template == 'Shortlist'):
-        return gr.update(), gr.update(label=AR_template), gr.update(visible=True)
+        return gr.update(), gr.update(value=f'{AR_template} Template'), gr.update(visible=True)
     else:
-        return gr.update(), gr.update(label=AR_template), gr.update(visible=False)
+        return gr.update(), gr.update(value=f'{AR_template} Template'), gr.update(visible=False)
