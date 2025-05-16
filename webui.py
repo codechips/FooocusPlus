@@ -708,12 +708,12 @@ with common.GRADIO_ROOT:
                         info = AR.aspect_info_help,\
                         container=False, interactive = False, visible=True)
                         
-                        aspect_ratios_selection = gr.Textbox(label='', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
+                        aspect_ratios_selection = gr.Textbox(label='', value=f'{AR.add_ratio(AR.current_AR)}, {AR.AR_template}',\
                             elem_id='AR_selection', visible=False)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
-                            value=AR.aspect_ratio_title[template], visible= template=='Standard', elem_classes='aspect_ratios'))
+                            value=AR.aspect_ratio_title[template], visible= template==AR.AR_template, elem_classes='aspect_ratios'))
 
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(AR.save_current_aspect, inputs=aspect_ratios_select,\
