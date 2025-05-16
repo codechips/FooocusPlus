@@ -1315,10 +1315,10 @@ with common.GRADIO_ROOT:
             outputs=[enable_shortlist_checkbox, aspect_ratios_selection, preset_selection], queue=False, show_progress=False)
         
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
-            outputs=aspect_ratios_selections, queue=False, show_progress=False)\
+            outputs=aspect_ratios_selections, queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')\
             .then(AR.save_AR_template, inputs=aspect_ratios_selection,\
             outputs=[aspect_ratios_selection, aspect_ratios_selection, enable_shortlist_checkbox],\
-            queue=False, show_progress=False)
+            queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
         
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
 
