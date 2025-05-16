@@ -12,7 +12,8 @@ default_pixart_AR = '3840*2160'
 current_AR = default_standard_AR
 
 # Store the aspect ratio template for the current preset
-AR_template = 'Standard'
+# the initial value is set according to modules.config.enable_shortlist_aspect_ratios 
+AR_template = 'Shortlist'
 
 # Used in the webui aspect_info textbox info field
 aspect_info_help = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
