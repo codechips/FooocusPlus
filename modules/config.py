@@ -1254,3 +1254,8 @@ AR.default_shortlist_AR = default_shortlist_aspect_ratio
 AR.default_sd1_5_AR = default_sd1_5_aspect_ratio
 AR.default_pixart_AR = default_pixart_aspect_ratio
 AR.AR_shortlist = enable_shortlist_aspect_ratios
+
+if AR.AR_shortlist:
+    AR.AR_template = 'Shortlist'
+else:
+    AR.AR_template = 'Standard'
