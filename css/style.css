@@ -118,6 +118,9 @@ div:has(> #positive_prompt) {
     width: 140px !important;
 }
 
+.aspect_ratios {
+  margin-top: -10px !important;
+}
 .aspect_ratios label {
     flex: calc(50% - 5px) !important;
 }
