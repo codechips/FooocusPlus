@@ -94,7 +94,7 @@ def add_template_ratio(x):    # only used to initialize the AR Accordion
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'{AR_template} Aspect Ratio: {a}×{b} \U00002223 {c}:{d}'
+    return f'Aspect Ratio: {a}×{b} \U00002223 {c}:{d}'
 
 def aspect_ratio_title(default_aspect_ratio_values):
     return {template: add_ratio(ratio)
@@ -139,7 +139,7 @@ def reset_aspect_ratios(arg_AR):
         results = [gr.update(visible=False)] * 3 + [gr.update(value=aspect_ratios, visible=True)]
     else:        # Standard template
         results = [gr.update(value=aspect_ratios, visible=True)] + [gr.update(visible=False)] * 3
-    print(f'Selected the {AR_template} template with the Aspect Ratio: {current_AR}')
+    print(f'Using the {AR_template} template with the Aspect Ratio: {current_AR}')
     return results
 
 # a preset change is required to enable a reliable switch between Standard & Shortlist templates
