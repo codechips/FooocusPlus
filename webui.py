@@ -701,9 +701,11 @@ with common.GRADIO_ROOT:
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
                         step=1, value=modules.config.default_image_number)                    
  
-                    with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                    with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False,\
+                        elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
+                            
                         aspect_info = gr.Textbox(value=f'{AR.AR_template} Template',\
-                        info = AR.aspect_info_info + AR.aspect_info_SDXL,\
+                        info = AR.aspect_info_help,\
                         container=False, interactive = False, visible=True)
                         
                         aspect_ratios_selection = gr.Textbox(label='', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
@@ -715,7 +717,7 @@ with common.GRADIO_ROOT:
 
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(AR.save_current_aspect, inputs=aspect_ratios_select,\
-                                outputs=[aspect_ratios_selection, aspect_info],\
+                                outputs=[aspect_ratios_selection, aspect_info, aspect_info],\
                                 queue=False, show_progress=False)\
                                 .then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
                                 show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
@@ -952,9 +954,9 @@ with common.GRADIO_ROOT:
                     value=modules.config.default_overwrite_step,
                     info='Set as -1 to disable.')
                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/117" target="_blank">\U0001F4D4 Documentation</a>')
-                dev_mode = gr.Checkbox(label='Expert Mode', value=modules.config.default_developer_debug_mode_checkbox, container=False)
+                dev_mode = gr.Checkbox(label='Expert Mode', value=modules.config.default_expert_mode_checkbox, container=False)
 
-                with gr.Column(visible=modules.config.default_developer_debug_mode_checkbox) as dev_tools:
+                with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list,
                                      value=modules.config.default_sampler)
@@ -1314,12 +1316,13 @@ with common.GRADIO_ROOT:
                                      ], queue=False, show_progress=False)     
        
         enable_shortlist_checkbox.change(AR.toggle_shortlist, inputs=enable_shortlist_checkbox,\
-            outputs=[enable_shortlist_checkbox, aspect_info, preset_selection], queue=False, show_progress=False)
+            outputs=[enable_shortlist_checkbox, aspect_info, aspect_info, preset_selection],\
+            queue=False, show_progress=False)
         
         aspect_ratios_selection.change(AR.reset_aspect_ratios, inputs=aspect_ratios_selection,\
             outputs=aspect_ratios_selections, queue=False, show_progress=False) \
             .then(AR.save_AR_template, inputs=aspect_ratios_selection,\
-            outputs=[aspect_ratios_selection, aspect_info, enable_shortlist_checkbox],\
+            outputs=[aspect_ratios_selection, aspect_info, aspect_info, enable_shortlist_checkbox],\
             queue=False, show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
         
         output_format.input(lambda x: gr.update(output_format=x), inputs=output_format)
