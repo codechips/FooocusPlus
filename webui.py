@@ -1567,7 +1567,6 @@ with common.GRADIO_ROOT:
            .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
            .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
            .then(lambda: None, _js='()=>{refresh_style_localization();}') \
-           .then(lambda: None, _js='(AR.current_AR)=>{refresh_aspect_ratios_label(AR.current_AR);}') \
            .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
                outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False) 
               
