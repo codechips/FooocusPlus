@@ -716,7 +716,7 @@ with common.GRADIO_ROOT:
                                 outputs=[aspect_ratios_selection, aspect_ratios_selection],\
                                 queue=False, show_progress=False)\
                                 .then(lambda x: None, inputs=aspect_ratios_select, queue=False,\
-                                show_progress=False, _js='(x)=>{refresh_aspect_ratios_label(x);}')
+                                show_progress=False)
 
                         enable_shortlist_checkbox = gr.Checkbox(label='Use the Aspect Ratio Shortlist',\
                             info='List the most popular aspect ratios only', value=modules.config.enable_shortlist_aspect_ratios,\
