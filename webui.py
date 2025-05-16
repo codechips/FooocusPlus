@@ -705,7 +705,7 @@ with common.GRADIO_ROOT:
                         elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                             
                         aspect_info = gr.Textbox(value=f'{AR.AR_template} Template',\
-                        info = AR.aspect_info_help,\
+                        info = AR.get_aspect_info_info(), elem_classes='aspect_info',\
                         container=False, interactive = False, visible=True)
                         
                         aspect_ratios_selection = gr.Textbox(label='', value=f'{AR.add_ratio(AR.current_AR)}, {AR.AR_template}',\
