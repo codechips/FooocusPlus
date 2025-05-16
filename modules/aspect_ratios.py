@@ -2,27 +2,26 @@ import gradio as gr
 import math
 import args_manager
 
-# These variables are set to their actual values by config.txt
+# These variables are set to their actual values in config.txt
 default_standard_AR = '1024*1024'
 default_shortlist_AR = '1024*1024'
 default_sd1_5_AR = '768*768'
 default_pixart_AR = '3840*2160'
 
-# Store the current aspect ratio selection as updated by webui & modules.meta_parser
-current_AR = default_standard_AR
+# Store the status of the Shortlist control
+# the initial value is set to "enable_shortlist_aspect_ratios" by modules.config
+AR_shortlist = False
 
 # Store the aspect ratio template for the current preset
-# the initial value is set according to modules.config.enable_shortlist_aspect_ratios 
-AR_template = 'Shortlist'
+if AR.AR_shortlist:
+    AR.AR_template = 'Shortlist'
+else:
+    AR.AR_template = 'Standard'
 
 # Used in the webui aspect_info textbox info field
 aspect_info_help = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
 aspect_info_SD1_5 = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9).'
 aspect_info_SDXL = ' For SDXL, 1280*1280 is experimental.'
-
-# Store the status of the Shortlist control
-# the initial value is set to "enable_shortlist_aspect_ratios" by modules.config
-AR_shortlist = False
 
 # for use by toggle_shortlist()
 # this value is updated by PR.set_preset_selection()
@@ -31,6 +30,9 @@ current_preset = args_manager.args.preset
 # used to ensure template update to SD1.5 in meta_parser.get_resolution()
 # this value is updated by PR.find_preset_file()
 preset_file = 'presets\Favorite\Default.json'
+
+# set to True by modules.preset_resource.get_initial_preset_content()
+low_vram = False
 
 aspect_ratios_templates = ['Standard', 'Shortlist', 'SD1.5', 'PixArt']
 available_aspect_ratios = [
@@ -70,6 +72,10 @@ def assign_default_by_template(template):
     ar_index = aspect_ratios_templates.index(template)
     return default_aspect_ratio_values[ar_index]
 
+# Store the default aspect ratio selection
+# this value is updated by webui & modules.meta_parser
+current_AR = assign_default_by_template(AR_template)
+
 def do_the_split(x):
     x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
     x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
@@ -91,16 +97,12 @@ def add_ratio(x):
     c, d = a // g, b // g
     return f'{a}×{b} | {c}:{d}'
 
-def aspect_ratio_labels(config_aspect_ratios):
-    return {template: [add_ratio(x) for x in ratios]
-        for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
-
 def add_template_ratio(x):    # only used to initialize the AR Accordion 
     a, b = AR_split(x)
     a, b = int(a), int(b)
     g = math.gcd(a, b)
     c, d = a // g, b // g
-    return f'Aspect Ratio: {a}×{b} \U00002223 {c}:{d}'
+    return f'Aspect Ratio: {a}×{b} | {c}:{d}'
 
 def aspect_ratio_title(default_aspect_ratio_values):
     return {template: add_ratio(ratio)
@@ -115,6 +117,15 @@ def get_aspect_info_info():
     else:
         aspect_info_info = aspect_info_help
     return aspect_info_info
+
+def aspect_ratio_labels(config_aspect_ratios):
+    return {template: [add_ratio(x) for x in ratios]
+        for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
+
+# Set by modules.config, this list reflects the actual values in config.txt
+# These values may have been modified to be different from the defaults, above
+config_aspect_ratios = []
+config_aspect_ratio_labels = aspect_ratio_labels(config_aspect_ratios)
 
 def save_current_aspect(x):
     global AR_template, current_AR
@@ -161,14 +172,24 @@ def reset_aspect_ratios(arg_AR):
 
 # a preset change is required to enable a reliable switch between Standard & Shortlist templates
 # switch to either the Default preset or Cheyenne when changing presets
+# or for LowVRAM switch between 4GB_Default and Vega
 def reset_preset():
     global current_preset
     working_preset = current_preset
-    if current_preset == 'Default':
+    if current_preset == '4GB_Default':
+        working_preset = 'Vega'
+    elif current_preset == 'Vega':
+        working_preset = '4GB_Default'
+    elif current_preset == 'Default':
         working_preset = 'Cheyenne'
+    elif low_vram:
+        working_preset = '4GB_Default'
     else:
         working_preset = 'Default'
     return working_preset
+
+def validate_current_AR()
+    print(f'Checking the current aspect ratio:  ')
 
 def toggle_shortlist(arg_shortlist):
     global AR_shortlist, AR_template, current_AR, shortlist_default, current_preset
