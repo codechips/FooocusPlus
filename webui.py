@@ -702,15 +702,15 @@ with common.GRADIO_ROOT:
                         step=1, value=modules.config.default_image_number)                    
  
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False, elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
-                        aspect_info = gr.Markdown(value=f'<b>{AR.AR_template} Template</b>', container=False, visible=True)
-                        aspect_ratios_selection = gr.Textbox(label='Standard', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
+                        aspect_info = gr.Markdown(value=f'<b>{AR.AR_template} Template</b>', container=False, visible=True/
+                        info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). For SDXL, 1280*1280 is experimental.')
+                        
+                        aspect_ratios_selection = gr.Textbox(label='', value=f'{AR.add_ratio(AR.current_AR)}, Standard',\
                             elem_id='AR_selection', visible=False)
                         aspect_ratios_selections = []
                         for template in AR.aspect_ratios_templates:
                             aspect_ratios_selections.append(gr.Radio(label='', choices=modules.config.config_aspect_ratio_labels[template],
-                            value=AR.aspect_ratio_title[template], visible= template=='Standard',
-                            info='Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5). For SDXL, 1280*1280 is experimental.',
-                            elem_classes='aspect_ratios'))
+                            value=AR.aspect_ratio_title[template], visible= template=='Standard', elem_classes='aspect_ratios'))
 
                         for aspect_ratios_select in aspect_ratios_selections:
                             aspect_ratios_select.change(AR.save_current_aspect, inputs=aspect_ratios_select,\
