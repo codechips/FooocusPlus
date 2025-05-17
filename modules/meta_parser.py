@@ -235,6 +235,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             print(f'Selected the SD1.5 template for the {AR.preset_file} file')
 
         if template != AR.AR_template: # if "available_aspect_ratios_selection" has caused a change
+            AR.current_AR = AR.validate_current_AR()
             AR.current_AR = ''         # cause a reset to the default AR value
             h = ''
        
