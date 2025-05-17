@@ -154,10 +154,10 @@ def get_initial_preset_content():
     global current_preset, category_selection
     json_content = ''
     preset = args_manager.args.preset
-    if (preset=='initial' or preset.lower()=='default')\
-        and (find_preset_file('4GB_Default')) and\
-        ((int(model_management.get_vram())<6000)\
-        or (modules.config.default_low_vram_presets)):
+    if (preset=='initial' or preset.lower()=='default') \
+        and (find_preset_file('4GB_Default')) and \
+        (int(model_management.get_vram())<6000 \
+        or modules.config.default_low_vram_presets==True):
         AR.low_vram = True
         preset='4GB_Default'
         print('Loading the "4GB_Default" preset, the default for low VRAM systems')
