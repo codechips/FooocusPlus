@@ -194,7 +194,7 @@ def reset_preset():
         working_preset = 'Default'
     return working_preset
 
-def validate_current_AR(arg_AR, arg_template):
+def validate_AR(arg_AR, arg_template):
     if arg_AR != '' and arg_AR in config_aspect_ratio_labels[arg_template]:
         print(f'Validated {arg_AR} in {arg_template}')
     else:
@@ -209,14 +209,14 @@ def toggle_shortlist(arg_shortlist):
     if AR_template == 'Standard' and AR_shortlist:
         AR_template = 'Shortlist'
         # this ensures that Shortlist does not start with an invalid value:
-        current_AR = validate_current_AR(current_AR, AR_template)
+        current_AR = validate_AR(current_AR, AR_template)
         print()
         print('Switching to the Shortlist template requires a preset change:')
         working_preset = reset_preset()
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
         # potentially a user could add a value to Shortlist that Standard does not have:
-        current_AR = validate_current_AR(current_AR, AR_template)        
+        current_AR = validate_AR(current_AR, AR_template)        
         print()
         print('Switching to the Standard template requires a preset change:')
         working_preset = reset_preset()
