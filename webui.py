@@ -1336,7 +1336,7 @@ with common.GRADIO_ROOT:
             modules.config.enable_favorites_menu = enable_favorites
             return gr.update(visible=enable_favorites)
         
-        favorites_checkbox.change(PR.favorites_menu_change,\
+        favorites_checkbox.change(favorites_menu_change,\
             inputs=favorites_checkbox, outputs=favorites_row,\
             queue=False, show_progress=False)
 
