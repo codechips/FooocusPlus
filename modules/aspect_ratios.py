@@ -13,10 +13,10 @@ default_pixart_AR = '3840*2160'
 AR_shortlist = False
 
 # Store the aspect ratio template for the current preset
-if AR.AR_shortlist:
-    AR.AR_template = 'Shortlist'
+if AR_shortlist:
+    AR_template = 'Shortlist'
 else:
-    AR.AR_template = 'Standard'
+    AR_template = 'Standard'
 
 # Used in the webui aspect_info textbox info field
 aspect_info_help = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
