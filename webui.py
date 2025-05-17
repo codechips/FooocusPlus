@@ -1332,6 +1332,10 @@ with common.GRADIO_ROOT:
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
+        def favorites_menu_change(enable_favorites):
+            modules.config.enable_favorites_menu = enable_favorites
+            return gr.update(visible=enable_favorites)
+        
         favorites_checkbox.change(PR.favorites_menu_change,\
             inputs=favorites_checkbox, outputs=favorites_row,\
             queue=False, show_progress=False)
