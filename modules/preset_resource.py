@@ -4,11 +4,13 @@ import random
 import gradio as gr
 import args_manager
 import modules.aspect_ratios as AR
-import modules.config
 from ldm_patched.modules import model_management
 from pathlib import Path
 
 current_preset = args_manager.args.preset
+
+# set by modules.config
+default_low_vram_presets = False
 
 def find_preset_file(preset):
     if os.path.splitext(preset)[1] == 'json':
@@ -131,10 +133,6 @@ def bar_button_change(bar_button, state_params):
     category_selection = find_preset_category(current_preset)
     return state_params, gr.update(value=category_selection),\
         gr.update(value=current_preset)
-
-def favorites_menu_change(enable_favorites):
-    modules.config.enable_favorites_menu = enable_favorites
-    return gr.update(visible=enable_favorites)
     
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
@@ -157,7 +155,7 @@ def get_initial_preset_content():
     if (preset=='initial' or preset.lower()=='default') \
         and (find_preset_file('4GB_Default')) and \
         (int(model_management.get_vram())<6000 \
-        or modules.config.default_low_vram_presets==True):
+        or default_low_vram_presets==True):
         AR.low_vram = True
         preset='4GB_Default'
         print('Loading the "4GB_Default" preset, the default for low VRAM systems')
