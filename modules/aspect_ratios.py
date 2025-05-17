@@ -199,25 +199,32 @@ def reset_preset():
         working_preset = 'Default'
     return working_preset
 
+def get_substrings(arg_list, arg_substring):
+    substrings[]
+    for text in arg_list:
+        if arg_substring in text:
+            substrings.append(text)
+    return substrings
+
 def validate_AR(arg_AR, arg_template):
     if arg_AR == '':
         arg_AR = assign_default_by_template(arg_template)
         return arg_AR
-    split_AR = arg_AR.split('| ')
     print(f'arg_AR: {arg_AR}')
     print(f'split_AR: {split_AR}')
     print(f'split_AR[1]: {split_AR[1]}')
     # test for a perfect match:
     if arg_AR in config_aspect_ratio_labels[arg_template]:
         print(f'Validated {arg_AR} in {arg_template}')
-    # test for a match by AR only, not be actual dimensions:
-    elif split_AR[1] in config_aspect_ratio_labels[arg_template]:
-        split_index = arg_AR.index(split_AR[1])
-        arg_AR = arg_AR[split_index]
-        print(f'Validated {split_AR[1]} in {arg_template}')
-    else:  # default to the default AR for that template
-        arg_AR = assign_default_by_template(arg_template)
-        print(f'Validation failed: using the default {arg_AR} aspect ratio for {arg_template}')
+    else: # test for a match by AR only, not by actual dimensions:
+        split_AR = arg_AR.split('| ')
+        substrings = get_substrings(arg_AR, split_AR[1])
+        if substrings:
+            arg_AR = substrings[0]
+            print(f'Validated {split_AR[1]} in {arg_template}')
+        else: # default to the default AR for that template
+            arg_AR = assign_default_by_template(arg_template)
+            print(f'Validation failed: using the default {arg_AR} aspect ratio for {arg_template}')
     return arg_AR
 
 def toggle_shortlist(arg_shortlist):
