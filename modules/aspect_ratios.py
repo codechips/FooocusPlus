@@ -124,7 +124,7 @@ def aspect_ratio_labels(config_aspect_ratios):
 
 # Set by modules.config, this list reflects the actual values in config.txt
 # These values may have been modified to be different from the defaults, above
-config_aspect_ratios = []
+config_aspect_ratios = [] # set to config.txt values by modules.config
 config_aspect_ratio_labels = aspect_ratio_labels(config_aspect_ratios)
 
 def save_current_aspect(x):
@@ -188,8 +188,10 @@ def reset_preset():
         working_preset = 'Default'
     return working_preset
 
-def validate_current_AR()
-    print(f'Checking the current aspect ratio:  ')
+def validate_current_AR():
+    print(f'Checking the current aspect ratio: {current_AR}')
+    print(f'Values for AR_template: {AR.config_aspect_ratio_labels[AR_template]}')
+    return current_AR
 
 def toggle_shortlist(arg_shortlist):
     global AR_shortlist, AR_template, current_AR, shortlist_default, current_preset
@@ -198,6 +200,7 @@ def toggle_shortlist(arg_shortlist):
     if AR_template == 'Standard' and AR_shortlist:
         AR_template = 'Shortlist'
         # this ensures that Shortlist does not start with an invalid value:
+        current_AR = validate_current_AR()
 #        current_AR = default_shortlist_AR
         print()
         print('Switching to the Shortlist template requires a preset change:')
