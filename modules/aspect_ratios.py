@@ -65,6 +65,15 @@ available_aspect_ratios = [
      '2048*512'],
 ]
 
+# modules.config sets these lists to their actual config.txt values
+available_standard_aspect_ratios = available_aspect_ratios[0]
+available_shortlist_aspect_ratios = available_aspect_ratios[1]
+available_sd1_5_aspect_ratios = available_aspect_ratios[2]
+available_pixart_aspect_ratios = available_aspect_ratios[3]
+
+config_aspect_ratios = [available_standard_aspect_ratios, available_shortlist_aspect_ratios,\
+    available_sd1_5_aspect_ratios, available_pixart_aspect_ratios,]
+
 default_aspect_ratio_values = [default_standard_AR, default_shortlist_AR,\
     default_sd1_5_AR, default_pixart_AR]
 
@@ -122,9 +131,6 @@ def aspect_ratio_labels(config_aspect_ratios):
     return {template: [add_ratio(x) for x in ratios]
         for template, ratios in zip(aspect_ratios_templates, config_aspect_ratios)}
 
-# Set by modules.config, this list reflects the actual values in config.txt
-# These values may have been modified to be different from the defaults, above
-config_aspect_ratios = [] # set to config.txt values by modules.config
 config_aspect_ratio_labels = aspect_ratio_labels(config_aspect_ratios)
 
 def save_current_aspect(x):
