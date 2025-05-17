@@ -12,13 +12,18 @@ default_pixart_AR = '3840*2160'
 # the initial value is set to "enable_shortlist_aspect_ratios" by modules.config
 AR_shortlist = False
 
-# Store the aspect ratio template for the current preset
-if AR_shortlist:
-    AR_template = 'Shortlist'
-else:
-    AR_template = 'Standard'
+# Initialize the the current aspect ratio template
+def AR_template_init():
+    global AR_template
+    if AR_shortlist:
+        AR_template = 'Shortlist'
+    else:
+        AR_template = 'Standard'
+    return AR_template
+AR_template = AR_template_init()
 
 # Used in the webui aspect_info textbox info field
+# Set by get_aspect_info_info()
 aspect_info_help = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
 aspect_info_SD1_5 = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9).'
 aspect_info_SDXL = ' For SDXL, 1280*1280 is experimental.'
@@ -195,9 +200,19 @@ def reset_preset():
     return working_preset
 
 def validate_AR(arg_AR, arg_template):
-    if arg_AR != '' and arg_AR in config_aspect_ratio_labels[arg_template]:
+    if arg_AR == '':
+        arg_AR = assign_default_by_template(arg_template)
+        return arg_AR
+    split_AR = arg_AR.split('| ')
+    # test for a perfect match:
+    if arg_AR in config_aspect_ratio_labels[arg_template]:
         print(f'Validated {arg_AR} in {arg_template}')
-    else:
+    # test for a match by AR only, not be actual dimensions:
+    elif split_AR[1] in config_aspect_ratio_labels[arg_template]:
+        split_index = arg_AR.index(split_AR[1])
+        arg_AR = arg_AR[split_index]
+        print(f'Validated {split_AR[1]} in {arg_template}')
+    else:  # default to the default AR for that template
         arg_AR = assign_default_by_template(arg_template)
         print(f'Validation failed: using the default {arg_AR} aspect ratio for {arg_template}')
     return arg_AR
