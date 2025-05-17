@@ -157,7 +157,7 @@ def get_initial_preset_content():
     if (preset=='initial' or preset.lower()=='default')\
         and (find_preset_file('4GB_Default') and\
         ((int(model_management.get_vram())<6000)\
-        or modules_config.default_low_vram_presets)):
+        or (modules.config.default_low_vram_presets)):
         AR.low_vram = True
         preset='4GB_Default'
         print('Loading the "4GB_Default" preset, the default for low VRAM systems')
