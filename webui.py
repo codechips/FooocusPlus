@@ -700,7 +700,8 @@ with common.GRADIO_ROOT:
                         elem_classes=['performance_selection'])
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
                         step=1, value=modules.config.default_image_number)                    
- 
+
+                    AR.AR_template_init()
                     with gr.Accordion(label=AR.add_template_ratio(AR.current_AR), open=False,\
                         elem_id='aspect_ratios_accordion') as aspect_ratios_accordion:
                             
