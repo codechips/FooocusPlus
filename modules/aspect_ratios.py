@@ -197,7 +197,7 @@ def reset_preset():
 def validate_current_AR():
     global AR_template, current_AR
     print(f'Checking the current aspect ratio: {current_AR}')
-    print(f'Values for AR_template: {config_aspect_ratio_labels[AR_template]}')
+    print(f'Values for AR_template: {config_aspect_ratios[AR_template]}')
     return current_AR
 
 def toggle_shortlist(arg_shortlist):
