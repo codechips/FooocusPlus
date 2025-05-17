@@ -200,7 +200,7 @@ def reset_preset():
     return working_preset
 
 def get_substrings(arg_list, arg_substring):
-    substrings[]
+    substrings = []
     for text in arg_list:
         if arg_substring in text:
             substrings.append(text)
