@@ -204,6 +204,9 @@ def validate_AR(arg_AR, arg_template):
         arg_AR = assign_default_by_template(arg_template)
         return arg_AR
     split_AR = arg_AR.split('| ')
+    print(f'arg_AR: {arg_AR}')
+    print(f'split_AR: {split_AR}')
+    print(f'split_AR[1]: {split_AR[1]}')
     # test for a perfect match:
     if arg_AR in config_aspect_ratio_labels[arg_template]:
         print(f'Validated {arg_AR} in {arg_template}')
