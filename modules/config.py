@@ -1242,16 +1242,17 @@ def downloading_hydit_model():
 update_files()
 
 
-# Additional aspect ratio support
-
-AR.config_aspect_ratios = [available_standard_aspect_ratios, available_shortlist_aspect_ratios,\
-    available_sd1_5_aspect_ratios, available_pixart_aspect_ratios,]
-
-# initialize AR globals
+# Aspect ratio support: initialize AR globals
 AR.default_standard_AR = default_standard_aspect_ratio
 AR.default_shortlist_AR = default_shortlist_aspect_ratio
 AR.default_sd1_5_AR = default_sd1_5_aspect_ratio
 AR.default_pixart_AR = default_pixart_aspect_ratio
+
+AR.available_standard_aspect_ratios = available_standard_aspect_ratios
+AR.available_shortlist_aspect_ratios = available_shortlist_aspect_ratios
+AR.available_sd1_5_aspect_ratios = available_sd1_5_aspect_ratios
+AR.available_pixart_aspect_ratios = available_pixart_aspect_ratios
+
 AR.AR_shortlist = enable_shortlist_aspect_ratios
 
 # Preset Resource support
