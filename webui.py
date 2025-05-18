@@ -1551,7 +1551,7 @@ with common.GRADIO_ROOT:
     prompt_preset_button.click(toolbox.toggle_note_box_preset, inputs=model_check + [state_topbar],\
         outputs=[params_note_info, params_note_input_name, params_note_preset_button, params_note_box, state_topbar], show_progress=False)
     params_note_preset_button.click(toolbox.save_preset, inputs=[params_note_input_name, params_backend] + reset_preset_func + load_data_outputs,\
-        outputs=[preset_selection, params_note_input_name, params_note_preset_button, params_note_box, state_topbar] + nav_bars, show_progress=False) \
+        outputs=[params_note_input_name, params_note_preset_button, params_note_box, state_topbar] + nav_bars + preset_selection, show_progress=False) \
         .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, queue=False, show_progress=False) \
         .then(fn=lambda x: None, inputs=system_params, _js=UIS.refresh_topbar_status_js)
 
