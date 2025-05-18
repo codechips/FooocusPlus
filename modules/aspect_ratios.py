@@ -217,7 +217,7 @@ def validate_AR(arg_AR, arg_template):
         split_AR = arg_AR.split('| ')
         print(f'split_AR[1] {split_AR[1]}')
         substrings = get_substrings(arg_AR, split_AR[1])
-        print(f'substrings [substrings]')
+        print(f'substrings: {substrings}')
         if substrings:
             arg_AR = substrings[0]
             print(f'Validated {split_AR[1]} in {arg_template}')
