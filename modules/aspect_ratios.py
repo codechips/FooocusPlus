@@ -212,13 +212,14 @@ def validate_AR(arg_AR, arg_template):
     if arg_AR == '':
         arg_AR = assign_default_by_template(arg_template)
         return arg_AR
+    AR_labels = config_aspect_ratio_labels[arg_template]
     # test for a perfect match:
-    if arg_AR in config_aspect_ratio_labels[arg_template]:
+    if arg_AR in AR_labels:
         print(f'Validated {arg_AR} in {arg_template}')
     else: # test for a match by AR only, not by actual dimensions:
         split_AR = arg_AR.split('| ')
         print(f'split_AR[1] {split_AR[1]}')
-        substrings = get_substrings(arg_template, split_AR[1])
+        substrings = get_substrings(AR_labels, split_AR[1])
         print(f'substrings: {substrings}')
         if substrings:
             arg_AR = substrings[0]
