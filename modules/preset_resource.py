@@ -207,4 +207,4 @@ def favorite_count():
     return len(preset_favorites)
 
 def save_preset(x):
-    return gr.update(), gr.update(value=PR.current_preset)
+    return gr.update(), gr.update(value=current_preset)
