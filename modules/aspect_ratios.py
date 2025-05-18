@@ -216,7 +216,7 @@ def validate_AR(arg_AR, arg_template):
     else: # test for a match by AR only, not by actual dimensions:
         split_AR = arg_AR.split('| ')
         print(f'split_AR[1] {split_AR[1]}')
-        substrings = get_substrings(arg_AR, split_AR[1])
+        substrings = get_substrings(arg_template, split_AR[1])
         print(f'substrings: {substrings}')
         if substrings:
             arg_AR = substrings[0]
