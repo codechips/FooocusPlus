@@ -218,16 +218,18 @@ def validate_AR(arg_AR, arg_template):
     if arg_AR in AR_labels:
         print(f'Found the same {arg_AR} values in {arg_template}')
     else: # test for a match by AR only, not by actual dimensions:
+        substrings = []
         split_AR = arg_AR.split('| ')
-        print(f'split_AR: {split_AR}')
-        substrings = get_substrings(AR_labels, split_AR[1])
+        if len(split_AR) == 2:
+            substrings = get_substrings(AR_labels, split_AR[1])
         if substrings:
             arg_AR = substrings[0]
             print(f'Found the same {split_AR[1]} aspect ratio in {arg_template}')
         else: # default to the default AR for that template:
             arg_AR = assign_default_by_template(arg_template)
-            print(f'Could not find the same {split_AR[1]} aspect ratio in {arg_template}.')
-            print(f'Using the default {arg_AR} aspect ratio instead.')
+            if len(split_AR) == 2:
+                print(f'Could not find the same {split_AR[1]} aspect ratio in {arg_template}.')
+                print(f'Using the default {arg_AR} aspect ratio instead.')
     return arg_AR
 
 def toggle_shortlist(arg_shortlist):
