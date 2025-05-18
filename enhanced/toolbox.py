@@ -433,7 +433,7 @@ def save_preset(*args):
         preset["default_styles"] = style_selections
         preset["default_aspect_ratio"] = "0*0"
         preset["default_overwrite_step"] = overwrite_step
-        preset["default_inpaint_engine"] = inpaint_engine
+#        preset["default_inpaint_engine"] = inpaint_engine
         preset["checkpoint_downloads"] = {}
         preset["embeddings_downloads"] = {}
         preset["lora_downloads"] = {}
