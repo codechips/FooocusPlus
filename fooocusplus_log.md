@@ -11,10 +11,10 @@
 * but as before, if a valid aspect ratio is set in a preset it overrides the current UI setting
 * as presets are changed, by default the UI setting for aspect ratio does not change
 * there are now four sets of aspect ratios defined in config.txt, the Standard, Shortlist, SD1.5, and PixArt templates
-* the default aspect ratios for these four templates are only used for initial values, they do not override setting changes in the UI
-* Shortlist is a Standard template that is simplified to only 15 values, toggled on and off by the Custom preset
-* by default FooocusPlus starts with the Shortlist template, subject to change using the "enable_shortlist_aspect_ratios" setting
-* the aspect ratio list can toggled between the Shortlist and Standard templates with the "Use the Aspect Ratio Shortlist" checkbox
+* the default settings for these templates are used for initial values but they do not override setting changes in the UI
+* by default FooocusPlus starts with the Shortlist template, a Standard template that is simplified to only 15 values
+* this default can be changed using the "enable_shortlist_aspect_ratios" config.txt setting
+* the UI can toggled between Shortlist and Standard templates with the "Use the Aspect Ratio Shortlist" checkbox
 * the SD1.5 presets change the aspect ratio display to the SD1.5 template
 * when PixArt Sigma is introduced, a preset will select the PixArt template
 * when switching between presets the UI attempts to keep the currently selected aspect ratio, and width and height too
