@@ -205,3 +205,6 @@ def preset_count():
 def favorite_count():
     preset_favorites = get_presets_in_folder('Favorite')
     return len(preset_favorites)
+
+def save_preset(x)
+    return gr.update(), gr.update(value=PR.current_preset)
