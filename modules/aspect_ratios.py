@@ -201,6 +201,8 @@ def reset_preset():
 
 def get_substrings(arg_list, arg_substring):
     substrings = []
+    print(f'arg_list: {arg_list}')
+    print(f'arg_substring {arg_substring}')
     for text in arg_list:
         if arg_substring in text:
             substrings.append(text)
