@@ -201,8 +201,6 @@ def reset_preset():
 
 def get_substrings(arg_list, arg_substring):
     substrings = []
-    print(f'arg_list: {arg_list}')
-    print(f'arg_substring {arg_substring}')
     for text in arg_list:
         if arg_substring in text:
             substrings.append(text)
@@ -215,18 +213,17 @@ def validate_AR(arg_AR, arg_template):
     AR_labels = config_aspect_ratio_labels[arg_template]
     # test for a perfect match:
     if arg_AR in AR_labels:
-        print(f'Validated {arg_AR} in {arg_template}')
+        print(f'Found the same {arg_AR} values in {arg_template}')
     else: # test for a match by AR only, not by actual dimensions:
         split_AR = arg_AR.split('| ')
-        print(f'split_AR[1] {split_AR[1]}')
         substrings = get_substrings(AR_labels, split_AR[1])
-        print(f'substrings: {substrings}')
         if substrings:
             arg_AR = substrings[0]
-            print(f'Validated {split_AR[1]} in {arg_template}')
-        else: # default to the default AR for that template
+            print(f'Found the same {split_AR[1]} aspect ratio in {arg_template}')
+        else: # default to the default AR for that template:
             arg_AR = assign_default_by_template(arg_template)
-            print(f'Validation failed: using the default {arg_AR} aspect ratio for {arg_template}')
+            print(f'Could not find the same {split_AR[1]} aspect ratio in {arg_template}.')
+            print(f'Using the default {arg_AR} aspect ratio instead.')
     return arg_AR
 
 def toggle_shortlist(arg_shortlist):
