@@ -483,4 +483,5 @@ def save_preset(*args):
     PR.set_preset_selection(save_name, state_params)
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += UIS.refresh_nav_bars(state_params)
-    return gr.update(value=PR.current_preset), results
+    results += gr.update(value=PR.current_preset)
+    return results
