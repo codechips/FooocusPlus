@@ -24,8 +24,9 @@ AR_template = AR_template_init()
 
 # Used in the webui aspect_info textbox info field
 # Set by get_aspect_info_info()
-aspect_info_help = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
-aspect_info_SD1_5 = 'Vertical (9:16), Portrait (4:5), Photo (4:3), Landscape (3:2), Widescreen (16:9).'
+aspect_info_help = 'Vertical (9:16), Portrait (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
+aspect_info_SD1_5 = 'Vertical (9:16), Photo (4:5), Portrait (4:3), Landscape (3:2), Widescreen (16:9).'
+aspect_info_PixArt = 'Vertical (9:16), Photo (4:5), Portrait (4:3), Landscape (3:2), Widescreen (16:9), Ultrawide (12:5).'
 aspect_info_SDXL = ' For SDXL, 1280*1280 is experimental.'
 
 # for use by toggle_shortlist()
@@ -128,7 +129,9 @@ def get_aspect_info_info():
         aspect_info_info = aspect_info_help + aspect_info_SDXL
     elif AR_template == 'SD1.5':
         aspect_info_info = aspect_info_SD1_5
-    else:
+    elif AR_template == 'PixArt':
+        aspect_info_info = aspect_info_PixArt
+    else: # Shortlist
         aspect_info_info = aspect_info_help
     return aspect_info_info
 
@@ -216,6 +219,7 @@ def validate_AR(arg_AR, arg_template):
         print(f'Found the same {arg_AR} values in {arg_template}')
     else: # test for a match by AR only, not by actual dimensions:
         split_AR = arg_AR.split('| ')
+        print(f'split_AR: {split_AR}')
         substrings = get_substrings(AR_labels, split_AR[1])
         if substrings:
             arg_AR = substrings[0]
