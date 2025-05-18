@@ -1552,7 +1552,7 @@ with common.GRADIO_ROOT:
         outputs=[params_note_info, params_note_input_name, params_note_preset_button, params_note_box, state_topbar], show_progress=False)
     params_note_preset_button.click(toolbox.save_preset, inputs=[params_note_input_name, params_backend] + reset_preset_func + load_data_outputs,\
         outputs=[params_note_input_name, params_note_preset_button, params_note_box, state_topbar] + nav_bars, show_progress=False) \
-        .then(PR.save_preset, inputs=state_topbar, outputs=[system_params, preset_selection], queue=False, show_progress=False) \
+        .then(fn=lambda x: x, inputs=state_topbar, outputs=[system_params, preset_selection], queue=False, show_progress=False) \
         .then(fn=lambda x: None, inputs=system_params, _js=UIS.refresh_topbar_status_js)
 
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
