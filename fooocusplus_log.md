@@ -6,20 +6,22 @@
 * if an image is stored with A1111 metadata, the Apply Metadata button is disabled instead of creating an error
 * added Torch, CUDA and xformers data to System Information, under the Extras tab
 * fixed a bug that prevented reinstallation of Torch if its folder was not found
-* the master folders are now subfolders of the new "masters" folder
+* the various master folders are now subfolders of the new "masters" folder
 * by default, all presets except for SD1.5 now use a 0*0 aspect ratio, meaning that it does not have any effect
-* but as before, if a valid aspect ratio is set in a preset it overrides all other settings
-* introduced and tested the "experimental" SDXL 1280*1280 aspect ratio
-* the four default aspect ratios in config.txt are only used for initial values, they do not override setting changes in the UI
-* as Std. presets such SDXL or Flux are changed, by default the UI setting for aspect ratio does not change
-* there are now four sets of aspect ratios defined in config.txt, the Std., Shortlist, SD1.5, and PixArt templates
-* FooocusPlus starts up with the Std. template. It is switched to the other templates by the appropriate preset
-* Shortlist is a Std. template that is simplified to only 15 values, toggled on and off by the Custom preset
-* the SD1.5_RealVis preset sets the UI to the SD1.5 default value and aspect ratio set
-* when PixArt Sigma is introduced, a preset will select the appropriate aspect ratio set
+* but as before, if a valid aspect ratio is set in a preset it overrides the current UI setting
+* as presets are changed, by default the UI setting for aspect ratio does not change
+* there are now four sets of aspect ratios defined in config.txt, the Standard, Shortlist, SD1.5, and PixArt templates
+* the default aspect ratios for these four templates are only used for initial values, they do not override setting changes in the UI
+* Shortlist is a Standard template that is simplified to only 15 values, toggled on and off by the Custom preset
+* by default FooocusPlus starts with the Shortlist template, subject to change using the "enable_shortlist_aspect_ratios" setting
+* the aspect ratio list can toggled between the Shortlist and Standard templates with the "Use the Aspect Ratio Shortlist" checkbox
+* the SD1.5 presets change the aspect ratio display to the SD1.5 template
+* when PixArt Sigma is introduced, a preset will select the PixArt template
+* when switching between presets the UI attempts to keep the currently selected aspect ratio, and width and height too
+* introduced and tested the "experimental" SDXL 1280*1280 aspect ratio, available from the Standard template
 * introduced both Preset Categories and Presets dropdowns under the Settings tab
 * the Preset Categories are: Alternative, Fantasy, Favorite, Flux1D, Flux1S, Illustrative, LowVRAM, Pony, Realistic & SD1.5
-* the Category structure is duplicated into the User Directory. Changes or additions automatically update the working preset folder
+* the Category structure is duplicated to the User Directory. Changes in this directory will update the working preset folder
 * the Categories are actually folders. If a preset file is located in a folder it will show up in that category
 * presets can be stored in more than one category if desired
 * the Make New Preset button, under the Extras tab, saves the current settings to a new preset, located in the User Directory
@@ -28,10 +30,11 @@
 * the Current Preset is now listed just below the Generate button
 * if Favorites is checked (the default) the favorite presets are shown in a horizontal menu bar located above the main canvas
 * the current preset is now stored in the log
+* FooocusPlus starts with the Default preset, unless low VRAM is detected in which cast it starts with 4GB_Default
+* the VRAM 4GB_Default preset can also be set by the config.txt "default_low_vram_presets" option
 * added a config.txt option and checkbox to "Show Newest Images First" in the log. If this is off the newest images are last
 * the Flux base models are recategorized into the FluxDev and FluxSchnell folders
 * fixed a strange bug in which the "Specific Seed" value was being trashed when changing presets
-* unless Image Prompt is active, the Fooocus V2 style is no longer suppressed when the prompt is empty
 * fixed a bug with SuperPrompter
 
 # 0.9.8 Dev
