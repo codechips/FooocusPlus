@@ -433,48 +433,15 @@ def save_preset(*args):
         preset["default_styles"] = style_selections
         preset["default_aspect_ratio"] = "0*0"
         preset["default_overwrite_step"] = overwrite_step
-#        preset["default_inpaint_engine"] = inpaint_engine
+#        preset["default_aspect_ratio"] = aspect_ratios_selection.split(' ')[0].replace(u'\u00d7','*')        
+        if ads.default["clip_skip"] != clip_skip:
+            preset["default_clip_skip"] = clip_skip
+#        preset["default_inpaint_engine"] = inpaint_engine # causes junk to be added
         preset["checkpoint_downloads"] = {}
         preset["embeddings_downloads"] = {}
         preset["lora_downloads"] = {}
         preset["vae_downloads"] = {}
-        
-#        preset["default_aspect_ratio"] = aspect_ratios_selection.split(' ')[0].replace(u'\u00d7','*')
-#        if ads.default["adm_scaler_positive"] != adm_scaler_positive or ads.default["adm_scaler_negative"] != adm_scaler_negative \
-#                or ads.default["adm_scaler_end"] != adm_scaler_end:
-#            preset["default_adm_guidance"] = f'({adm_scaler_positive}, {adm_scaler_negative}, {adm_scaler_end})'
-#        if ads.default["freeu"]!=freeu_ctrls[1:]:
-#            preset["default_freeu"]=freeu_ctrls[1:]
-#        if ads.default["adaptive_cfg"] != adaptive_cfg:
-#            preset["default_cfg_tsnr"] = adaptive_cfg
-#        if ads.default["overwrite_switch"] != overwrite_switch:
-#            preset["default_overwrite_switch"] = overwrite_switch
-#        if ads.default["inpaint_engine"] != inpaint_engine:
-            
-#        if ads.default["clip_skip"] != clip_skip:
-#            preset["default_clip_skip"] = clip_skip
-
-#        if ads.default["overwrite_width"] != overwrite_width:
-#            preset["default_overwrite_width"] = overwrite_width
-#        if ads.default["overwrite_height"] != overwrite_height:
-#            preset["default_overwrite_height"] = overwrite_height
-#        if not seed_random:
-#            preset["default_image_seed"] = image_seed
-
-
-#        if refiner_model and refiner_model != 'None':
-#            preset["checkpoint_downloads"].update({refiner_model: get_muid_link("checkpoints/"+refiner_model)})
-
-
-#        prompt_tags = re.findall(r'[\(](.*?)[)]', negative_prompt) + re.findall(r'[\(](.*?)[)]', prompt)
-#        embeddings = {}
-#        for e in prompt_tags:
-#            embed = e.split(':')
-#            if len(embed)>2 and embed[0] == 'embedding':
-#                embeddings.update({embed[1]:embed[2]})
-#        embeddings = embeddings.keys()
-
-
+      
         save_path = f'presets/Favorite/{save_name}.json'
         user_Favorite = f'{config.user_dir}/user_presets/Favorite'      
         user_path = f'{config.user_dir}/user_presets/Favorite/{save_name}.json'
@@ -486,7 +453,8 @@ def save_preset(*args):
         state_params.update({"__preset": save_name})
     state_params.update({"note_box_state": ['',0,0]})
     PR.current_preset = save_name
-    PR.set_preset_selection(save_name, state_params)
+    PR.category_selection = 'Favorite'
+#    PR.set_preset_selection(save_name, state_params)
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += UIS.refresh_nav_bars(state_params)
     return results
