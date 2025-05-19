@@ -209,5 +209,5 @@ def favorite_count():
 def save_preset(x):
     PR_choices = get_presetnames_in_folder(category_selection)
     return gr.update(), gr.update(value=current_preset), \
-        gr.update(choices=PR.choices), \
+        gr.update(choices=PR_choices), \
         gr.update(value=category_selection)
