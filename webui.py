@@ -209,7 +209,7 @@ with common.GRADIO_ROOT:
                         # disable the iFrame display of help for preset selections:
                         preset_instruction = gr.HTML(visible=False, value=UIS.preset_no_instruction())
 
-                        def init_bar_buttons:
+                        def init_bar_buttons():
                             bar_buttons = []
                             preset_favs = PR.get_presetnames_in_folder('Favorite')
                             bar_title = gr.Markdown('<b>Favorites:</b>',\
