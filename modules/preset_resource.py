@@ -205,8 +205,9 @@ def preset_count():
     return len(get_preset_paths())
 
 def preset_bar_count():
-    preset_bar_category = get_presets_in_folder(preset_bar_category)
-    return len(preset_bar_category)
+    global preset_bar_category
+    preset_bar_list = get_presets_in_folder(preset_bar_category)
+    return len(preset_bar_list)
 
 def save_preset(x):
     PR_choices = get_presetnames_in_folder(category_selection)
