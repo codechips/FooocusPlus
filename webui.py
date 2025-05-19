@@ -1566,7 +1566,7 @@ with common.GRADIO_ROOT:
         outputs=[params_note_input_name, params_note_preset_button, params_note_box, state_topbar] \
             + nav_bars, show_progress=False) \
         .then(PR.save_preset, inputs=state_topbar, \
-              outputs=[system_params, preset_selection, preset_selection, category_selection], \
+              outputs=[system_params, preset_selection, preset_selection], \
               queue=False, show_progress=False) \
         .then(fn=lambda x: None, inputs=system_params, _js=UIS.refresh_topbar_status_js)
 
