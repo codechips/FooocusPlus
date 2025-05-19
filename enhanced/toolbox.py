@@ -460,6 +460,7 @@ def save_preset(*args):
         state_params.update({"__preset": save_name})
     state_params.update({"note_box_state": ['',0,0]})
     PR.current_preset = save_name
+    PR.init_bar_buttons()
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += UIS.refresh_nav_bars(state_params)
     return results
