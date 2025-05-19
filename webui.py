@@ -212,7 +212,7 @@ with common.GRADIO_ROOT:
                         def init_bar_buttons():
                             bar_buttons = []
                             preset_favs = PR.get_presetnames_in_folder(PR.preset_bar_category)
-                            bar_title = gr.Markdown('<b>{PR.preset_bar_category}:</b>',\
+                            bar_title = gr.Markdown(f'<b>{PR.preset_bar_category}:</b>',\
                                 elem_id='bar_title', elem_classes='bar_title')
                             for i in range(PR.preset_bar_count()):
                                 bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
