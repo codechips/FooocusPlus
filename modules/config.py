@@ -247,6 +247,12 @@ preset_bar_category = get_config_item_or_set_default(
     validator=lambda x: x in PR.get_all_presetnames(),
     expected_type=str
 )
+preset_bar_length = get_config_item_or_set_default(
+    key='preset_bar_length',
+    default_value=8,
+    validator=lambda x: isinstance(x, int) and 1 <= x <= 30,
+    expected_type=int
+)
 default_list_all_presets = get_config_item_or_set_default(
     key='default_list_all_presets',
     default_value=False,
@@ -1264,3 +1270,4 @@ AR.AR_shortlist = enable_shortlist_aspect_ratios
 # Preset Resource support
 PR.default_low_vram_presets = default_low_vram_presets
 PR.preset_bar_category = preset_bar_category
+PR.preset_bar_length = preset_bar_length
