@@ -443,9 +443,9 @@ def save_preset(*args):
         preset["vae_downloads"] = {}
       
         save_path = f'presets/{PR.category_selection}/{save_name}.json'
-        user_Save = f'{config.user_dir}/user_presets/{PR.category_selection}'
+        user_category = f'{config.user_dir}/user_presets/{PR.category_selection}'
         user_path = f'{config.user_dir}/user_presets/{PR.category_selection}/{save_name}.json'
-        os.makedirs(user_Save, exist_ok = True)
+        os.makedirs(user_category, exist_ok = True)
         with open(save_path, "w", encoding="utf-8") as json_file:
             json.dump(preset, json_file, indent=4) # temp. save to working presets
         shutil.copy(save_path, user_path)          # perm. save to user presets
@@ -453,7 +453,7 @@ def save_preset(*args):
         state_params.update({"__preset": save_name})
     state_params.update({"note_box_state": ['',0,0]})
     PR.current_preset = save_name
-#    PR.set_preset_selection(save_name, state_params)
+    PR.set_preset_selection(save_name, state_params)
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += UIS.refresh_nav_bars(state_params)
     return results
