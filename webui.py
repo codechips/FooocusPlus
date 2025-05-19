@@ -208,14 +208,17 @@ with common.GRADIO_ROOT:
                     if not args_manager.args.disable_preset_selection:
                         # disable the iFrame display of help for preset selections:
                         preset_instruction = gr.HTML(visible=False, value=UIS.preset_no_instruction())
-                        
-                        bar_buttons = []
-                        preset_favs = PR.get_presetnames_in_folder('Favorite')
-                        bar_title = gr.Markdown('<b>Favorites:</b>',\
-                            elem_id='bar_title', elem_classes='bar_title')
-                        for i in range(PR.favorite_count()):
-                            bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
-                                min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))                      
+
+                        def init_bar_buttons:
+                            bar_buttons = []
+                            preset_favs = PR.get_presetnames_in_folder('Favorite')
+                            bar_title = gr.Markdown('<b>Favorites:</b>',\
+                                elem_id='bar_title', elem_classes='bar_title')
+                            for i in range(PR.favorite_count()):
+                                bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
+                                    min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+                            return bar_buttons
+                        bar_buttons = init_bar_buttons
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
