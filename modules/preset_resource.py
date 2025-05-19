@@ -215,7 +215,8 @@ def init_bar_buttons():
     preset_bar_list = get_presetnames_in_folder(preset_bar_category)
     bar_title = gr.Markdown(f'<b>{preset_bar_category}:</b>',\
         elem_id='bar_title', elem_classes='bar_title')
-    bar_count = preset_bar_count()
+#    bar_count = preset_bar_count()
+    bar_count = 8
     for i in range(bar_count):
         bar_buttons.append(gr.Button(value=preset_bar_list[i], size='sm',\
             min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
