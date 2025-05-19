@@ -207,6 +207,7 @@ def get_preset_inc_url(preset_name='blank'):
 def refresh_nav_bars(state_params):
     state_params.update({"__nav_name_list": PR.get_presetnames_in_folder('Favorite')})
     preset_name_list = PR.get_presetnames_in_folder('Favorite')
+    print(f'preset_name_list: {preset_name_list}')
     results = []
     if state_params["__is_mobile"]:
         results += [gr.update(visible=False)]
