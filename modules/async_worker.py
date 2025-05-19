@@ -1497,7 +1497,7 @@ def worker():
 
 
         if not async_task.should_enhance:
-            print(f'[Enhance] Skipping, preconditions aren\'t met')
+            print(f'Enhance mode is not active')
             stop_processing(async_task, processing_start_time)
             return
 
