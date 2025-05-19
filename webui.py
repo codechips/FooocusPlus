@@ -211,11 +211,12 @@ with common.GRADIO_ROOT:
 
                         def init_bar_buttons():
                             bar_buttons = []
-                            preset_favs = PR.get_presetnames_in_folder(PR.preset_bar_category)
+                            preset_bar_list = PR.get_presetnames_in_folder(PR.preset_bar_category)
                             bar_title = gr.Markdown(f'<b>{PR.preset_bar_category}:</b>',\
                                 elem_id='bar_title', elem_classes='bar_title')
-                            for i in range(PR.preset_bar_count()):
-                                bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
+                            preset_bar_count = PR.preset_bar_count()
+                            for i in range(preset_bar_count):
+                                bar_buttons.append(gr.Button(value=preset_bar_list[i], size='sm',\
                                     min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
                             return bar_title, bar_buttons
                         bar_title, bar_buttons = init_bar_buttons()
@@ -315,8 +316,8 @@ with common.GRADIO_ROOT:
                 with gr.Column():
                     with gr.Row(elem_classes='advanced_check_row'):
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
+                        input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
                         preset_bar_checkbox = gr.Checkbox(label='Preset Bar', value=modules.config.enable_preset_bar, container=False, elem_classes='min_check')
-                        input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                 with gr.Column():
                     preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
