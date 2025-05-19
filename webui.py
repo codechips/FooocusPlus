@@ -203,7 +203,7 @@ with common.GRADIO_ROOT:
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Group():
-                with gr.Row(visible=modules.config.enable_favorites_menu) as favorites_row:
+                with gr.Row(visible=modules.config.enable_preset_bar) as preset_row:
                     # obsolete preset code, all hidden:
                     if not args_manager.args.disable_preset_selection:
                         # disable the iFrame display of help for preset selections:
@@ -211,10 +211,10 @@ with common.GRADIO_ROOT:
 
                         def init_bar_buttons():
                             bar_buttons = []
-                            preset_favs = PR.get_presetnames_in_folder('Favorite')
-                            bar_title = gr.Markdown('<b>Favorites:</b>',\
+                            preset_favs = PR.get_presetnames_in_folder(PR.preset_bar_category)
+                            bar_title = gr.Markdown('<b>{PR.preset_bar_category}:</b>',\
                                 elem_id='bar_title', elem_classes='bar_title')
-                            for i in range(PR.favorite_count()):
+                            for i in range(PR.preset_bar_count()):
                                 bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
                                     min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
                             return bar_title, bar_buttons
@@ -315,7 +315,7 @@ with common.GRADIO_ROOT:
                 with gr.Column():
                     with gr.Row(elem_classes='advanced_check_row'):
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-                        favorites_checkbox = gr.Checkbox(label='Favorites', value=modules.config.enable_favorites_menu, container=False, elem_classes='min_check')
+                        preset_bar_checkbox = gr.Checkbox(label='Preset Bar', value=modules.config.enable_preset_bar, container=False, elem_classes='min_check')
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')              
                         prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
                 with gr.Column():
@@ -1274,8 +1274,8 @@ with common.GRADIO_ROOT:
 
         state_is_generating = gr.State(False)
         
-        #substituted favorites_checkbox for advanced_checkbox to avoid toggling Advanced when Favourites activated
-        load_data_outputs = [favorites_checkbox, image_number, prompt, negative_prompt, style_selections,
+        #substituted preset_bar_checkbox for advanced_checkbox to avoid toggling Advanced when preset_bar activated
+        load_data_outputs = [preset_bar_checkbox, image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg,
@@ -1343,12 +1343,12 @@ with common.GRADIO_ROOT:
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
-        def favorites_menu_change(enable_favorites):
-            modules.config.enable_favorites_menu = enable_favorites
-            return gr.update(visible=enable_favorites)
+        def preset_bar_menu_change(enable_presetbar):
+            modules.config.enable_preset_bar = enable_presetbar
+            return gr.update(visible=enable_presetbar)
         
-        favorites_checkbox.change(favorites_menu_change,\
-            inputs=favorites_checkbox, outputs=favorites_row,\
+        preset_bar_checkbox.change(preset_bar_menu_change,\
+            inputs=preset_bar_checkbox, outputs=preset_row,\
             queue=False, show_progress=False)
 
         inpaint_mode.change(inpaint_mode_change, inputs=[inpaint_mode, inpaint_engine_state], outputs=[
@@ -1573,7 +1573,7 @@ with common.GRADIO_ROOT:
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
-    for i in range(PR.favorite_count()):
+    for i in range(PR.preset_bar_count()):
         bar_buttons[i].click(PR.bar_button_change, inputs=[bar_buttons[i],\
             state_topbar], outputs=[state_topbar, category_selection, preset_selection]) \
            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
