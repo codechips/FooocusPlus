@@ -11,6 +11,7 @@ current_preset = args_manager.args.preset
 
 # set by modules.config
 default_low_vram_presets = False
+preset_bar_category = 'Favorite'
 
 def find_preset_file(preset):
     if os.path.splitext(preset)[1] == 'json':
@@ -202,12 +203,12 @@ def get_preset_categories():
 def preset_count():
     return len(get_preset_paths())
 
-def favorite_count():
-    preset_favorites = get_presets_in_folder('Favorite')
-    return len(preset_favorites)
+def preset_bar_count():
+    preset_bar_category = get_presets_in_folder(preset_bar_category)
+    return len(preset_bar_category)
 
 def save_preset(x):
     PR_choices = get_presetnames_in_folder(category_selection)
     return gr.update(), gr.update(value=current_preset), \
-        gr.update(choices=PR_choices), \
-        gr.update(value=category_selection)
+        gr.update(choices=PR_choices)
+#        gr.update(value=category_selection)
