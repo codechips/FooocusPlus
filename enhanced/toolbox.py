@@ -196,13 +196,18 @@ def toggle_note_box(item, state_params):
     if item == 'delete':
         [choice, selected] = state_params["prompt_info"]
         info = gallery.get_images_prompt(choice, selected, state_params["__max_per_page"])
-        return gr.update(value=f'DELETE the image from output directory and logs!', visible=True), gr.update(visible=flag), gr.update(visible=flag), state_params
+        return gr.update(value=f'DELETE the image from output directory and logs!', \
+            visible=True), gr.update(visible=flag), gr.update(visible=flag), state_params
     if item == 'regen':
-        return gr.update(value=toolbox_note_regenerate_title, visible=True), gr.update(visible=flag), gr.update(visible=flag), state_params
+        return gr.update(value=toolbox_note_regenerate_title, visible=True), \
+            gr.update(visible=flag), gr.update(visible=flag), state_params
     if item == 'preset':
-        return gr.update(value=toolbox_note_preset_title + title_extra, visible=True), gr.update(visible=flag), gr.update(visible=flag), gr.update(visible=flag), state_params
+        return gr.update(value=toolbox_note_preset_title + title_extra, visible=True), \
+            gr.update(visible=flag), gr.update(visible=flag), gr.update(visible=flag), \
+            state_params, gr.update(placeholder=PR.current_preset)
     if item == 'embed':
-        return gr.update(value=toolbox_note_embed_title + title_extra, visible=True), gr.update(visible=flag), gr.update(visible=flag), state_params
+        return gr.update(value=toolbox_note_embed_title + title_extra, visible=True), \
+            gr.update(visible=flag), gr.update(visible=flag), state_params
 
 def toggle_note_box_delete(state_params):
     return toggle_note_box('delete', state_params)
@@ -453,7 +458,6 @@ def save_preset(*args):
         state_params.update({"__preset": save_name})
     state_params.update({"note_box_state": ['',0,0]})
     PR.current_preset = save_name
-    PR.set_preset_selection(save_name, state_params)
     results = [gr.update(visible=False)] * 3 + [state_params]
     results += UIS.refresh_nav_bars(state_params)
     return results
