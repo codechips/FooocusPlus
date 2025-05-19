@@ -219,18 +219,20 @@ with common.GRADIO_ROOT:
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
-                                            elem_classes=['main_view'], value="masters/master_welcome_images/welcome.png")
+                        elem_classes=['main_view'], value="masters/master_welcome_images/welcome.png")
                     progress_gallery = gr.Gallery(label='Image Gallery', show_label=True, object_fit='contain', elem_id='finished_gallery',
-                                              height=520, visible=False, elem_classes=['main_view', 'image_gallery'])
+                        height=520, visible=False, elem_classes=['main_view', 'image_gallery'])
                 progress_html = gr.HTML(value=modules.html.make_progress_html(32, 'Progress 32%'), visible=False,
-                                    elem_id='progress-bar', elem_classes='progress-bar')
+                    elem_id='progress-bar', elem_classes='progress-bar')
                 gallery = gr.Gallery(label='Gallery', show_label=True, object_fit='contain', visible=False, height=768,
-                                 elem_classes=['resizable_area', 'main_view', 'final_gallery', 'image_gallery'],
-                                 elem_id='final_gallery', preview=True )
-                prompt_info_box = gr.Markdown(toolbox.make_infobox_markdown(None, args_manager.args.theme), visible=False, elem_id='infobox', elem_classes='infobox')
+                    elem_classes=['resizable_area', 'main_view', 'final_gallery', 'image_gallery'],
+                    elem_id='final_gallery', preview=True )
+                prompt_info_box = gr.Markdown(toolbox.make_infobox_markdown(None, args_manager.args.theme), \
+                    visible=False, elem_id='infobox', elem_classes='infobox')
                 with gr.Group(visible=False, elem_classes='toolbox_note') as params_note_box:
                     params_note_info = gr.Markdown(elem_classes='note_info')
-                    params_note_input_name = gr.Textbox(show_label=False, placeholder="Type preset name here.", min_width=100, elem_classes='preset_input', visible=False)
+                    params_note_input_name = gr.Textbox(show_label=False, placeholder="Type preset name here.", \
+                        min_width=100, elem_classes='preset_input', visible=False)
                     params_note_delete_button = gr.Button(value='Enter', visible=False)
                     params_note_regen_button = gr.Button(value='Enter', visible=False)
                     params_note_preset_button = gr.Button(value='Enter', visible=False)
@@ -335,13 +337,13 @@ with common.GRADIO_ROOT:
                                 uov_method = gr.Radio(label='Upscale or Variation:', choices=flags.uov_list, value=modules.config.default_uov_method)
                         with gr.Row():
                             overwrite_upscale_strength = gr.Slider(label='Adjust the Strength of Upscale Variation',
-                                                            minimum=0, maximum=1.0, step=0.001,
-                                                            value=modules.config.default_overwrite_upscale,
-                                                            info='Variation Strength is also called "denoising strength"')
+                                minimum=0, maximum=1.0, step=0.001,
+                                value=modules.config.default_overwrite_upscale,
+                                info='Variation Strength is also called "denoising strength"')
 
                             overwrite_vary_strength = gr.Slider(label='Adjust the Strength of Image Variation',
-                                                            minimum=0, maximum=1.0, step=0.001, value=0.50,
-                                                            info='0.0="None", 0.50="Subtle", 0.85="Strong", 1.0="Max"')
+                                minimum=0, maximum=1.0, step=0.001, value=0.50,
+                                info='0.0="None", 0.50="Subtle", 0.85="Strong", 1.0="Max"')
                             
                         gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/390" target="_blank">\U0001F4D4 Documentation</a>')
                                       
@@ -358,24 +360,29 @@ with common.GRADIO_ROOT:
                             for image_count in range(modules.config.default_controlnet_image_count):
                                 image_count += 1
                                 with gr.Column():
-                                    ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, height=300, value=modules.config.default_ip_images[image_count])
+                                    ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, \
+                                            height=300, value=modules.config.default_ip_images[image_count])
                                     ip_images.append(ip_image)
                                     ip_ctrls.append(ip_image)
                                     with gr.Column(visible=modules.config.default_image_prompt_advanced_checkbox) as ad_col:
                                         with gr.Row():
-                                            ip_stop = gr.Slider(label='Stop At', minimum=0.0, maximum=1.0, step=0.001, value=modules.config.default_ip_stop_ats[image_count])
+                                            ip_stop = gr.Slider(label='Stop At', minimum=0.0, maximum=1.0, step=0.001, \
+                                                value=modules.config.default_ip_stop_ats[image_count])
                                             ip_stops.append(ip_stop)
                                             ip_ctrls.append(ip_stop)
 
-                                            ip_weight = gr.Slider(label='Weight', minimum=0.0, maximum=2.0, step=0.001, value=modules.config.default_ip_weights[image_count])
+                                            ip_weight = gr.Slider(label='Weight', minimum=0.0, maximum=2.0, step=0.001, \
+                                                value=modules.config.default_ip_weights[image_count])
                                             ip_weights.append(ip_weight)
                                             ip_ctrls.append(ip_weight)
 
-                                        ip_type = gr.Radio(label='Type', choices=flags.ip_list, value=modules.config.default_ip_types[image_count], container=False)
+                                        ip_type = gr.Radio(label='Type', choices=flags.ip_list, \
+                                            value=modules.config.default_ip_types[image_count], container=False)
                                         ip_types.append(ip_type)
                                         ip_ctrls.append(ip_type)
 
-                                        ip_type.change(lambda x: flags.default_parameters[x], inputs=[ip_type], outputs=[ip_stop, ip_weight], queue=False, show_progress=False)
+                                        ip_type.change(lambda x: flags.default_parameters[x], inputs=[ip_type], \
+                                            outputs=[ip_stop, ip_weight], queue=False, show_progress=False)
                                     ip_ad_cols.append(ad_col)
 
                         gr.HTML('* \"Image Prompt\" is powered by Fooocus Image Mixture Engine (v1.0.1). <a href="https://github.com/lllyasviel/Fooocus/discussions/557" target="_blank">\U0001F4D4 Documentation</a>')
@@ -387,8 +394,8 @@ with common.GRADIO_ROOT:
                                 [flags.default_parameters[flags.default_ip][1]] * len(ip_weights)
 
                         ip_advanced.change(ip_advance_checked, inputs=ip_advanced,
-                                           outputs=ip_ad_cols + ip_types + ip_stops + ip_weights,
-                                           queue=False, show_progress=False)
+                               outputs=ip_ad_cols + ip_types + ip_stops + ip_weights,
+                               queue=False, show_progress=False)
 
                     with gr.Tab(label='Inpaint or Outpaint', id='inpaint_tab') as inpaint_tab:                       
                         with gr.Row():
@@ -398,20 +405,20 @@ with common.GRADIO_ROOT:
                                 inpaint_additional_prompt = gr.Textbox(placeholder="Describe what you want to inpaint.", elem_id='inpaint_additional_prompt', label='Inpaint Additional Prompt', visible=False)
                                 outpaint_selections = gr.CheckboxGroup(choices=['Left', 'Right', 'Top', 'Bottom'], value=[], label='Outpaint Direction')
                                 example_inpaint_prompts = gr.Dataset(samples=modules.config.example_inpaint_prompts,
-                                                                     label='Additional Prompt Quick List',
-                                                                     components=[inpaint_additional_prompt],
-                                                                     visible=False)
+                                    label='Additional Prompt Quick List',
+                                    components=[inpaint_additional_prompt],
+                                    visible=False)
                                 example_inpaint_prompts.click(lambda x: x[0], inputs=example_inpaint_prompts, outputs=inpaint_additional_prompt, show_progress=False, queue=False)
 
                             with gr.Column(visible=modules.config.default_inpaint_advanced_masking_checkbox) as inpaint_mask_generation_col:
                                 inpaint_mask_image = grh.Image(label='Mask Upload', source='upload', type='numpy', tool='sketch', height=350, brush_color="#FFFFFF", mask_opacity=1, elem_id='inpaint_mask_canvas')
                                 inpaint_mask_model = gr.Dropdown(label='Mask generation model',
-                                                                 choices=flags.inpaint_mask_models,
-                                                                 value=modules.config.default_inpaint_mask_model)
+                                    choices=flags.inpaint_mask_models,
+                                    value=modules.config.default_inpaint_mask_model)
                                 inpaint_mask_cloth_category = gr.Dropdown(label='Cloth category',
-                                                             choices=flags.inpaint_mask_cloth_category,
-                                                             value=modules.config.default_inpaint_mask_cloth_category,
-                                                             visible=False)
+                                    choices=flags.inpaint_mask_cloth_category,
+                                    value=modules.config.default_inpaint_mask_cloth_category,
+                                    visible=False)
                                 inpaint_mask_dino_prompt_text = gr.Textbox(label='Detection Prompt', value='', visible=False, info='Use singular whenever possible', placeholder='Describe what you want to detect.')
                                 example_inpaint_mask_dino_prompt_text = gr.Dataset(
                                     samples=modules.config.example_enhance_detection_prompts,
@@ -419,9 +426,9 @@ with common.GRADIO_ROOT:
                                     components=[inpaint_mask_dino_prompt_text],
                                     visible=modules.config.default_inpaint_mask_model == 'sam')
                                 example_inpaint_mask_dino_prompt_text.click(lambda x: x[0],
-                                                                            inputs=example_inpaint_mask_dino_prompt_text,
-                                                                            outputs=inpaint_mask_dino_prompt_text,
-                                                                            show_progress=False, queue=False)
+                                    inputs=example_inpaint_mask_dino_prompt_text,
+                                    outputs=inpaint_mask_dino_prompt_text,
+                                    show_progress=False, queue=False)
                                 
                                 with gr.Accordion("Advanced Options", visible=False, open=False) as inpaint_mask_advanced_options:
                                     inpaint_mask_sam_model = gr.Dropdown(label='SAM model', choices=flags.inpaint_mask_sam_model, value=modules.config.default_inpaint_mask_sam_model)
@@ -440,15 +447,15 @@ with common.GRADIO_ROOT:
                         
                         with gr.Row():
                             inpaint_strength = gr.Slider(label='Inpainting Strength',
-                                                     minimum=0.0, maximum=1.0, step=0.001, value=1.0,
-                                                     info='Adjusts the amount that Inpainting changes the image. '
-                                                          'Inpainting Strength is also called "denoising strength". '
-                                                          'Outpainting is at full strength: 1.0')
+                                 minimum=0.0, maximum=1.0, step=0.001, value=1.0,
+                                 info='Adjusts the amount that Inpainting changes the image. '
+                                      'Inpainting Strength is also called "denoising strength". '
+                                      'Outpainting is at full strength: 1.0')
                             inpaint_respective_field = gr.Slider(label='Inpainting Area',
-                                                             minimum=0.0, maximum=1.0, step=0.001, value=0.618,
-                                                             info='An area of 0.0 means "Only the Masked Area". '
-                                                                  'An area of 1.0 means "The Whole Image". '
-                                                                  'Outpainting affects the whole area and uses a value of 1.0')
+                                     minimum=0.0, maximum=1.0, step=0.001, value=0.618,
+                                     info='An area of 0.0 means "Only the Masked Area". '
+                                          'An area of 1.0 means "The Whole Image". '
+                                          'Outpainting affects the whole area and uses a value of 1.0')
                         gr.HTML('* Powered by Fooocus Inpaint Engine <a href="https://github.com/lllyasviel/Fooocus/discussions/414" target="_blank">\U0001F4D4 Documentation</a>')
                         
                         def generate_mask(image, mask_model, cloth_category, dino_prompt_text, sam_model, box_threshold, text_threshold, sam_max_detections, dino_erode_or_dilate, dino_debug, params_extra):
