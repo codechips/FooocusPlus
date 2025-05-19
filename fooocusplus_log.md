@@ -20,17 +20,18 @@
 * when switching between presets the UI attempts to keep the currently selected aspect ratio, and width and height too
 * introduced and tested the "experimental" SDXL 1280*1280 aspect ratio, available from the Standard template
 * introduced both Preset Categories and Presets dropdowns under the Settings tab
-* the Preset Categories are: Alternative, Fantasy, Favorite, Flux1D, Flux1S, Illustrative, LowVRAM, Pony, Realistic & SD1.5
+* the Preset Categories are: Alternative, Fantasy, Favorite, Flux1D, Flux1S, General, Illustrative, LowVRAM, Pony, Realistic & SD1.5
 * the Category structure is duplicated to the User Directory. Changes in this directory will update the working preset folder
 * the Categories are actually folders. If a preset file is located in a folder it will show up in that category
-* presets can be stored in more than one category if desired
-* the Make New Preset button, under the Extras tab, saves the current settings to a new preset, located in the User Directory
+* presets can be stored in more than one category (folder) if desired
+* the Make New Preset button, under the Extras tab, saves the current settings to a new preset, stored in the User Directory structure
+* if the new preset is given the same name as a built-in one it will override it
 * if the Random category is selected a random preset is chosen
 * all presets may be displayed at once if the All category is selected
 * the Current Preset is now listed just below the Generate button
 * if Favorites is checked (the default) the favorite presets are shown in a horizontal menu bar located above the main canvas
 * the current preset is now stored in the log
-* FooocusPlus starts with the Default preset, unless low VRAM is detected in which cast it starts with 4GB_Default
+* FooocusPlus starts with the Default preset, unless low VRAM is detected in which case it starts with 4GB_Default
 * the VRAM 4GB_Default preset can also be set by the config.txt "default_low_vram_presets" option
 * added a config.txt option and checkbox to "Show Newest Images First" in the log. If this is off the newest images are last
 * the Flux base models are recategorized into the FluxDev and FluxSchnell folders
