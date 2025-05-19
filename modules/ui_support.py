@@ -212,8 +212,9 @@ def refresh_nav_bars(state_params):
         results += [gr.update(visible=False)]
     else:
         results += [gr.update(visible=True)]
-    preset_bar_count = PR.preset_bar_count()
+    preset_bar_count = PR.preset_bar_count()    
     print(f'preset_bar_count: {preset_bar_count}')
+    print(f'preset_name_list: {preset_name_list}')
     for i in range(preset_bar_count):
         name = preset_name_list[i]
         visible_flag = preset_bar_count
