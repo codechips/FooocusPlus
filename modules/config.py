@@ -235,11 +235,17 @@ temp_path_cleanup_on_launch = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
-enable_favorites_menu = get_config_item_or_set_default(
-    key='enable_favorites_menu',
+enable_preset_bar = get_config_item_or_set_default(
+    key='enable_preset_bar',
     default_value=True,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
+)
+preset_bar_category = get_config_item_or_set_default(
+    key='preset_bar_category',
+    default_value='Favorite',
+    validator=lambda x: x in PR.get_all_presetnames(),
+    expected_type=str
 )
 default_list_all_presets = get_config_item_or_set_default(
     key='default_list_all_presets',
@@ -1256,4 +1262,5 @@ AR.available_pixart_aspect_ratios = available_pixart_aspect_ratios
 AR.AR_shortlist = enable_shortlist_aspect_ratios
 
 # Preset Resource support
-AR.default_low_vram_presets = default_low_vram_presets
+PR.default_low_vram_presets = default_low_vram_presets
+PR.preset_bar_category = preset_bar_category
