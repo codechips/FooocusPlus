@@ -205,17 +205,17 @@ def get_preset_inc_url(preset_name='blank'):
         return f'{args_manager.args.webroot}/file={blank_inc_path}'
 
 def refresh_nav_bars(state_params):
-    state_params.update({"__nav_name_list": PR.get_presetnames_in_folder('Favorite')})
-    preset_name_list = PR.get_presetnames_in_folder('Favorite')
-    print(f'preset_name_list: {preset_name_list}')
+    state_params.update({"__nav_name_list": PR.get_presetnames_in_folder(PR.preset_bar_category)})
+    preset_name_list = PR.get_presetnames_in_folder(PR.preset_bar_category)
     results = []
     if state_params["__is_mobile"]:
         results += [gr.update(visible=False)]
     else:
         results += [gr.update(visible=True)]
-    for i in range(PR.favorite_count()):
+    preset_bar_count = PR.preset_bar_count()
+    for i in range(preset_bar_count()):
         name = preset_name_list[i]
-        visible_flag = PR.preset_count()
+        visible_flag = preset_bar_count()
         if name:
             results += [gr.update(value=name, visible=visible_flag)]
         else: 
