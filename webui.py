@@ -528,40 +528,40 @@ with common.GRADIO_ROOT:
                                         for index in range(modules.config.default_enhance_tabs):
                                             with gr.Tab(label=f'Region#{index + 1}') as enhance_tab_item:
                                                 enhance_enabled = gr.Checkbox(label='Enable', value=False if index not in [0,1] else True, 
-                                                        elem_classes='min_check', container=False)
+                                                    elem_classes='min_check', container=False)
 
                                                 enhance_mask_dino_prompt_text = gr.Textbox(label='Detection prompt',
-                                                                       info='Use singular whenever possible',
-                                                                       placeholder='Describe what you want to detect.',
-                                                                       interactive=True,
-                                                                       value = '' if index not in [0,1] else 'face' if index==0 else 'hand',
-                                                                       visible=modules.config.default_enhance_inpaint_mask_model == 'sam')
-                                                example_enhance_mask_dino_prompt_text = gr.Dataset(
+                                                    info='Use singular whenever possible',
+                                                    placeholder='Describe what you want to detect.',
+                                                    interactive=True,
+                                                    value = '' if index not in [0,1] else 'face' if index==0 else 'hand',
+                                                    visible=modules.config.default_enhance_inpaint_mask_model == 'sam')
+                                                    example_enhance_mask_dino_prompt_text = gr.Dataset(
                                                     samples=modules.config.example_enhance_detection_prompts,
                                                     label='Detection Prompt Quick List',
                                                     components=[enhance_mask_dino_prompt_text],
                                                     visible=modules.config.default_enhance_inpaint_mask_model == 'sam')
                                                 example_enhance_mask_dino_prompt_text.click(lambda x: x[0],
-                                                                        inputs=example_enhance_mask_dino_prompt_text,
-                                                                        outputs=enhance_mask_dino_prompt_text,
-                                                                        show_progress=False, queue=False)
+                                                    inputs=example_enhance_mask_dino_prompt_text,
+                                                    outputs=enhance_mask_dino_prompt_text,
+                                                    show_progress=False, queue=False)
 
                                                 enhance_prompt = gr.Textbox(label="Enhancement Positive Prompt",
-                                                        placeholder="Uses original prompt instead if empty.",
-                                                        elem_id='enhance_prompt')
+                                                    placeholder="Uses original prompt instead if empty.",
+                                                    elem_id='enhance_prompt')
                                                 enhance_negative_prompt = gr.Textbox(label="Enhancement Negative Prompt",
-                                                                 placeholder="Uses original negative prompt instead if empty.",
-                                                                 elem_id='enhance_negative_prompt')
+                                                     placeholder="Uses original negative prompt instead if empty.",
+                                                     elem_id='enhance_negative_prompt')
 
                                                 with gr.Accordion("Detection", open=False):
                                                     enhance_mask_model = gr.Dropdown(label='Mask Generation Model',
-                                                                 choices=flags.inpaint_mask_models,
-                                                                 value=modules.config.default_enhance_inpaint_mask_model)
-                                                    enhance_mask_cloth_category = gr.Dropdown(label='Cloth Category',
-                                                                          choices=flags.inpaint_mask_cloth_category,
-                                                                          value=modules.config.default_inpaint_mask_cloth_category,
-                                                                          visible=modules.config.default_enhance_inpaint_mask_model == 'u2net_cloth_seg',
-                                                                          interactive=True)
+                                                        choices=flags.inpaint_mask_models,
+                                                        value=modules.config.default_enhance_inpaint_mask_model)
+                                                        enhance_mask_cloth_category = gr.Dropdown(label='Cloth Category',
+                                                            choices=flags.inpaint_mask_cloth_category,
+                                                            value=modules.config.default_inpaint_mask_cloth_category,
+                                                            visible=modules.config.default_enhance_inpaint_mask_model == 'u2net_cloth_seg',
+                                                            interactive=True)
 
                                                     with gr.Accordion("SAM Options",
                                                                     visible=modules.config.default_enhance_inpaint_mask_model == 'sam',
@@ -1556,10 +1556,11 @@ with common.GRADIO_ROOT:
         outputs=reset_preset_layout + reset_preset_func + load_data_outputs + [params_note_regen_button, params_note_box], show_progress=False)
 
     prompt_preset_button.click(toolbox.toggle_note_box_preset, inputs=model_check + [state_topbar],\
-        outputs=[params_note_info, params_note_input_name, params_note_preset_button, params_note_box, state_topbar], show_progress=False)
+        outputs=[params_note_info, params_note_input_name, params_note_preset_button, params_note_box, state_topbar, params_note_input_name], \
+            show_progress=False)
     params_note_preset_button.click(toolbox.save_preset, inputs=[params_note_input_name, params_backend] + reset_preset_func + load_data_outputs,\
         outputs=[params_note_input_name, params_note_preset_button, params_note_box, state_topbar] + nav_bars, show_progress=False) \
-        .then(PR.save_preset, inputs=state_topbar, outputs=[system_params, preset_selection], queue=False, show_progress=False) \
+        .then(PR.save_preset, inputs=state_topbar, outputs=[system_params, preset_selection, category_selection], queue=False, show_progress=False) \
         .then(fn=lambda x: None, inputs=system_params, _js=UIS.refresh_topbar_status_js)
 
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
