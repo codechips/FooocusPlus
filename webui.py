@@ -557,11 +557,11 @@ with common.GRADIO_ROOT:
                                                     enhance_mask_model = gr.Dropdown(label='Mask Generation Model',
                                                         choices=flags.inpaint_mask_models,
                                                         value=modules.config.default_enhance_inpaint_mask_model)
-                                                        enhance_mask_cloth_category = gr.Dropdown(label='Cloth Category',
-                                                            choices=flags.inpaint_mask_cloth_category,
-                                                            value=modules.config.default_inpaint_mask_cloth_category,
-                                                            visible=modules.config.default_enhance_inpaint_mask_model == 'u2net_cloth_seg',
-                                                            interactive=True)
+                                                    enhance_mask_cloth_category = gr.Dropdown(label='Cloth Category',
+                                                        choices=flags.inpaint_mask_cloth_category,
+                                                        value=modules.config.default_inpaint_mask_cloth_category,
+                                                        visible=modules.config.default_enhance_inpaint_mask_model == 'u2net_cloth_seg',
+                                                        interactive=True)
 
                                                     with gr.Accordion("SAM Options",
                                                                     visible=modules.config.default_enhance_inpaint_mask_model == 'sam',
