@@ -536,7 +536,7 @@ with common.GRADIO_ROOT:
                                                     interactive=True,
                                                     value = '' if index not in [0,1] else 'face' if index==0 else 'hand',
                                                     visible=modules.config.default_enhance_inpaint_mask_model == 'sam')
-                                                    example_enhance_mask_dino_prompt_text = gr.Dataset(
+                                                example_enhance_mask_dino_prompt_text = gr.Dataset(
                                                     samples=modules.config.example_enhance_detection_prompts,
                                                     label='Detection Prompt Quick List',
                                                     components=[enhance_mask_dino_prompt_text],
