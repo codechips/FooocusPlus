@@ -426,10 +426,13 @@ def save_preset(*args):
         preset["default_model"] = base_model
         preset["default_refiner"] = refiner_model
         preset["default_refiner_switch"] = refiner_switch
-        preset["default_vae"] = vae_name
         preset["default_loras"] = loras
         preset["default_cfg_scale"] = guidance_scale
         preset["default_sample_sharpness"] = sharpness
+        if ads.default["adaptive_cfg"] != adaptive_cfg:
+            preset["default_cfg_tsnr"] = adaptive_cfg
+        if ads.default["clip_skip"] != clip_skip:
+            preset["default_clip_skip"] = clip_skip
         preset["default_sampler"] = sampler_name
         preset["default_scheduler"] = scheduler_name
         preset["default_performance"] = performance_selection
@@ -439,14 +442,13 @@ def save_preset(*args):
         preset["default_aspect_ratio"] = "0*0"
         preset["default_overwrite_step"] = overwrite_step
 #        preset["default_aspect_ratio"] = aspect_ratios_selection.split(' ')[0].replace(u'\u00d7','*')        
-        if ads.default["clip_skip"] != clip_skip:
-            preset["default_clip_skip"] = clip_skip
-#        preset["default_inpaint_engine"] = inpaint_engine # causes junk to be added
         preset["checkpoint_downloads"] = {}
         preset["embeddings_downloads"] = {}
         preset["lora_downloads"] = {}
         preset["vae_downloads"] = {}
-      
+        preset["default_vae"] = vae_name
+        preset["default_inpaint_engine"] = {} # "inpaint_engine" causes junk to be added
+        
         save_path = f'presets/{PR.category_selection}/{save_name}.json'
         user_category = f'{config.user_dir}/user_presets/{PR.category_selection}'
         user_path = f'{config.user_dir}/user_presets/{PR.category_selection}/{save_name}.json'
