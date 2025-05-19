@@ -13,9 +13,6 @@ current_preset = args_manager.args.preset
 default_low_vram_presets = False
 preset_bar_category = 'Favorite'
 
-# flagged by enhanced.toolbox to temporarily increment preset_bar_count()
-new_preset = False
-
 def find_preset_file(preset):
     if os.path.splitext(preset)[1] == 'json':
         preset_json = preset
@@ -208,16 +205,12 @@ def preset_count():
     return len(get_preset_paths())
 
 def preset_bar_count():
-    global preset_bar_category, new_preset
+    global preset_bar_category
     preset_bar_list = get_presets_in_folder(preset_bar_category)
     preset_bar_count = len(preset_bar_list)
-    if new_preset: # adjust count to account for new preset
-        preset_bar_count = preset_bar_count + 1
-        new_preset = False
     return preset_bar_count
 
 def save_preset(x):
     PR_choices = get_presetnames_in_folder(category_selection)
     return gr.update(), gr.update(value=current_preset), \
         gr.update(choices=PR_choices)
-#        gr.update(value=category_selection)
