@@ -217,8 +217,8 @@ with common.GRADIO_ROOT:
                             for i in range(PR.favorite_count()):
                                 bar_buttons.append(gr.Button(value=preset_favs[i], size='sm',\
                                     min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
-                            return bar_buttons
-                        bar_buttons = init_bar_buttons
+                            return bar_title, bar_buttons
+                        bar_title, bar_buttons = init_bar_buttons()
 
                 with gr.Row():
                     progress_window = grh.Image(label='Preview', show_label=False, visible=True, height=768, elem_id='preview_generating',
