@@ -204,7 +204,7 @@ def toggle_note_box(item, state_params):
     if item == 'preset':
         return gr.update(value=toolbox_note_preset_title + title_extra, visible=True), \
             gr.update(visible=flag), gr.update(visible=flag), gr.update(visible=flag), \
-            state_params, gr.update(placeholder=PR.current_preset)
+            state_params, gr.update(value=PR.current_preset)
     if item == 'embed':
         return gr.update(value=toolbox_note_embed_title + title_extra, visible=True), \
             gr.update(visible=flag), gr.update(visible=flag), state_params
