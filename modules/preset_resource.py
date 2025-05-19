@@ -210,6 +210,17 @@ def preset_bar_count():
     preset_bar_count = len(preset_bar_list)
     return preset_bar_count
 
+def init_bar_buttons():
+    bar_buttons = []
+    preset_bar_list = get_presetnames_in_folder(preset_bar_category)
+    bar_title = gr.Markdown(f'<b>{preset_bar_category}:</b>',\
+        elem_id='bar_title', elem_classes='bar_title')
+    preset_bar_count = preset_bar_count()
+    for i in range(preset_bar_count):
+        bar_buttons.append(gr.Button(value=preset_bar_list[i], size='sm',\
+            min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+    return bar_title, bar_buttons
+
 def save_preset(x):
     PR_choices = get_presetnames_in_folder(category_selection)
     return gr.update(), gr.update(value=current_preset), \
