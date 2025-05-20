@@ -247,6 +247,12 @@ preset_bar_category = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, str),
     expected_type=str
 )
+preset_bar_category_tracking = get_config_item_or_set_default(
+    key='preset_bar_category_tracking',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
+)
 preset_bar_length = get_config_item_or_set_default(
     key='preset_bar_length',
     default_value=8,
