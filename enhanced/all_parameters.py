@@ -56,7 +56,7 @@ default = {
     'adm_scaler_negative': 0.8,
     'adm_scaler_end': 0.3,
     'adaptive_cfg': 7.0,
-    'sampler_name': 'dpmpp_2m_sde_gpu',
+#    'sampler_name': 'dpmpp_2m_sde_gpu',
     'scheduler_name': 'karras',
     'generate_image_grid': False,
     'overwrite_step': -1,
