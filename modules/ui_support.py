@@ -212,6 +212,18 @@ def refresh_nav_bars(state_params):
         results += [gr.update(visible=False)]
     else:
         results += [gr.update(visible=True)]
+    for i in range(len(preset_name_list)):
+        name = preset_name_list[i]
+        if name=='default': name='Default'
+        name += '\u2B07' if is_models_file_absent(name) else ''
+        visible_flag = i<(7 if state_params["__is_mobile"] else topbar_limit)
+        if name:
+            results += [gr.update(value=name, visible=visible_flag)]
+        else: 
+            results += [gr.update(value='', interactive=False, visible=visible_flag)]
+    return results
+
+'''    
     preset_count = PR.preset_bar_count()
     padded_list = PR.pad_list(preset_name_list, PR.preset_bar_length, '')
     for i in range(PR.preset_bar_length):
@@ -222,7 +234,7 @@ def refresh_nav_bars(state_params):
             visible_flag = False
         results += [gr.update(value=name, visible=visible_flag)]
     return results
-
+'''
 
 def process_before_generation(state_params, backend_params, backfill_prompt, translation_methods, comfyd_active_checkbox):
     if "__nav_name_list" not in state_params.keys():
