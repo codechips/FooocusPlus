@@ -28,7 +28,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
     requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
-torchruntime_ver = '1.17.3'
+torchruntime_ver = '1.16.1'
+# torchruntime_ver = '1.17.3' # not compatible because of lightning version
 verify_installed_version('torchruntime', torchruntime_ver)
 import torchruntime
 import platform
@@ -67,6 +68,9 @@ def prepare_environment():
         delete_torch_dependencies()
         if torch_ver == "special":
             torch_ver = ""
+            torchruntime_ver = '1.17.3' # for NVIDIA 50xx only
+            verify_installed_version('torchruntime', torchruntime_ver)
+
         torch_statement = "torch==" + torch_ver
         torchruntime.install([torch_statement])
         torch_statement = " torchvision==" + torchvision_ver
