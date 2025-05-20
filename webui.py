@@ -1564,7 +1564,7 @@ with common.GRADIO_ROOT:
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
-    for i in range(PR.preset_bar_count()):
+    for i in range(PR.preset_bar_length):
         bar_buttons[i].click(PR.bar_button_change, inputs=[bar_buttons[i],\
             state_topbar], outputs=[state_topbar, category_selection, preset_selection]) \
            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
