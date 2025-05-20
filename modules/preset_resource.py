@@ -224,13 +224,13 @@ def init_bar_buttons():
     global preset_bar_length
     bar_buttons = []
     preset_bar_list = get_presetnames_in_folder(preset_bar_category)
-    bar_title = gr.Markdown(f'<b>{preset_bar_category}:</b>',\
-        elem_id='bar_title', elem_classes='bar_title')
+    with gr.Column():    
+        bar_title = gr.Markdown(f'<b>{preset_bar_category}:</b>',\
+            elem_id='bar_title', elem_classes='bar_title')
     padded_list = pad_list(preset_bar_list, preset_bar_length, '')
-    with gr.Column():
-        for i in range(preset_bar_length):
-            bar_buttons.append(gr.Button(value=padded_list[i], size='sm',\
-                min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
+    for i in range(preset_bar_length):
+        bar_buttons.append(gr.Button(value=padded_list[i], size='sm',\
+            min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
     return bar_title, bar_buttons
 
 def save_preset(x):
