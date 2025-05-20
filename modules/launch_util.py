@@ -198,7 +198,7 @@ def is_installed_version(package, version_required):
 def verify_installed_version(package_name, package_ver):
     if not is_installed_version(package_name, package_ver):
         run(f'"{python}" -m pip uninstall -y {package_name}')
-        run_pip(f"install -U -I --no-deps {package_name}", {package_name}, live=True)
+        run_pip(f"install -U -I --no-deps {package_name}", {package_name}, "requirements", live=True)
 
 def delete_folder_content(folder, prefix=None):
     result = True
