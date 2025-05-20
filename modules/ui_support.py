@@ -221,10 +221,7 @@ def refresh_nav_bars(state_params):
             visible_flag = True
         else:
             visible_flag = False
-        if name:
-            results += [gr.update(value=name, visible=visible_flag)]
-        else: 
-            results += [gr.update(value='', interactive=False, visible=visible_flag)]
+        results += [gr.update(value=name, visible=visible_flag)]
     return results
 
 
