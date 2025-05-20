@@ -129,7 +129,7 @@ def run_pip(command, desc=None, live=default_command_live):
     try:
         index_url_line = f' --index-url {index_url}' if index_url != '' else ''
         return run(f'"{python}" -m pip {command} {target_path_install}\
-            --prefer-binary{index_url_line} --ignore-installed',\
+            --prefer-binary{index_url_line} --ignore-installed --force-reinstall',\
             desc=f"Installing {desc}", errdesc=f"Could not install {desc}", live=live)
     except Exception as e:
         print(e)
