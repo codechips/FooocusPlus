@@ -31,7 +31,7 @@ from modules.launch_util import is_installed, verify_installed_version, run, pyt
 torchruntime_ver = '1.16.1'
 # torchruntime_ver = '1.17.3' # not compatible because of lightning version
 verify_installed_version('torchruntime', torchruntime_ver)
-import torchruntime
+
 import platform
 import comfy.comfy_version
 from launch_support import build_launcher, delete_torch_dependencies,\
@@ -44,7 +44,7 @@ def prepare_environment():
     REINSTALL_ALL = False
     target_path_win = os.path.abspath(os.path.join(python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
-
+    import torchruntime
     torch_dict = dependency_resolver()
     torch_ver = torch_dict['torch_ver']
     torchvision_ver = torch_dict['torchvision_ver']
@@ -70,7 +70,7 @@ def prepare_environment():
             torch_ver = ""
             torchruntime_ver = '1.17.3' # for NVIDIA 50xx only
             verify_installed_version('torchruntime', torchruntime_ver)
-
+        import torchruntime
         torch_statement = "torch==" + torch_ver
         torchruntime.install([torch_statement])
         torch_statement = " torchvision==" + torchvision_ver
