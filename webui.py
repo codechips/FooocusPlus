@@ -969,9 +969,6 @@ with common.GRADIO_ROOT:
 
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
-                        vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
-                            value=modules.config.default_vae, show_label=True)
-                        
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
                             value=modules.config.default_sampler)
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
@@ -993,7 +990,8 @@ with common.GRADIO_ROOT:
                         clip_skip = gr.Slider(label='CLIP Skip', minimum=1, maximum=flags.clip_skip_max, step=1, \
                             value=modules.config.default_clip_skip, \
                             info='Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).')
-
+                        vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
+                            value=modules.config.default_vae, show_label=True)                      
 
                         generate_image_grid = gr.Checkbox(label='Generate Image Grid for Each Batch',
                                 info='(Experimental) This may cause performance problems on some computers and certain internet conditions.',
@@ -1286,7 +1284,7 @@ with common.GRADIO_ROOT:
 
         if not args_manager.args.disable_preset_selection:
             def _change(preset, is_generating, inpaint_mode):
-                preset_content = modules.config.try_get_preset_content(preset) if preset != 'initial' else {}
+                preset_content = PR.get_preset_content(preset) if preset != 'initial' else {}
                 preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
 
                 default_model = preset_prepared.get('base_model')
@@ -1296,7 +1294,7 @@ with common.GRADIO_ROOT:
                 lora_downloads = preset_prepared.get('lora_downloads', {})
                 vae_downloads = preset_prepared.get('vae_downloads', {})
 
-                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = topbar.download_models(
+                preset_prepared['base_model'], preset_prepared['checkpoint_downloads'] = UIS.download_models(
                     default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads,
                     vae_downloads)
 
