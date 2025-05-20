@@ -1288,7 +1288,7 @@ def worker():
 
         async_task.steps, switch, width, height = apply_overrides(async_task, async_task.steps, height, width)
 
-#        print(f'[Parameters] Sampler = {async_task.sampler_name} - {async_task.scheduler_name}')
+        print(f'[Parameters] Sampler = {async_task.sampler_name} - {async_task.scheduler_name}')
         print(f'[Parameters] Steps = {async_task.steps} - {switch}')
 
         progressbar(async_task, current_progress, 'Initializing...')
