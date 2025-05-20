@@ -970,7 +970,7 @@ with common.GRADIO_ROOT:
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
-                            value=modules.config.default_sampler)
+                            value=modules.config.default_sampler, interactive=True, visible=True)
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
                             value=modules.config.default_scheduler)
                         adm_scaler_positive = gr.Slider(label='Positive ADM Guidance Scaler', minimum=0.1, maximum=3.0, \
@@ -1447,8 +1447,8 @@ with common.GRADIO_ROOT:
                 print('Could not find metadata in the image!')
             return toolbox.reset_params_by_image_meta(parameters, state_params, state_is_generating, inpaint_mode)
 
-        reset_preset_layout = [params_backend, performance_selection, scheduler_name, sampler_name,\
-            input_image_checkbox, enhance_checkbox, base_model, refiner_model, overwrite_step,\
+        reset_preset_layout = [params_backend, performance_selection, scheduler_name, sampler_name, \
+            input_image_checkbox, enhance_checkbox, base_model, refiner_model, overwrite_step, \
             guidance_scale, negative_prompt, preset_instruction] + lora_ctrls
         reset_preset_func = [output_format, inpaint_advanced_masking_checkbox, mixing_image_prompt_and_vary_upscale,\
             mixing_image_prompt_and_inpaint, backfill_prompt, translation_methods, input_image_checkbox, state_topbar]
