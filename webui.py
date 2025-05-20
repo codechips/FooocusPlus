@@ -961,30 +961,29 @@ with common.GRADIO_ROOT:
 
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
-                        sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list,
-                                     value=modules.config.default_sampler)
-                        scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list,
-                                     value=modules.config.default_scheduler)
-                        adm_scaler_positive = gr.Slider(label='Positive ADM Guidance Scaler', minimum=0.1, maximum=3.0,
-                                    step=0.001, value=1.5, info='The scaler multiplied to positive ADM (use 1.0 to disable). ')
-                        adm_scaler_negative = gr.Slider(label='Negative ADM Guidance Scaler', minimum=0.1, maximum=3.0,
-                                    step=0.001, value=0.8, info='The scaler multiplied to negative ADM (use 1.0 to disable). ')
-                        adm_scaler_end = gr.Slider(label='ADM Guidance End At Step', minimum=0.0, maximum=1.0,
-                                   step=0.001, value=0.3,
-                                   info='When to end the guidance from positive/negative ADM. ')
+                        sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
+                            value=modules.config.default_sampler)
+                        scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
+                            value=modules.config.default_scheduler)
+                        adm_scaler_positive = gr.Slider(label='Positive ADM Guidance Scaler', minimum=0.1, maximum=3.0, \
+                            step=0.001, value=1.5, info='The scaler multiplied to positive ADM (use 1.0 to disable). ')
+                        adm_scaler_negative = gr.Slider(label='Negative ADM Guidance Scaler', minimum=0.1, maximum=3.0, \
+                            step=0.001, value=0.8, info='The scaler multiplied to negative ADM (use 1.0 to disable). ')
+                        adm_scaler_end = gr.Slider(label='ADM Guidance End At Step', minimum=0.0, maximum=1.0, \
+                            step=0.001, value=0.3, info='When to end the guidance from positive/negative ADM. ')
 
-                        refiner_swap_method = gr.Dropdown(label='Refiner Swap Method', value=flags.refiner_swap_method,
-                                  choices=['joint', 'separate', 'vae'])
+                        refiner_swap_method = gr.Dropdown(label='Refiner Swap Method', value=flags.refiner_swap_method, \
+                            choices=['joint', 'separate', 'vae'])
 
-                        adaptive_cfg = gr.Slider(label='CFG Mimicking from TSNR', minimum=1.0, maximum=30.0, step=0.01,
-                                 value=modules.config.default_cfg_tsnr,
-                                 info='Enabling Fooocus\'s implementation of CFG mimicking for TSNR '
-                                      '(effective when real CFG > mimicked CFG).')
-                        clip_skip = gr.Slider(label='CLIP Skip', minimum=1, maximum=flags.clip_skip_max, step=1,
-                                 value=modules.config.default_clip_skip,
-                                 info='Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).')
-                        vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames,
-                                 value=modules.config.default_vae, show_label=True)
+                        adaptive_cfg = gr.Slider(label='CFG Mimicking from TSNR', minimum=1.0, maximum=30.0, step=0.01, \
+                            value=modules.config.default_cfg_tsnr, \
+                            info='Enabling Fooocus\'s implementation of CFG mimicking for TSNR ' \
+                                '(effective when real CFG > mimicked CFG).')
+                        clip_skip = gr.Slider(label='CLIP Skip', minimum=1, maximum=flags.clip_skip_max, step=1, \
+                            value=modules.config.default_clip_skip, \
+                            info='Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).')
+                        vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
+                            value=modules.config.default_vae, show_label=True)
 
                         generate_image_grid = gr.Checkbox(label='Generate Image Grid for Each Batch',
                                 info='(Experimental) This may cause performance problems on some computers and certain internet conditions.',
