@@ -224,7 +224,7 @@ def init_bar_buttons():
     global preset_bar_length
     bar_buttons = []
     preset_bar_list = get_presetnames_in_folder(preset_bar_category)
-    with gr.Column():    
+    with gr.Column(scale=0, min_width=70):
         bar_title = gr.Markdown(f'<b>{preset_bar_category}:</b>',\
             elem_id='bar_title', elem_classes='bar_title')
     padded_list = pad_list(preset_bar_list, preset_bar_length, '')
