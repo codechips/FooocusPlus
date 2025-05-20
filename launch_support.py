@@ -4,11 +4,6 @@ import platform
 import shutil
 import sys
 import args_manager
-import torchruntime
-from torchruntime.device_db import get_gpus
-from torchruntime.platform_detection import get_torch_platform
-# from torchruntime.platform_detection import get_nvidia_arch #new coding
-
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
 python_embedded_path = os.path.join(win32_root, 'python_embedded')
@@ -55,8 +50,14 @@ def dependency_resolver():
     xformers_default = "0.0.29.post1"
     pytorchlightning_default = "2.5.1.post0"
     lightningfabric_default = "2.5.1"
-
+   
     torch_ver = torch_default # initialize torch to the default
+
+    import torchruntime
+    from torchruntime.device_db import get_gpus
+    from torchruntime.platform_detection import get_torch_platform
+    # from torchruntime.platform_detection import get_nvidia_arch #new coding
+    
     gpu_infos = get_gpus()
     torchruntime_platform = get_torch_platform(gpus)
 
