@@ -241,11 +241,10 @@ enable_preset_bar = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
-all_presetnames = PR.get_all_presetnames()
 preset_bar_category = get_config_item_or_set_default(
     key='preset_bar_category',
     default_value='Favorite',
-    validator=lambda x: x in all_presetnames,
+    validator=lambda x: isinstance(x, str),
     expected_type=str
 )
 preset_bar_length = get_config_item_or_set_default(
