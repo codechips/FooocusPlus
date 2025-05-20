@@ -151,7 +151,7 @@ def get_preset_content(preset):
     return {}
 
 def get_initial_preset_content():
-    global current_preset, category_selection, preset_bar_category
+    global current_preset, category_selection, default_low_vram_presets, preset_bar_category
     json_content = ''
     preset = args_manager.args.preset
     if (preset=='initial' or preset.lower()=='default') \
@@ -221,7 +221,7 @@ def preset_bar_count():
     return preset_bar_count
 
 def init_bar_buttons():
-    global preset_bar_length
+    global preset_bar_category, preset_bar_length
     bar_buttons = []
     preset_bar_list = get_presetnames_in_folder(preset_bar_category)
     with gr.Column(scale=0, min_width=80):
@@ -234,6 +234,7 @@ def init_bar_buttons():
     return bar_title, bar_buttons
 
 def save_preset(x):
+    global category_selection, current_preset
     PR_choices = get_presetnames_in_folder(category_selection)
     return gr.update(), gr.update(value=current_preset), \
         gr.update(choices=PR_choices)
