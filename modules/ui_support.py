@@ -214,7 +214,6 @@ def refresh_nav_bars(state_params):
         results += [gr.update(visible=True)]
     preset_count = PR.preset_bar_count()
     padded_list = PR.pad_list(preset_name_list, PR.preset_bar_length, '')
-    print(f'padded_list {padded_list}')
     for i in range(PR.preset_bar_length):
         name = padded_list[i]
         if i <= preset_count:
@@ -237,8 +236,9 @@ def process_before_generation(state_params, backend_params, backfill_prompt, tra
         'preset': state_params["__preset"],
         })
     # stop_button, skip_button, generate_button, gallery, state_is_generating, index_radio, image_toolbox, prompt_info_box
-    results = [gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True), gr.update(visible=False, interactive=False), [], True, gr.update(visible=False, open=False), gr.update(visible=False), gr.update(visible=False)]
-    # prompt, random_button, translator_button, super_prompter, background_theme, image_tools_checkbox, bar0_button, bar1_button, bar2_button, bar3_button, bar4_button, bar5_button, bar6_button, bar7_button, bar8_button
+    results = [gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True), \
+        gr.update(visible=False, interactive=False), [], True, gr.update(visible=False, open=False), \
+        gr.update(visible=False), gr.update(visible=False)]
     # preset_nums = len(state_params["__nav_name_list"].split(','))
     preset_nums = PR.preset_count()
     results += [gr.update(interactive=False)] * (preset_nums + 6)
@@ -300,7 +300,6 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     PR.current_preset = preset
     config_preset = PR.get_preset_content(preset)
     preset_prepared = meta_parser.parse_meta_from_preset(config_preset)
-    #print(f'preset_prepared:{preset_prepared}')
     
     engine = preset_prepared.get('engine', {}).get('backend_engine', 'Fooocus')
     state_params.update({"engine": engine})
@@ -404,10 +403,7 @@ def prompt_token_prediction(text, style_selections):
     prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
 
     prompt = prompts[0]
-    if prompt == '':
-        # disable expansion when empty since it is not meaningful and influences image prompt
-        use_expansion = False
-    else:
+    if prompt != '':
         print(f'UIS Prompt: {prompt}')
         common.POSITIVE = prompt
     if negative_prompt != '':
