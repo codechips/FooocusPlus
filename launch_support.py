@@ -6,7 +6,8 @@ import sys
 import args_manager
 import torchruntime
 from torchruntime.device_db import get_gpus
-from torchruntime.platform_detection import get_torch_platform, get_nvidia_arch
+from torchruntime.platform_detection import get_torch_platform
+# from torchruntime.platform_detection import get_nvidia_arch #new coding
 
 
 win32_root = os.path.dirname(os.path.dirname(__file__))
@@ -57,10 +58,13 @@ def dependency_resolver():
 
     torch_ver = torch_default # initialize torch to the default
     gpu_infos = get_gpus()
-    torchruntime_platform = get_torch_platform(gpu_infos)
+    torchruntime_platform = get_torch_platform(gpus)
 
-    device_names = set(gpu.device_name for gpu in gpu_infos)
-    arch_version = get_nvidia_arch(device_names)
+# new coding for torchruntime_ver = '1.17.3'
+# not compatible because of lightning version
+#    torchruntime_platform = get_torch_platform(gpu_infos) # new coding
+#    device_names = set(gpu.device_name for gpu in gpu_infos)
+#    arch_version = get_nvidia_arch(device_names)
     
     # First, take care of special cases
     # Note, torchruntime/torchruntime/platform_detection.py
@@ -68,18 +72,29 @@ def dependency_resolver():
     #
     if platform.machine == "amd64" or torchruntime_platform == "xpu":
         args_manager.directml = True # switch on AMD/Intel support
-    
-    # Detection Logic: Windows (win32) defaults to "2.5.1", unless NVIDIA 5xxx
-    if (sys.platform == "win32") and (arch_version == 12): # Blackwell (NVIDIA 5xxx)
-        torch_ver = "special"
-    elif (sys.platform == "win32") and (arch_version > 3.7 and arch_version < 7.5):
-        torch_ver = "2.4.1"    # older NVIDIA cards such as the 10xx series, cu124
+        torch_ver = "2.3.1"
 
-    elif sys.platform == "linux": # Linux also defaults to "2.5.1" 
-        if arch_version == 12:    # Blackwell (NVIDIA 5xxx)
+    # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
+    if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
+        torch_ver = "special"    
+    
+# new coding for torchruntime_ver = '1.17.3'
+#    # Detection Logic: Windows (win32) defaults to "2.5.1", unless NVIDIA 5xxx
+#    if (sys.platform == "win32") and (arch_version == 12): # Blackwell (NVIDIA 5xxx)
+#        torch_ver = "special"
+#    elif (sys.platform == "win32") and (arch_version > 3.7 and arch_version < 7.5):
+#        torch_ver = "2.4.1"    # older NVIDIA cards such as the 10xx series, cu124
+      
+    elif sys.platform == "linux": # Linux also defaults to "2.5.1"
+        if torchruntime_platform == "nightly/cu128":
             torch_ver = "special"
-        elif (arch_version > 3.7 and arch_version < 7.5):
-            torch_ver = "2.4.1"   # older NVIDIA cards such as the 10xx series, cu124
+        
+# new coding for torchruntime_ver = '1.17.3'        
+#        if arch_version == 12:    # Blackwell (NVIDIA 5xxx)
+#            torch_ver = "special"
+#        elif (arch_version > 3.7 and arch_version < 7.5):
+#            torch_ver = "2.4.1"   # older NVIDIA cards such as the 10xx series, cu124
+    
         elif torchruntime_platform == "rocm5.7":
             torch_ver = "2.3.1"
         elif torchruntime_platform == "rocm5.2":
