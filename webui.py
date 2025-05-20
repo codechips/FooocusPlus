@@ -969,6 +969,9 @@ with common.GRADIO_ROOT:
 
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
+                        vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
+                            value=modules.config.default_vae, show_label=True)
+                        
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
                             value=modules.config.default_sampler)
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
@@ -990,8 +993,7 @@ with common.GRADIO_ROOT:
                         clip_skip = gr.Slider(label='CLIP Skip', minimum=1, maximum=flags.clip_skip_max, step=1, \
                             value=modules.config.default_clip_skip, \
                             info='Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).')
-                        vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
-                            value=modules.config.default_vae, show_label=True)
+
 
                         generate_image_grid = gr.Checkbox(label='Generate Image Grid for Each Batch',
                                 info='(Experimental) This may cause performance problems on some computers and certain internet conditions.',
