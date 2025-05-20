@@ -12,6 +12,7 @@ current_preset = args_manager.args.preset
 # set by modules.config
 default_low_vram_presets = False
 preset_bar_category = 'Favorite'
+preset_bar_length = 8
 
 def find_preset_file(preset):
     if os.path.splitext(preset)[1] == 'json':
@@ -204,6 +205,15 @@ def get_preset_categories():
 def preset_count():
     return len(get_preset_paths())
 
+def pad_list(arg_list, arg_length, arg_value):
+    list_length = len(arg_list)
+    if list_length >= arg_length:
+        return arg_list
+    else:
+        padding_size = arg_length - list_length
+        padded_list = arg_list + [arg_value] * padding_size
+        return padded_list
+
 def preset_bar_count():
     global preset_bar_category
     preset_bar_list = get_presets_in_folder(preset_bar_category)
@@ -211,14 +221,14 @@ def preset_bar_count():
     return preset_bar_count
 
 def init_bar_buttons():
+    global preset_bar_length
     bar_buttons = []
     preset_bar_list = get_presetnames_in_folder(preset_bar_category)
     bar_title = gr.Markdown(f'<b>{preset_bar_category}:</b>',\
         elem_id='bar_title', elem_classes='bar_title')
-#    bar_count = preset_bar_count()
-    bar_count = 8
-    for i in range(bar_count):
-        bar_buttons.append(gr.Button(value=preset_bar_list[i], size='sm',\
+    padded_list = pad_list(preset_bar_list, preset_bar_length, '')        
+    for i in range(preset_bar_length):
+        bar_buttons.append(gr.Button(value=padded_list[i], size='sm',\
             min_width=90, elem_id=f'bar{i}', elem_classes='bar_button'))
     return bar_title, bar_buttons
 
