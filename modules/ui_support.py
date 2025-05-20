@@ -216,7 +216,7 @@ def refresh_nav_bars(state_params):
     padded_list = PR.pad_list(preset_name_list, PR.preset_bar_length, '')
     for i in range(PR.preset_bar_length):
         name = padded_list[i]
-        if i <= preset_count:
+        if i < preset_count:
             visible_flag = True
         else:
             visible_flag = False
