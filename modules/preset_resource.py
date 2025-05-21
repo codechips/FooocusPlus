@@ -11,7 +11,7 @@ current_preset = args_manager.args.preset
 
 # set by modules.config
 default_low_vram_presets = False
-preset_bar_category = 'Favorite'
+default_bar_category = 'Favorite'
 preset_bar_length = 8
 
 # set by modules.config,
@@ -157,14 +157,14 @@ def get_preset_content(preset):
     return {}
 
 def get_initial_preset_content():
-    global current_preset, category_selection, default_low_vram_presets, preset_bar_category
+    global current_preset, category_selection, default_low_vram_presets, default_bar_category
     json_content = ''
     preset = args_manager.args.preset
     if (preset=='initial' or preset.lower()=='default') \
         and (int(model_management.get_vram())<6000 \
         or default_low_vram_presets==True):
         AR.low_vram = True
-        preset_bar_category = 'LowVRAM'
+        default_bar_category = 'LowVRAM'
         if find_preset_file('4GB_Default'):
             preset='4GB_Default'
             print('Loading the "4GB_Default" preset, the default for low VRAM systems')
