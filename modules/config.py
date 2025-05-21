@@ -1283,5 +1283,5 @@ AR.AR_shortlist = enable_shortlist_aspect_ratios
 # Preset Resource support
 PR.default_low_vram_presets = default_low_vram_presets
 PR.default_sampler = default_sampler
-PR.preset_bar_category = preset_bar_category
+PR.default_bar_category = default_bar_category
 PR.preset_bar_length = preset_bar_length
