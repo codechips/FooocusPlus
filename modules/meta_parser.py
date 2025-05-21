@@ -8,15 +8,15 @@ import gradio as gr
 from PIL import Image
 
 import common
+import enhanced.all_parameters as ads
 import enhanced.version
 import modules.config
 import modules.aspect_ratios as AR
 import modules.sdxl_styles
-from modules.flags import MetadataScheme, Performance, Steps, task_class_mapping, get_taskclass_by_fullname, default_class_params, scheduler_list, sampler_list
-from modules.flags import SAMPLERS, CIVITAI_NO_KARRAS
-from modules.preset_resource import current_preset
+import modules.preset_resource as PR
+from modules.flags import MetadataScheme, Performance, Steps, task_class_mapping, get_taskclass_by_fullname
+from modules.flags import default_class_params, scheduler_list, sampler_list, SAMPLERS, CIVITAI_NO_KARRAS
 from modules.util import quote, unquote, extract_styles_from_prompt, is_json, sha256
-import enhanced.all_parameters as ads
 from modules.hash_cache import sha256_from_cache
 
 re_param_code = r'\s*(\w[\w \-/]+):\s*("(?:\\.|[^\\"])+"|[^,]*)(?:,|$)'
@@ -416,6 +416,9 @@ def parse_meta_from_preset(preset_content):
             preset_prepared[meta_key] = str(preset_prepared[meta_key])
         if settings_key in ["default_model", "default_refiner"]:
             preset_prepared[meta_key] = preset_prepared[meta_key].replace('\\', os.sep).replace('/', os.sep)
+
+        if settings_key == "default_sampler":
+            PR.default_sampler = default_sampler
 
     return preset_prepared
 
@@ -887,7 +890,7 @@ def get_exif(metadata: str | None, metadata_scheme: str):
     # 0x9286 = UserComment
     exif[0x9286] = metadata
     # 0x0131 = Software
-    exif[0x0131] = f'FooocusPlus {enhanced.version.get_fooocusplus_ver()}, Preset: {current_preset}'
+    exif[0x0131] = f'FooocusPlus {enhanced.version.get_fooocusplus_ver()}, Preset: {PR.current_preset}'
     # 0x927C = MakerNote
     exif[0x927C] = metadata_scheme
     return exif
