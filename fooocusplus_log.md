@@ -37,6 +37,7 @@
 * the Flux base models are recategorized into the FluxDev and FluxSchnell folders
 * fixed a strange bug in which the "Specific Seed" value was being trashed when changing presets
 * fixed a bug with SuperPrompter
+* subject to testing, this version provisionally supports NVIDIA 50xx video cards
 
 # 0.9.8 Dev
 
