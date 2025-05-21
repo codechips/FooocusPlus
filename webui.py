@@ -1587,7 +1587,8 @@ with common.GRADIO_ROOT:
             show_progress=False, queue=False)
         
         preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
-            outputs=[preset_selection, state_topbar, preset_info, aspect_ratios_selection], show_progress=False, queue=False) \
+            outputs=[preset_selection, state_topbar, preset_info, aspect_ratios_selection, sampler_name], \
+            show_progress=False, queue=False) \
            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
            .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
            .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
