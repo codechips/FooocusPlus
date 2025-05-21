@@ -969,17 +969,9 @@ with common.GRADIO_ROOT:
 
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
-                        def change_sampler(x):
-                            print()
-                            print(f'Sampler value: {x}')
-                            return
                         
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
-                            value=modules.config.default_sampler, interactive=True, visible=True)
-
-                        sampler_name.change(change_sampler, inputs=sampler_name, \
-                            outputs=sampler_name, queue=False, show_progress=False)
-                        
+                            value=modules.config.default_sampler, interactive=True, visible=True)                       
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
                             value=modules.config.default_scheduler)
                         adm_scaler_positive = gr.Slider(label='Positive ADM Guidance Scaler', minimum=0.1, maximum=3.0, \
