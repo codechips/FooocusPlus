@@ -56,13 +56,15 @@ def dependency_resolver():
     import torchruntime
     from torchruntime.device_db import get_gpus
     from torchruntime.platform_detection import get_torch_platform
-    # from torchruntime.platform_detection import get_nvidia_arch #new coding
-    
-    gpu_infos = get_gpus()
-    torchruntime_platform = get_torch_platform(gpus)
+    # from torchruntime.platform_detection import get_nvidia_arch #new coding    
 
+    gpu_infos = get_gpus()
+    torchruntime_platform = get_torch_platform(gpus_infos)
+    
 # new coding for torchruntime_ver = '1.17.3'
 # not compatible because of lightning version
+#    gpu_infos = get_gpus()
+#    torchruntime_platform = get_torch_platform(gpus_infos)
 #    torchruntime_platform = get_torch_platform(gpu_infos) # new coding
 #    device_names = set(gpu.device_name for gpu in gpu_infos)
 #    arch_version = get_nvidia_arch(device_names)
