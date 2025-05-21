@@ -235,21 +235,22 @@ temp_path_cleanup_on_launch = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
+
 enable_preset_bar = get_config_item_or_set_default(
     key='enable_preset_bar',
     default_value=True,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
-preset_bar_category = get_config_item_or_set_default(
-    key='preset_bar_category',
+default_bar_category = get_config_item_or_set_default(
+    key='default_bar_category',
     default_value='Favorite',
     validator=lambda x: isinstance(x, str),
     expected_type=str
 )
 preset_bar_category_tracking = get_config_item_or_set_default(
     key='preset_bar_category_tracking',
-    default_value=False,
+    default_value=True,
     validator=lambda x: isinstance(x, bool),
     expected_type=bool
 )
@@ -258,6 +259,12 @@ preset_bar_length = get_config_item_or_set_default(
     default_value=8,
     validator=lambda x: isinstance(x, int) and 1 <= x <= 30,
     expected_type=int
+)
+enable_random_preset_in_category = get_config_item_or_set_default(
+    key='enable_random_preset_in_category',
+    default_value=True,
+    validator=lambda x: isinstance(x, bool),
+    expected_type=bool
 )
 default_list_all_presets = get_config_item_or_set_default(
     key='default_list_all_presets',
@@ -1275,5 +1282,6 @@ AR.AR_shortlist = enable_shortlist_aspect_ratios
 
 # Preset Resource support
 PR.default_low_vram_presets = default_low_vram_presets
+PR.default_sampler = default_sampler
 PR.preset_bar_category = preset_bar_category
 PR.preset_bar_length = preset_bar_length
