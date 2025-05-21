@@ -14,6 +14,10 @@ default_low_vram_presets = False
 preset_bar_category = 'Favorite'
 preset_bar_length = 8
 
+# set by modules.config,
+# updated by modules.meta_parser.parse_meta_from_preset(preset_content)
+default_sampler = 'dpmpp_2m_sde_gpu'
+
 def find_preset_file(preset):
     if os.path.splitext(preset)[1] == 'json':
         preset_json = preset
@@ -114,7 +118,7 @@ def set_category_selection(arg_category_selection):
         gr.update(value=f'Current Preset: {current_preset}')
 
 def set_preset_selection(arg_preset_selection, state_params):
-    global current_preset
+    global current_preset, default_sampler
     if arg_preset_selection == '':
         if current_preset == '':
             current_preset = args_manager.args.preset
@@ -123,10 +127,12 @@ def set_preset_selection(arg_preset_selection, state_params):
         current_preset = arg_preset_selection  # update the current preset tracker
     state_params.update({'bar_button': current_preset})
     AR.current_preset = current_preset # for use by AR Shortlist/Standard toggle
-    return gr.update(value=current_preset),\
-        gr.update(value=state_params),\
-        gr.update(value=f'Current Preset: {current_preset}'),\
-        gr.update(value=AR.current_AR)
+    print(f'default_sampler: {default_sampler}')
+    return gr.update(value=current_preset), \
+        gr.update(value=state_params), \
+        gr.update(value=f'Current Preset: {current_preset}'), \
+        gr.update(value=AR.current_AR), \
+        gr.update(value=default_sampler)
 
 def bar_button_change(bar_button, state_params):
     global category_selection, current_preset
