@@ -407,6 +407,8 @@ def parse_meta_from_preset(preset_content):
                 print(f'Metadata fallback to default aspect ratio: {default_aspect_ratio}')
                 width, height = AR.AR_split(default_aspect_ratio)
             preset_prepared[meta_key] = (width, height)
+        elif settings_key == "default_sampler":
+            PR.default_sampler = default_sampler
         elif settings_key not in items and settings_key in modules.config.allow_missing_preset_key:
             continue
         else:
@@ -416,9 +418,6 @@ def parse_meta_from_preset(preset_content):
             preset_prepared[meta_key] = str(preset_prepared[meta_key])
         if settings_key in ["default_model", "default_refiner"]:
             preset_prepared[meta_key] = preset_prepared[meta_key].replace('\\', os.sep).replace('/', os.sep)
-
-        if settings_key == "default_sampler":
-            PR.default_sampler = default_sampler
 
     return preset_prepared
 
