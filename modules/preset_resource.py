@@ -221,8 +221,8 @@ def pad_list(arg_list, arg_length, arg_value):
         return padded_list
 
 def preset_bar_count():
-    global preset_bar_category
-    preset_bar_list = get_presets_in_folder(preset_bar_category)
+    global default_bar_category
+    preset_bar_list = get_presets_in_folder(default_bar_category)
     preset_bar_count = len(preset_bar_list)
     return preset_bar_count
 
