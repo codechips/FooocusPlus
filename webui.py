@@ -969,7 +969,7 @@ with common.GRADIO_ROOT:
 
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
-                        change_sampler():
+                        def change_sampler():
                             print()
                             print(f'Sampler value: {x}')
                             return
