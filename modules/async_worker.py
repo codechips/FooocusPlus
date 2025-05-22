@@ -76,7 +76,6 @@ class AsyncTask:
         self.clip_skip = args.pop()
         self.sampler_name = args.pop()
         self.sampler_name = PR.default_sampler
-        print(f'L81 self.sampler_name: {self.sampler_name}')
         self.scheduler_name = args.pop()
         self.vae_name = args.pop()
         self.overwrite_step = args.pop()
@@ -350,7 +349,6 @@ def worker():
                 denoise=denoising_strength,
                 seed=task['task_seed'],
                 )
-            print(f'L348 Sampler: {async_task.sampler_name}')
             default_params.update(async_task.params_backend)
             if async_task.layer_input_image is None:
                 input_images = None
@@ -398,7 +396,6 @@ def worker():
                 refiner_swap_method=async_task.refiner_swap_method,
                 disable_preview=async_task.disable_preview
             )
-            print(f'L394 Sampler: {async_task.sampler_name}')
             del positive_cond, negative_cond  # Save memory
             if inpaint_worker.current_task is not None:
                 imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
@@ -457,7 +454,6 @@ def worker():
             if async_task.clip_skip > 1 and async_task.task_class == 'Fooocus':
                 d.append(('CLIP Skip', 'clip_skip', async_task.clip_skip))
             d.append(('Sampler', 'sampler', async_task.sampler_name))
-            print(f'L461 Sampler: {async_task.sampler_name}')
             d.append(('Scheduler', 'scheduler', async_task.scheduler_name))
             d.append(('VAE', 'vae', async_task.vae_name))
             d.append(('Seed', 'seed', str(task['task_seed'])))
