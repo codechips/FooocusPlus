@@ -76,6 +76,7 @@ class AsyncTask:
         self.adaptive_cfg = args.pop()
         self.clip_skip = args.pop()
         self.sampler_name = args.pop()
+        print(f'L79 Sampler: {self.sampler_name}')
         self.scheduler_name = args.pop()
         self.vae_name = args.pop()
         self.overwrite_step = args.pop()
@@ -176,7 +177,7 @@ class AsyncTask:
 
         #print(f'params_backend:{self.params_backend}')
         self.task_class = self.params_backend.pop('backend_engine', 'Fooocus')
-        self.task_name = self.params_backend.pop('preset', 'default')
+        self.task_name = self.params_backend.pop('preset', 'Default')
         self.task_method = self.params_backend.pop('task_method', 'text2image')
         #print(f'task_class={self.task_class}, task_name={self.task_name}, task_method={self.task_method}')
         if 'layer' in self.current_tab and self.task_class == 'Fooocus' and self.input_image_checkbox:
@@ -344,6 +345,7 @@ def worker():
                 height=height,
                 base_model=async_task.base_model_name,
                 sampler=async_task.sampler_name,
+                print(f'L348 Sampler: {sampler}')
                 scheduler=final_scheduler_name,
                 cfg_scale=async_task.cfg_scale,
                 steps=steps,
@@ -389,6 +391,7 @@ def worker():
                 image_seed=task['task_seed'],
                 callback=callback,
                 sampler_name=async_task.sampler_name,
+                print(f'L394 Sampler: {sampler_name}')
                 scheduler_name=final_scheduler_name,
                 latent=initial_latent,
                 denoise=denoising_strength,
@@ -455,6 +458,7 @@ def worker():
             if async_task.clip_skip > 1 and async_task.task_class == 'Fooocus':
                 d.append(('CLIP Skip', 'clip_skip', async_task.clip_skip))
             d.append(('Sampler', 'sampler', async_task.sampler_name))
+            print(f'L461 Sampler: {async_task.sampler_name}')
             d.append(('Scheduler', 'scheduler', async_task.scheduler_name))
             d.append(('VAE', 'vae', async_task.vae_name))
             d.append(('Seed', 'seed', str(task['task_seed'])))
