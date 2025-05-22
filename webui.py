@@ -970,16 +970,16 @@ with common.GRADIO_ROOT:
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
                         
-                        sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
+                        sampler_name = gr.Accordion(label='Sampler', choices=flags.sampler_list, \
                             value=modules.config.default_sampler, interactive=True, visible=True, css="color: white; font-weight: bold", elem_classes='sampler_name')
-                        scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
+                        scheduler_name = gr.Accordion(label='Scheduler', choices=flags.scheduler_list, \
                             value=modules.config.default_scheduler, css="color: white; font-weight: bold")
+                        vae_name = gr.Accordion(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
+                            value=modules.config.default_vae, show_label=True)                         
 
                         clip_skip = gr.Slider(label='CLIP Skip', minimum=1, maximum=flags.clip_skip_max, step=1, \
                             value=modules.config.default_clip_skip, \
                             info='Bypass CLIP layers to avoid overfitting (use 1 to not skip any layers, 2 is recommended).')
-                        vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
-                            value=modules.config.default_vae, show_label=True)  
                         
                         adm_scaler_positive = gr.Slider(label='Positive ADM Guidance Scaler', minimum=0.1, maximum=3.0, \
                             step=0.001, value=1.5, info='The scaler multiplied to positive ADM (use 1.0 to disable). ')
