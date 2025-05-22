@@ -316,7 +316,7 @@ with common.GRADIO_ROOT:
                         advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
                         input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
                         preset_bar_checkbox = gr.Checkbox(label='Preset Bar', value=modules.config.enable_preset_bar, container=False, elem_classes='min_check')
-                        prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', value=False, container=False, elem_classes='min_check')
+                        prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', interactive = True, value=False, container=False, elem_classes='min_check')
                 with gr.Column():
                     preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
 
@@ -1242,7 +1242,7 @@ with common.GRADIO_ROOT:
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True),\
                 inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False,\
                 _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards'])\
-                if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar],\
+                if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox],\
                 outputs=wildcards_array, queue=False, show_progress=False)
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x)\
                 if "gallery_state" in y and y["gallery_state"] == 'finished_index'\
