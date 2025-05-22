@@ -350,7 +350,7 @@ def worker():
                 denoise=denoising_strength,
                 seed=task['task_seed'],
                 )
-            print(f'L348 Sampler: {sampler}')
+            print(f'L348 Sampler: {async_task.sampler_name}')
             default_params.update(async_task.params_backend)
             if async_task.layer_input_image is None:
                 input_images = None
@@ -398,7 +398,7 @@ def worker():
                 refiner_swap_method=async_task.refiner_swap_method,
                 disable_preview=async_task.disable_preview
             )
-            print(f'L394 Sampler: {sampler_name}')
+            print(f'L394 Sampler: {async_task.sampler_name}')
             del positive_cond, negative_cond  # Save memory
             if inpaint_worker.current_task is not None:
                 imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
