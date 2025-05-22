@@ -514,6 +514,10 @@ iframe::-webkit-scrollbar {
   line-height: 18px;
 }
 
+.sampler_name {
+  color: white important!;
+}
+
 div.block.tokenCounter {
   width: auto;
   position: absolute;
