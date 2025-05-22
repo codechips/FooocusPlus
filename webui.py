@@ -971,9 +971,9 @@ with common.GRADIO_ROOT:
                     with gr.Tab(label='Expert Tools'):
                         
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
-                            value=modules.config.default_sampler, interactive=True, visible=True, css="color: white; font-weight: bold", elem_classes='sampler_name')
+                            value=modules.config.default_sampler, interactive=True, visible=True)
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
-                            value=modules.config.default_scheduler, css="color: white; font-weight: bold")
+                            value=modules.config.default_scheduler)
                         vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
                             value=modules.config.default_vae, show_label=True)                         
 
