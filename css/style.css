@@ -514,7 +514,11 @@ iframe::-webkit-scrollbar {
   line-height: 18px;
 }
 
-.sampler_name {
+/* sampler_name */
+.block sampler_name svelte-90oupt padded {
+  color: white !important;
+}
+#component-378 {
   color: white !important;
 }
 
