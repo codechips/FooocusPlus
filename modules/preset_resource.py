@@ -127,7 +127,6 @@ def set_preset_selection(arg_preset_selection, state_params):
         current_preset = arg_preset_selection  # update the current preset tracker
     state_params.update({'bar_button': current_preset})
     AR.current_preset = current_preset # for use by AR Shortlist/Standard toggle
-    print(f'default_sampler: {default_sampler}')
     return gr.update(value=current_preset), \
         gr.update(value=state_params), \
         gr.update(value=f'Current Preset: {current_preset}'), \
