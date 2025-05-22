@@ -515,7 +515,7 @@ iframe::-webkit-scrollbar {
 }
 
 .sampler_name {
-  color: white important!;
+  color: white !important;
 }
 
 div.block.tokenCounter {
