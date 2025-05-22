@@ -1,11 +1,10 @@
 import threading
-
+import modules.config
+import modules.preset_resource as PR
 from extras.inpaint_mask import generate_mask_from_image, SAMOptions
 from modules.patch import PatchSettings, patch_settings, patch_all
-import modules.config
 
 patch_all()
-
 
 class AsyncTask:
     def __init__(self, args):
@@ -237,7 +236,6 @@ def worker():
     import extras.preprocessors as preprocessors
     import modules.inpaint_worker as inpaint_worker
     import modules.constants as constants
-    import modules.preset_resource as PR
     import extras.ip_adapter as ip_adapter
     import extras.face_crop
     import enhanced.version as version
