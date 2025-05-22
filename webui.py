@@ -970,8 +970,8 @@ with common.GRADIO_ROOT:
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
 
-                        secret_name = gr.Dropdown(label='', choices='', \
-                            value='', interactive=False, visible=False)                        
+                        secret_name = gr.Dropdown(label='', choices=flags.sampler_list, \
+                            value=modules.config.default_sampler, interactive=False, visible=False)                        
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
                             value=modules.config.default_sampler, interactive=True, visible=True)
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
@@ -1242,7 +1242,7 @@ with common.GRADIO_ROOT:
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True),\
                 inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False,\
                 _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards'])\
-                if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, PR.category_selection],\
+                if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, secret_name],\
                 outputs=wildcards_array, queue=False, show_progress=False)
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x)\
                 if "gallery_state" in y and y["gallery_state"] == 'finished_index'\
