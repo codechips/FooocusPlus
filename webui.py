@@ -297,6 +297,16 @@ with common.GRADIO_ROOT:
 
                         stop_button.click(stop_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False, _js='cancelGenerateForever')
                         skip_button.click(skip_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False)
+
+            with gr.Row():
+                with gr.Column():
+                    with gr.Row(elem_classes='advanced_check_row'):
+                        advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
+                        input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
+                        preset_bar_checkbox = gr.Checkbox(label='Preset Bar', value=modules.config.enable_preset_bar, container=False, elem_classes='min_check')
+                        prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', interactive = False, value=True, container=False, visible=False, elem_classes='min_check')
+                with gr.Column():
+                    preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
                 
                 with gr.Accordion(label='Wildcards', visible=False, open=True) as prompt_wildcards:
                     wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcard Filenames', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
@@ -309,17 +319,7 @@ with common.GRADIO_ROOT:
                     wildcards_array_show =lambda x: [gr.update(visible=True)] * 2 + [gr.Dataset.update(visible=True, samples=wildcards.get_wildcards_samples()), gr.Dataset.update(visible=True, samples=wildcards.get_words_of_wildcard_samples(x))]
                     wildcards_array_hidden = [gr.update(visible=False)] * 2 + [gr.Dataset.update(visible=False, samples=wildcards.get_wildcards_samples()), gr.Dataset.update(visible=False, samples=wildcards.get_words_of_wildcard_samples())]
                     wildcards_array_hold = [gr.update()] * 4
-                
-            with gr.Row():
-                with gr.Column():
-                    with gr.Row(elem_classes='advanced_check_row'):
-                        advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-                        input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check')
-                        preset_bar_checkbox = gr.Checkbox(label='Preset Bar', value=modules.config.enable_preset_bar, container=False, elem_classes='min_check')
-                        prompt_panel_checkbox = gr.Checkbox(label='Wildcard Panel', interactive = True, value=False, container=False, elem_classes='min_check')
-                with gr.Column():
-                    preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
-
+              
             
             with gr.Group(visible=False, elem_classes='toolbox') as image_toolbox:
                 image_tools_box_title = gr.Markdown('<b>Toolbox</b>', visible=True)
@@ -1243,7 +1243,7 @@ with common.GRADIO_ROOT:
                 inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False,\
                 _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards'])\
                 if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, state_topbar],\
-                outputs=[wildcards_array, state_topbar], queue=False, show_progress=False)
+                outputs=[wildcards_array], queue=False, show_progress=False)
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x)\
                 if "gallery_state" in y and y["gallery_state"] == 'finished_index'\
                 else gr.update(visible=False), inputs=[image_tools_checkbox,state_topbar],\
