@@ -514,14 +514,9 @@ iframe::-webkit-scrollbar {
   line-height: 18px;
 }
 
-/* sampler_name */
-.block sampler_name svelte-90oupt padded {
-
+/* sampler & scheduler names */
+#component-378 #component-379 {
   font-weight: bold !important;
-}
-#component-378 {
-
-
 }
 
 div.block.tokenCounter {
