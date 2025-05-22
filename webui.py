@@ -308,7 +308,7 @@ with common.GRADIO_ROOT:
                 with gr.Column():
                     preset_info = gr.Markdown(value=f'<b>Current Preset: {PR.current_preset}</b>', container=False, visible=True, elem_classes='preset_info')
                 
-                with gr.Accordion(label='Wildcards', visible=False, open=True) as prompt_wildcards:
+                with gr.Accordion(label='Wildcards', visible=True, open=False) as prompt_wildcards:
                     wildcards_list = gr.Dataset(components=[prompt], type='index', label='Wildcard Filenames', samples=wildcards.get_wildcards_samples(), visible=True, samples_per_page=28)
                     read_wildcards_in_order = gr.Checkbox(label="Generate Wildcards in Order", value=False, visible=True)
                     with gr.Accordion(label='Wildcard Contents', visible=True, open=False) as words_in_wildcard:
