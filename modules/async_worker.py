@@ -345,13 +345,13 @@ def worker():
                 height=height,
                 base_model=async_task.base_model_name,
                 sampler=async_task.sampler_name,
-                print(f'L348 Sampler: {sampler}')
                 scheduler=final_scheduler_name,
                 cfg_scale=async_task.cfg_scale,
                 steps=steps,
                 denoise=denoising_strength,
                 seed=task['task_seed'],
                 )
+            print(f'L348 Sampler: {sampler}')
             default_params.update(async_task.params_backend)
             if async_task.layer_input_image is None:
                 input_images = None
