@@ -391,7 +391,6 @@ def worker():
                 image_seed=task['task_seed'],
                 callback=callback,
                 sampler_name=async_task.sampler_name,
-                print(f'L394 Sampler: {sampler_name}')
                 scheduler_name=final_scheduler_name,
                 latent=initial_latent,
                 denoise=denoising_strength,
@@ -400,6 +399,7 @@ def worker():
                 refiner_swap_method=async_task.refiner_swap_method,
                 disable_preview=async_task.disable_preview
             )
+            print(f'L394 Sampler: {sampler_name}')
             del positive_cond, negative_cond  # Save memory
             if inpaint_worker.current_task is not None:
                 imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
