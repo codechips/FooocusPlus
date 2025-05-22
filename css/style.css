@@ -514,11 +514,6 @@ iframe::-webkit-scrollbar {
   line-height: 18px;
 }
 
-/* sampler & scheduler names */
-#component-378 #component-379 {
-  font-weight: bold !important;
-}
-
 div.block.tokenCounter {
   width: auto;
   position: absolute;
