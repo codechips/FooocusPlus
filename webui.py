@@ -970,14 +970,8 @@ with common.GRADIO_ROOT:
                 with gr.Column(visible=modules.config.default_expert_mode_checkbox) as dev_tools:
                     with gr.Tab(label='Expert Tools'):
 
-                        language_ui=args_manager.args.language
-                        # the language_ui Radio button was removed as being redundant. It was strange that
-                        # you could switch to Chinese but you could not switch to English. Language support
-                        # is currently determined by the --language command line argument. If language
-                        # selection is later restored to the UI it needs to be more universal.
-                        language_ui = gr.Radio(visible=False, label='Language of UI', choices=['En', '中文'],\
-                            value=modules.flags.language_radio(args_manager.args.language), interactive=False)
-                        
+                        secret_name = gr.Dropdown(label='', choices='', \
+                            value='', interactive=False, visible=False)                        
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
                             value=modules.config.default_sampler, interactive=True, visible=True)
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
@@ -1137,6 +1131,13 @@ with common.GRADIO_ROOT:
 
             with gr.Tab(label='Extras', elem_id="scrollable-box"):
                 with gr.Row():
+                    language_ui=args_manager.args.language
+                    # the language_ui Radio button was removed as being redundant. It was strange that
+                    # you could switch to Chinese but you could not switch to English. Language support
+                    # is currently determined by the --language command line argument. If language
+                    # selection is later restored to the UI it needs to be more universal.
+                    language_ui = gr.Radio(visible=False, label='Language of UI', choices=['En', '中文'],\
+                        value=modules.flags.language_radio(args_manager.args.language), interactive=False)
                     background_theme = gr.Radio(label='Background Theme', choices=['light', 'dark'],\
                         value=args_manager.args.theme, interactive=True)
                     prompt_preset_button = gr.Button(value='Make New Preset')
@@ -1277,13 +1278,13 @@ with common.GRADIO_ROOT:
         state_is_generating = gr.State(False)
         
         #substituted preset_bar_checkbox for advanced_checkbox to avoid toggling Advanced when preset_bar activated
-        load_data_outputs = [preset_bar_checkbox, image_number, prompt, negative_prompt, style_selections,
+        load_data_outputs = [image_number, prompt, negative_prompt, style_selections,
                  performance_selection, overwrite_step, overwrite_switch, aspect_ratios_selection,
                  overwrite_width, overwrite_height, guidance_scale, sharpness, adm_scaler_positive,
                  adm_scaler_negative, adm_scaler_end, refiner_swap_method, adaptive_cfg,
-                 clip_skip, base_model, refiner_model, refiner_switch, language_ui, sampler_name, scheduler_name,
-                 vae_name, seed_random, image_seed, inpaint_engine, inpaint_engine_state,
-                 inpaint_mode] + enhance_inpaint_mode_ctrls + [generate_button,
+                 clip_skip, base_model, refiner_model, refiner_switch, secret_name, sampler_name,
+                 scheduler_name, vae_name, seed_random, image_seed, inpaint_engine,
+                 inpaint_engine_state, inpaint_mode] + enhance_inpaint_mode_ctrls + [generate_button,
                  load_parameter_button] + freeu_ctrls + lora_ctrls
 
         if not args_manager.args.disable_preset_selection:
