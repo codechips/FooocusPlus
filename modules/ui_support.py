@@ -322,13 +322,9 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
 
     preset_url = preset_prepared.get('reference', get_preset_inc_url(preset))
     state_params.update({"__preset_url":preset_url})
-    print('Prior to refresh_nav_bars')
     results = refresh_nav_bars(state_params)
-    print('After to refresh_nav_bars')
     results += meta_parser.switch_layout_template(preset_prepared, state_params, preset_url)
-    print('After to refresh_nav_bars 2')
     results += meta_parser.load_parameter_button_click(preset_prepared, is_generating, inpaint_mode)
-    print('After to refresh_nav_bars 3')
     return results
 
 
