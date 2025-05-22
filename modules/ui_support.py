@@ -402,9 +402,7 @@ def prompt_token_prediction(text, style_selections):
     prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
 
     prompt = prompts[0]
-    if prompt == '':
-        use_expansion = False
-    else:
+    if prompt != '':
         common.POSITIVE = prompt
     if negative_prompt != '':
         common.NEGATIVE = negative_prompt
