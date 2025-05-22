@@ -76,7 +76,8 @@ class AsyncTask:
         self.adaptive_cfg = args.pop()
         self.clip_skip = args.pop()
         self.sampler_name = args.pop()
-        print(f'L79 Sampler: {self.sampler_name}')
+        if self.sampler_name.startswith('{'):
+            self.sampler_name = PR.default_sampler
         self.scheduler_name = args.pop()
         self.vae_name = args.pop()
         self.overwrite_step = args.pop()
