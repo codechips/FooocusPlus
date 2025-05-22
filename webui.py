@@ -1242,7 +1242,7 @@ with common.GRADIO_ROOT:
             prompt_panel_checkbox.change(lambda x: gr.update(visible=x, open=x if x else True),\
                 inputs=prompt_panel_checkbox, outputs=prompt_wildcards, queue=False, show_progress=False,\
                 _js=switch_js).then(lambda x,y: wildcards_array_show(y['wildcard_in_wildcards'])\
-                if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox,''],\
+                if x else wildcards_array_hidden, inputs=[prompt_panel_checkbox, prompt_panel_checkbox],\
                 outputs=wildcards_array, queue=False, show_progress=False)
             image_tools_checkbox.change(lambda x,y: gr.update(visible=x)\
                 if "gallery_state" in y and y["gallery_state"] == 'finished_index'\
