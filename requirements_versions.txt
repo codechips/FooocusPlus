@@ -60,7 +60,7 @@ pyzbar
 qrcode
 rembg==2.0.58
 rich
-rpds
+rpds==5.1.0
 sacremoses==0.1.1
 safetensors==0.4.3
 scipy==1.14.0
@@ -72,7 +72,7 @@ sympy==1.13.1
 tqdm==4.66.4
 timm==1.0.7
 tokenizers
-torch-directml; platform_system == "Windows" # AMD support
+torch-directml==0.2.5.dev240914; platform_system == "Windows" # AMD 
 translators==5.8.9
 transparent-background
 trimesh==4.6.6
