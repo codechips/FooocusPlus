@@ -66,7 +66,7 @@ If you were using a pre-release or Beta version of FooocusPlus, please be sure t
 
 4. Lastly, install the _Model Starter Pack_ to the FooocusPlus folder. These files will be added to the UserDir\models subfolder.
 
-5. Now double-click on the run_FooocusPlus.bat file to load FooocusPlus for the first time. It will download some additional components automatically on the first run.
+5. Now double-click on the _run_FooocusPlus.bat_ file to load FooocusPlus for the first time. It will download some additional components automatically on the first run.
 
 Language and optional preset startup files are available in the FooocusPlus\UserDir\batch_startups folder. Please copy whatever you need to the FooocusPlus folder before using them.
      
