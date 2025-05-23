@@ -54,11 +54,11 @@ For Linux users, please use the [Installation Script for Linux](https://github.c
 If you were using a pre-release or Beta version of FooocusPlus, please be sure to delete or at least rename it first, it is not compatible with the release version. Ideally FooocusPlus should be installed on a high speed internal drive such an NVMe solid state drive (SSD). However it will work fine on standard SATA hard drive, just a bit more slowly. First, download the following archives:
 
 - The _latest_ version of [7-Zip](https://7-zip.org/) (the installation may fail if the version is not current)
-- The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus.7z) Windows program archive
+- The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus.7z) program archive
 - If you are using Windows, the [Python library](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/python_embedded.7z) files
 - The FooocusPlus [Model Starter Pack](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/StarterPack.7z) (the Starter Pack is optional but will save you a lot of time later)
 
-After your downloads are complete, first install 7-Zip. Next, install the program archive to create a FooocusPlus folder and then install the python_embedded library archive. Lastly, install the Model Starter Pack to the models folder. Double-click on the run_FooocusPlus.bat file to load FooocusPlus for the first time. It will download some additional components automatically on the first run.
+After your downloads are complete, first install 7-Zip. Next, install the program archive to create a FooocusPlus folder and then install the python_embedded library archive in that folder. Lastly, install the Model Starter Pack to the models folder. Double-click on the run_FooocusPlus.bat file to load FooocusPlus for the first time. It will download some additional components automatically on the first run.
 
 Language and optional preset startup files are available in the FooocusPlus\UserDir\batch_startups folder. Please copy whatever you need to the FooocusPlus folder before using them.
      
