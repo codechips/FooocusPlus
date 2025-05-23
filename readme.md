@@ -58,11 +58,11 @@ If you were using a pre-release or Beta version of FooocusPlus, please be sure t
 - If you are using Windows, the [Python library](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/python_embedded.7z) files
 - The FooocusPlus [Model Starter Pack](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/StarterPack.7z) (the Starter Pack is optional but will save you a lot of time later)
 
-After your downloads are complete, first install 7-Zip. Next, extract the program archive to create a FooocusPlus folder. The FooocusPlus folder will contain the FooocusPlusAI folder, the UserDir folder and two batch files.
+After your downloads are complete, first install 7-Zip. Next, extract the _program archive_ to create a FooocusPlus folder. The FooocusPlus folder will contain the FooocusPlusAI folder, the UserDir folder and two batch files.
 
-Next, install the python_embedded library archive into the FooocusPlus folder.
+Next, install the _python_embedded_ library archive into the FooocusPlus folder.
 
-Lastly, install the Model Starter Pack to the FooocusPlus folder. These files will be added to the UserDir\models subfolder.
+Lastly, install the _Model Starter Pack_ to the FooocusPlus folder. These files will be added to the UserDir\models subfolder.
 
 Now double-click on the run_FooocusPlus.bat file to load FooocusPlus for the first time. It will download some additional components automatically on the first run.
 
