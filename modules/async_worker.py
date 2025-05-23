@@ -49,7 +49,6 @@ class AsyncTask:
         self.base_model_name = args.pop()
         self.refiner_model_name = args.pop()
         self.refiner_switch = args.pop()
-        self.refiner_switch = PR.refiner_switch
         print(f'self.refiner_switch {self.refiner_switch}')
         self.loras = get_enabled_loras([(bool(args.pop()), str(args.pop()),
              float(args.pop())) for _ in range(default_max_lora_number)])
