@@ -16,7 +16,7 @@ preset_bar_length = 8
 
 # set by modules.config
 # updated by modules.meta_parser.parse_meta_from_preset(preset_content)
-refiner_switch = 6
+refiner_switch = 0.6
 default_sampler = 'dpmpp_2m_sde_gpu'
 
 def find_preset_file(preset):
