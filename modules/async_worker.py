@@ -48,8 +48,7 @@ class AsyncTask:
         self.cfg_scale = args.pop()
         self.base_model_name = args.pop()
         self.refiner_model_name = args.pop()
-        self.refiner_switch = args.pop()
-        print(f'self.refiner_switch {self.refiner_switch}')
+        self.refiner_switch = PR.refiner_switch
         self.loras = get_enabled_loras([(bool(args.pop()), str(args.pop()),
              float(args.pop())) for _ in range(default_max_lora_number)])
         self.input_image_checkbox = args.pop()
