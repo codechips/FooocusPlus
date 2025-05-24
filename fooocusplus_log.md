@@ -36,7 +36,7 @@
 * added a config.txt option and checkbox to "Show Newest Images First" in the log. If this is off the newest images are last
 * the Flux base models are recategorized into the FluxDev and FluxSchnell folders
 * fixed a strange bug in which the "Specific Seed" value was being trashed when changing presets
-* fixed a bug with SuperPrompter, the Wildcard Panel and the Sampler selector
+* fixed bugs with SuperPrompter, Wildcard Panel, Sampler selector, Refiner switch and metadata processing
 * subject to testing, this version provisionally supports NVIDIA 50xx video cards
 * temporarily removed several Wildcard files that need improvement
 
