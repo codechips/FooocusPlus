@@ -13,7 +13,7 @@ pause
 '''
 
 def build_launcher():
-    if not is__standalone_build:
+    if not is_win32_standalone_build:
         return
 
     branches = {"FooocusPlus": "entry_with_update.py", "FooocusPlus_dev": "entry_with_update.py --dev",\
