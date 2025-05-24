@@ -1,5 +1,6 @@
 
-![2025-05-23_18-22-23_2090](https://github.com/user-attachments/assets/ed6a94f9-8d3e-49ec-8952-7c523fe6c2b7)
+
+![2025-05-23_18-18-27_8275](https://github.com/user-attachments/assets/449a3965-32c5-4ccc-94c6-b6b913afd1d0)
 
 
 # FooocusPlus – AI Art Made Simple
@@ -105,3 +106,4 @@ This software was made possible by integrating open-source technologies from pro
 - Stable Diffusion 1.5 (SD1.5) support by Irmagon (Thomas Gaud)
 - the members of the Pure Fooocus Facebook group for their encouragement, enthusiasm and careful Beta testing
 
+![2025-05-23_20-21-10_1729](https://github.com/user-attachments/assets/b6217150-7f09-4641-b976-7dab9de4826c)
