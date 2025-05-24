@@ -115,7 +115,7 @@ class AsyncTask:
         self.save_final_enhanced_image_only = args.pop() if not args_manager.args.disable_image_log else False
         self.save_metadata_to_images = args.pop() if not args_manager.args.disable_metadata else False
         self.metadata_scheme = MetadataScheme(
-            args.pop()) if not args_manager.args.disable_metadata else MetadataScheme.FOOOCUS
+            args.pop()) if not args_manager.args.disable_metadata else MetadataScheme.SIMPLE
 
         self.cn_tasks = {x: [] for x in ip_list}
         for _ in range(modules.config.default_controlnet_image_count):
@@ -478,10 +478,10 @@ def worker():
                                          loras, async_task.vae_name, '')
             
             d.append(('Backend Engine', 'backend_engine', async_task.task_class_full))
-            if async_task.metadata_scheme.value.lower() == 'simple':
-                metadata_temp = 'Fooocus'
-            elif async_task.metadata_scheme.value.lower() == 'a1111':
+            if async_task.metadata_scheme.value.lower() == 'a1111':
                 metadata_temp = 'A1111'
+            else:
+                metadata_temp = 'Fooocus'
             d.append(('Metadata Scheme', 'metadata_scheme',
                       metadata_temp if async_task.save_metadata_to_images else async_task.save_metadata_to_images))
             d.append(('Preset', 'current_preset', PR.current_preset))
