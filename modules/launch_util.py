@@ -9,8 +9,8 @@ import logging
 import importlib.metadata
 import packaging.version
 import pygit2
+from enhanced.version import is_win32_standalone_build, python_embedded_path
 from pathlib import Path
-from launch_support import python_embedded_path, is_win32_standalone_build
 
 pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
 
