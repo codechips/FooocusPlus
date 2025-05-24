@@ -4,10 +4,7 @@ import platform
 import shutil
 import sys
 import args_manager
-
-win32_root = os.path.dirname(os.path.dirname(__file__))
-python_embedded_path = os.path.join(win32_root, 'python_embedded')
-is_win32_standalone_build = os.path.exists(python_embedded_path) and os.path.isdir(python_embedded_path)
+from enhanced.version import is_win32_standalone_build, win32_root
 
 win32_cmd = '''
 @echo off
@@ -16,8 +13,7 @@ pause
 '''
 
 def build_launcher():
-    global is_win32_standalone_build
-    if not is_win32_standalone_build:
+    if not is__standalone_build:
         return
 
     branches = {"FooocusPlus": "entry_with_update.py", "FooocusPlus_dev": "entry_with_update.py --dev",\
