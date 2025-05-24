@@ -1,5 +1,6 @@
 
-![2024-12-31_14-25-35_4653](https://github.com/user-attachments/assets/f0e08244-aa79-4d65-a2f7-4f7ffefe6ac9)
+![2025-05-23_18-22-23_2090](https://github.com/user-attachments/assets/ed6a94f9-8d3e-49ec-8952-7c523fe6c2b7)
+
 
 # FooocusPlus – AI Art Made Simple
 
