@@ -4,7 +4,6 @@ import platform
 import shutil
 import sys
 import args_manager
-import common
 from enhanced.version import is_win32_standalone_build, win32_root
 
 win32_cmd = '''
@@ -193,10 +192,22 @@ def get_split_value(full_string):
     scratch = full_string.split(divider, 1)
     split_value = scratch[1] if len(scratch) > 1 else ''
     return split_value
-      
+
 def read_torch_base():
-    if not common.torch_installed:
-        return 'not installed'
+    try:
+        torch_base_path = os.path.abspath('masters/torch_base.txt')
+        torch_base = open(torch_base_path, 'r')
+        torch_base_ver = torch_base.readline().strip()
+        torch_base_ver = get_split_value(torch_base_ver)
+        torch_base.close()
+    except:
+        torch_base_ver = 'not found'
+        return torch_base_ver
+    if torch_base_ver != 'needs to be installed':
+       torch_base_ver = read_torch_user_base()
+    return torch_base_ver
+
+def read_torch_user_base():
     if is_win32_standalone_build:
         if not os.path.exists(os.path.abspath(f'../python_embedded/Lib/site-packages/torch')):
             return 'not installed'
@@ -212,6 +223,10 @@ def read_torch_base():
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
+    torch_base_path = os.path.abspath('masters/torch_base.txt')
+    torch_base = open(torch_base_path, "w")
+    torch_base.write(f"Torch base version = {torch_base_ver}")
+    torch_base.close()
     from modules.config import user_dir
     torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
     torch_base = open(torch_base_path, "w")
