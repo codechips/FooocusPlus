@@ -1,1 +1,1 @@
-Torch base version = 'needs to be installed'
+Torch base version = needs to be installed
