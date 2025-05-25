@@ -15,4 +15,4 @@ NEGATIVE = ''
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # flags whether or not this is a new installation
-torch_installed = False
+torch_installed = True
