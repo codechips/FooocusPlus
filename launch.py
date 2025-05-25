@@ -2,7 +2,7 @@ import os
 import ssl
 import sys
 import enhanced.version as version
-from common import ROOT, torch_installed
+from common import ROOT
 
 print('[System ARGV] ' + str(sys.argv))
 print(f'Root {ROOT}')
@@ -28,9 +28,9 @@ ssl._create_default_https_context = ssl._create_unverified_context
 from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
     requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
 
+torch_ver = ""
 torchruntime_ver = '1.16.1'
 # torchruntime_ver = '1.17.3' # not compatible because of lightning version
-torch_ver = ""
 verify_installed_version('torchruntime', torchruntime_ver)
 
 import torchruntime
@@ -222,6 +222,5 @@ config.update_files()
 init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenames, config.paths_loras)
 
 write_torch_base(torch_ver)
-torch_installed = True
 
 from webui import *
