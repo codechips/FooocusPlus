@@ -4,6 +4,7 @@ import platform
 import shutil
 import sys
 import args_manager
+import common
 from enhanced.version import is_win32_standalone_build, win32_root
 
 win32_cmd = '''
@@ -194,6 +195,8 @@ def get_split_value(full_string):
     return split_value
       
 def read_torch_base():
+    if not common.torch_installed:
+        return 'not installed'
     if is_win32_standalone_build:
         if not os.path.exists(os.path.abspath(f'../python_embedded/Lib/site-packages/torch')):
             return 'not installed'
