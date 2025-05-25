@@ -2,7 +2,7 @@ import os
 import ssl
 import sys
 import enhanced.version as version
-from common import ROOT
+from common import ROOT, torch_installed
 
 print('[System ARGV] ' + str(sys.argv))
 print(f'Root {ROOT}')
@@ -30,6 +30,7 @@ from modules.launch_util import is_installed, verify_installed_version, run, pyt
 
 torchruntime_ver = '1.16.1'
 # torchruntime_ver = '1.17.3' # not compatible because of lightning version
+torch_ver = ""
 verify_installed_version('torchruntime', torchruntime_ver)
 
 import torchruntime
@@ -41,6 +42,7 @@ from modules.model_loader import load_file_from_url
 
 
 def prepare_environment():
+    global torch_ver
     REINSTALL_ALL = False
     target_path_win = os.path.abspath(os.path.join(version.python_embedded_path, 'Lib/site-packages'))
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
@@ -77,7 +79,6 @@ def prepare_environment():
         torchruntime.install([torch_statement])
         torch_statement = " torchaudio==" + torchaudio_ver
         torchruntime.install([torch_statement])
-        write_torch_base(torch_ver)
 
     verify_installed_version('pytorch-lightning', pytorchlightning_ver)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
@@ -219,5 +220,8 @@ config.default_base_model_name, config.checkpoint_downloads = download_models(
 
 config.update_files()
 init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenames, config.paths_loras)
+
+write_torch_base(torch_ver)
+torch_installed = True
 
 from webui import *
