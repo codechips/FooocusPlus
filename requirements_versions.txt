@@ -60,7 +60,7 @@ pyzbar
 qrcode
 rembg==2.0.58
 rich
-rpds==5.1.0
+rpds-py==0.25.1
 sacremoses==0.1.1
 safetensors==0.4.3
 scipy==1.14.0
