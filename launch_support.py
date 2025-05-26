@@ -6,6 +6,8 @@ import sys
 import args_manager
 from enhanced.version import is_win32_standalone_build, win32_root
 
+
+torch_base_ver = ''
 win32_cmd = '''
 @echo off
 .\python_embedded\python.exe -s FooocusPlus\{cmds} %*
@@ -46,17 +48,17 @@ def dependency_resolver():
     xformers_default = "0.0.29.post1"
     pytorchlightning_default = "2.5.1.post0"
     lightningfabric_default = "2.5.1"
-   
+
     torch_ver = torch_default # initialize torch to the default
 
     import torchruntime
     from torchruntime.device_db import get_gpus
     from torchruntime.platform_detection import get_torch_platform
-    # from torchruntime.platform_detection import get_nvidia_arch #new coding    
+    # from torchruntime.platform_detection import get_nvidia_arch #new coding
 
     gpus = get_gpus()
     torchruntime_platform = get_torch_platform(gpus)
-    
+
 # new coding for torchruntime_ver = '1.17.3'
 # not compatible because of lightning version
 #    gpu_infos = get_gpus()
@@ -64,7 +66,7 @@ def dependency_resolver():
 #    torchruntime_platform = get_torch_platform(gpu_infos) # new coding
 #    device_names = set(gpu.device_name for gpu in gpu_infos)
 #    arch_version = get_nvidia_arch(device_names)
-    
+
     # First, take care of special cases
     # Note, torchruntime/torchruntime/platform_detection.py
     # suggests "directml" should be used for Intel
@@ -75,25 +77,25 @@ def dependency_resolver():
 
     # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
-        torch_ver = "special"    
-    
+        torch_ver = "special"
+
 # new coding for torchruntime_ver = '1.17.3'
 #    # Detection Logic: Windows (win32) defaults to "2.5.1", unless NVIDIA 5xxx
 #    if (sys.platform == "win32") and (arch_version == 12): # Blackwell (NVIDIA 5xxx)
 #        torch_ver = "special"
 #    elif (sys.platform == "win32") and (arch_version > 3.7 and arch_version < 7.5):
 #        torch_ver = "2.4.1"    # older NVIDIA cards such as the 10xx series, cu124
-      
+
     elif sys.platform == "linux": # Linux also defaults to "2.5.1"
         if torchruntime_platform == "nightly/cu128":
             torch_ver = "special"
-        
-# new coding for torchruntime_ver = '1.17.3'        
+
+# new coding for torchruntime_ver = '1.17.3'
 #        if arch_version == 12:    # Blackwell (NVIDIA 5xxx)
 #            torch_ver = "special"
 #        elif (arch_version > 3.7 and arch_version < 7.5):
 #            torch_ver = "2.4.1"   # older NVIDIA cards such as the 10xx series, cu124
-    
+
         elif torchruntime_platform == "rocm5.7":
             torch_ver = "2.3.1"
         elif torchruntime_platform == "rocm5.2":
@@ -106,7 +108,7 @@ def dependency_resolver():
             torch_ver = "2.2.2"
         #else:                  # fallback code: torch = "2.5.1" fails
         #    torch_ver = "2.4.1"
-            
+
     # Begin the assignment of dependencies:
     if torch_ver == "2.4.1":
         dependencies = dict(
@@ -117,7 +119,7 @@ def dependency_resolver():
             pytorchlightning_ver = "2.5.1.post0", # will be compatible with slightly older versions
             lightningfabric_ver = "2.5.1",
         )
-    
+
     elif torch_ver == "2.3.1": # for Linux rocm5.7
         dependencies = dict(
             torch_ver = "2.3.1",
@@ -126,8 +128,8 @@ def dependency_resolver():
             xformers_ver = "0.0.27",
             pytorchlightning_ver = "2.4.0",
             lightningfabric_ver = "2.4.0",
-        )        
-    
+        )
+
     elif torch_ver == "2.2.2": # last version supporting Intel Macs
         dependencies = dict(
             torch_ver = "2.2.2",
@@ -157,7 +159,7 @@ def dependency_resolver():
             pytorchlightning_ver = "",
             lightningfabric_ver = "",
         )
-    
+
     else:
         # use the defaults
         dependencies = dict(
@@ -193,9 +195,18 @@ def get_split_value(full_string):
     split_value = scratch[1] if len(scratch) > 1 else ''
     return split_value
 
-def read_torch_base():
+
+def get_torch_base_path(): # this ignores config.txt settings
+    if args_manager.args.user_dir:
+        torch_base_path = os.path.abspath(args_manager.args.user_dir)
+    else:
+        torch_base_path = os.path.abspath(os.path.join(os.pardir, 'UserDir/torch_base.txt'))
+    return torch_base_path
+
+def read_torch_base(): #this ignores config.txt settings
+    global torch_base_path
+    torch_base_path = get_torch_base_path()
     try:
-        torch_base_path = os.path.abspath('masters/torch_base.txt')
         torch_base = open(torch_base_path, 'r')
         torch_base_ver = torch_base.readline().strip()
         torch_base_ver = get_split_value(torch_base_ver)
@@ -203,18 +214,20 @@ def read_torch_base():
     except:
         torch_base_ver = 'not found'
         return torch_base_ver
-    if torch_base_ver != 'needs to be installed':
+    if torch_base_ver == '':
+       torch_base_ver = 'needs to be installed'
+    else:
        torch_base_ver = read_torch_user_base()
     return torch_base_ver
 
-def read_torch_user_base():
+def read_torch_user_base(): #this uses config.txt settings
     if is_win32_standalone_build:
         if not os.path.exists(os.path.abspath(f'../python_embedded/Lib/site-packages/torch')):
             return 'not installed'
     from modules.config import user_dir
     try:
-        torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
-        torch_base = open(torch_base_path, 'r')
+        torch_base_path2 = os.path.abspath(f'{user_dir}/torch_base.txt')
+        torch_base = open(torch_base_path2, 'r')
         torch_base_ver = torch_base.readline().strip()
         torch_base_ver = get_split_value(torch_base_ver)
         torch_base.close()
@@ -223,12 +236,14 @@ def read_torch_user_base():
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
-    torch_base_path = os.path.abspath('masters/torch_base.txt')
+    global torch_base_path
     torch_base = open(torch_base_path, "w")
     torch_base.write(f"Torch base version = {torch_base_ver}")
     torch_base.close()
     from modules.config import user_dir
-    torch_base_path = os.path.abspath(f'{user_dir}/torch_base.txt')
+    torch_base_path2 = os.path.abspath(f'{user_dir}/torch_base.txt')
+    if torch_base_path2 == torch_base_path:
+        return
     torch_base = open(torch_base_path, "w")
     torch_base.write(f"Torch base version = {torch_base_ver}")
     torch_base.close()
