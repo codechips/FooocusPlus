@@ -4,7 +4,7 @@
 * resolved the "Fooocus' is not a valid MetadataScheme" error
 * the user structure module now sets up the UserDir folders in a Linux compatible way
 * fixed a bug that was partially installing python_embedded within the program directory
-* this phantom python_embedded folder is automatically deleted if present
+* the phantom python_embedded folder is automatically deleted if present
 * Flux models are installed in either the "FluxDev" or "FluxSchnell" folders
 * if an obsolete "Flux" folder is found and it is empty, it is automatically deleted
 
