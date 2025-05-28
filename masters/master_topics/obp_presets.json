@@ -394,5 +394,23 @@
     "suffixprompt": "",
     "giventypeofimage": "",
     "antistring": ""
+  },
+  "test": {
+    "insanitylevel": 3,
+    "subject": "human - generic",
+    "artist": "fashion",
+    "chosensubjectsubtypeobject": "all",
+    "chosensubjectsubtypehumanoid": "all",
+    "chosensubjectsubtypeconcept": "all",
+    "chosengender": "all",
+    "imagetype": "photograph",
+    "imagemodechance": "100",
+    "givensubject": "supermodel",
+    "smartsubject": true,
+    "givenoutfit": "fashion outfit",
+    "prefixprompt": "",
+    "suffixprompt": "",
+    "giventypeofimage": "Fashion photography",
+    "antistring": ""
   }
 }

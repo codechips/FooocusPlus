@@ -9,7 +9,7 @@ import logging
 import importlib.metadata
 import packaging.version
 import pygit2
-from enhanced.version import is_win32_standalone_build, python_embedded_path
+from launch_support import is_win32_standalone_build, python_embedded_path
 from pathlib import Path
 
 pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
@@ -104,7 +104,7 @@ def run(command, desc=None, errdesc=None, custom_env=None, live: bool = default_
         "encoding": 'utf8',
         "errors": 'ignore',
     }
-    
+
     if not live:
         run_kwargs["stdout"] = run_kwargs["stderr"] = subprocess.PIPE
 
@@ -159,7 +159,7 @@ def requirements_met(requirements_file):
                 if line.strip().endswith('.whl'):
                     package = package.replace('_', '-')
                 version_required = f'{m1.group(2)}.{m1.group(3)}.{m1.group(4)}'
-            
+
             if line.startswith("--"):
                 continue
 
@@ -169,11 +169,11 @@ def requirements_met(requirements_file):
                 met_diff.update({package:'-'})
                 result = False
                 continue
-           
+
             #print(f'requirement:{package}, required:{version_required}, installed:{version_installed}')
             if version_required=='' and version_installed:
                 continue
-            
+
             if packaging.version.parse(version_required) != packaging.version.parse(version_installed):
                 met_diff.update({package:version_installed})
                 print(f"Version mismatch for {package}: Installed version {version_installed} does not meet requirement {version_required}")
@@ -194,10 +194,16 @@ def is_installed_version(package, version_required):
         return False
     return True
 
-def verify_installed_version(package_name, package_ver):
+def verify_installed_version(package_name, package_ver, dependencies = False):
     if not is_installed_version(package_name, package_ver):
-        run(f'"{python}" -m pip uninstall -y {package_name}')
-        run_pip(f"install -U -I --no-deps {package_name}=={package_ver}", {package_name}, live=True)
+        if dependencies:
+            run(f'"{python}" -m pip uninstall -y {package_name}')
+            run_pip(f"install -U -I {package_name}=={package_ver}", {package_name}, live=True)
+        else:
+            run(f'"{python}" -m pip uninstall -y {package_name}')
+            run_pip(f"install -U -I --no-deps {package_name}=={package_ver}", {package_name}, live=True)
+    return
+
 
 def delete_folder_content(folder, prefix=None):
     result = True

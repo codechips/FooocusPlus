@@ -77,7 +77,8 @@ if args_manager.args.user_dir:
 else:
     user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
     args_manager.args.user_dir = user_dir
-create_user_structure()
+
+create_user_structure(user_dir)
 
 def get_path_output() -> str:
     global config_dict, user_dir
@@ -87,7 +88,7 @@ def get_path_output() -> str:
         config_dict['path_outputs'] = path_output = os.path.abspath(args_manager.args.output_path)
     print(f'Generated images will be stored in {path_output}')
     return path_output
- 
+
 def get_config_path(config_file):
     global user_dir
     if args_manager.args.config:
@@ -186,20 +187,21 @@ modelsinfo = init_modelsinfo(path_models_root, dict(
     vae=[path_vae]
     ))
 
-create_model_structure()
+create_model_structure(paths_checkpoints, paths_loras)
+
 
 def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False, expected_type=None):
     global config_dict, visited_keys
 
     if key not in visited_keys:
         visited_keys.append(key)
-    
+
     v = os.getenv(key)
     if v is not None:
         v = try_eval_env_var(v, expected_type)
         print(f"Environment: {key} = {v}")
         config_dict[key] = v
- 
+
     if key not in config_dict:
         config_dict[key] = default_value
         return default_value
@@ -961,7 +963,7 @@ config_comfy_path = os.path.join(ROOT,'comfy/extra_model_paths.yaml')
 config_comfy_formatted_text = '''
 comfyui:
      models_root: {models_root}
-     checkpoints: {checkpoints} 
+     checkpoints: {checkpoints}
      clip_vision: {clip_vision}
      clip: {clip}
      controlnet: {controlnets}
@@ -975,7 +977,7 @@ comfyui:
      vae: {vae}
      '''
 
-paths2str = lambda p,n: p[0] if len(p)<=1 else '|\n'+''.join([' ']*(5+len(n)))+''.join(['\n']+[' ']*(5+len(n))).join(p) 
+paths2str = lambda p,n: p[0] if len(p)<=1 else '|\n'+''.join([' ']*(5+len(n)))+''.join(['\n']+[' ']*(5+len(n))).join(p)
 config_comfy_text = config_comfy_formatted_text.format(models_root=path_models_root, checkpoints=paths2str(paths_checkpoints,'checkpoints'), clip_vision=path_clip_vision, clip=path_clip, controlnets=paths2str(paths_controlnet,'controlnet'), diffusers=paths2str(paths_diffusers,'diffusers'), embeddings=path_embeddings, loras=paths2str(paths_loras, 'loras'), upscale_models=path_upscale_models, unet=paths2str([path_unet]+paths_checkpoints, 'unet'), rembg=path_rembg, layer_model=path_layer_model, vae=path_vae)
 with open(config_comfy_path, "w", encoding="utf-8") as comfy_file:
     comfy_file.write(config_comfy_text)
@@ -1214,7 +1216,7 @@ def downloading_superprompter_model():
     url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/README.md',
     model_dir=path_superprompter,
     file_name='README.md'
-    )    
+    )
     load_file_from_url(
     url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/spiece.model',
     model_dir=path_superprompter,
@@ -1229,7 +1231,7 @@ def downloading_superprompter_model():
     url='https://huggingface.co/roborovski/superprompt-v1/resolve/main/tokenizer_config.json',
     model_dir=path_superprompter,
     file_name='tokenizer_config.json'
-    ) 
+    )
     return os.path.join(path_superprompter, 'model.safetensors')
 
 def downloading_sd3_medium_model():

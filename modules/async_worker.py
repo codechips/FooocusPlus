@@ -114,8 +114,10 @@ class AsyncTask:
 
         self.save_final_enhanced_image_only = args.pop() if not args_manager.args.disable_image_log else False
         self.save_metadata_to_images = args.pop() if not args_manager.args.disable_metadata else False
-        self.metadata_scheme = MetadataScheme(
-            args.pop()) if not args_manager.args.disable_metadata else MetadataScheme.FOOOCUS
+        meta_scheme = args.pop()
+        if meta_scheme != 'a1111':
+            meta_scheme = 'simple'
+        self.metadata_scheme = MetadataScheme(meta_scheme)
 
         self.cn_tasks = {x: [] for x in ip_list}
         for _ in range(modules.config.default_controlnet_image_count):
@@ -185,7 +187,7 @@ class AsyncTask:
             self.task_name = 'default'
             self.task_method = self.layer_method
         self.task_class_full = task_class_mapping[self.task_class]
-      
+
         if self.task_class in ['Kolors+', 'Kolors', 'Flux', 'HyDiT+', 'SD3x'] and self.task_name not in ['Kolors+', 'Flux', 'HyDiT+', 'SD3x']:
             self.task_name = self.task_class
         if len(self.loras) > 0:
@@ -205,7 +207,7 @@ class AsyncTask:
             }
         if self.task_name == 'default' and self.task_class == 'Comfy':
             self.params_backend.update({"ui_options": ui_options})
-        
+
 
 async_tasks = []
 
@@ -239,7 +241,7 @@ def worker():
     import extras.ip_adapter as ip_adapter
     import extras.face_crop
     import enhanced.version as version
-    
+
     from datetime import datetime
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
@@ -335,7 +337,7 @@ def worker():
                      total_count, show_intermediate_results, persist_image=True):
         if async_task.last_stop is not False:
             ldm_patched.modules.model_management.interrupt_current_processing()
-        
+
         if async_task.task_class in flags.comfy_classes:
             default_params = dict(
                 prompt=task["positive"][0],
@@ -357,7 +359,7 @@ def worker():
                 input_images = [HWC3(async_task.layer_input_image)]
             try:
                 options = async_task.params_backend.get('ui_options', {})
-                comfy_task = get_comfy_task(async_task.task_name, async_task.task_method, 
+                comfy_task = get_comfy_task(async_task.task_name, async_task.task_method,
                         default_params, input_images, options)
                 imgs = comfypipeline.process_flow(comfy_task.name, comfy_task.params, comfy_task.images, callback=callback)
             except ValueError as e:
@@ -400,7 +402,7 @@ def worker():
             del positive_cond, negative_cond  # Save memory
             if inpaint_worker.current_task is not None:
                 imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
-        
+
         current_progress = int(base_progress + (100 - preparation_steps) / float(all_steps) * steps)
         if modules.config.default_black_out_nsfw or async_task.black_out_nsfw:
             progressbar(async_task, current_progress, 'Checking for NSFW content...')
@@ -476,7 +478,7 @@ def worker():
                                          task['log_negative_prompt'], task['negative'],
                                          async_task.steps, async_task.base_model_name, async_task.refiner_model_name,
                                          loras, async_task.vae_name, '')
-            
+
             d.append(('Backend Engine', 'backend_engine', async_task.task_class_full))
             if async_task.metadata_scheme.value.lower() == 'a1111':
                 metadata_temp = 'A1111'
@@ -728,7 +730,7 @@ def worker():
             height = async_task.overwrite_height
         return steps, switch, width, height
 
-    
+
     def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number,
                        disable_seed_increment, use_expansion, use_style, use_synthetic_refiner,
                        current_progress, advance_progress=False):
@@ -741,7 +743,7 @@ def worker():
 
         extra_positive_prompts = prompts[1:] if len(prompts) > 1 else []
         extra_negative_prompts = negative_prompts[1:] if len(negative_prompts) > 1 else []
-        
+
         lora_filenames = modules.util.remove_performance_lora(modules.config.lora_filenames,
                                                               async_task.performance_selection)
         loras, prompt = parse_lora_references_from_prompt(prompt, async_task.loras,
@@ -783,7 +785,7 @@ def worker():
             else:
                 ev = 0  # set "extra_variation" to a neutral value
                 ev_base = ev
-                
+
             if disable_seed_increment:
                 task_seed = async_task.seed % (constants.MAX_SEED + 1)
                 wild_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # always increment seed for wildcards
@@ -791,7 +793,7 @@ def worker():
                 task_seed = (async_task.seed + i + ev) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 wild_seed = task_seed
 #            print(f'Wildcard Seed: {wild_seed}') perhaps this value should be recorded in the log
-            
+
             task_rng = random.Random(wild_seed)
             task_prompt = apply_wildcards(prompt, task_rng, i, async_task.read_wildcards_in_order)
             task_prompt = apply_arrays(task_prompt, i)
@@ -1197,7 +1199,7 @@ def worker():
         async_task.processing = True
         ldm_patched.modules.model_management.print_memory_info()
         print(f'[TaskEngine] Task_class:{async_task.task_class}, Task_name:{async_task.task_name}, Task_method:{async_task.task_method}')
-        
+
         if async_task.task_class in flags.comfy_classes:
             print(f'[TaskEngine] Enable Comfyd backend.')
             comfyd.start()
@@ -1251,7 +1253,7 @@ def worker():
         initial_latent = None
         denoising_strength = 1.0
         tiled = False
-        
+
         width, height = AR.AR_split(async_task.aspect_ratios_selection)
         width, height = int(width), int(height)
 
@@ -1642,7 +1644,7 @@ def worker():
                     preparation_steps, switch, tiled, total_count, use_expansion, use_style, use_synthetic_refiner,
                     width, persist_image)
                 async_task.enhance_stats[index] += 1
-                
+
                 if exception_result == 'continue':
                     continue
                 elif exception_result == 'break':

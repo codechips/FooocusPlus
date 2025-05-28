@@ -1,11 +1,15 @@
 import os
 import glob
+from pathlib import Path
 import platform
 import shutil
 import sys
 import args_manager
-from enhanced.version import is_win32_standalone_build, win32_root
 
+
+win32_root = (Path.cwd()).parent
+python_embedded_path = Path(win32_root/'python_embedded')
+is_win32_standalone_build = python_embedded_path.is_dir()
 
 torch_base_ver = ''
 win32_cmd = '''

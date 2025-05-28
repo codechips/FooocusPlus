@@ -2,6 +2,7 @@ import os
 import ssl
 import sys
 import enhanced.version as version
+from pathlib import Path
 from common import ROOT
 
 print('[System ARGV] ' + str(sys.argv))
@@ -36,15 +37,17 @@ verify_installed_version('torchruntime', torchruntime_ver)
 import torchruntime
 import platform
 import comfy.comfy_version
-from launch_support import build_launcher, delete_torch_dependencies, \
-    dependency_resolver, read_torch_base, write_torch_base
+
+from launch_support import build_launcher, delete_torch_dependencies, dependency_resolver, \
+is_win32_standalone_build, python_embedded_path, \
+read_torch_base, write_torch_base
 from modules.model_loader import load_file_from_url
 
 
 def prepare_environment():
     global torch_ver
     REINSTALL_ALL = False
-    target_path_win = os.path.abspath(os.path.join(version.python_embedded_path, 'Lib/site-packages'))
+    target_path_win = Path(python_embedded_path/'Lib/site-packages')
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
     torch_dict = dependency_resolver()
     torch_ver = torch_dict['torch_ver']
@@ -61,7 +64,8 @@ def prepare_environment():
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
     print('Checking for required library files and loading Xformers...')
-    
+
+
     if REINSTALL_ALL or torch_ver != torch_base_ver:
         print(f'Updating to Torch {torch_ver} and its dependencies:')
         print(torch_dict)
@@ -80,8 +84,9 @@ def prepare_environment():
         torch_statement = " torchaudio==" + torchaudio_ver
         torchruntime.install([torch_statement])
 
-    verify_installed_version('pytorch-lightning', pytorchlightning_ver)
+    verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
     verify_installed_version('lightning-fabric', lightningfabric_ver)
+
 
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
@@ -93,20 +98,20 @@ def prepare_environment():
                 "https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
             if not is_installed("xformers"):
                 exit(0)
-    
+
     if REINSTALL_ALL or not requirements_met(requirements_file):
         if len(met_diff.keys())>0:
             for p in met_diff.keys():
                 print(f'Uninstall {p}.{met_diff[p]} ...')
                 run(f'"{python}" -m pip uninstall -y {p}=={met_diff[p]}')
-        if version.is_win32_standalone_build:
+        if is_win32_standalone_build:
             run_pip(f"install -r \"{requirements_file}\" -t {target_path_win}", "requirements")
         else:
             run_pip(f"install -r \"{requirements_file}\"", "requirements")
 
     patch_requirements = "requirements_patch.txt"
     if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
-        version.is_win32_standalone_build:
+        is_win32_standalone_build:
             print('Updating with required patch files...')
             run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
     return
@@ -151,6 +156,7 @@ if config.temp_path_cleanup_on_launch:
     else:
         print(f"[Cleanup] Failed to delete the content of the temp. directory")
 
+
 def download_models(default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads, vae_downloads):
     from modules.util import get_file_from_folder_list
 
@@ -181,14 +187,14 @@ def download_models(default_model, previous_default_models, checkpoint_downloads
     for file_name, url in checkpoint_downloads.items():
         model_dir = os.path.dirname(get_file_from_folder_list(file_name, config.paths_checkpoints))
         load_file_from_url(url=url, model_dir=model_dir, file_name=file_name)
-    
+
     for file_name, url in embeddings_downloads.items():
         load_file_from_url(url=url, model_dir=config.path_embeddings, file_name=file_name)
-        
+
     for file_name, url in lora_downloads.items():
         model_dir = os.path.dirname(get_file_from_folder_list(file_name, config.paths_loras))
         load_file_from_url(url=url, model_dir=model_dir, file_name=file_name)
-        
+
     for file_name, url in vae_downloads.items():
         load_file_from_url(url=url, model_dir=config.path_vae, file_name=file_name)
 
@@ -202,7 +208,7 @@ if launch_vram<6:
     print('However, any system with less than 6GB of VRAM will tend to be slow')
     print('and unreliable, and may or may not be able to generate Flux images.')
     print('Some 4GB VRAM cards may even be unable to generate SDXL images.')
-    
+
     if launch_vram<4: # some folks actually can run Flux with 4GB VRAM cards, so only lock out those with less than that
         print()
         if args.language == 'cn':

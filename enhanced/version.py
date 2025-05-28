@@ -1,16 +1,12 @@
 import os
 import sys
 from pathlib import Path
-
-win32_root = os.path.dirname(os.path.dirname(__file__))
-python_embedded_path = os.path.join(win32_root, 'python_embedded')
-is_win32_standalone_build = os.path.exists(python_embedded_path) and os.path.isdir(python_embedded_path)
+from launch_support import is_win32_standalone_build
 
 commit_id = ''
 fooocusplus_ver = ''
 
 def get_library_ver():
-    global is_win32_standalone_build
     if is_win32_standalone_build:
         current_library = Path('../python_embedded/embedded_version/library_version.py')
         if os.path.exists(current_library):
@@ -28,7 +24,6 @@ def get_library_ver():
             return 1.00
 
 def get_required_library():
-    global is_win32_standalone_build
     if (not os.path.exists('required_library.py')) or (not is_win32_standalone_build):
         return True
     import required_library
@@ -47,7 +42,7 @@ def get_fooocusplus_ver():
                 while line:
                     if line.startswith("# "):
                         break
-                    line = log_file.readline().strip()                
+                    line = log_file.readline().strip()
         else:
             line = '0.9.0'
         fooocusplus_ver = line.strip('# ')
