@@ -88,7 +88,6 @@ def prepare_environment():
         torch_statement = " torchaudio==" + torchaudio_ver
         torchruntime.install([torch_statement])
 
-
         verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
         verify_installed_version('lightning-fabric', lightningfabric_ver)
 
