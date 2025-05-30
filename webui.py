@@ -22,7 +22,7 @@ import modules.meta_parser
 import modules.preset_resource as PR
 import modules.style_sorter as style_sorter
 import modules.ui_support as UIS
-import modules.user_structure
+import modules.user_structure as US
 
 from extras.inpaint_mask import SAMOptions
 from json import dumps
@@ -1104,8 +1104,8 @@ with common.GRADIO_ROOT:
                 def refresh_files_clicked(state_params):
                     print()
                     print('Refreshing all files...')
-                    modules.user_structure.create_user_structure(modules.config.user_dir)
-                    modules.user_structure.create_model_structure(modules.config.paths_checkpoints, config.paths_loras)
+                    US.create_user_structure(modules.config.user_dir, PR.get_preset_foldernames())
+                    modules.user_structure.create_model_structure(modules.config.paths_checkpoints, modules.config.paths_loras)
                     engine = state_params.get('engine', 'Fooocus')
                     task_method = state_params.get('task_method', None)
                     model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)

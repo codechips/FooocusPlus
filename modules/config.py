@@ -8,13 +8,14 @@ import modules.aspect_ratios as AR
 import modules.flags
 import modules.sdxl_styles
 import modules.preset_resource as PR
+import modules.user_structure as US
 import tempfile
 
 from common import ROOT
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
 from modules.model_loader import load_file_from_url
-from modules.user_structure import create_user_structure, create_model_structure
+
 
 config_dict = {}
 always_save_keys = []
@@ -78,7 +79,7 @@ else:
     user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
     args_manager.args.user_dir = user_dir
 
-create_user_structure(user_dir)
+US.create_user_structure(user_dir, PR.get_preset_foldernames())
 
 def get_path_output() -> str:
     global config_dict, user_dir
@@ -187,7 +188,7 @@ modelsinfo = init_modelsinfo(path_models_root, dict(
     vae=[path_vae]
     ))
 
-create_model_structure(paths_checkpoints, paths_loras)
+US.create_model_structure(paths_checkpoints, paths_loras)
 
 
 def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False, expected_type=None):

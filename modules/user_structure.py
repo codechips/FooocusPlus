@@ -1,6 +1,5 @@
 import os
 import shutil
-import modules.preset_resource as PR
 from pathlib import Path
 
 
@@ -71,7 +70,7 @@ def create_model_structure(paths_checkpoints, paths_loras):
     return
 
 
-def create_user_structure(user_dir):
+def create_user_structure(user_dir, preset_foldernames):
 
     # cleanup an error condition from version 1.0.0
     remove_dirs('python_embedded')
@@ -119,9 +118,25 @@ def create_user_structure(user_dir):
 
     user_presets_path = Path(user_dir_path/'user_presets')
     make_dirs(user_presets_path)
-    preset_foldernames = PR.get_preset_foldernames()
     for preset_folder in preset_foldernames:
         make_dirs(user_presets_path/preset_folder)
     copy_dirs(user_presets_path, working_presets_path)
     print(f'Updated the working preset folder: {working_presets_path.resolve()}')
+
+
+    # and finally, initialize the Styles structure
+    master_styles_path = Path('masters/master_styles')
+    ref_master_styles_path = Path(user_dir_path/'master_styles')
+    remove_dirs(ref_master_styles_path)
+    copy_dirs(master_styles_path, ref_master_styles_path)
+
+    working_styles_path = Path('sdxl_styles')
+    remove_dirs(working_styles_path)
+    copy_dirs(master_styles_path, working_styles_path)
+
+    user_styles_path = Path(user_dir_path/'user_styles')
+    make_dirs(user_styles_path)
+    copy_dirs(user_styles_path, working_styles_path)
+    print(f'Updated the working styles folder: {working_styles_path.resolve()}')
+
     return

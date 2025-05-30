@@ -5,7 +5,7 @@
 * the user structure module now sets up the UserDir folders in a Linux compatible way
 * fixed a bug that was partially installing python_embedded within the program directory
 * this phantom python_embedded folder is automatically deleted if present
-* Flux models are installed in either the "FluxDev" or "FluxSchnell" folders
+* from 1.0.0, Flux models are installed in either the "FluxDev" or "FluxSchnell" folders
 * if an obsolete "Flux" folder is found and it is empty, it is automatically deleted
 
 # 1.0.0
@@ -102,7 +102,7 @@
 * fully integrated the upscale or vary (UOV) sliders into normal operation
 * the Vary (Subtle) and Vary (Strong) radio buttons no longer exist,
   instead their values are indicated in the info. text below the vary slider
-* upscale and vary descriptions are now more friendly and helpful  
+* upscale and vary descriptions are now more friendly and helpful
 * set the widths for the Random Prompt and Generate columns to 75 pixels
 * except for Describe and Meta, the Input Image tabs are restored to the Fooocus standard
 * the number of pages in the image catalogue now defaults to a maximum of 100 instead of 65

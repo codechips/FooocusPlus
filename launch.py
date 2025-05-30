@@ -67,16 +67,20 @@ def prepare_environment():
 
 
     if REINSTALL_ALL or torch_ver != torch_base_ver:
+        print(f'Using Torchruntime {is_installed(torchruntime)} to configure Torch')
         print(f'Updating to Torch {torch_ver} and its dependencies:')
         print(torch_dict)
         print()
         delete_torch_dependencies()
+        # remove the crosshatch in the next line to force NVIDIA 50xx support
+#        torch_ver = 'special'
         if torch_ver == "special":
             torch_ver = ""
             torchruntime_ver = '1.17.3' # for NVIDIA 50xx only
             verify_installed_version('torchruntime', torchruntime_ver)
             import importlib
             importlib.reload(torchruntime)
+            print(f'Installed Torchruntime {is_installed(torchruntime)} to support NVIDIA 50xx')
         torch_statement = "torch==" + torch_ver
         torchruntime.install([torch_statement])
         torch_statement = " torchvision==" + torchvision_ver
@@ -84,8 +88,9 @@ def prepare_environment():
         torch_statement = " torchaudio==" + torchaudio_ver
         torchruntime.install([torch_statement])
 
-    verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
-    verify_installed_version('lightning-fabric', lightningfabric_ver)
+
+        verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
+        verify_installed_version('lightning-fabric', lightningfabric_ver)
 
 
     if REINSTALL_ALL or not is_installed("xformers"):
