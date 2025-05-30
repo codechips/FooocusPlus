@@ -1,6 +1,5 @@
 
-
-![2025-05-23_18-18-27_8275](https://github.com/user-attachments/assets/449a3965-32c5-4ccc-94c6-b6b913afd1d0)
+![2025-05-27_23-38-45_3956](https://github.com/user-attachments/assets/63712104-6f67-4412-9b67-347306786aa2)
 
 
 # FooocusPlus – AI Art Made Simple
@@ -58,7 +57,7 @@ If you were using a pre-release or Beta version of FooocusPlus, please be sure t
 - The _latest_ version of [7-Zip](https://7-zip.org/) (the installation may fail if the version is not current)
 - The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus.7z) program archive
 - If you are using Windows, the [Python library](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/python_embedded.7z) files
-- The FooocusPlus [Model Starter Pack](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/StarterPack.7z) (the Starter Pack is optional but will save you a lot of time later)
+- The FooocusPlus [Model Support Pack](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/SupportPack.7z) (the Support Pack is optional but will save you a lot of time later)
 <br/><br/>
 1. After your downloads are complete, first install 7-Zip.
 
@@ -66,7 +65,7 @@ If you were using a pre-release or Beta version of FooocusPlus, please be sure t
 
 3. Next, install the _python_embedded_ library archive into the FooocusPlus folder.
 
-4. Lastly, install the _Model Starter Pack_ to the FooocusPlus folder. These files will be added to the UserDir\models subfolder.
+4. Lastly, install the _Model Support Pack_ to the FooocusPlus folder. These files will be added to the UserDir\models subfolder.
 
 5. Now double-click on the _run_FooocusPlus.bat_ file to load FooocusPlus for the first time. It will download some additional components automatically on the first run.
 
@@ -74,7 +73,7 @@ Language and optional preset startup files are available in the FooocusPlus\User
      
 ## Getting Help
 
-Have a question or concern? Visit the Discussions page here at GitHub or join our friendly community at the Facebook [Pure Fooocus](https://www.facebook.com/groups/fooocus) group. If you think you have found a bug or want to suggest a missing feature, visit the GitHub Issues page to file a report so that we can investigate.
+Have a question or concern? Visit the Discussions page here at GitHub or join our active and friendly community at the Facebook [Pure Fooocus](https://www.facebook.com/groups/fooocus) group. If you think you have found a bug or want to suggest a missing feature, visit the GitHub Issues page to file a report so that we can investigate.
 
 ## Licensing
 
