@@ -6,7 +6,6 @@ import args_manager
 import enhanced.all_parameters as ads
 import modules.aspect_ratios as AR
 import modules.flags
-import modules.sdxl_styles
 import modules.preset_resource as PR
 import modules.user_structure as US
 import tempfile
@@ -447,6 +446,7 @@ enable_auto_describe_image = get_config_item_or_set_default(
     expected_type=bool
 )
 
+import modules.sdxl_styles
 default_styles = get_config_item_or_set_default(
     key='default_styles',
     default_value=[
@@ -1284,6 +1284,7 @@ AR.available_pixart_aspect_ratios = available_pixart_aspect_ratios
 AR.AR_shortlist = enable_shortlist_aspect_ratios
 
 # Preset Resource support
+print(f'Config default_low_vram_presets {default_low_vram_presets}')
 PR.default_low_vram_presets = default_low_vram_presets
 PR.default_sampler = default_sampler
 PR.default_bar_category = default_bar_category

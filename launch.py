@@ -26,12 +26,12 @@ if "GRADIO_SERVER_PORT" not in os.environ:
     os.environ["GRADIO_SERVER_PORT"] = "7865"
 ssl._create_default_https_context = ssl._create_unverified_context
 
-from modules.launch_util import is_installed, verify_installed_version, run, python, run_pip,\
-    requirements_met, delete_folder_content, git_clone, index_url, target_path_install, met_diff
+from modules.launch_util import is_installed, verify_installed_version,\
+    run, python, run_pip, run_pip_url, requirements_met, delete_folder_content,\
+    git_clone, index_url, target_path_install, met_diff
 
 torch_ver = ""
 torchruntime_ver = '1.16.1'
-# torchruntime_ver = '1.17.3' # not compatible because of lightning version
 verify_installed_version('torchruntime', torchruntime_ver)
 
 import torchruntime
@@ -67,26 +67,22 @@ def prepare_environment():
 
 
     if REINSTALL_ALL or torch_ver != torch_base_ver:
-        print(f'Using Torchruntime {is_installed(torchruntime)} to configure Torch')
+        print(f'Using Torchruntime to configure Torch')
         print(f'Updating to Torch {torch_ver} and its dependencies:')
         print(torch_dict)
         print()
         delete_torch_dependencies()
-        # remove the crosshatch in the next line to force NVIDIA 50xx support
-#        torch_ver = 'special'
-        if torch_ver == "special":
-            torch_ver = ""
-            torchruntime_ver = '1.17.3' # for NVIDIA 50xx only
-            verify_installed_version('torchruntime', torchruntime_ver)
-            import importlib
-            importlib.reload(torchruntime)
-            print(f'Installed Torchruntime {is_installed(torchruntime)} to support NVIDIA 50xx')
-        torch_statement = "torch==" + torch_ver
-        torchruntime.install([torch_statement])
-        torch_statement = " torchvision==" + torchvision_ver
-        torchruntime.install([torch_statement])
-        torch_statement = " torchaudio==" + torchaudio_ver
-        torchruntime.install([torch_statement])
+
+        if torch_ver == "2.7.0": # NVIDIA 50xx support
+            run_pip_url('install torch torchaudio torchvision', 'NVIDIA 50xx support', 'https://download.pytorch.org/whl/cu128')
+
+        else:
+            torch_statement = "torch==" + torch_ver
+            torchruntime.install([torch_statement])
+            torch_statement = " torchvision==" + torchvision_ver
+            torchruntime.install([torch_statement])
+            torch_statement = " torchaudio==" + torchaudio_ver
+            torchruntime.install([torch_statement])
 
         verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
         verify_installed_version('lightning-fabric', lightningfabric_ver)
@@ -117,7 +113,7 @@ def prepare_environment():
     if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
         is_win32_standalone_build:
             print('Updating with required patch files...')
-            run_pip(f"install -r \"{patch_requirements}\"", "requirements patching")
+            run_pip(f"install -r \"{patch_requirements}\"", "patching requirements")
     return
 
 
