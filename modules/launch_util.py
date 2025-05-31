@@ -23,8 +23,7 @@ re_req_local_file = re.compile(r"\S*/([-_a-zA-Z0-9]+)-([0-9]+).([0-9]+).([0-9]+)
 
 python = sys.executable
 default_command_live = (os.environ.get('LAUNCH_LIVE_OUTPUT') == "1")
-# index_url = os.environ.get('INDEX_URL', "https://pypi.tuna.tsinghua.edu.cn/simple")
-# replace with the mainline Fooocus and RuinedFooocus statement:
+# the mainline Fooocus and RuinedFooocus statement:
 index_url = os.environ.get('INDEX_URL', "")
 
 target_path_install = f' -t {os.path.abspath(os.path.join(python_embedded_path, "Lib/site-packages"))}'\
@@ -129,10 +128,21 @@ def run_pip(command, desc=None, live=default_command_live):
     try:
         index_url_line = f' --index-url {index_url}' if index_url != '' else ''
         return run(f'"{python}" -m pip {command} {target_path_install} --prefer-binary{index_url_line}', desc=f"Installing {desc}",
-                   errdesc=f"Couldn't install {desc}", live=live)
+                   errdesc=f"Could not install {desc}", live=live)
     except Exception as e:
         print(e)
-        print(f'CMD Failed {desc}: {command}')
+        print(f'Pip {desc} command failed: {command}')
+        return None
+
+def run_pip_url(command, desc=None, arg_index=index_url, live=default_command_live):
+    try:
+        index_url_line = f' --index-url {arg_index}' if arg_index != '' else ''
+        print(f'{python} -m pip {command} {target_path_install} --prefer-binary {index_url_line}')
+        return run(f'"{python}" -m pip {command} {target_path_install} --prefer-binary {index_url_line}', desc=f"Installing {desc} from {arg_index}",
+                   errdesc=f"Could not install {desc} from {arg_index}", live=live)
+    except Exception as e:
+        print(e)
+        print(f'Pip {desc} command failed: {command}')
         return None
 
 
@@ -180,6 +190,7 @@ def requirements_met(requirements_file):
                 result = False
 
     return result
+
 
 def is_installed_version(package, version_required):
     try:

@@ -80,8 +80,8 @@ def get_presets_in_folder(arg_folder_name):
             print()
     else:
         print(f'Could not find the {arg_folder_name} folder.')
-        print()        
-    return presets_in_folder  
+        print()
+    return presets_in_folder
 
 def get_presetnames_in_folder(folder_name):
     presetnames_in_folder = []
@@ -141,7 +141,7 @@ def bar_button_change(bar_button, state_params):
     category_selection = find_preset_category(current_preset)
     return state_params, gr.update(value=category_selection),\
         gr.update(value=current_preset)
-    
+
 def get_preset_content(preset):
     preset_file = find_preset_file(preset)
     if preset_file:
@@ -160,6 +160,9 @@ def get_initial_preset_content():
     global current_preset, category_selection, default_low_vram_presets, default_bar_category
     json_content = ''
     preset = args_manager.args.preset
+#    print(f'default_low_vram_presets {default_low_vram_presets}')
+#    print(f'VRAM & flag check {(int(model_management.get_vram())<6000 or default_low_vram_presets==True)}')
+#    print(f'preset {preset}')
     if (preset=='initial' or preset.lower()=='default') \
         and (int(model_management.get_vram())<6000 \
         or default_low_vram_presets==True):
@@ -203,7 +206,7 @@ def get_preset_foldernames():
 def get_preset_categories():
     preset_categories = get_preset_foldernames()
     if preset_categories:
-        preset_categories.append('All')    
+        preset_categories.append('All')
         preset_categories.append('Random')
         preset_categories.sort()
     return preset_categories

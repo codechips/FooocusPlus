@@ -1284,6 +1284,7 @@ AR.available_pixart_aspect_ratios = available_pixart_aspect_ratios
 AR.AR_shortlist = enable_shortlist_aspect_ratios
 
 # Preset Resource support
+print(f'Config default_low_vram_presets {default_low_vram_presets}')
 PR.default_low_vram_presets = default_low_vram_presets
 PR.default_sampler = default_sampler
 PR.default_bar_category = default_bar_category

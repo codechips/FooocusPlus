@@ -63,13 +63,6 @@ def dependency_resolver():
     gpus = get_gpus()
     torchruntime_platform = get_torch_platform(gpus)
 
-# new coding for torchruntime_ver = '1.17.3'
-# not compatible because of lightning version
-#    gpu_infos = get_gpus()
-#    torchruntime_platform = get_torch_platform(gpus_infos)
-#    torchruntime_platform = get_torch_platform(gpu_infos) # new coding
-#    device_names = set(gpu.device_name for gpu in gpu_infos)
-#    arch_version = get_nvidia_arch(device_names)
 
     # First, take care of special cases
     # Note, torchruntime/torchruntime/platform_detection.py
@@ -81,40 +74,32 @@ def dependency_resolver():
 
     # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
     if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
-        torch_ver = "special"
-
-# new coding for torchruntime_ver = '1.17.3'
-#    # Detection Logic: Windows (win32) defaults to "2.5.1", unless NVIDIA 5xxx
-#    if (sys.platform == "win32") and (arch_version == 12): # Blackwell (NVIDIA 5xxx)
-#        torch_ver = "special"
-#    elif (sys.platform == "win32") and (arch_version > 3.7 and arch_version < 7.5):
-#        torch_ver = "2.4.1"    # older NVIDIA cards such as the 10xx series, cu124
+        torch_ver = "2.7.0"
 
     elif sys.platform == "linux": # Linux also defaults to "2.5.1"
         if torchruntime_platform == "nightly/cu128":
-            torch_ver = "special"
-
-# new coding for torchruntime_ver = '1.17.3'
-#        if arch_version == 12:    # Blackwell (NVIDIA 5xxx)
-#            torch_ver = "special"
-#        elif (arch_version > 3.7 and arch_version < 7.5):
-#            torch_ver = "2.4.1"   # older NVIDIA cards such as the 10xx series, cu124
-
+            torch_ver = "2.7.0"
         elif torchruntime_platform == "rocm5.7":
             torch_ver = "2.3.1"
         elif torchruntime_platform == "rocm5.2":
             torch_ver = "1.13.1"
-        #else:                  # fallback code: torch = "2.5.1" fails
-        #    torch_ver = "2.4.1"
 
     elif sys.platform == "darwin": # (OSX) Apple Silicon defaults to "2.5.1"
         if platform.machine == "amd64":
             torch_ver = "2.2.2"
-        #else:                  # fallback code: torch = "2.5.1" fails
-        #    torch_ver = "2.4.1"
 
     # Begin the assignment of dependencies:
-    if torch_ver == "2.4.1":
+    if torch_ver == "2.7.0": # NVIDIA 50xx support
+        dependencies = dict(
+            torch_ver = "2.7.0",
+            torchvision_ver = "0.22.0",
+            torchaudio_ver = "2.7.0",
+            xformers_ver = xformers_default,
+            pytorchlightning_ver = pytorchlightning_default,
+            lightningfabric_ver = lightningfabric_default,
+        )
+
+    elif torch_ver == "2.4.1":
         dependencies = dict(
             torch_ver = "2.4.1",
             torchvision_ver = "0.19.1",
@@ -152,16 +137,6 @@ def dependency_resolver():
             xformers_ver = "0.0.20", # but not compatible with ROCm, rocm6.2.4 only
             pytorchlightning_ver = "2.2.5",
             lightningfabric_ver = "2.2.5",
-        )
-
-    elif torch_ver == "special": # version not specified (launch will clear the string)
-        dependencies = dict(
-            torch_ver = "special",
-            torchvision_ver = "",
-            torchaudio_ver = "",
-            xformers_ver = "",
-            pytorchlightning_ver = "",
-            lightningfabric_ver = "",
         )
 
     else:
