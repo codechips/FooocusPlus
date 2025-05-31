@@ -1105,7 +1105,7 @@ with common.GRADIO_ROOT:
                     print()
                     print('Refreshing all files...')
                     US.create_user_structure(modules.config.user_dir, PR.get_preset_foldernames())
-                    modules.user_structure.create_model_structure(modules.config.paths_checkpoints, modules.config.paths_loras)
+                    US.create_model_structure(modules.config.paths_checkpoints, modules.config.paths_loras)
                     engine = state_params.get('engine', 'Fooocus')
                     task_method = state_params.get('task_method', None)
                     model_filenames, lora_filenames, vae_filenames = modules.config.update_files(engine, task_method)
