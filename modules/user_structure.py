@@ -9,7 +9,21 @@ def copy_dirs(arg_source, arg_dest):
     shutil.copytree(source_path, dest_path, dirs_exist_ok = True)
     return
 
-def make_dirs(arg_dir):
+def empty_dir(arg_dir):
+    result = True
+    empty_path = Path(arg_dir)
+    try:
+        for item in empty_path.iterdir():
+            if item.is_file():
+                item.unlink(missing_ok=True)
+            elif item.is_dir():
+                shutil.rmtree(item, ignore_errors=True)
+    except Exception as e:
+        print(f'Could not to delete {empty_path}. Reason: {e}')
+        result = False
+    return result
+
+def make_dir(arg_dir):
     make_path = Path(arg_dir)
     if not make_path.is_dir():
         make_path.mkdir(parents = True, exist_ok = True)
@@ -51,21 +65,21 @@ def create_model_structure(paths_checkpoints, paths_loras):
     # ensure that all the special model directories exist
     # and this will initialize shared model storage outside of UserDir
     checkpoint0_path = Path(paths_checkpoints[0])
-    make_dirs(checkpoint0_path/'Alternative')
-    make_dirs(checkpoint0_path/'FluxDev')
-    make_dirs(checkpoint0_path/'FluxSchnell')
-    make_dirs(checkpoint0_path/'LowVRAM')
-    make_dirs(checkpoint0_path/'Pony')
-    make_dirs(checkpoint0_path/'SD1.5')
-    make_dirs(checkpoint0_path/'SD3x')
+    make_dir(checkpoint0_path/'Alternative')
+    make_dir(checkpoint0_path/'FluxDev')
+    make_dir(checkpoint0_path/'FluxSchnell')
+    make_dir(checkpoint0_path/'LowVRAM')
+    make_dir(checkpoint0_path/'Pony')
+    make_dir(checkpoint0_path/'SD1.5')
+    make_dir(checkpoint0_path/'SD3x')
 
     # ensure that the special LoRA directories exist
     loras0_path = Path(paths_loras[0])
-    make_dirs(loras0_path/'Alternative')
-    make_dirs(loras0_path/'Flux')
-    make_dirs(loras0_path/'Pony')
-    make_dirs(loras0_path/'SD1.5')
-    make_dirs(loras0_path/'SD3x')
+    make_dir(loras0_path/'Alternative')
+    make_dir(loras0_path/'Flux')
+    make_dir(loras0_path/'Pony')
+    make_dir(loras0_path/'SD1.5')
+    make_dir(loras0_path/'SD3x')
 
     return
 
@@ -100,7 +114,7 @@ def create_user_structure(user_dir, preset_foldernames):
     # overwrite 'userfiles' with the contents of user_dir './user_topics'
     # this allows a user to completely customize the available topics, if desired
     user_topics_path = Path(user_dir_path/'user_topics')
-    make_dirs(user_topics_path)
+    make_dir(user_topics_path)
     copy_dirs(user_topics_path, working_topics_path)
     print('Updated the working Random Prompt (OneButtonPrompt) topics folder:')
     print(f'  {working_topics_path.resolve()}')
@@ -117,9 +131,9 @@ def create_user_structure(user_dir, preset_foldernames):
     copy_dirs(master_presets_path, working_presets_path)
 
     user_presets_path = Path(user_dir_path/'user_presets')
-    make_dirs(user_presets_path)
+    make_dir(user_presets_path)
     for preset_folder in preset_foldernames:
-        make_dirs(user_presets_path/preset_folder)
+        make_dir(user_presets_path/preset_folder)
     copy_dirs(user_presets_path, working_presets_path)
     print(f'Updated the working preset folder: {working_presets_path.resolve()}')
 
@@ -135,7 +149,7 @@ def create_user_structure(user_dir, preset_foldernames):
     copy_dirs(master_styles_path, working_styles_path)
 
     user_styles_path = Path(user_dir_path/'user_styles')
-    make_dirs(user_styles_path)
+    make_dir(user_styles_path)
     copy_dirs(user_styles_path, working_styles_path)
     print(f'Updated the working styles folder: {working_styles_path.resolve()}')
 

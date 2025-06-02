@@ -98,6 +98,40 @@ def get_config_path(config_file):
     config_path = os.path.abspath(f'{config_path}/{config_file}')
     return config_path
 
+def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False, expected_type=None):
+    global config_dict, visited_keys
+
+    if key not in visited_keys:
+        visited_keys.append(key)
+
+    v = os.getenv(key)
+    if v is not None:
+        v = try_eval_env_var(v, expected_type)
+        print(f"Environment: {key} = {v}")
+        config_dict[key] = v
+
+    if key not in config_dict:
+        config_dict[key] = default_value
+        return default_value
+
+    v = config_dict.get(key, None)
+    if not disable_empty_as_none:
+        if v is None or v == '':
+            v = 'None'
+
+    if validator(v):
+        return v
+    else:
+        if v is not None:
+            if 'fooocus' in v.lower():
+                default_value = MetadataScheme.SIMPLE.value
+            elif 'a1111' in v.lower():
+                default_value = MetadataScheme.A1111.value
+            else:
+                print(f'Failed to load config key: {json.dumps({key:v})} is invalid; will use {json.dumps({key:default_value})} instead.')
+        config_dict[key] = default_value
+        return default_value
+
 config_dict.update(PR.get_initial_preset_content())
 theme = args_manager.args.theme
 
@@ -188,41 +222,6 @@ modelsinfo = init_modelsinfo(path_models_root, dict(
     ))
 
 US.create_model_structure(paths_checkpoints, paths_loras)
-
-
-def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False, expected_type=None):
-    global config_dict, visited_keys
-
-    if key not in visited_keys:
-        visited_keys.append(key)
-
-    v = os.getenv(key)
-    if v is not None:
-        v = try_eval_env_var(v, expected_type)
-        print(f"Environment: {key} = {v}")
-        config_dict[key] = v
-
-    if key not in config_dict:
-        config_dict[key] = default_value
-        return default_value
-
-    v = config_dict.get(key, None)
-    if not disable_empty_as_none:
-        if v is None or v == '':
-            v = 'None'
-
-    if validator(v):
-        return v
-    else:
-        if v is not None:
-            if 'fooocus' in v.lower():
-                default_value = MetadataScheme.SIMPLE.value
-            elif 'a1111' in v.lower():
-                default_value = MetadataScheme.A1111.value
-            else:
-                print(f'Failed to load config key: {json.dumps({key:v})} is invalid; will use {json.dumps({key:default_value})} instead.')
-        config_dict[key] = default_value
-        return default_value
 
 default_temp_path = os.path.join(tempfile.gettempdir(), 'fooocus')
 temp_path = init_temp_path(get_config_item_or_set_default(
@@ -1011,7 +1010,7 @@ def get_base_model_list(engine='Fooocus', task_method=None):
         base_model_list = [f for f in base_model_list if ("hyp8" in f or "hyp16" in f or "flux" in f) and f.endswith("gguf")]
     return base_model_list
 
-def update_files(engine='Fooocus', task_method=None):    # called by the webui update button
+def update_files(engine='Fooocus', task_method=None):    # called by the webui update button & by launch.py
     global modelsinfo, model_filenames, lora_filenames, vae_filenames, wildcard_filenames
     modelsinfo.refresh_from_path()
     model_filenames = get_base_model_list(engine, task_method)
@@ -1269,7 +1268,6 @@ def downloading_hydit_model():
 
 update_files()
 
-
 # Aspect ratio support: initialize AR globals
 AR.default_standard_AR = default_standard_aspect_ratio
 AR.default_shortlist_AR = default_shortlist_aspect_ratio
@@ -1284,8 +1282,6 @@ AR.available_pixart_aspect_ratios = available_pixart_aspect_ratios
 AR.AR_shortlist = enable_shortlist_aspect_ratios
 
 # Preset Resource support
-print(f'Config default_low_vram_presets {default_low_vram_presets}')
-PR.default_low_vram_presets = default_low_vram_presets
 PR.default_sampler = default_sampler
 PR.default_bar_category = default_bar_category
 PR.preset_bar_length = preset_bar_length

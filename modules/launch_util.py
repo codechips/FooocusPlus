@@ -137,7 +137,7 @@ def run_pip(command, desc=None, live=default_command_live):
 def run_pip_url(command, desc=None, arg_index=index_url, live=default_command_live):
     try:
         index_url_line = f' --index-url {arg_index}' if arg_index != '' else ''
-        print(f'{python} -m pip {command} {target_path_install} --prefer-binary {index_url_line}')
+        print(f'"{python}" -m pip {command} {target_path_install} --prefer-binary {index_url_line}')
         return run(f'"{python}" -m pip {command} {target_path_install} --prefer-binary {index_url_line}', desc=f"Installing {desc} from {arg_index}",
                    errdesc=f"Could not install {desc} from {arg_index}", live=live)
     except Exception as e:
@@ -186,7 +186,7 @@ def requirements_met(requirements_file):
 
             if packaging.version.parse(version_required) != packaging.version.parse(version_installed):
                 met_diff.update({package:version_installed})
-                print(f"Version mismatch for {package}: Installed version {version_installed} does not meet requirement {version_required}")
+                print(f"Update required for {package}: Installed version {version_installed} does not meet requirement {version_required}")
                 result = False
 
     return result
@@ -214,20 +214,3 @@ def verify_installed_version(package_name, package_ver, dependencies = False):
             run(f'"{python}" -m pip uninstall -y {package_name}')
             run_pip(f"install -U -I --no-deps {package_name}=={package_ver}", {package_name}, live=True)
     return
-
-
-def delete_folder_content(folder, prefix=None):
-    result = True
-
-    for filename in os.listdir(folder):
-        file_path = os.path.join(folder, filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except Exception as e:
-            print(f'{prefix}Failed to delete {file_path}. Reason: {e}')
-            result = False
-
-    return result

@@ -694,7 +694,7 @@ with common.GRADIO_ROOT:
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
                             choices=PR.get_preset_categories(),
-                            value='Favorite', visible=True, interactive=True)
+                            value=PR.category_selection, visible=True, interactive=True)
 
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presetnames_in_folder(PR.category_selection),

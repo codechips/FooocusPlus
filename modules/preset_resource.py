@@ -10,7 +10,6 @@ from pathlib import Path
 current_preset = args_manager.args.preset
 
 # set by modules.config
-default_low_vram_presets = False
 default_bar_category = 'Favorite'
 preset_bar_length = 8
 
@@ -157,20 +156,9 @@ def get_preset_content(preset):
     return {}
 
 def get_initial_preset_content():
-    global current_preset, category_selection, default_low_vram_presets, default_bar_category
+    global current_preset, category_selection, default_bar_category
     json_content = ''
     preset = args_manager.args.preset
-#    print(f'default_low_vram_presets {default_low_vram_presets}')
-#    print(f'VRAM & flag check {(int(model_management.get_vram())<6000 or default_low_vram_presets==True)}')
-#    print(f'preset {preset}')
-    if (preset=='initial' or preset.lower()=='default') \
-        and (int(model_management.get_vram())<6000 \
-        or default_low_vram_presets==True):
-        AR.low_vram = True
-        default_bar_category = 'LowVRAM'
-        if find_preset_file('4GB_Default'):
-            preset='4GB_Default'
-            print('Loading the "4GB_Default" preset, the default for low VRAM systems')
     if not find_preset_file(preset):
         if find_preset_file('Default'):
             preset = 'Default'
@@ -188,6 +176,20 @@ def get_initial_preset_content():
         set_category_selection(category_selection)
         json_content = get_preset_content(current_preset)
     return json_content
+
+def get_lowVRAM_preset_content():
+    global current_preset, category_selection, default_bar_category
+    json_content = ''
+    if find_preset_file('4GB_Default'):
+        AR.low_vram = True
+        category_selection = 'LowVRAM'
+        default_bar_category = category_selection
+        args_manager.args.preset = '4GB_Default'
+        current_preset = args_manager.args.preset
+        json_content = get_preset_content(current_preset)
+        print('The 4GB_Default preset is optimized for low VRAM systems')
+    return json_content
+
 
 def get_preset_foldernames():
     preset_folder = '.\presets'

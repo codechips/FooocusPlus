@@ -27,7 +27,7 @@ if "GRADIO_SERVER_PORT" not in os.environ:
 ssl._create_default_https_context = ssl._create_unverified_context
 
 from modules.launch_util import is_installed, verify_installed_version,\
-    run, python, run_pip, run_pip_url, requirements_met, delete_folder_content,\
+    run, python, run_pip, run_pip_url, requirements_met,\
     git_clone, index_url, target_path_install, met_diff
 
 torch_ver = ""
@@ -65,6 +65,8 @@ def prepare_environment():
     print()
     print('Checking for required library files and loading Xformers...')
 
+    # ensure urllib is available before it is needed
+    verify_installed_version('urllib3', '2.4.0', False)
 
     if REINSTALL_ALL or torch_ver != torch_base_ver:
         print(f'Using Torchruntime to configure Torch')
@@ -75,7 +77,6 @@ def prepare_environment():
 
         if torch_ver == "2.7.0": # NVIDIA 50xx support
             run_pip_url('install torch torchaudio torchvision', 'NVIDIA 50xx support', 'https://download.pytorch.org/whl/cu128')
-
         else:
             torch_statement = "torch==" + torch_ver
             torchruntime.install([torch_statement])
@@ -85,7 +86,7 @@ def prepare_environment():
             torchruntime.install([torch_statement])
 
         verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
-        verify_installed_version('lightning-fabric', lightningfabric_ver)
+        verify_installed_version('lightning-fabric', lightningfabric_ver, False)
 
 
     if REINSTALL_ALL or not is_installed("xformers"):
@@ -141,20 +142,47 @@ if args.hf_mirror is not None:
     os.environ['HF_MIRROR'] = str(args.hf_mirror)
     print("Set hf_mirror to:", args.hf_mirror)
 
+
+import modules.preset_resource as PR
 from modules import config
 from modules.hash_cache import init_cache
+from modules.meta_parser import parse_meta_from_preset
+from modules.user_structure import empty_dir
 from ldm_patched.modules.model_management import get_vram
 os.environ["U2NET_HOME"] = config.paths_inpaint[0]
 os.environ["BERT_HOME"] = config.paths_llms[0]
 os.environ['GRADIO_TEMP_DIR'] = config.temp_path
 
+write_torch_base(torch_ver)
+
 if config.temp_path_cleanup_on_launch:
-    print(f'[Cleanup] Attempting to delete the content of the temp. dir {config.temp_path}')
-    result = delete_folder_content(config.temp_path, '[Cleanup] ')
+    print(f'Attempting to cleanup the temporary directory: {config.temp_path}')
+    result = empty_dir(config.temp_path)
     if result:
-        print("[Cleanup] Cleanup successful")
+        print("Cleanup successful")
     else:
-        print(f"[Cleanup] Failed to delete the content of the temp. directory")
+        print(f"Failed to cleanup the content of the temp. directory")
+
+
+launch_vram = int(get_vram()/1000)
+if launch_vram<6:
+    print()
+    print(f'The video card has only {launch_vram}GB of memory (VRAM) but FooocusPlus')
+    print('will give you access to models that are optimized for Low VRAM systems.')
+    print('However, any system with less than 6GB of VRAM will tend to be slow')
+    print('and unreliable, and may or may not be able to generate Flux images.')
+    print('Some 4GB VRAM cards may even be unable to generate SDXL images.')
+
+    if launch_vram<4: # some folks actually can run Flux with 4GB VRAM cards, so only lock out those with less than that
+        print()
+        if args.language == 'cn':
+            print(f'系统GPU显存容量太小，无法正常运行Flux, SD3, Kolors和HyDiT等最新模型，将自动禁用Comfyd引擎。请知晓，尽早升级硬件。')
+        else:
+            print('Systems with less than 4GB of VRAM are not be able to run large models such as Flux, SD3, Kolors and HyDiT.')
+        args.async_cuda_allocation = False
+        args.disable_async_cuda_allocation = True
+        args.disable_comfyd = True
+    print()
 
 
 def download_models(default_model, previous_default_models, checkpoint_downloads, embeddings_downloads, lora_downloads, vae_downloads):
@@ -200,25 +228,24 @@ def download_models(default_model, previous_default_models, checkpoint_downloads
 
     return default_model, checkpoint_downloads
 
-launch_vram = int(get_vram()/1000)
-if launch_vram<6:
-    print()
-    print(f'The video card has only {launch_vram}GB of memory (VRAM) but FooocusPlus')
-    print('will give you access to models that are optimized for Low VRAM systems.')
-    print('However, any system with less than 6GB of VRAM will tend to be slow')
-    print('and unreliable, and may or may not be able to generate Flux images.')
-    print('Some 4GB VRAM cards may even be unable to generate SDXL images.')
+if (config.default_low_vram_presets or launch_vram<6) and \
+    (PR.current_preset == 'initial' or PR.current_preset == 'Default'):
+    low_vram_preset = PR.get_lowVRAM_preset_content()
+    if low_vram_preset != '':
+        preset_prepared = parse_meta_from_preset(low_vram_preset)
+        if config.default_comfyd_active_checkbox:
+            comfyd.stop()
+        default_model = preset_prepared.get('base_model')
+        config.default_base_model_name = default_model
+        config.default_cfg_scale = preset_prepared.get('guidance_scale')
+        config.default_overwrite_step = preset_prepared.get('steps')
+        config.default_sample_sharpness = preset_prepared.get('sharpness')
+        previous_default_models = preset_prepared.get('previous_default_models', [])
+        checkpoint_downloads = preset_prepared.get('checkpoint_downloads', {})
+        embeddings_downloads = preset_prepared.get('embeddings_downloads', {})
+        lora_downloads = preset_prepared.get('lora_downloads', {})
+        vae_downloads = preset_prepared.get('vae_downloads', {})
 
-    if launch_vram<4: # some folks actually can run Flux with 4GB VRAM cards, so only lock out those with less than that
-        print()
-        if args.language == 'cn':
-            print(f'系统GPU显存容量太小，无法正常运行Flux, SD3, Kolors和HyDiT等最新模型，将自动禁用Comfyd引擎。请知晓，尽早升级硬件。')
-        else:
-            print('Systems with less than 4GB of VRAM are not be able to run large models such as Flux, SD3, Kolors and HyDiT.')
-        args.async_cuda_allocation = False
-        args.disable_async_cuda_allocation = True
-        args.disable_comfyd = True
-    print()
 
 config.default_base_model_name, config.checkpoint_downloads = download_models(
     config.default_base_model_name, config.previous_default_models, config.checkpoint_downloads,
@@ -226,7 +253,5 @@ config.default_base_model_name, config.checkpoint_downloads = download_models(
 
 config.update_files()
 init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenames, config.paths_loras)
-
-write_torch_base(torch_ver)
 
 from webui import *

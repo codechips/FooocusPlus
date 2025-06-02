@@ -1,3 +1,12 @@
+# 1.0.2
+
+* LowVRAM Preset mode activates if VRAM<6GB
+* also, LowVRAM Preset mode is set by config.txt "default_low_vram_presets": true
+* in this mode, the default category is LowVRAM and the preset is 4GB_Default
+* the 4GB_Default preset now uses Segmind-Vega in normal mode
+* the VegaRT preset operates Segming-Vega in "Real Time" mode
+* Styles can now be configured in UserDir, like Presets and Topics
+
 # 1.0.1
 
 * pytorch-lightning now loads correctly

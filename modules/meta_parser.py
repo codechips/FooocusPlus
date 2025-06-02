@@ -30,7 +30,7 @@ get_layout_empty_visible_inter = lambda x,y,z: gr.update(visible=x not in y, int
 
 def get_layout_visible_inter_loras(y,z,max_number):
     x = 'loras'
-    y1 = max_number if x in y else -1 
+    y1 = max_number if x in y else -1
     for key in y:
         if '-' in key and x==key.split('-')[0]:
             y1 = int(key.split('-')[1])
@@ -51,7 +51,7 @@ def switch_layout_template(presetdata: dict | str, state_params, preset_url=''):
         presetdata_dict = json.loads(presetdata)
     assert isinstance(presetdata_dict, dict)
     enginedata_dict = presetdata_dict.get('engine', {})
-    template_engine = get_taskclass_by_fullname(presetdata_dict.get('Backend Engine', presetdata_dict.get('backend_engine', 
+    template_engine = get_taskclass_by_fullname(presetdata_dict.get('Backend Engine', presetdata_dict.get('backend_engine',
         task_class_mapping[enginedata_dict.get('backend_engine', 'Fooocus')])))
     default_params = default_class_params[template_engine]
     visible = enginedata_dict.get('disvisible', default_params.get('disvisible', default_class_params['Fooocus']['disvisible']))
@@ -102,7 +102,7 @@ def load_parameter_button_click(raw_metadata: dict | str, is_generating: bool, i
     if isinstance(raw_metadata, str):
         loaded_parameter_dict = json.loads(raw_metadata)
     assert isinstance(loaded_parameter_dict, dict)
-   
+
     results = [True] if len(loaded_parameter_dict) > 0 else [gr.update()]
 
     get_image_number('image_number', 'Image Number', loaded_parameter_dict, results)
@@ -218,7 +218,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         width, height = 0, 0
         h = source_dict.get(key, source_dict.get(fallback, default))
         engine = get_taskclass_by_fullname(source_dict.get('Backend Engine',\
-                source_dict.get('backend_engine', task_class_mapping['Fooocus']))) 
+                source_dict.get('backend_engine', task_class_mapping['Fooocus'])))
         if 'engine' in source_dict:
             engine = source_dict['engine'].get('backend_engine', engine)
             template = source_dict['engine'].get('available_aspect_ratios_selection',\
@@ -231,7 +231,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
         if 'SD1.5' in str(AR.preset_file) and template!='SD1.5':
             template = 'SD1.5'
             print(f'Selected the SD1.5 template for the {AR.preset_file} file')
-       
+
         if template == 'Standard' and AR.AR_shortlist:
             template = 'Shortlist'
         elif template == 'Shortlist' and not AR.AR_shortlist:
@@ -252,7 +252,7 @@ def get_resolution(key: str, fallback: str | None, source_dict: dict, results: l
             width, height = AR.AR_split(h)
         AR.current_AR = h
 
-        formatted = AR.add_ratio(f'{width}*{height}') 
+        formatted = AR.add_ratio(f'{width}*{height}')
         if formatted in AR.config_aspect_ratio_labels[template]:
             h = f'{formatted},{template}'
             results.append(h)
@@ -408,9 +408,15 @@ def parse_meta_from_preset(preset_content):
                 width, height = AR.AR_split(default_aspect_ratio)
             preset_prepared[meta_key] = (width, height)
         elif settings_key == "default_refiner_switch":
-            PR.refiner_switch = items[settings_key]
+            try:
+                PR.refiner_switch = items[settings_key]
+            except:
+                PR.refiner_switch = modules.config.default_refiner_switch
         elif settings_key == "default_sampler":
-            PR.default_sampler = items[settings_key]
+            try:
+                PR.default_sampler = items[settings_key]
+            except:
+                PR.default_sampler = modules.config.default_sampler
         elif settings_key not in items and settings_key in modules.config.allow_missing_preset_key:
             continue
         else:
@@ -663,7 +669,7 @@ class A1111MetadataParser(MetadataParser):
             generation_params[self.fooocus_to_a1111['lora_hashes']] = lora_hashes_string
             generation_params[self.fooocus_to_a1111['lora_weights']] = lora_weights_string
 
-        generation_params[self.fooocus_to_a1111['version']] = data['version']        
+        generation_params[self.fooocus_to_a1111['version']] = data['version']
 
         if modules.config.metadata_created_by != '':
             generation_params[self.fooocus_to_a1111['created_by']] = modules.config.metadata_created_by
@@ -731,7 +737,7 @@ class FooocusMetadataParser(MetadataParser):
 
         if res['Metadata Scheme'].lower() == 'simple':
             res['Metadata Scheme'] = 'Fooocus'
-        
+
         if modules.config.metadata_created_by != '':
             res['created_by'] = modules.config.metadata_created_by
 
@@ -795,7 +801,7 @@ class SIMPLEMetadataParser(MetadataParser):
 
         if res['Metadata Scheme'] == MetadataScheme.SIMPLE.value:
             res['Metadata Scheme'] = 'Fooocus'
-        
+
         if self.refiner_model_name not in ['', 'None']:
             res['Refiner Model'] = self.refiner_model_name
             res['Refiner Model Hash'] = self.refiner_model_hash
@@ -831,7 +837,7 @@ def get_metadata_parser(metadata_scheme: MetadataScheme) -> MetadataParser:
         case MetadataScheme.A1111:
             return A1111MetadataParser()
         case MetadataScheme.SIMPLE:
-            return SIMPLEMetadataParser() 
+            return SIMPLEMetadataParser()
         case _:
             raise NotImplementedError
 
@@ -855,7 +861,7 @@ def read_info_from_image(file) -> tuple[str | None, MetadataScheme | None]:
         parameters = exif.get(0x9286, None)
         # 0x927C = MakerNote
         metadata_scheme = exif.get(0x927C, None)
-        
+
         if parameters and is_json(parameters):
             parameters = json.loads(parameters)
             parameters = params_lora_fixed(parameters)
