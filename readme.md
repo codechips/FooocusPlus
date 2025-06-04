@@ -62,9 +62,9 @@ If you were using a pre-release or Beta version of FooocusPlus, please be sure t
 
 2. Next, extract the _program archive_ to create a FooocusPlus folder. The FooocusPlus folder will contain the FooocusPlusAI folder, the UserDir folder and two batch files.
 
-3. Next, install the _python_embedded_ library archive into the FooocusPlus folder.
+3. Next, extract the _python_embedded_ library archive into the FooocusPlus folder.
 
-4. Lastly, install the _Support Pack_ to the FooocusPlus folder. These files will be added to the UserDir\models subfolder.
+4. Lastly, extract the _Support Pack_ to the FooocusPlus folder. These files will be added to the UserDir\models subfolder.
 
 5. Now double-click on the _run_FooocusPlus.bat_ file to load FooocusPlus for the first time. It will download some additional components automatically on the first run.
 
