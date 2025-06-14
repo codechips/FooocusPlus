@@ -51,7 +51,7 @@ Torchruntime is integrated into FooocusPlus. Please check their [compatibility t
 
 For Linux users, please use the [Installation Script for Linux](https://github.com/DavidDragonsage/FooocusPlus/wiki/Installation-Script-for-Linux) in the FooocusPlus Wiki.
 
-For Windows users, the [Installation Procedure](https://github.com/DavidDragonsage/FooocusPlus/wiki/Installation-Procedure-for-Windows) is also available in the Wiki, complete with images.
+For Windows users, this [Installation Procedure](https://github.com/DavidDragonsage/FooocusPlus/wiki/Installation-Procedure-for-Windows) is also available in the Wiki, complete with images.
  
 If you were using a pre-release or Beta version of FooocusPlus, please be sure to delete or at least rename it first, it is not compatible with the release version. Ideally FooocusPlus should be installed on a high speed internal drive such an NVMe solid state drive (SSD). However it will work fine on standard SATA hard drive, just a bit more slowly. First, download the following archives:
 
