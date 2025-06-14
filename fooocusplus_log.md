@@ -1,3 +1,19 @@
+# 1.0.3
+
+* the bug with Aspect Ratio selection has been resolved
+* the Random Preset Category selector now works reliably
+* a slight slot machine effect may occur during the randomization process
+* when switching between Preset Categories, a new preset is selected at random
+* there is now a HyperFlux Preset Category, bringing the total to 12 categories
+* the occasional hangups in Flux mode no longer occur
+* checks for required library files are now done at the start of the launch
+* the checks allow for requirements to be exceeded if marked with a ">="
+* the library files have been cleaned up and several items have been updated
+* these library updates will automatically install during launch
+* these changes are also available in the python_embedded archive at Hugging Face
+* full Torch information is now listed in the console, including the CUDA variant
+* the image seed options are now available through the Image Seed Control accordion
+
 # 1.0.2
 
 * LowVRAM Preset mode activates if VRAM<6GB

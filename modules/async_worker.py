@@ -1,5 +1,6 @@
 import threading
 import modules.config
+import modules.aspect_ratios as AR
 import modules.preset_resource as PR
 from extras.inpaint_mask import generate_mask_from_image, SAMOptions
 from modules.patch import PatchSettings, patch_settings, patch_all
@@ -40,6 +41,7 @@ class AsyncTask:
         self.original_steps = self.steps
 
         self.aspect_ratios_selection = args.pop()
+        self.aspect_ratios_selection = AR.current_AR
         self.image_number = args.pop()
         self.output_format = args.pop()
         self.seed = int(args.pop())
@@ -229,7 +231,6 @@ def worker():
     import copy
     import cv2
     import common
-    import modules.aspect_ratios as AR
     import modules.default_pipeline as pipeline
     import modules.core as core
     import modules.flags as flags
@@ -1236,6 +1237,7 @@ def worker():
         elif async_task.performance_selection == Performance.HYPER_SD:
             set_hyper_sd_defaults(async_task, current_progress, advance_progress=True)
 
+        print(f'[Parameters] Aspect Ratio = {async_task.aspect_ratios_selection}')
         print(f'[Parameters] Adaptive CFG = {async_task.adaptive_cfg}')
         print(f'[Parameters] CLIP Skip = {async_task.clip_skip}')
         print(f'[Parameters] Sharpness = {async_task.sharpness}')
@@ -1253,6 +1255,7 @@ def worker():
         initial_latent = None
         denoising_strength = 1.0
         tiled = False
+
 
         width, height = AR.AR_split(async_task.aspect_ratios_selection)
         width, height = int(width), int(height)

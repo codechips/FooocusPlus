@@ -10,17 +10,20 @@ import modules.preset_resource as PR
 import modules.user_structure as US
 import tempfile
 
+from pathlib import Path
 from common import ROOT
 from modules.extra_utils import makedirs_with_log, get_files_from_folder, try_eval_env_var
 from modules.flags import OutputFormat, Performance, MetadataScheme
 from modules.model_loader import load_file_from_url
 
 
+current_dir = Path.cwd()
+home_dir = current_dir.parent.parent
 config_dict = {}
 always_save_keys = []
 visited_keys = []
 wildcards_max_bfs_depth = 64
-current_dir = os.path.split(os.getcwd())[-1]
+
 
 def get_dir_or_set_default(key, default_value, as_array=False, make_directory=False):
     global config_dict, visited_keys, always_save_keys
@@ -57,13 +60,13 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
         dp = []
         for path in default_value:
             abs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path))
-            abs_path = abs_path.replace(f'{current_dir}\\', '')
+            abs_path = abs_path.replace(f'{home_dir}\\', '')
             dp.append(abs_path)
             os.makedirs(abs_path, exist_ok=True)
     else:
         if default_value != os.path.abspath(default_value):
             dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
-            dp = dp.replace(f'{current_dir}\\', '')
+            dp = dp.replace(f'{home_dir}\\', '')
         else:
             dp = default_value
         os.makedirs(dp, exist_ok=True)
@@ -78,7 +81,7 @@ else:
     user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
     args_manager.args.user_dir = user_dir
 
-US.create_user_structure(user_dir, PR.get_preset_foldernames())
+US.create_user_structure(user_dir)
 
 def get_path_output() -> str:
     global config_dict, user_dir
@@ -204,8 +207,7 @@ path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_roo
 paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
 path_outputs = get_path_output()
 path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
-print()
-print('Loading support files...')
+
 
 from enhanced.backend import init_modelsinfo
 modelsinfo = init_modelsinfo(path_models_root, dict(
@@ -1017,7 +1019,7 @@ def update_files(engine='Fooocus', task_method=None):    # called by the webui u
     lora_filenames = modelsinfo.get_model_names('loras')
     vae_filenames = modelsinfo.get_model_names('vae')
     wildcard_filenames = get_files_from_folder(path_wildcards, ['.txt'])
-    available_presets = PR.get_preset_paths()
+    available_presets = PR.get_preset_list()
     return model_filenames, lora_filenames, vae_filenames
 
 def downloading_inpaint_models(v):

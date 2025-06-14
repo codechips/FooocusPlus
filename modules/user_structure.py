@@ -3,11 +3,19 @@ import shutil
 from pathlib import Path
 
 
-def copy_dirs(arg_source, arg_dest):
+def copy_dirs(arg_source, arg_dest): # dirs including files
     source_path = Path(arg_source)
     dest_path = Path(arg_dest)
     shutil.copytree(source_path, dest_path, dirs_exist_ok = True)
     return
+
+def copy_dir_structure(arg_source, arg_dest): # dirs without files
+    source_path = Path(arg_source)
+    dest_path = Path(arg_dest)
+    for item in source_path.glob("**/*"):
+        if item.is_dir():
+            new_dir = dest_path / item.relative_to(source_path)
+            new_dir.mkdir(parents = True, exist_ok = True)
 
 def empty_dir(arg_dir):
     result = True
@@ -23,10 +31,20 @@ def empty_dir(arg_dir):
         result = False
     return result
 
+def find_file_path(search_dir, filename):
+    search_path = Path(search_dir)
+    str_filename = str(filename)
+    for file_path in search_path.rglob(str_filename):
+        return file_path
+    return ''
+
 def make_dir(arg_dir):
     make_path = Path(arg_dir)
     if not make_path.is_dir():
-        make_path.mkdir(parents = True, exist_ok = True)
+        try:
+            make_path.mkdir(parents = True, exist_ok = True)
+        except Exception as e:
+            print(f'The {make_path} directory could not be created because: {error}')
     return
 
 def remove_empty_dir(arg_dir):
@@ -84,7 +102,7 @@ def create_model_structure(paths_checkpoints, paths_loras):
     return
 
 
-def create_user_structure(user_dir, preset_foldernames):
+def create_user_structure(user_dir):
 
     # cleanup an error condition from version 1.0.0
     remove_dirs('python_embedded')
@@ -132,8 +150,7 @@ def create_user_structure(user_dir, preset_foldernames):
 
     user_presets_path = Path(user_dir_path/'user_presets')
     make_dir(user_presets_path)
-    for preset_folder in preset_foldernames:
-        make_dir(user_presets_path/preset_folder)
+    copy_dir_structure(master_presets_path, user_presets_path)
     copy_dirs(user_presets_path, working_presets_path)
     print(f'Updated the working preset folder: {working_presets_path.resolve()}')
 

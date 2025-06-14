@@ -125,70 +125,28 @@ def run(command, desc=None, errdesc=None, custom_env=None, live: bool = default_
 
 
 def run_pip(command, desc=None, live=default_command_live):
+    result = True
     try:
         index_url_line = f' --index-url {index_url}' if index_url != '' else ''
-        return run(f'"{python}" -m pip {command} {target_path_install} --prefer-binary{index_url_line}', desc=f"Installing {desc}",
+        return run(f'"{python}" -m pip {command} {target_path_install} --prefer-binary --disable-pip-version-check {index_url_line}', desc=f"Installing {desc}",
                    errdesc=f"Could not install {desc}", live=live)
     except Exception as e:
         print(e)
         print(f'Pip {desc} command failed: {command}')
-        return None
+        result = False
+    return result
 
 def run_pip_url(command, desc=None, arg_index=index_url, live=default_command_live):
+    result = True
     try:
         index_url_line = f' --index-url {arg_index}' if arg_index != '' else ''
-        print(f'"{python}" -m pip {command} {target_path_install} --prefer-binary {index_url_line}')
+        print(f'"{python}" -m pip {command} {target_path_install} --prefer-binary --disable-pip-version-check {index_url_line}')
         return run(f'"{python}" -m pip {command} {target_path_install} --prefer-binary {index_url_line}', desc=f"Installing {desc} from {arg_index}",
                    errdesc=f"Could not install {desc} from {arg_index}", live=live)
     except Exception as e:
         print(e)
         print(f'Pip {desc} command failed: {command}')
-        return None
-
-
-met_diff = {}
-def requirements_met(requirements_file):
-    global met_diff
-
-    met_diff = {}
-    result = True
-    with open(requirements_file, "r", encoding="utf8") as file:
-        for line in file:
-            if line.strip() == "":
-                continue
-
-            m = re.match(re_requirement, line)
-            if m:
-                package = m.group(1).strip()
-                version_required = (m.group(2) or "").strip()
-            else:
-                m1 = re.match(re_req_local_file, line)
-                if m1 is None:
-                    continue
-                package = m1.group(1).strip()
-                if line.strip().endswith('.whl'):
-                    package = package.replace('_', '-')
-                version_required = f'{m1.group(2)}.{m1.group(3)}.{m1.group(4)}'
-
-            if line.startswith("--"):
-                continue
-
-            try:
-                version_installed = importlib.metadata.version(package)
-            except Exception:
-                met_diff.update({package:'-'})
-                result = False
-                continue
-
-            #print(f'requirement:{package}, required:{version_required}, installed:{version_installed}')
-            if version_required=='' and version_installed:
-                continue
-
-            if packaging.version.parse(version_required) != packaging.version.parse(version_installed):
-                met_diff.update({package:version_installed})
-                print(f"Update required for {package}: Installed version {version_installed} does not meet requirement {version_required}")
-                result = False
-
+        result = False
     return result
 
 
@@ -206,11 +164,78 @@ def is_installed_version(package, version_required):
     return True
 
 def verify_installed_version(package_name, package_ver, dependencies = False):
+    result = True
     if not is_installed_version(package_name, package_ver):
         if dependencies:
             run(f'"{python}" -m pip uninstall -y {package_name}')
-            run_pip(f"install -U -I {package_name}=={package_ver}", {package_name}, live=True)
+            result = run_pip(f"install -U -I {package_name}=={package_ver}", {package_name}, live=True)
         else:
             run(f'"{python}" -m pip uninstall -y {package_name}')
-            run_pip(f"install -U -I --no-deps {package_name}=={package_ver}", {package_name}, live=True)
-    return
+            result = run_pip(f"install -U -I --no-deps {package_name}=={package_ver}", {package_name}, live=True)
+    return result
+
+met_diff = {}
+def requirements_met(requirements_file):
+    global met_diff
+    met_diff = {}
+    result = True
+    with open(requirements_file, "r", encoding="utf8") as file:
+        for line in file:
+            line = line.strip()
+            if line == "" or line.startswith("--") or line.startswith("#"):
+                continue
+
+            if ">=" in line:
+                at_least = True
+                # must replace ">=" with "==" for the rest of the logic to work
+                line = line.replace(">=","==",1)
+            else:
+                at_least = False
+
+            m = re.match(re_requirement, line)
+            if m:
+                package = m.group(1).strip()
+                version_required = (m.group(2) or "").strip()
+            else:
+                m1 = re.match(re_req_local_file, line)
+                if m1 is None:
+                    continue
+                package = m1.group(1).strip()
+                if line.strip().endswith('.whl'):
+                    package = package.replace('_', '-')
+                version_required = f'{m1.group(2)}.{m1.group(3)}.{m1.group(4)}'
+
+            try:
+                version_installed = importlib.metadata.version(package)
+            except Exception:
+                met_diff.update({package:'-'})
+                if package == 'cmake' or package=='https':
+                    result = True
+                    continue
+                else:
+                    print()
+                    print(f'Could not locate the {package} package')
+                    result = False
+
+            try:
+                if version_required=='' and version_installed:
+                    continue
+            except:
+                pass
+
+            try:
+                if at_least:
+                    if packaging.version.parse(version_installed) >= packaging.version.parse(version_required):
+                        continue
+                else:
+                    if packaging.version.parse(version_installed) == packaging.version.parse(version_required):
+                        continue
+            except:
+                pass
+            result = verify_installed_version(package, version_required, False)
+            if result != False:
+                result = True
+            version_installed = version_required
+            met_diff.update({package:version_installed})
+
+    return result

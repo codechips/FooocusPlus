@@ -10,6 +10,8 @@ print(f'Root {ROOT}')
 sys.path.append(ROOT)
 os.chdir(ROOT)
 
+REINSTALL_ALL = False
+
 if not version.get_required_library():
     print()
     print('Our apologies for the inconvenience, but the installed')
@@ -26,29 +28,39 @@ if "GRADIO_SERVER_PORT" not in os.environ:
     os.environ["GRADIO_SERVER_PORT"] = "7865"
 ssl._create_default_https_context = ssl._create_unverified_context
 
+
+import comfy.comfy_version
 from modules.launch_util import is_installed, verify_installed_version,\
     run, python, run_pip, run_pip_url, requirements_met,\
     git_clone, index_url, target_path_install, met_diff
 
-torch_ver = ""
-torchruntime_ver = '1.16.1'
-verify_installed_version('torchruntime', torchruntime_ver)
+from launch_support import build_launcher, delete_torch_dependencies,\
+    dependency_resolver, is_win32_standalone_build,\
+    python_embedded_path, read_torch_base, write_torch_base
 
+print()
+print('Checking for required library files...')
+requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
+if requirements_met(requirements_file):
+    print('All requirements met')
+else:
+    print('Some requirements have not been met')
+print('Checking installed software...')
+
+patch_requirements = "requirements_patch.txt"
+if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
+    is_win32_standalone_build:
+        print('Updating with required patch files...')
+        run_pip(f"install -r \"{patch_requirements}\"", "patching requirements")
+
+torch_ver = ""
 import torchruntime
 import platform
-import comfy.comfy_version
-
-from launch_support import build_launcher, delete_torch_dependencies, dependency_resolver, \
-is_win32_standalone_build, python_embedded_path, \
-read_torch_base, write_torch_base
-from modules.model_loader import load_file_from_url
 
 
 def prepare_environment():
     global torch_ver
-    REINSTALL_ALL = False
     target_path_win = Path(python_embedded_path/'Lib/site-packages')
-    requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
     torch_dict = dependency_resolver()
     torch_ver = torch_dict['torch_ver']
     torchvision_ver = torch_dict['torchvision_ver']
@@ -56,17 +68,21 @@ def prepare_environment():
     xformers_ver = torch_dict['xformers_ver']
     pytorchlightning_ver = torch_dict['pytorchlightning_ver']
     lightningfabric_ver = torch_dict['lightningfabric_ver']
+    torch_platform_ver = torch_dict['torch_platform_ver']
     torch_base_ver = read_torch_base()
 
+    print()
+    print('Program Versions:')
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}, Comfy version: {comfy.comfy_version.version}")
-    print(f"Torch base version: {torch_base_ver}")
+    if torch_ver == torch_base_ver:
+        from backend_base.__init__ import get_torch_xformers_cuda_version as torch_info
+        torch_info, xformers_info, cuda_info = torch_info()
+        print(f"Torch {torch_info}{cuda_info}, Xformers {xformers_info}")
+    else:
+        print(f"Torch {torch_base_ver}")
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
-    print('Checking for required library files and loading Xformers...')
-
-    # ensure urllib is available before it is needed
-    verify_installed_version('urllib3', '2.4.0', False)
 
     if REINSTALL_ALL or torch_ver != torch_base_ver:
         print(f'Using Torchruntime to configure Torch')
@@ -75,19 +91,20 @@ def prepare_environment():
         print()
         delete_torch_dependencies()
 
-        if torch_ver == "2.7.0": # NVIDIA 50xx support
-            run_pip_url('install torch torchaudio torchvision', 'NVIDIA 50xx support', 'https://download.pytorch.org/whl/cu128')
-        else:
-            torch_statement = "torch==" + torch_ver
-            torchruntime.install([torch_statement])
-            torch_statement = " torchvision==" + torchvision_ver
-            torchruntime.install([torch_statement])
-            torch_statement = " torchaudio==" + torchaudio_ver
-            torchruntime.install([torch_statement])
+        # setup torch install
+        from torchruntime.installer import get_install_commands, get_pip_commands, run_commands
+        torch_statement = "torch==" + torch_ver
+        torchvision_statement = " torchvision==" + torchvision_ver
+        torchaudio_statement = " torchaudio==" + torchaudio_ver
+        no_warning_statement = "--no-warn-script-location"
+        packages = [no_warning_statement, torch_statement, torchvision_statement, torchaudio_statement]
+        # run the installer
+        cmds = get_install_commands(torch_platform_ver, packages)
+        cmds = get_pip_commands(cmds)
+        run_commands(cmds)
 
         verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
         verify_installed_version('lightning-fabric', lightningfabric_ver, False)
-
 
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
@@ -99,24 +116,7 @@ def prepare_environment():
                 "https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
             if not is_installed("xformers"):
                 exit(0)
-
-    if REINSTALL_ALL or not requirements_met(requirements_file):
-        if len(met_diff.keys())>0:
-            for p in met_diff.keys():
-                print(f'Uninstall {p}.{met_diff[p]} ...')
-                run(f'"{python}" -m pip uninstall -y {p}=={met_diff[p]}')
-        if is_win32_standalone_build:
-            run_pip(f"install -r \"{requirements_file}\" -t {target_path_win}", "requirements")
-        else:
-            run_pip(f"install -r \"{requirements_file}\"", "requirements")
-
-    patch_requirements = "requirements_patch.txt"
-    if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
-        is_win32_standalone_build:
-            print('Updating with required patch files...')
-            run_pip(f"install -r \"{patch_requirements}\"", "patching requirements")
     return
-
 
 vae_approx_filenames = [
     ('xlvaeapp.pth', 'https://huggingface.co/lllyasviel/misc/resolve/main/xlvaeapp.pth'),
@@ -147,6 +147,7 @@ import modules.preset_resource as PR
 from modules import config
 from modules.hash_cache import init_cache
 from modules.meta_parser import parse_meta_from_preset
+from modules.model_loader import load_file_from_url
 from modules.user_structure import empty_dir
 from ldm_patched.modules.model_management import get_vram
 os.environ["U2NET_HOME"] = config.paths_inpaint[0]
@@ -156,12 +157,15 @@ os.environ['GRADIO_TEMP_DIR'] = config.temp_path
 write_torch_base(torch_ver)
 
 if config.temp_path_cleanup_on_launch:
+    print()
     print(f'Attempting to cleanup the temporary directory: {config.temp_path}')
     result = empty_dir(config.temp_path)
     if result:
         print("Cleanup successful")
     else:
         print(f"Failed to cleanup the content of the temp. directory")
+print()
+print('Initializing image processors...')
 
 
 launch_vram = int(get_vram()/1000)

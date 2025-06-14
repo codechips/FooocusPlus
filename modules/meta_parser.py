@@ -396,16 +396,16 @@ def parse_meta_from_preset(preset_content):
 #                    lora[1] = lora[1].replace('\\', os.sep).replace('/', os.sep)
                 preset_prepared[f'lora_combined_{index + 1}'] = ' : '.join(map(str, lora))
         elif settings_key == "default_aspect_ratio":
-            if settings_key in items and (items[settings_key] is not None or items[settings_key] != '0*0'):
-                default_aspect_ratio = items[settings_key]
-                width, height = AR.AR_split(default_aspect_ratio)
+#            if settings_key in items and (items[settings_key] is not None or items[settings_key] != '0*0'):
+#                default_aspect_ratio = items[settings_key]
+#                width, height = AR.AR_split(default_aspect_ratio)
+#            else:
+            if AR.current_AR:
+                default_aspect_ratio = AR.current_AR
             else:
-                if AR.current_AR:
-                    default_aspect_ratio = AR.current_AR
-                else:
-                    default_aspect_ratio = AR.default_standard_AR
+                default_aspect_ratio = AR.default_standard_AR
                 print(f'Metadata fallback to default aspect ratio: {default_aspect_ratio}')
-                width, height = AR.AR_split(default_aspect_ratio)
+            width, height = AR.AR_split(default_aspect_ratio)
             preset_prepared[meta_key] = (width, height)
         elif settings_key == "default_refiner_switch":
             try:

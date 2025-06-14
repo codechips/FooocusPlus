@@ -11,6 +11,7 @@ import enhanced.all_parameters as ads
 import enhanced.gallery as gallery_util
 import enhanced.superprompter as superprompter
 import enhanced.comfy_task as comfy_task
+import modules.aspect_ratios as AR
 import modules.config as config
 import modules.constants as constants
 import modules.flags
@@ -37,7 +38,7 @@ if os.path.exists(enhanced_config):
         config_ext.update(json.load(json_file))
 else:
     config_ext.update({'fooocus_line': '# 2.1.852', 'simplesdxl_line': '# 2023-12-20'})
- 
+
 
 def get_system_message():
     global config_ext
@@ -59,7 +60,7 @@ def get_system_message():
                     update_msg_f += line
                 line = log_file.readline()
     update_msg_f = update_msg_f.replace("\n","  ")
-    
+
     f_log_path = os.path.abspath("./fooocusplus_log.md")
     if len(update_msg_f)>0:
         body_f = f'<b id="update_f">[FooocusPlus]</b>: {update_msg_f}<a href="{args_manager.args.webroot}/file={f_log_path}">>></a>   '
@@ -149,7 +150,7 @@ function(system_params) {
 def init_nav_bars(state_params, request: gr.Request):
 #   print(f'request.headers:{request.headers}')
     if "__lang" not in state_params.keys():
-        state_params.update({"__lang": args_manager.args.language}) 
+        state_params.update({"__lang": args_manager.args.language})
     if "__theme" not in state_params.keys():
         state_params.update({"__theme": args_manager.args.theme})
     if "__preset" not in state_params.keys():
@@ -192,7 +193,7 @@ def init_nav_bars(state_params, request: gr.Request):
     preset = PR.current_preset
     preset_url = get_preset_inc_url(preset)
     state_params.update({"__preset_url":preset_url})
-    results += [gr.update(visible=True if 'blank.inc.html' not in preset_url else False)]   
+    results += [gr.update(visible=True if 'blank.inc.html' not in preset_url else False)]
     return results
 
 def get_preset_inc_url(preset_name='blank'):
@@ -211,7 +212,7 @@ def refresh_nav_bars(state_params):
     if state_params["__is_mobile"]:
         results += [gr.update(visible=False)]
     else:
-        results += [gr.update(visible=True)] 
+        results += [gr.update(visible=True)]
     preset_count = PR.preset_bar_count()
     padded_list = PR.pad_list(preset_name_list, PR.preset_bar_length, '')
     for i in range(PR.preset_bar_length):
@@ -236,7 +237,7 @@ def process_before_generation(state_params, backend_params, backfill_prompt, tra
         'preset': state_params["__preset"],
         })
     # stop_button, skip_button, generate_button, gallery, state_is_generating, index_radio, image_toolbox, prompt_info_box
-    results = [gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True), \
+    results = [gr.update(value=AR.current_AR), gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True), \
         gr.update(visible=False, interactive=False), [], True, gr.update(visible=False, open=False), \
         gr.update(visible=False), gr.update(visible=False)]
     # preset_nums = len(state_params["__nav_name_list"].split(','))
@@ -263,11 +264,11 @@ def process_after_generation(state_params):
     preset_nums = PR.preset_count()
     results += [gr.update(interactive=True)] * (preset_nums + 6)
     results += [gr.update()] * (preset_nums)
-    
+
     if len(state_params["__output_list"]) > 0:
         output_index = state_params["__output_list"][0].split('/')[0]
         gallery_util.refresh_images_catalog(output_index, True)
-        gallery_util.parse_html_log(output_index, True)  
+        gallery_util.parse_html_log(output_index, True)
     return results
 
 
@@ -299,7 +300,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
     PR.current_preset = preset
     config_preset = PR.get_preset_content(preset)
     preset_prepared = meta_parser.parse_meta_from_preset(config_preset)
-    
+
     engine = preset_prepared.get('engine', {}).get('backend_engine', 'Fooocus')
     state_params.update({"engine": engine})
 
@@ -308,7 +309,7 @@ def reset_layout_params(prompt, negative_prompt, state_params, is_generating, in
 
     if comfyd_active_checkbox:
         comfyd.stop()
-   
+
     default_model = preset_prepared.get('base_model')
     previous_default_models = preset_prepared.get('previous_default_models', [])
     checkpoint_downloads = preset_prepared.get('checkpoint_downloads', {})
@@ -365,7 +366,7 @@ if not os.path.exists(cur_clip_path):
     org_clip_path = os.path.join(common.ROOT, 'models/clip_vision/clip-vit-large-patch14')
     shutil.copytree(org_clip_path, cur_clip_path)
 tokenizer = CLIPTokenizer.from_pretrained(cur_clip_path)
- 
+
 def remove_tokenizer():
     global tokenizer
     if 'tokenizer' in globals():
@@ -389,7 +390,7 @@ def prompt_token_prediction(text, style_selections):
 
     prompt = translator.convert(text, enhanced_parameters.translation_methods)
     return len(tokenizer.tokenize(prompt))
-    
+
     if fooocus_expansion in style_selections:
         use_expansion = True
         style_selections.remove(fooocus_expansion)

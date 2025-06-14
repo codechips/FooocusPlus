@@ -2,6 +2,7 @@ import gradio as gr
 import math
 import args_manager
 
+
 # These variables are set to their actual values in config.txt
 default_standard_AR = '1024*1024'
 default_shortlist_AR = '1024*1024'
@@ -84,7 +85,12 @@ default_aspect_ratio_values = [default_standard_AR, default_shortlist_AR,\
     default_sd1_5_AR, default_pixart_AR]
 
 def assign_default_by_template(template):
-    ar_index = aspect_ratios_templates.index(template)
+    global AR_template
+    try:
+        ar_index = aspect_ratios_templates.index(template)
+    except:
+        AR_template = AR_template_init()
+        ar_index = aspect_ratios_templates.index(AR_template)
     return default_aspect_ratio_values[ar_index]
 
 # Store the default aspect ratio selection
@@ -92,17 +98,30 @@ def assign_default_by_template(template):
 current_AR = assign_default_by_template(AR_template)
 
 def do_the_split(x):
-    x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
-    x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
-    width, height = x.replace('*', ' ').split(' ')[:2]
+    try:
+        x = x.replace("x","*") # entries in config.txt that use "x" instead of "*"
+        x = x.replace("×","*") # webui aspect ratio selector uses the raised "×"
+        width, height = x.replace('*', ' ').split(' ')[:2]
+        test_width = int(width)
+        test_height = int(height)
+    except:
+        width = ''
+        height = ''
     return width, height
 
 def AR_split(x):
+    global current_AR, AR_template
     width, height = do_the_split(x)
     if (width == '') or (height == ''):
-        print()
-        print(f'Adjusting aspect ratio value to {current_AR}')
         width, height = do_the_split(current_AR)
+        if (width == '') or (height == ''):
+            current_AR = assign_default_by_template(AR_template)
+            width, height = do_the_split(current_AR)
+            print()
+            print(f'Reverting to the default aspect ratio: {current_AR}')
+        else:
+            print()
+            print(f'Adjusting the aspect ratio value to {current_AR}')
     return width, height
 
 def add_ratio(x):
@@ -112,7 +131,7 @@ def add_ratio(x):
     c, d = a // g, b // g
     return f'{a}×{b} | {c}:{d}'
 
-def add_template_ratio(x):    # only used to initialize the AR Accordion 
+def add_template_ratio(x):    # only used to initialize the AR Accordion
     a, b = AR_split(x)
     a, b = int(a), int(b)
     g = math.gcd(a, b)
@@ -191,8 +210,8 @@ def reset_preset():
     global current_preset
     working_preset = current_preset
     if current_preset == '4GB_Default':
-        working_preset = 'Vega'
-    elif current_preset == 'Vega':
+        working_preset = 'VegaRT'
+    elif current_preset == 'VegaRT':
         working_preset = '4GB_Default'
     elif current_preset == 'Default':
         working_preset = 'Cheyenne'
@@ -209,7 +228,7 @@ def get_substrings(arg_list, arg_substring):
             substrings.append(text)
     return substrings
 
-def validate_AR(arg_AR, arg_template):
+def validate_AR(arg_AR, arg_template): # when switching between template
     if arg_AR == '':
         arg_AR = assign_default_by_template(arg_template)
         return arg_AR
@@ -246,7 +265,7 @@ def toggle_shortlist(arg_shortlist):
     elif AR_template == 'Shortlist' and not AR_shortlist:
         AR_template = 'Standard'
         # potentially a user could add a value to Shortlist that Standard does not have:
-        current_AR = validate_AR(current_AR, AR_template)        
+        current_AR = validate_AR(current_AR, AR_template)
         print()
         print('Switching to the Standard template requires a preset change:')
         working_preset = reset_preset()

@@ -390,7 +390,7 @@ with common.GRADIO_ROOT:
                         with gr.Row():
                             with gr.Column():
                                 inpaint_input_image = grh.Image(label='Image', source='upload', type='numpy', tool='sketch', height=350, brush_color="#FFFFFF", elem_id='inpaint_canvas', show_label=False)
-                                inpaint_mode = gr.Dropdown(choices=modules.flags.inpaint_options, value=modules.config.default_inpaint_method, label='Method')
+                                inpaint_mode = gr.Dropdown(choices=modules.flags.inpaint_options, value=modules.config.default_inpaint_method, label='Method', allow_custom_value=True)
                                 inpaint_additional_prompt = gr.Textbox(placeholder="Describe what you want to inpaint.", elem_id='inpaint_additional_prompt', label='Inpaint Additional Prompt', visible=False)
                                 outpaint_selections = gr.CheckboxGroup(choices=['Left', 'Right', 'Top', 'Bottom'], value=[], label='Outpaint Direction')
                                 example_inpaint_prompts = gr.Dataset(samples=modules.config.example_inpaint_prompts,
@@ -402,12 +402,12 @@ with common.GRADIO_ROOT:
                             with gr.Column(visible=modules.config.default_inpaint_advanced_masking_checkbox) as inpaint_mask_generation_col:
                                 inpaint_mask_image = grh.Image(label='Mask Upload', source='upload', type='numpy', tool='sketch', height=350, brush_color="#FFFFFF", mask_opacity=1, elem_id='inpaint_mask_canvas')
                                 inpaint_mask_model = gr.Dropdown(label='Mask generation model',
-                                    choices=flags.inpaint_mask_models,
+                                    choices=flags.inpaint_mask_models, allow_custom_value=True,
                                     value=modules.config.default_inpaint_mask_model)
                                 inpaint_mask_cloth_category = gr.Dropdown(label='Cloth category',
                                     choices=flags.inpaint_mask_cloth_category,
                                     value=modules.config.default_inpaint_mask_cloth_category,
-                                    visible=False)
+                                    visible=False, allow_custom_value=True)
                                 inpaint_mask_dino_prompt_text = gr.Textbox(label='Detection Prompt', value='', visible=False, info='Use singular whenever possible', placeholder='Describe what you want to detect.')
                                 example_inpaint_mask_dino_prompt_text = gr.Dataset(
                                     samples=modules.config.example_enhance_detection_prompts,
@@ -420,7 +420,7 @@ with common.GRADIO_ROOT:
                                     show_progress=False, queue=False)
 
                                 with gr.Accordion("Advanced Options", visible=False, open=False) as inpaint_mask_advanced_options:
-                                    inpaint_mask_sam_model = gr.Dropdown(label='SAM model', choices=flags.inpaint_mask_sam_model, value=modules.config.default_inpaint_mask_sam_model)
+                                    inpaint_mask_sam_model = gr.Dropdown(label='SAM model', choices=flags.inpaint_mask_sam_model, value=modules.config.default_inpaint_mask_sam_model, allow_custom_value=True)
                                     inpaint_mask_box_threshold = gr.Slider(label="Box Threshold", minimum=0.0, maximum=1.0, value=0.3, step=0.05)
                                     inpaint_mask_text_threshold = gr.Slider(label="Text Threshold", minimum=0.0, maximum=1.0, value=0.25, step=0.05)
                                     inpaint_mask_sam_max_detections = gr.Slider(label="Maximum Number of Detections", info="Set to 0 to detect all", minimum=0, maximum=10, value=modules.config.default_sam_max_detections, step=1, interactive=True)
@@ -544,10 +544,10 @@ with common.GRADIO_ROOT:
 
                                                 with gr.Accordion("Detection", open=False):
                                                     enhance_mask_model = gr.Dropdown(label='Mask Generation Model',
-                                                        choices=flags.inpaint_mask_models,
+                                                        choices=flags.inpaint_mask_models, allow_custom_value=True,
                                                         value=modules.config.default_enhance_inpaint_mask_model)
                                                     enhance_mask_cloth_category = gr.Dropdown(label='Cloth Category',
-                                                        choices=flags.inpaint_mask_cloth_category,
+                                                        choices=flags.inpaint_mask_cloth_category, allow_custom_value=True,
                                                         value=modules.config.default_inpaint_mask_cloth_category,
                                                         visible=modules.config.default_enhance_inpaint_mask_model == 'u2net_cloth_seg',
                                                         interactive=True)
@@ -557,7 +557,7 @@ with common.GRADIO_ROOT:
                                                                     open=False) as sam_options:
                                                         enhance_mask_sam_model = gr.Dropdown(label='SAM model',
                                                                          choices=flags.inpaint_mask_sam_model,
-                                                                         value=modules.config.default_inpaint_mask_sam_model,
+                                                                         value=modules.config.default_inpaint_mask_sam_model, allow_custom_value=True,
                                                                          interactive=True)
                                                         enhance_mask_box_threshold = gr.Slider(label="Box Threshold", minimum=0.0,
                                                                            maximum=1.0, value=0.3, step=0.05,
@@ -572,7 +572,7 @@ with common.GRADIO_ROOT:
                                                                                 step=1, interactive=True)
 
                                                 with gr.Accordion("Inpaint", visible=True, open=False):
-                                                    enhance_inpaint_mode = gr.Dropdown(choices=modules.flags.inpaint_options,
+                                                    enhance_inpaint_mode = gr.Dropdown(choices=modules.flags.inpaint_options, allow_custom_value=True,
                                                                    value=modules.config.default_inpaint_method if index not in [0,1] else modules.flags.inpaint_option_detail,
                                                                    label='Method', interactive=True)
                                                     enhance_inpaint_disable_initial_latent = gr.Checkbox(
@@ -580,6 +580,7 @@ with common.GRADIO_ROOT:
                                                     enhance_inpaint_engine = gr.Dropdown(label='Inpaint Engine',
                                                                      value=modules.config.default_inpaint_engine_version,
                                                                      choices=flags.inpaint_engine_versions,
+                                                                     allow_custom_value=True,
                                                                      info='Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.')
                                                     enhance_inpaint_strength = gr.Slider(label='Inpaint Denoising Strength',
                                                                      minimum=0.0, maximum=1.0, step=0.001,
@@ -651,7 +652,7 @@ with common.GRADIO_ROOT:
                             layer_method = gr.Radio(choices=comfy_task.default_method_names, value=comfy_task.default_method_names[0], container=False)
                         with gr.Row():
                             with gr.Column():
-                                layer_input_image = grh.Image(label='Drag given image to here', source='upload', type='numpy', visible=True)
+                                layer_input_image = grh.Image(label='Place image here', source='upload', type='numpy', visible=True)
                             with gr.Column():
                                 with gr.Group():
                                     iclight_enable = gr.Checkbox(label='Enable IC-Light', value=True)
@@ -690,16 +691,16 @@ with common.GRADIO_ROOT:
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox, elem_id="scrollable-box-hidden") as advanced_column:
             with gr.Tab(label='Settings', elem_id="scrollable-box"):
-                if not args_manager.args.disable_preset_selection and PR.get_preset_paths():
+                if not args_manager.args.disable_preset_selection and PR.get_preset_list():
                     with gr.Group():
                         category_selection = gr.Dropdown(label='Preset Categories',
-                            choices=PR.get_preset_categories(),
+                            choices=PR.get_preset_categories(), allow_custom_value=True,
                             value=PR.category_selection, visible=True, interactive=True)
 
                         preset_selection = gr.Dropdown(label='Presets',
                             choices=PR.get_presetnames_in_folder(PR.category_selection),
                             value=args_manager.args.preset if args_manager.args.preset else "initial",
-                            visible=True, interactive=True)
+                            visible=True, interactive=True, allow_custom_value=True)
 
                 with gr.Group():
                     performance_selection = gr.Radio(label='Performance',
@@ -760,21 +761,22 @@ with common.GRADIO_ROOT:
                         elem_id='negative_prompt',
                         value=modules.config.default_prompt_negative)
 
-                    seed_random = gr.Checkbox(label='Random Seed',
-                        info='Generate a random series of images', value=True)
-                    image_seed = gr.Textbox(label='Specific Seed',\
-                        info='Reuse a particular seed value to recreate images',\
-                        value=0, max_lines=1, visible=False)
+                    with gr.Accordion(label='Image Seed Control', visible=True, open=False):
+                        seed_random = gr.Checkbox(label='Random Seed',
+                            info='Generate a random series of images', value=True)
+                        image_seed = gr.Textbox(label='Specific Seed',\
+                            info='Reuse a particular seed value to recreate images',\
+                            value=0, max_lines=1, visible=False)
 
-                    def toggle_extra_variation():
-                        modules.config.default_extra_variation = not modules.config.default_extra_variation
-                        return
-                    extra_variation = gr.Checkbox(label='Extra Variation',
-                        info='Increase the randomness of image creation', value=modules.config.default_extra_variation)
-                    extra_variation.change(lambda x: toggle_extra_variation(), inputs=extra_variation)
+                        def toggle_extra_variation():
+                            modules.config.default_extra_variation = not modules.config.default_extra_variation
+                            return
+                        extra_variation = gr.Checkbox(label='Extra Variation',
+                            info='Increase the randomness of image creation', value=modules.config.default_extra_variation)
+                        extra_variation.change(lambda x: toggle_extra_variation(), inputs=extra_variation)
 
-                    disable_seed_increment = gr.Checkbox(label='Freeze Seed',
-                        info='Make similar images while processing an array or wildcards', value=False)
+                        disable_seed_increment = gr.Checkbox(label='Freeze Seed',
+                            info='Make similar images while processing an array or wildcards', value=False)
 
                     if not args_manager.args.disable_image_log:
                         newest_images_first_checkbox = gr.Checkbox(label='Show Newest Images First',\
@@ -920,8 +922,10 @@ with common.GRADIO_ROOT:
             with gr.Tab(label='Models', elem_id="scrollable-box"):
                 with gr.Group():
                     with gr.Row():
-                        base_model = gr.Dropdown(label='Base Model', choices=modules.config.model_filenames, value=modules.config.default_base_model_name, show_label=True)
-                        refiner_model = gr.Dropdown(label='Refiner (SDXL or SD 1.5)', choices=['None'] + modules.config.model_filenames, value=modules.config.default_refiner_model_name, show_label=True)
+                        base_model = gr.Dropdown(label='Base Model', choices=modules.config.model_filenames, value=modules.config.default_base_model_name,
+                        allow_custom_value=True, show_label=True,)
+
+                        refiner_model = gr.Dropdown(label='Refiner (SDXL or SD 1.5)', choices=['None'] + modules.config.model_filenames, value=modules.config.default_refiner_model_name, allow_custom_value=True, show_label=True)
 
                     refiner_switch = gr.Slider(label='Refiner Switch At', minimum=0.1, maximum=1.0, step=0.0001,
                                 info='Use 0.4 for SD1.5 realistic models; '
@@ -943,7 +947,7 @@ with common.GRADIO_ROOT:
                                                        elem_classes=['lora_enable', 'min_check'], scale=1)
                             lora_model = gr.Dropdown(label=f'LoRA {i + 1}',
                                                      choices=['None'] + modules.config.lora_filenames, value=filename,
-                                                     elem_classes='lora_model', scale=5)
+                                                     allow_custom_value=True, elem_classes='lora_model', scale=5)
                             lora_weight = gr.Slider(label='Weight', minimum=modules.config.default_loras_min_weight,
                                                     maximum=modules.config.default_loras_max_weight, step=0.01, value=weight,
                                                     elem_classes='lora_weight', scale=5)
@@ -970,13 +974,15 @@ with common.GRADIO_ROOT:
                     with gr.Tab(label='Expert Tools'):
 
                         secret_name = gr.Dropdown(label='', choices=flags.sampler_list, \
-                            value=modules.config.default_sampler, interactive=False, visible=False)
+                            value=modules.config.default_sampler, interactive=False, visible=False,
+                            allow_custom_value=True)
                         sampler_name = gr.Dropdown(label='Sampler', choices=flags.sampler_list, \
-                            value=modules.config.default_sampler, interactive=True, visible=True)
+                            value=modules.config.default_sampler, interactive=True, visible=True, \
+                            allow_custom_value=True)
                         scheduler_name = gr.Dropdown(label='Scheduler', choices=flags.scheduler_list, \
-                            value=modules.config.default_scheduler)
+                            value=modules.config.default_scheduler, allow_custom_value=True)
                         vae_name = gr.Dropdown(label='VAE', choices=[modules.flags.default_vae] + modules.config.vae_filenames, \
-                            value=modules.config.default_vae, show_label=True)
+                            value=modules.config.default_vae, show_label=True, allow_custom_value=True)
 
                         clip_skip = gr.Slider(label='CLIP Skip', minimum=1, maximum=flags.clip_skip_max, step=1, \
                             value=modules.config.default_clip_skip, \
@@ -990,7 +996,7 @@ with common.GRADIO_ROOT:
                             step=0.001, value=0.3, info='When to end the guidance from positive/negative ADM. ')
 
                         refiner_swap_method = gr.Dropdown(label='Refiner Swap Method', value=flags.refiner_swap_method, \
-                            choices=['joint', 'separate', 'vae'])
+                            choices=['joint', 'separate', 'vae'], allow_custom_value=True)
 
                         adaptive_cfg = gr.Slider(label='CFG Mimicking from TSNR', minimum=1.0, maximum=30.0, step=0.01, \
                             value=modules.config.default_cfg_tsnr, \
@@ -1061,7 +1067,7 @@ with common.GRADIO_ROOT:
                         inpaint_disable_initial_latent = gr.Checkbox(label='Disable Initial Latent in Inpaint', value=False)
                         inpaint_engine = gr.Dropdown(label='Inpaint Engine',
                                             value=modules.config.default_inpaint_engine_version,
-                                            choices=flags.inpaint_engine_versions,
+                                            choices=flags.inpaint_engine_versions, allow_custom_value=True,
                                             info='Version of Fooocus inpaint model. If set, use performance Quality or Speed (no performance LoRAs) for best results.')
                         inpaint_erode_or_dilate = gr.Slider(label='Mask Erode or Dilate',
                                             minimum=-64, maximum=64, step=1, value=0,
@@ -1104,7 +1110,7 @@ with common.GRADIO_ROOT:
                 def refresh_files_clicked(state_params):
                     print()
                     print('Refreshing all files...')
-                    US.create_user_structure(modules.config.user_dir, PR.get_preset_foldernames())
+                    US.create_user_structure(modules.config.user_dir)
                     US.create_model_structure(modules.config.paths_checkpoints, modules.config.paths_loras)
                     engine = state_params.get('engine', 'Fooocus')
                     task_method = state_params.get('task_method', None)
@@ -1466,7 +1472,7 @@ with common.GRADIO_ROOT:
         protections = [random_button, translator_button, super_prompter, background_theme, image_tools_checkbox]
         generate_button.click(UIS.process_before_generation,\
             inputs=[state_topbar, params_backend] + ehps,\
-            outputs=[stop_button, skip_button, generate_button, gallery, state_is_generating, index_radio,\
+            outputs=[aspect_ratios_select, stop_button, skip_button, generate_button, gallery, state_is_generating, index_radio,\
                 image_toolbox, prompt_info_box] + protections + [params_backend], show_progress=False) \
             .then(fn=refresh_seed, inputs=[seed_random, image_seed], outputs=image_seed) \
             .then(fn=get_task, inputs=ctrls, outputs=currentTask) \
@@ -1572,6 +1578,7 @@ with common.GRADIO_ROOT:
               queue=False, show_progress=False) \
         .then(fn=lambda x: None, inputs=system_params, _js=UIS.refresh_topbar_status_js)
 
+
     reset_layout_params = nav_bars + reset_preset_layout + reset_preset_func + load_data_outputs
     reset_preset_inputs = [prompt, negative_prompt, state_topbar, state_is_generating, inpaint_mode, comfyd_active_checkbox]
 
@@ -1590,14 +1597,14 @@ with common.GRADIO_ROOT:
             show_progress=False, queue=False)
 
         preset_selection.change(PR.set_preset_selection, inputs=[preset_selection, state_topbar], \
-            outputs=[preset_selection, state_topbar, preset_info, aspect_ratios_selection, sampler_name], \
+            outputs=[preset_selection, state_topbar, preset_info, aspect_ratios_selection, sampler_name, category_selection], \
             show_progress=False, queue=False) \
-           .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
-           .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
-           .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
-           .then(lambda: None, _js='()=>{refresh_style_localization();}') \
-           .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
-               outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
+            .then(UIS.reset_layout_params, inputs=reset_preset_inputs, outputs=reset_layout_params, show_progress=False) \
+            .then(fn=lambda x: x, inputs=state_topbar, outputs=system_params, show_progress=False) \
+            .then(fn=lambda x: {}, inputs=system_params, outputs=system_params, _js=UIS.refresh_topbar_status_js) \
+            .then(lambda: None, _js='()=>{refresh_style_localization();}') \
+            .then(inpaint_engine_state_change, inputs=[inpaint_engine_state] + enhance_inpaint_mode_ctrls,\
+            outputs=enhance_inpaint_engine_ctrls, queue=False, show_progress=False)
 
 
     common.GRADIO_ROOT.load(fn=lambda x: x, inputs=system_params, outputs=state_topbar, _js=UIS.get_system_params_js, queue=False, show_progress=False) \
@@ -1639,7 +1646,7 @@ if not args_manager.args.disable_comfyd:
 common.GRADIO_ROOT.launch(
     inbrowser=args_manager.args.in_browser,
     server_name="127.0.0.1", # allow local machine only
-    share=False,
+    share=False, quiet=True,
     server_port=args_manager.args.port,
     root_path=args_manager.args.webroot,
     allowed_paths=[modules.config.path_outputs], # allows log viewing

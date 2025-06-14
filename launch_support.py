@@ -6,8 +6,8 @@ import shutil
 import sys
 import args_manager
 
-
-win32_root = (Path.cwd()).parent
+current_dir = Path.cwd()
+win32_root = current_dir.resolve().parent
 python_embedded_path = Path(win32_root/'python_embedded')
 is_win32_standalone_build = python_embedded_path.is_dir()
 
@@ -44,25 +44,27 @@ def dependency_resolver():
     - xformers_ver: str
     - pytorchlightning_ver: str
     - lightningfabric_ver: str
+    - torch_platform_ver: str
     """
-    # set our defaults for 2.5.1
-    torch_default = "2.5.1"
-    torchvision_default = "0.20.1"
-    torchaudio_default = "2.5.1"
-    xformers_default = "0.0.29.post1"
-    pytorchlightning_default = "2.5.1.post0"
-    lightningfabric_default = "2.5.1"
-
-    torch_ver = torch_default # initialize torch to the default
-
     import torchruntime
     from torchruntime.device_db import get_gpus
-    from torchruntime.platform_detection import get_torch_platform
-    # from torchruntime.platform_detection import get_nvidia_arch #new coding
+    from torchruntime.platform_detection import get_torch_platform, get_nvidia_arch
 
-    gpus = get_gpus()
-    torchruntime_platform = get_torch_platform(gpus)
+    # set our defaults for 2.7.1
+    torch_default = "2.7.1"
+    torchvision_default = "0.22.1"
+    torchaudio_default = "2.7.1"
+    xformers_default = "0.0.30"
+    pytorchlightning_default = "2.5.1.post0"
+    lightningfabric_default = "2.5.1"
+    torch_platform_default = "cu128"
 
+    torch_ver = torch_default # initialize torch to the default
+    gpu_infos = get_gpus()
+    torchruntime_platform = get_torch_platform(gpu_infos)
+
+    device_names = set(gpu.device_name for gpu in gpu_infos)
+    arch_version = get_nvidia_arch(device_names)
 
     # First, take care of special cases
     # Note, torchruntime/torchruntime/platform_detection.py
@@ -72,14 +74,18 @@ def dependency_resolver():
         args_manager.directml = True # switch on AMD/Intel support
         torch_ver = "2.3.1"
 
-    # Detection Logic: Windows (win32) defaults to "2.5.1", unless "cu128"
-    if (sys.platform == "win32") and (torchruntime_platform == "nightly/cu128"):
-        torch_ver = "2.7.0"
+    # Detection Logic: Windows (win32) defaults to "2.7.1", unless "cu124"
+    if (sys.platform == "win32"): # and (arch_version == 12): # Blackwell (NVIDIA 5xxx)
+        torch_ver = "2.7.1"
+#    elif (sys.platform == "win32") and (arch_version > 3.7 and arch_version < 7.5):
+#        torch_ver = "2.4.1"    # older NVIDIA cards such as the 10xx series, cu124
 
-    elif sys.platform == "linux": # Linux also defaults to "2.5.1"
-        if torchruntime_platform == "nightly/cu128":
-            torch_ver = "2.7.0"
-        elif torchruntime_platform == "rocm5.7":
+    elif sys.platform == "linux": # Linux also defaults to "2.7.1"
+#        if arch_version == 12:    # Blackwell (NVIDIA 5xxx)
+#            torch_ver = "2.7.1"
+#        elif (arch_version > 3.7 and arch_version < 7.5):
+#            torch_ver = "2.4.1"   # older NVIDIA cards such as the 10xx series, cu124
+        if torchruntime_platform == "rocm5.7":
             torch_ver = "2.3.1"
         elif torchruntime_platform == "rocm5.2":
             torch_ver = "1.13.1"
@@ -89,14 +95,15 @@ def dependency_resolver():
             torch_ver = "2.2.2"
 
     # Begin the assignment of dependencies:
-    if torch_ver == "2.7.0": # NVIDIA 50xx support
+    if torch_ver == "2.5.1":
         dependencies = dict(
-            torch_ver = "2.7.0",
-            torchvision_ver = "0.22.0",
-            torchaudio_ver = "2.7.0",
-            xformers_ver = xformers_default,
-            pytorchlightning_ver = pytorchlightning_default,
-            lightningfabric_ver = lightningfabric_default,
+            torch_ver = "2.5.1",
+            torchvision_ver = "0.20.1",
+            torchaudio_ver = "2.5.1",
+            xformers_ver = "0.0.29.post1",
+            pytorchlightning_ver = "2.5.1.post0",
+            lightningfabric_ver = "2.5.1",
+            torch_platform_ver = "cu124",
         )
 
     elif torch_ver == "2.4.1":
@@ -107,6 +114,7 @@ def dependency_resolver():
             xformers_ver = "0.0.28.post1",
             pytorchlightning_ver = "2.5.1.post0", # will be compatible with slightly older versions
             lightningfabric_ver = "2.5.1",
+            torch_platform_ver = "cu124",
         )
 
     elif torch_ver == "2.3.1": # for Linux rocm5.7
@@ -117,6 +125,7 @@ def dependency_resolver():
             xformers_ver = "0.0.27",
             pytorchlightning_ver = "2.4.0",
             lightningfabric_ver = "2.4.0",
+            torch_platform_ver = "cu124",
         )
 
     elif torch_ver == "2.2.2": # last version supporting Intel Macs
@@ -127,6 +136,7 @@ def dependency_resolver():
             xformers_ver = "0.0.27.post2", # but not MPS compatible
             pytorchlightning_ver = "2.4.0", # confirm 2.5.1 compatibility when versioning policy updated
             lightningfabric_ver = "2.4.0",
+            torch_platform_ver = "cu124",
         )
 
     elif torch_ver == "1.13.1": # earliest possible supported release: rocm5.2
@@ -137,10 +147,11 @@ def dependency_resolver():
             xformers_ver = "0.0.20", # but not compatible with ROCm, rocm6.2.4 only
             pytorchlightning_ver = "2.2.5",
             lightningfabric_ver = "2.2.5",
+            torch_platform_ver = "cu124",
         )
 
     else:
-        # use the defaults
+        # use the torch_ver 2.7.1 defaults
         dependencies = dict(
             torch_ver = torch_default,
             torchvision_ver = torchvision_default,
@@ -148,10 +159,12 @@ def dependency_resolver():
             xformers_ver = xformers_default,
             pytorchlightning_ver = pytorchlightning_default,
             lightningfabric_ver = lightningfabric_default,
+            torch_platform_ver = torch_platform_default,
         )
 
     # return the result
     return dependencies
+
 
 def delete_torch_dependencies():
     if is_win32_standalone_build:
@@ -176,14 +189,15 @@ def get_split_value(full_string):
 
 
 def get_torch_base_path(): # this ignores config.txt settings
-    if args_manager.args.user_dir:
-        torch_base_path = os.path.abspath(args_manager.args.user_dir)
-    else:
-        torch_base_path = os.path.abspath(os.path.join(os.pardir, 'UserDir/torch_base.txt'))
+    global win32_root
+    try:
+        user_dir_path = Path(args_manager.args.user_dir)
+    except:
+        user_dir_path = Path(win32_root/'UserDir')
+    torch_base_path = Path(user_dir_path/'torch_base.txt')
     return torch_base_path
 
 def read_torch_base(): #this ignores config.txt settings
-    global torch_base_path
     torch_base_path = get_torch_base_path()
     try:
         torch_base = open(torch_base_path, 'r')
@@ -191,31 +205,14 @@ def read_torch_base(): #this ignores config.txt settings
         torch_base_ver = get_split_value(torch_base_ver)
         torch_base.close()
     except:
-        torch_base_ver = 'not found'
+        torch_base_ver = 'needs to be installed'
         return torch_base_ver
     if torch_base_ver == '':
-       torch_base_ver = 'needs to be installed'
-    else:
-       torch_base_ver = read_torch_user_base()
-    return torch_base_ver
-
-def read_torch_user_base(): #this uses config.txt settings
-    if is_win32_standalone_build:
-        if not os.path.exists(os.path.abspath(f'../python_embedded/Lib/site-packages/torch')):
-            return 'not installed'
-    from modules.config import user_dir
-    try:
-        torch_base_path2 = os.path.abspath(f'{user_dir}/torch_base.txt')
-        torch_base = open(torch_base_path2, 'r')
-        torch_base_ver = torch_base.readline().strip()
-        torch_base_ver = get_split_value(torch_base_ver)
-        torch_base.close()
-    except:
-        torch_base_ver = 'undefined'
+       torch_base_ver = 'is undefined'
     return torch_base_ver
 
 def write_torch_base(torch_base_ver):
-    global torch_base_path
+    torch_base_path = get_torch_base_path()
     torch_base = open(torch_base_path, "w")
     torch_base.write(f"Torch base version = {torch_base_ver}")
     torch_base.close()
