@@ -54,7 +54,7 @@ For Linux users, please use the [Installation Script for Linux](https://github.c
 If you were using a pre-release or Beta version of FooocusPlus, please be sure to delete or at least rename it first, it is not compatible with the release version. Ideally FooocusPlus should be installed on a high speed internal drive such an NVMe solid state drive (SSD). However it will work fine on standard SATA hard drive, just a bit more slowly. First, download the following archives:
 
 - The _latest_ version of [7-Zip](https://7-zip.org/) (the installation may fail if the version is not current)
-- The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus1.0.1.7z?download=true) program archive
+- The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus1.0.3.7z) program archive
 - If you are using Windows, the [Python library](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/python_embedded.7z) files
 - The FooocusPlus [Support Pack](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/SupportPack.7z) (the Support Pack is optional but will save you a lot of time later)
 <br/><br/>
