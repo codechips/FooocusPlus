@@ -29,7 +29,7 @@ FooocusPlus gives you access to a diversity of AI image generation base models, 
 - Stable Diffusion 1.5 (SD1.5)
 - Stable Diffusion 3.5 (temporarily disabled)
 
-If you’re new to AI art, don’t worry! Our simple preset selectors, located in a bar at the top of the FooocusPlus main canvas, will give you one-click access to all of these exciting AI image generation models without any prior knowledge required. You'll be able to choose your own favorite model in no time.
+If you’re new to AI art, don’t worry! Our built-in presets will give you one-click access to all of those exciting AI image generation models without any prior knowledge required. Favorite presets are located in a bar at the top of the FooocusPlus main canvas, and the whole preset collection is available from two dropdown menus located under the Settings tab. You'll be able to choose your own favorite model in no time.
 
 ## System Requirements
 
