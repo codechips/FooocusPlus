@@ -6,6 +6,7 @@ import math
 import shutil
 import time
 import gradio as gr
+import args_manager as args
 import modules.config as config
 import modules.preset_resource as PR
 import modules.sdxl_styles as sdxl_styles
@@ -156,7 +157,7 @@ def toggle_toolbox(state, state_params):
     if "gallery_state" in state_params and state_params["gallery_state"] == 'finished_index':
         return [gr.update(visible=state)]
     else:
-        return [gr.update(visible=False)] 
+        return [gr.update(visible=False)]
 
 
 def toggle_prompt_info(state_params):
@@ -244,7 +245,7 @@ def delete_image(state_params):
     file_name = info["Filename"]
     output_index = choice.split('/')
     dir_path = os.path.join(config.path_outputs, "20{}".format(output_index[0]))
-    
+
     log_path = os.path.join(dir_path, 'log.html')
     if os.path.exists(log_path):
         file_text = ''
@@ -362,8 +363,8 @@ def apply_enabled_loras(loras):
         return enabled_loras
 
 
-def save_preset(*args):    
-    args = list(args)  
+def save_preset(*args):
+    args = list(args)
     args.reverse()
     save_name = args.pop() # retrieve the save_name the user entered
     backend_params = dict(args.pop())
@@ -411,7 +412,7 @@ def save_preset(*args):
     load_parameter_button = args.pop()
     freeu_ctrls = [bool(args.pop()), float(args.pop()), float(args.pop()), float(args.pop()), float(args.pop())]
     loras = [(bool(args.pop()), str(args.pop()), float(args.pop())) for _ in range(config.default_max_lora_number)]
-  
+
     if save_name:
         # remove save_name's leading & trailing spaces
         # convert in-string spaces to underscore
@@ -441,17 +442,17 @@ def save_preset(*args):
         preset["default_styles"] = style_selections
         preset["default_aspect_ratio"] = "0*0"
         preset["default_overwrite_step"] = overwrite_step
-#        preset["default_aspect_ratio"] = aspect_ratios_selection.split(' ')[0].replace(u'\u00d7','*')        
+#        preset["default_aspect_ratio"] = aspect_ratios_selection.split(' ')[0].replace(u'\u00d7','*')
         preset["checkpoint_downloads"] = {}
         preset["embeddings_downloads"] = {}
         preset["lora_downloads"] = {}
         preset["vae_downloads"] = {}
         preset["default_vae"] = vae_name
         preset["default_inpaint_engine"] = {} # "inpaint_engine" causes junk to be added
-        
+
         save_path = f'presets/{PR.category_selection}/{save_name}.json'
-        user_category = f'{config.user_dir}/user_presets/{PR.category_selection}'
-        user_path = f'{config.user_dir}/user_presets/{PR.category_selection}/{save_name}.json'
+        user_category = f'{args.user_dir}/user_presets/{PR.category_selection}'
+        user_path = f'{args.user_dir}/user_presets/{PR.category_selection}/{save_name}.json'
         os.makedirs(user_category, exist_ok = True)
         with open(save_path, "w", encoding="utf-8") as json_file:
             json.dump(preset, json_file, indent=4) # temp. save to working presets

@@ -703,10 +703,17 @@ with common.GRADIO_ROOT:
                             visible=True, interactive=True, allow_custom_value=True)
 
                 with gr.Group():
-                    performance_selection = gr.Radio(label='Performance',
-                        choices=flags.Performance.values(),
-                        value=modules.config.default_performance,
-                        elem_classes=['performance_selection'])
+                    with gr.Accordion(label='Performance Options', visible=True, open=False):
+                        performance_selection = gr.Radio(label='Performance',
+                            choices=flags.Performance.values(),
+                            value=modules.config.default_performance,
+                            info='Quality=60 Steps, Speed=30 Steps',
+                            elem_classes=['performance_selection'])
+                        overwrite_step = gr.Slider(label='Forced Overwrite of Sampling Step',
+                            minimum=-1, maximum=200, step=1,
+                            value=modules.config.default_overwrite_step,
+                            info='Set to -1 to disable.')
+
                     image_number = gr.Slider(label='Image Quantity', minimum=1, maximum=modules.config.default_max_image_number,\
                         step=1, value=modules.config.default_image_number)
 
@@ -963,10 +970,7 @@ with common.GRADIO_ROOT:
                 sharpness = gr.Slider(label='Image Sharpness', minimum=0.0, maximum=30.0, step=0.001,
                     value=modules.config.default_sample_sharpness,
                     info='Higher value means image and texture are sharper.')
-                overwrite_step = gr.Slider(label='Forced Overwrite of Sampling Step',
-                    minimum=-1, maximum=200, step=1,
-                    value=modules.config.default_overwrite_step,
-                    info='Set as -1 to disable.')
+
                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/117" target="_blank">\U0001F4D4 Documentation</a>')
                 dev_mode = gr.Checkbox(label='Expert Mode', value=modules.config.default_expert_mode_checkbox, container=False)
 
@@ -1009,7 +1013,7 @@ with common.GRADIO_ROOT:
                         overwrite_switch = gr.Slider(label='Forced Overwrite of Refiner Switch Step',
                                 minimum=-1, maximum=200, step=1,
                                 value=modules.config.default_overwrite_switch,
-                                info='Set as -1 to disable.')
+                                info='Set to -1 to disable.')
 
                         disable_preview = gr.Checkbox(label='Disable Preview', value=modules.config.default_black_out_nsfw,
                                                 interactive=not modules.config.default_black_out_nsfw,
@@ -1110,7 +1114,7 @@ with common.GRADIO_ROOT:
                 def refresh_files_clicked(state_params):
                     print()
                     print('Refreshing all files...')
-                    US.create_user_structure(modules.config.user_dir)
+                    US.create_user_structure(args_manager.args.user_dir)
                     US.create_model_structure(modules.config.paths_checkpoints, modules.config.paths_loras)
                     engine = state_params.get('engine', 'Fooocus')
                     task_method = state_params.get('task_method', None)

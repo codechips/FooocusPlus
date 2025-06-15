@@ -54,8 +54,10 @@ if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
         run_pip(f"install -r \"{patch_requirements}\"", "patching requirements")
 
 torch_ver = ""
+torch_info = ""
 import torchruntime
 import platform
+from modules.user_structure import cleanup_structure
 
 
 def prepare_environment():
@@ -76,15 +78,19 @@ def prepare_environment():
     print(f"Python {sys.version}")
     print(f"Python Library {version.get_library_ver()}, Comfy version: {comfy.comfy_version.version}")
     if torch_ver == torch_base_ver:
-        from backend_base.__init__ import get_torch_xformers_cuda_version as torch_info
-        torch_info, xformers_info, cuda_info = torch_info()
+        from backend_base.__init__ import get_torch_xformers_cuda_version as get_torch_info
+        torch_info, xformers_info, cuda_info = get_torch_info()
+        if torch_info == '':
+            torch_info = "not installed"
+            xformers_info = torch_info
         print(f"Torch {torch_info}{cuda_info}, Xformers {xformers_info}")
     else:
         print(f"Torch {torch_base_ver}")
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
 
-    if REINSTALL_ALL or torch_ver != torch_base_ver:
+    if REINSTALL_ALL or torch_ver != torch_base_ver or \
+        torch_info == "not installed":
         print(f'Using Torchruntime to configure Torch')
         print(f'Updating to Torch {torch_ver} and its dependencies:')
         print(torch_dict)
@@ -129,6 +135,9 @@ vae_approx_filenames = [
 def ini_args():
     from args_manager import args
     return args
+
+args = ini_args()
+cleanup_structure(args.directml, python_embedded_path)
 
 prepare_environment()
 build_launcher()

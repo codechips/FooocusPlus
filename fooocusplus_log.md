@@ -1,3 +1,13 @@
+# 1.0.4
+
+* resolves the bug with incorrect secondary paths to the models folders
+* the user must delete config.txt and config_modification_tutorial.txt for this fix to take effect
+* once the config text files are deleted then FooocusPlusAI\UserDir is automatically removed
+* directml support for AMD video cards is deleted if not required
+* the presence of directml files in the Python libraries was sabotaging NVIDIA installations
+* in the GUI, "Forced Overwrite of Sampling Step" is grouped with Performance Options
+* to reduce clutter, the Performance Options are now available from an accordion
+
 # 1.0.3
 
 * the bug with Aspect Ratio selection has been resolved
@@ -12,7 +22,7 @@
 * these library updates will automatically install during launch
 * these changes are also available in the python_embedded archive at Hugging Face
 * full Torch information is now listed in the console, including the CUDA variant
-* the image seed options are now available through the Image Seed Control accordion
+* the image seed options are now accessed through the Image Seed Control accordion
 
 # 1.0.2
 

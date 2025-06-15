@@ -181,6 +181,7 @@ def delete_torch_dependencies():
                 shutil.rmtree(scratch_path, ignore_errors=True)
     return
 
+
 def get_split_value(full_string):
     divider = '= '
     scratch = full_string.split(divider, 1)
@@ -188,22 +189,25 @@ def get_split_value(full_string):
     return split_value
 
 
-def get_torch_base_path(): # this ignores config.txt settings
-    global win32_root
+# IMPORTANT! The config.txt user_dir parameter has been removed
+# if for some reason the args_manager user_dir setting is not valid
+# it is set to the default value in this function
+def get_torch_base_path(): # the config.txt user_dir
+    global win32_root      # setting is deprecated
     try:
         user_dir_path = Path(args_manager.args.user_dir)
     except:
         user_dir_path = Path(win32_root/'UserDir')
+        args_manager.args.user_dir = user_dir_path
     torch_base_path = Path(user_dir_path/'torch_base.txt')
     return torch_base_path
 
-def read_torch_base(): #this ignores config.txt settings
-    torch_base_path = get_torch_base_path()
+def read_torch_base():     # the file auto-closes
+    torch_base_path = Path(get_torch_base_path())
     try:
-        torch_base = open(torch_base_path, 'r')
-        torch_base_ver = torch_base.readline().strip()
-        torch_base_ver = get_split_value(torch_base_ver)
-        torch_base.close()
+        torch_base_text = torch_base_path.read_text(encoding="utf-8")
+        torch_base_text = torch_base_text.strip()
+        torch_base_ver = get_split_value(torch_base_text)
     except:
         torch_base_ver = 'needs to be installed'
         return torch_base_ver
@@ -211,16 +215,8 @@ def read_torch_base(): #this ignores config.txt settings
        torch_base_ver = 'is undefined'
     return torch_base_ver
 
-def write_torch_base(torch_base_ver):
-    torch_base_path = get_torch_base_path()
-    torch_base = open(torch_base_path, "w")
-    torch_base.write(f"Torch base version = {torch_base_ver}")
-    torch_base.close()
-    from modules.config import user_dir
-    torch_base_path2 = os.path.abspath(f'{user_dir}/torch_base.txt')
-    if torch_base_path2 == torch_base_path:
-        return
-    torch_base = open(torch_base_path, "w")
-    torch_base.write(f"Torch base version = {torch_base_ver}")
-    torch_base.close()
+def write_torch_base(torch_base_ver): # the file auto-closes
+    torch_base_path = Path(get_torch_base_path())
+    with torch_base_path.open('w') as torch_base_text:
+        torch_base_text.write(f"Torch base version = {torch_base_ver}")
     return

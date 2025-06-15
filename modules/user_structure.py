@@ -31,6 +31,13 @@ def empty_dir(arg_dir):
         result = False
     return result
 
+def find_dir_path(search_dir, find_dir):
+    search_path = Path(search_dir)
+    str_find_dir = str(find_dir)
+    for dir_path in search_path.rglob(str_find_dir):
+        return dir_path
+    return ''
+
 def find_file_path(search_dir, filename):
     search_path = Path(search_dir)
     str_filename = str(filename)
@@ -73,9 +80,27 @@ def remove_obsolete_flux_folder(arg_parent_str):
     remove_empty_dir(old_flux_path)
 
 
+def cleanup_structure(directml=False, python_embedded_path=''):
+    # cleanup an error condition from version 1.0.0
+    remove_dirs('python_embedded')
+
+    # if python_embedded, remove directml if not required, 1.0.3
+    if python_embedded_path.is_dir() and not directml:
+        site_packages = Path(python_embedded_path/'Lib/site-packages')
+        remove_path = find_dir_path(site_packages, 'torch_directml-0.2.5.dev240914.dist-info')
+        if remove_path:
+            print('Removing obsolete torch_directml files')
+            remove_dirs(remove_path)
+            remove_dirs(Path(site_packages/'torch_directml'))
+            remove_file(Path(site_packages/'torch_directml_native.cp310-win_amd64.pyd'))
+
+    # remove UserDir from repo, an error from 1.0.3
+    remove_dirs('UserDir')
+
+
 def create_model_structure(paths_checkpoints, paths_loras):
 
-    # remove obsolete Flux folders if empty
+    # remove obsolete Flux folders if empty, effective 1.0.1
     remove_obsolete_flux_folder(paths_checkpoints[0])
     if len(paths_checkpoints) > 1:
         remove_obsolete_flux_folder(paths_checkpoints[1])
@@ -103,9 +128,6 @@ def create_model_structure(paths_checkpoints, paths_loras):
 
 
 def create_user_structure(user_dir):
-
-    # cleanup an error condition from version 1.0.0
-    remove_dirs('python_embedded')
 
     # initialize the user directory, user_dir
     user_dir_path = Path(user_dir)

@@ -19,6 +19,7 @@ from modules.model_loader import load_file_from_url
 
 current_dir = Path.cwd()
 home_dir = current_dir.parent.parent
+user_dir = Path(args_manager.args.user_dir)
 config_dict = {}
 always_save_keys = []
 visited_keys = []
@@ -75,27 +76,21 @@ def get_dir_or_set_default(key, default_value, as_array=False, make_directory=Fa
     config_dict[key] = dp
     return dp
 
-if args_manager.args.user_dir:
-    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', args_manager.args.user_dir))
-else:
-    user_dir = os.path.abspath(get_dir_or_set_default('user_dir', '../UserDir'))
-    args_manager.args.user_dir = user_dir
-
 US.create_user_structure(user_dir)
 
 def get_path_output() -> str:
     global config_dict, user_dir
-    path_output = os.path.abspath(f'{user_dir}/Outputs')
+    path_output = Path(user_dir/'Outputs')
     path_output = get_dir_or_set_default('path_outputs', path_output, make_directory=True)
     if args_manager.args.output_path:
-        config_dict['path_outputs'] = path_output = os.path.abspath(args_manager.args.output_path)
+        config_dict['path_outputs'] = path_output = Path(args_manager.args.output_path)
     print(f'Generated images will be stored in {path_output}')
     return path_output
 
 def get_config_path(config_file):
     global user_dir
     if args_manager.args.config:
-        config_path = args_manager.args.config
+        config_path = Path(args_manager.args.config)
     else:
         config_path = user_dir
     config_path = os.path.abspath(f'{config_path}/{config_file}')
@@ -179,34 +174,34 @@ def init_temp_path(path: str | None, default_path: str) -> str:
     return default_path
 
 if args_manager.args.models_root:
-    get_dir_or_set_default('path_models_root', args_manager.args.models_root)
-    path_models_root = args_manager.args.models_root
+    get_dir_or_set_default('path_models_root', Path(args_manager.args.models_root))
+    path_models_root = Path(args_manager.args.models_root)
 else:
-    path_models_root = get_dir_or_set_default('path_models_root', f'{user_dir}/models')
-path_models_root = os.path.abspath(path_models_root)
+    path_models_root = get_dir_or_set_default('path_models_root', Path(user_dir/'models'))
+path_models_root = Path(path_models_root).resolve()
 print(f'Generative models are stored in {path_models_root}')
 print('Models may also be stored in other locations, as defined in config.txt')
 
-paths_checkpoints = get_dir_or_set_default('path_checkpoints', [f'{path_models_root}/checkpoints/', '../UserDir/models/checkpoints/'], True, False)
-paths_loras = get_dir_or_set_default('path_loras', [f'{path_models_root}/loras/', '../UserDir/models/loras/'], True, False)
-path_embeddings = get_dir_or_set_default('path_embeddings', f'{path_models_root}/embeddings/')
-path_vae_approx = get_dir_or_set_default('path_vae_approx', f'{path_models_root}/vae_approx/')
-path_vae = get_dir_or_set_default('path_vae', f'{path_models_root}/vae/')
-path_upscale_models = get_dir_or_set_default('path_upscale_models', f'{path_models_root}/upscale_models/')
-paths_inpaint = get_dir_or_set_default('path_inpaint', [f'{path_models_root}/inpaint/', '../UserDir/models/inpaint/'], True, False)
+paths_checkpoints = get_dir_or_set_default('path_checkpoints', [Path(path_models_root/'checkpoints'), Path(user_dir/'models/checkpoints')], True, False)
+paths_loras = get_dir_or_set_default('path_loras', [Path(path_models_root/'loras'), Path(user_dir/'models/loras')], True, False)
+path_embeddings = get_dir_or_set_default('path_embeddings', Path(path_models_root/'embeddings'))
+path_vae_approx = get_dir_or_set_default('path_vae_approx', Path(path_models_root/'vae_approx'))
+path_vae = get_dir_or_set_default('path_vae', Path(path_models_root/'vae'))
+path_upscale_models = get_dir_or_set_default('path_upscale_models', Path(path_models_root/'upscale_models'))
+paths_inpaint = get_dir_or_set_default('path_inpaint', [Path(path_models_root/'inpaint'), Path(user_dir/'models/inpaint')], True, False)
 path_sam = paths_inpaint[0]
-paths_controlnet = get_dir_or_set_default('path_controlnet', [f'{path_models_root}/controlnet/', '../UserDir/models/controlnet/'], True, False)
-path_clip = get_dir_or_set_default('path_clip', f'{path_models_root}/clip/')
-path_clip_vision = get_dir_or_set_default('path_clip_vision', f'{path_models_root}/clip_vision/')
-path_fooocus_expansion = get_dir_or_set_default('path_fooocus_expansion', f'{path_models_root}/prompt_expansion/fooocus_expansion')
-paths_llms = get_dir_or_set_default('path_llms', [f'{path_models_root}/llms/'], True, False)
-path_safety_checker = get_dir_or_set_default('path_safety_checker', f'{path_models_root}/safety_checker/')
-path_unet = get_dir_or_set_default('path_unet', f'{path_models_root}/unet')
-path_rembg = get_dir_or_set_default('path_rembg', f'{path_models_root}/rembg')
-path_layer_model = get_dir_or_set_default('path_layer_model', f'{path_models_root}/layer_model')
-paths_diffusers = get_dir_or_set_default('path_diffusers', [f'{path_models_root}/diffusers/'], True, False)
+paths_controlnet = get_dir_or_set_default('path_controlnet', [Path(path_models_root/'controlnet'), Path(user_dir/'models/controlnet')], True, False)
+path_clip = get_dir_or_set_default('path_clip', Path(path_models_root/'clip'))
+path_clip_vision = get_dir_or_set_default('path_clip_vision', Path(path_models_root/'clip_vision'))
+path_fooocus_expansion = get_dir_or_set_default('path_fooocus_expansion', Path(path_models_root/'prompt_expansion/fooocus_expansion'))
+paths_llms = get_dir_or_set_default('path_llms', [Path(path_models_root/'llms')], True, False)
+path_safety_checker = get_dir_or_set_default('path_safety_checker', Path(path_models_root/'safety_checker'))
+path_unet = get_dir_or_set_default('path_unet', Path(path_models_root/'unet'))
+path_rembg = get_dir_or_set_default('path_rembg', Path(path_models_root/'rembg'))
+path_layer_model = get_dir_or_set_default('path_layer_model', Path(path_models_root/'layer_model'))
+paths_diffusers = get_dir_or_set_default('path_diffusers', [Path(path_models_root/'diffusers')], True, False)
 path_outputs = get_path_output()
-path_wildcards = get_dir_or_set_default('path_wildcards', f'{user_dir}/wildcards/')
+path_wildcards = get_dir_or_set_default('path_wildcards', Path(user_dir/'wildcards'))
 
 
 from enhanced.backend import init_modelsinfo
