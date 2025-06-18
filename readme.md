@@ -53,7 +53,7 @@ For Linux users, please use the [Installation Script for Linux](https://github.c
 
 For Windows users, this [Installation Procedure](https://github.com/DavidDragonsage/FooocusPlus/wiki/Installation-Procedure-for-Windows) is also available in the Wiki, complete with images.
  
-If you were using a pre-release or Beta version of FooocusPlus, please be sure to delete or at least rename it first, it is not compatible with the release version. Ideally FooocusPlus should be installed on a high speed internal drive such an NVMe solid state drive (SSD). However it will work fine on standard SATA hard drive, just a bit more slowly. First, download the following archives:
+If you were using a pre-release or Beta version of FooocusPlus, please be sure to delete or at least rename it first, it is not compatible with the release version. Ideally FooocusPlus should be installed in the root of a high speed internal drive such an NVMe solid state drive (SSD). However it will work fine on standard SATA hard drive, just a bit more slowly. First, download the following archives:
 
 - The _latest_ version of [7-Zip](https://7-zip.org/) (the installation may fail if the version is not current)
 - The [FooocusPlus](https://huggingface.co/DavidDragonsage/FooocusPlus/resolve/main/FooocusPlus1.0.3.7z) program archive
@@ -62,7 +62,7 @@ If you were using a pre-release or Beta version of FooocusPlus, please be sure t
 <br/><br/>
 1. After your downloads are complete, first install 7-Zip.
 
-2. Next, extract the _program archive_ to create a FooocusPlus folder. The FooocusPlus folder will contain the FooocusPlusAI folder, the UserDir folder and two batch files.
+2. Next, extract the _program archive_ to create a FooocusPlus folder in the root of the drive, E:\ for example. The FooocusPlus folder will contain the FooocusPlusAI folder, the UserDir folder and two batch files.
 
 3. Next, extract the _python_embedded_ library archive into the FooocusPlus folder.
 
