@@ -33,7 +33,11 @@ ftfy
 fvcore
 gguf==0.17.0
 gradio==3.43.2
+gradio_client
 groundingdino-py==0.4.0
+addict
+supervision==0.6.0
+yapf
 h11==0.16.0
 httpcore==1.0.9
 httpx==0.27.0
@@ -75,7 +79,7 @@ peft==0.10.0
 pillow==11.0.0
 pixeloe
 platformdirs==4.3.8
-polygraphy==0.47.1
+polygraphy==0.49.24
 pox==0.3.6
 ppft==1.7.7
 protobuf==3.19.0
@@ -124,3 +128,13 @@ websocket-client
 wget
 yacs
 zipp==3.22.0
+
+# Additional dependencies to fix missing package errors
+trampoline>=0.1.2
+gdown>=4.5.4
+py-cpuinfo
+seaborn>=0.11.0
+ultralytics-thop>=2.0.0
+pooch
+chardet
+regex

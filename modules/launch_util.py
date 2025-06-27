@@ -163,13 +163,15 @@ def is_installed_version(package, version_required):
         return False
     return True
 
-def verify_installed_version(package_name, package_ver, dependencies = False):
+def verify_installed_version(package_name, package_ver, dependencies = True):
     result = True
     if not is_installed_version(package_name, package_ver):
         if dependencies:
             run(f'"{python}" -m pip uninstall -y {package_name}')
             result = run_pip(f"install -U -I {package_name}=={package_ver}", {package_name}, live=True)
         else:
+            # Use --no-deps only for specific packages that need it
+            # Most packages should install with dependencies to avoid missing deps
             run(f'"{python}" -m pip uninstall -y {package_name}')
             result = run_pip(f"install -U -I --no-deps {package_name}=={package_ver}", {package_name}, live=True)
     return result
