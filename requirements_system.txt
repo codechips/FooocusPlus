@@ -1,5 +1,5 @@
-# requirements_platform.txt - Platform-specific requirements for FooocusPlus
-# This file handles platform-specific packages and direct URLs
+# requirements_system.txt - System-specific requirements for FooocusPlus
+# Handles Windows vs Linux differences, direct URLs, and build dependencies
 
 --extra-index-url https://www.piwheels.org/simple
 
