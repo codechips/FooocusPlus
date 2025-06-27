@@ -45,7 +45,7 @@ importlib_metadata==8.7.0
 jinja2==3.1.6
 joblib==1.5.1
 jsonschema_specifications==2025.4.1
-jsonschema==4.24.0
+jsonschema>=4.20.0
 kornia_rs==0.1.9
 kornia==0.8.1
 lark-parser
@@ -69,7 +69,6 @@ omegaconf==2.3.0
 onnx==1.12.0
 onnxruntime==1.20.1
 onnxruntime-gpu==1.20.1
-open_clip_torch==2.32.0
 orjson==3.10.13
 packaging==24.1
 pathos==0.3.3
@@ -143,7 +142,7 @@ semantic-version==2.10.0
 websockets==11.0.2
 anyio
 sniffio
-referencing==0.30.0
+referencing>=0.35.0
 antlr4-python3-runtime==4.9.3
 coloredlogs
 flatbuffers
@@ -158,7 +157,7 @@ regex
 trampoline==0.1.2
 py-cpuinfo
 seaborn==0.12.2
-ultralytics-thop==0.0.6
+ultralytics-thop>=2.0.0
 pooch
 chardet
 
