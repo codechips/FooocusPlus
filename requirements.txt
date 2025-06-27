@@ -33,7 +33,7 @@ ftfy
 fvcore
 gguf==0.17.0
 gradio==3.43.2
-gradio_client
+gradio-client>=0.2.5
 groundingdino-py==0.4.0
 addict
 supervision==0.6.0
@@ -144,7 +144,6 @@ beautifulsoup4
 aiofiles
 altair
 ffmpy
-gradio-client
 importlib-resources
 pandas>=1.1.4
 pydub
