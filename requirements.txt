@@ -60,7 +60,7 @@ multiprocess==0.70.18
 narwhals==1.32.0
 networkx==3.4.2
 numba==0.61.0
-numpy>=1.24,<2.2
+numpy==1.26.4
 opencv-contrib-python==4.8.0.74
 opencv-contrib-python-headless==4.10.0.84
 opencv-python==4.7.0.72
@@ -76,7 +76,7 @@ orjson==3.10.13
 packaging==24.1
 pathos==0.3.3
 peft==0.10.0
-pillow>=8.0,<11.0
+pillow==10.4.0
 pixeloe
 platformdirs==4.3.8
 polygraphy==0.49.24
@@ -132,38 +132,38 @@ zipp==3.22.0
 # Additional dependencies to fix missing package errors (moved to comprehensive list below)
 gdown>=4.5.4
 
-# Missing transitive dependencies from pip check with version constraints
+# Missing transitive dependencies - using exact versions due to FooocusPlus parsing limitations
 beautifulsoup4
-aiofiles>=22.0,<24.0
-altair>=4.2.0,<6.0
+aiofiles==22.1.0
+altair==5.0.1
 ffmpy
-importlib-resources>=1.3,<7.0
-pandas>=1.1.4,<3.0
+importlib-resources==6.0.0
+pandas==2.0.3
 pydub
 python-multipart
-semantic-version>=2.0,<3.0
-websockets>=10.0,<12.0
+semantic-version==2.10.0
+websockets==11.0.2
 addict
 yapf
 anyio
 sniffio
-referencing>=0.28.4
-antlr4-python3-runtime==4.9.*
+referencing==0.30.0
+antlr4-python3-runtime==4.9.3
 coloredlogs
 flatbuffers
 ftfy
-markdown-it-py>=2.2.0
-pygments>=2.13.0,<3.0.0
-tokenizers>=0.21,<0.22
-pyexecjs>=1.5.1
-wget>=3.2
-shellingham>=1.3.0
-dill>=0.4.0
-regex!=2019.12.17
-trampoline>=0.1.2
+markdown-it-py==3.0.0
+pygments==2.16.1
+tokenizers==0.21.0
+pyexecjs==1.5.1
+wget==3.2
+shellingham==1.5.0
+dill==0.4.0
+regex
+trampoline==0.1.2
 py-cpuinfo
-seaborn>=0.11.0
-ultralytics-thop>=2.0.0
+seaborn==0.12.2
+ultralytics-thop==0.0.6
 pooch
 chardet
 
