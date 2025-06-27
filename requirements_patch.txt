@@ -1,0 +1,17 @@
+# requirements_patch.txt - Platform-specific requirements for FooocusPlus
+# This file handles platform-specific packages and direct URLs
+
+--extra-index-url https://www.piwheels.org/simple
+
+# NVIDIA packages from direct URLs
+https://developer.download.nvidia.com/compute/redist/onnx-graphsurgeon/onnx_graphsurgeon-0.3.27-py2.py3-none-any.whl
+
+# Platform-specific InsightFace packages
+https://github.com/Gourieff/Assets/raw/main/Insightface/insightface-0.7.3-cp310-cp310-win_amd64.whl; platform_system == "Windows"
+insightface==0.7.3; platform_system != "Windows"
+
+# Build tools for non-Windows platforms
+cmake; platform_system != "Windows"
+
+# NVIDIA PyPI index
+nvidia-pyindex

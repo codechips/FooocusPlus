@@ -47,8 +47,11 @@ else:
     print('Some requirements have not been met')
 print('Checking installed software...')
 
-# Patch requirements have been merged into requirements_versions.txt
-# No separate patch file needed anymore
+patch_requirements = "requirements_patch.txt"
+if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
+    is_win32_standalone_build:
+        print('Updating with required platform-specific packages...')
+        run_pip(f"install -r \"{patch_requirements}\"", "platform requirements")
 
 torch_ver = ""
 torch_info = ""
