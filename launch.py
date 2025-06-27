@@ -107,7 +107,13 @@ def prepare_environment():
     print(f"FooocusPlus version: {version.get_fooocusplus_ver()}")
     print()
 
-    if REINSTALL_ALL or torch_ver != torch_base_ver or \
+    # Check if PyTorch version enforcement should be skipped
+    skip_torch_management = os.environ.get('SKIP_TORCH_MANAGEMENT', 'False').lower() == 'true'
+    
+    if skip_torch_management:
+        print(f'Skipping PyTorch version management (SKIP_TORCH_MANAGEMENT=True)')
+        print(f'Using pre-installed PyTorch version')
+    elif REINSTALL_ALL or torch_ver != torch_base_ver or \
         torch_info == "not installed":
         print(f'Using Torchruntime to configure Torch')
         print(f'Updating to Torch {torch_ver} and its dependencies:')
@@ -129,6 +135,8 @@ def prepare_environment():
 
         verify_installed_version('pytorch-lightning', pytorchlightning_ver, True)
         verify_installed_version('lightning-fabric', lightningfabric_ver, True)
+    else:
+        print(f'PyTorch version management skipped - using existing installation')
 
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
