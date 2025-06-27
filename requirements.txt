@@ -76,7 +76,7 @@ orjson==3.10.13
 packaging==24.1
 pathos==0.3.3
 peft==0.10.0
-pillow>=8.0,<11.0
+pillow!=8.0.0
 pixeloe
 platformdirs==4.3.8
 polygraphy==0.49.24

@@ -13,5 +13,10 @@ insightface==0.7.3; platform_system != "Windows"
 # Build tools for non-Windows platforms
 cmake; platform_system != "Windows"
 
+# System dependencies for Pillow compilation (backup if wheels fail)
+# Note: These are handled by our Docker build dependencies, but listed here for reference
+# libjpeg-dev; platform_system != "Windows"
+# zlib1g-dev; platform_system != "Windows"
+
 # NVIDIA PyPI index
 nvidia-pyindex
