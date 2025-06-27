@@ -9,6 +9,7 @@ import logging
 import importlib.metadata
 import packaging.version
 import pygit2
+from packaging.requirements import Requirement, InvalidRequirement
 from launch_support import is_win32_standalone_build, python_embedded_path
 from pathlib import Path
 
@@ -150,6 +151,17 @@ def run_pip_url(command, desc=None, arg_index=index_url, live=default_command_li
     return result
 
 
+def install_requirements_batch(requirements_file, force_reinstall=False):
+    """Install all requirements from a file in one pip command"""
+    print(f"Installing requirements from {requirements_file}")
+    
+    cmd = f"install -r \"{requirements_file}\""
+    if force_reinstall:
+        cmd = f"install --force-reinstall -r \"{requirements_file}\""
+    
+    return run_pip(cmd, f"requirements from {requirements_file}", live=True)
+
+
 def is_installed_version(package, version_required):
     try:
         version_installed = importlib.metadata.version(package)
@@ -163,7 +175,7 @@ def is_installed_version(package, version_required):
         return False
     return True
 
-def verify_installed_version(package_name, package_ver, dependencies = True):
+def verify_installed_version(package_name, package_ver, dependencies=True):
     result = True
     if not is_installed_version(package_name, package_ver):
         if dependencies:
@@ -189,8 +201,8 @@ def requirements_met(requirements_file):
 
             if ">=" in line:
                 at_least = True
-                # must replace ">=" with "==" for the rest of the logic to work
-                line = line.replace(">=","==",1)
+                # Keep the original line - don't convert >= to ==
+                # This allows proper version constraint handling
             else:
                 at_least = False
 
@@ -234,7 +246,7 @@ def requirements_met(requirements_file):
                         continue
             except:
                 pass
-            result = verify_installed_version(package, version_required, False)
+            result = verify_installed_version(package, version_required, True)
             if result != False:
                 result = True
             version_installed = version_required

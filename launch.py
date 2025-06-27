@@ -31,7 +31,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 import comfy.comfy_version
 from modules.launch_util import is_installed, verify_installed_version,\
-    run, python, run_pip, run_pip_url, requirements_met,\
+    run, python, run_pip, run_pip_url, requirements_met, install_requirements_batch,\
     git_clone, index_url, target_path_install, met_diff
 
 from launch_support import build_launcher, delete_torch_dependencies,\
@@ -41,17 +41,26 @@ from launch_support import build_launcher, delete_torch_dependencies,\
 print()
 print('Checking for required library files...')
 requirements_file = os.environ.get('REQS_FILE', "requirements.txt")
-if requirements_met(requirements_file):
-    print('All requirements met')
-else:
-    print('Some requirements have not been met')
-print('Checking installed software...')
 
+# Install all requirements at once using batch installation
+if not requirements_met(requirements_file):
+    print('Installing missing requirements using batch installation...')
+    install_requirements_batch(requirements_file)
+    
+    # Verify installation succeeded
+    if not requirements_met(requirements_file):
+        print('WARNING: Some requirements may still be missing after batch installation')
+    else:
+        print('All requirements successfully installed')
+else:
+    print('All requirements met')
+
+print('Checking system-specific requirements...')
 patch_requirements = "requirements_system.txt"
 if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
     is_win32_standalone_build:
-        print('Updating with required system-specific packages...')
-        run_pip(f"install -r \"{patch_requirements}\"", "system requirements")
+        print('Installing system-specific packages using batch installation...')
+        install_requirements_batch(patch_requirements)
 
 torch_ver = ""
 torch_info = ""
