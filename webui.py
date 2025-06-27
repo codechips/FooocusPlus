@@ -192,7 +192,8 @@ reload_javascript()
 
 title = f'FooocusPlus {version.get_fooocusplus_ver()}'
 common.GRADIO_ROOT = gr.Blocks(
-    title=title, css=toolbox.css).queue()
+    title=title, css=toolbox.css, 
+    auth=check_auth if auth_enabled else None).queue()
 
 
 with common.GRADIO_ROOT:
@@ -1649,7 +1650,7 @@ if not args_manager.args.disable_comfyd:
 
 common.GRADIO_ROOT.launch(
     inbrowser=args_manager.args.in_browser,
-    server_name="127.0.0.1", # allow local machine only
+    server_name="0.0.0.0", # allow external access when auth is enabled
     share=False, quiet=True,
     server_port=args_manager.args.port,
     root_path=args_manager.args.webroot,
