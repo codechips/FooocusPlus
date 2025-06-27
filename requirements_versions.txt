@@ -167,3 +167,12 @@ pyexecjs
 wget>=3.2
 shellingham
 dill>=0.4.0
+
+# Platform-specific requirements (merged from requirements_patch.txt)
+--extra-index-url https://www.piwheels.org/simple
+https://developer.download.nvidia.com/compute/redist/onnx-graphsurgeon/onnx_graphsurgeon-0.3.27-py2.py3-none-any.whl
+# Note: polygraphy is now handled by the standard version above (0.49.24)
+https://github.com/Gourieff/Assets/raw/main/Insightface/insightface-0.7.3-cp310-cp310-win_amd64.whl; platform_system == "Windows"
+insightface==0.7.3; platform_system != "Windows"
+cmake; platform_system != "Windows"
+nvidia-pyindex
