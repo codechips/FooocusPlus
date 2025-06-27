@@ -18,7 +18,7 @@ pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
 logging.getLogger("torch.distributed.nn").setLevel(logging.ERROR)  # sshh...
 logging.getLogger("xformers").addFilter(lambda record: 'A matching Triton is not available' not in record.getMessage())
 
-re_requirement = re.compile(r"\s*([-_a-zA-Z0-9]+)\s*(?:==\s*([-+_.a-zA-Z0-9]+))?\s*")
+re_requirement = re.compile(r"\s*([-_a-zA-Z0-9]+)\s*(?:[>!=]*\s*([-+_.a-zA-Z0-9,<>!=\s]+))?\s*")
 re_req_local_file = re.compile(r"\S*/([-_a-zA-Z0-9]+)-([0-9]+).([0-9]+).([0-9]+)[-_a-zA-Z0-9]*([\.tar\.gz|\.whl]+)\s*")
 #re_requirement = re.compile(r"\s*([-\w]+)\s*(?:==\s*([-+.\w]+))?\s*")
 
@@ -246,7 +246,11 @@ def requirements_met(requirements_file):
                         continue
             except:
                 pass
-            result = verify_installed_version(package, version_required, True)
+            # For >= constraints, install without version pinning to allow pip to resolve
+            if at_least:
+                result = run_pip(f"install -U {package}", package, live=True)
+            else:
+                result = verify_installed_version(package, version_required, True)
             if result != False:
                 result = True
             version_installed = version_required
