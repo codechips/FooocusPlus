@@ -39,28 +39,37 @@ from launch_support import build_launcher, delete_torch_dependencies,\
     python_embedded_path, read_torch_base, write_torch_base
 
 print()
-print('Checking for required library files...')
-requirements_file = os.environ.get('REQS_FILE', "requirements.txt")
 
-# Install all requirements at once using batch installation
-if not requirements_met(requirements_file):
-    print('Installing missing requirements using batch installation...')
-    install_requirements_batch(requirements_file)
-    
-    # Verify installation succeeded
-    if not requirements_met(requirements_file):
-        print('WARNING: Some requirements may still be missing after batch installation')
-    else:
-        print('All requirements successfully installed')
+# Check if requirements should be skipped (for pre-installed environments)
+skip_requirements = os.environ.get('SKIP_REQUIREMENTS_INSTALL', 'False').lower() == 'true'
+
+if skip_requirements:
+    print('Skipping requirements installation (SKIP_REQUIREMENTS_INSTALL=True)')
+    print('Assuming all packages are pre-installed')
 else:
-    print('All requirements met')
+    print('Installing requirements using batch pip installation...')
+    requirements_file = os.environ.get('REQS_FILE', "requirements.txt")
 
-print('Checking system-specific requirements...')
-patch_requirements = "requirements_system.txt"
-if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
-    is_win32_standalone_build:
-        print('Installing system-specific packages using batch installation...')
-        install_requirements_batch(patch_requirements)
+    # Skip individual package checking - use pure batch installation
+    print(f'Installing all packages from {requirements_file}...')
+    install_result = install_requirements_batch(requirements_file)
+
+    if install_result:
+        print('✓ Main requirements installed successfully')
+    else:
+        print('✗ Main requirements installation failed')
+
+    # Install system-specific requirements
+    patch_requirements = "requirements_system.txt"
+    if not is_win32_standalone_build:
+        print(f'Installing system-specific packages from {patch_requirements}...')
+        system_result = install_requirements_batch(patch_requirements)
+        if system_result:
+            print('✓ System requirements installed successfully')
+        else:
+            print('✗ System requirements installation failed')
+
+    print('All requirements installation completed - skipping individual package verification')
 
 torch_ver = ""
 torch_info = ""
