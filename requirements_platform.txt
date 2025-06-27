@@ -1,4 +1,4 @@
-# requirements_patch.txt - Platform-specific requirements for FooocusPlus
+# requirements_platform.txt - Platform-specific requirements for FooocusPlus
 # This file handles platform-specific packages and direct URLs
 
 --extra-index-url https://www.piwheels.org/simple

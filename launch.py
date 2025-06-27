@@ -40,14 +40,14 @@ from launch_support import build_launcher, delete_torch_dependencies,\
 
 print()
 print('Checking for required library files...')
-requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
+requirements_file = os.environ.get('REQS_FILE', "requirements.txt")
 if requirements_met(requirements_file):
     print('All requirements met')
 else:
     print('Some requirements have not been met')
 print('Checking installed software...')
 
-patch_requirements = "requirements_patch.txt"
+patch_requirements = "requirements_platform.txt"
 if (REINSTALL_ALL or not requirements_met(patch_requirements)) and not\
     is_win32_standalone_build:
         print('Updating with required platform-specific packages...')
