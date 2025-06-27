@@ -109,13 +109,13 @@ def prepare_environment():
         cmds = get_pip_commands(cmds)
         run_commands(cmds)
 
-        verify_installed_version('pytorch-lightning', pytorchlightning_ver, False)
-        verify_installed_version('lightning-fabric', lightningfabric_ver, False)
+        verify_installed_version('pytorch-lightning', pytorchlightning_ver, True)
+        verify_installed_version('lightning-fabric', lightningfabric_ver, True)
 
     if REINSTALL_ALL or not is_installed("xformers"):
         if platform.python_version().startswith("3.10"):
             xformers_statement = "xformers==" + xformers_ver
-            torchruntime.install(["--no-deps", xformers_statement])
+            torchruntime.install([xformers_statement])
         else:
             print("Installation of xformers is not supported in this version of Python.")
             print("You can also check this and build manually:" +\
